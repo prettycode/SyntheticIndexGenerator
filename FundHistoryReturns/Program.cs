@@ -5,9 +5,11 @@ foreach(var ticker in cache.GetCacheKeys())
     var fundHistory = await cache.Get(ticker);
     var fundPriceHistory = fundHistory!.Prices.ToList();
 
-    await WriteFundHistoryReturns(ticker, fundPriceHistory, TimePeriod.Daily);
-    await WriteFundHistoryReturns(ticker, fundPriceHistory, TimePeriod.Monthly);
-    await WriteFundHistoryReturns(ticker, fundPriceHistory, TimePeriod.Yearly);
+    await Task.WhenAll([
+        WriteFundHistoryReturns(ticker, fundPriceHistory, TimePeriod.Daily),
+        WriteFundHistoryReturns(ticker, fundPriceHistory, TimePeriod.Monthly),
+        WriteFundHistoryReturns(ticker, fundPriceHistory, TimePeriod.Yearly)
+    ]);
 }
 
 static async Task WriteFundHistoryReturns(string ticker, List<PriceRecord> history, TimePeriod period)
