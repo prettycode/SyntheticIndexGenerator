@@ -80,7 +80,7 @@ public class FundHistoryRepository
         ]);
     }
 
-    private ReadOnlyDictionary<CacheType, string> GetCacheFilePaths(string ticker) =>  new(new Dictionary<CacheType, string>()
+    private ReadOnlyDictionary<CacheType, string> GetCacheFilePaths(string ticker) => new(new Dictionary<CacheType, string>()
     {
         [CacheType.Dividend] = this.GetCacheFilePath(ticker, CacheType.Dividend),
         [CacheType.Price] = this.GetCacheFilePath(ticker, CacheType.Price),

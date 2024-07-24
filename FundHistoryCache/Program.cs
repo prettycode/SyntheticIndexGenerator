@@ -1,6 +1,23 @@
-﻿using System.Globalization;
+﻿await RefreshFundHistoryCache(new FundHistoryRepository());
 
-await RefreshFundHistoryCache(new FundHistoryRepository());
+static HashSet<string> GetFundTickers() => new HashSet<SortedSet<string>>([
+        ["VTSMX", "VTI"],       // US TSM
+        ["VFINX", "VOO"],       // US LCB
+        ["DFLVX", "AVLV"],      // US LCV
+        ["VIGAX"],              // US LCG
+        ["DFSVX", "AVUV"],      // US SCV
+        ["VSGAX"],              // US SCG
+        ["DFALX", "AVDE"],      // Int'l TSM
+        ["DFIVX", "AVIV"],      // Int'l LCV
+        //[""],                   // *Int'l LCG
+        ["DISVX", "AVDV"],      // Int'l SCV
+        ["EFG"],                // *Int'l SCG
+        ["VEIEX", "AVEM"],      // EM
+        ["DFEVX", "AVES"],      // EM LCV
+        ["DEMSX", "AVEE"],      // EM SCB
+        ["DGS"]                 // *EM SCV
+    ])
+    .SelectMany(set => set).ToHashSet<string>();
 
 static async Task RefreshFundHistoryCache(FundHistoryRepository cache)
 {
@@ -16,7 +33,7 @@ static async Task RefreshFundHistoryCache(FundHistoryRepository cache)
         }
         else
         {
-            Console.WriteLine($"{ticker}: {fundHistory.Prices.Count} records found in cache, {fundHistory.Prices[0].DateTime:yyyy-MM-dd} to {fundHistory.Prices[fundHistory.Prices.Count - 1].DateTime:yyyy-MM-dd}");
+            Console.WriteLine($"{ticker}: {fundHistory.Prices.Count} record(s) in cache, {fundHistory.Prices[0].DateTime:yyyy-MM-dd} to {fundHistory.Prices[fundHistory.Prices.Count - 1].DateTime:yyyy-MM-dd}.");
         }
 
         FundHistory? missingFundHistory;
@@ -24,13 +41,17 @@ static async Task RefreshFundHistoryCache(FundHistoryRepository cache)
         if (fundHistory == null)
         {
             Console.WriteLine($"{ticker}: Download entire history.");
+
             missingFundHistory = await FundHistoryDownloader.GetHistoryAll(ticker);
         }
         else
         {
-            Console.WriteLine($"{ticker}: Download missing history.");
             missingFundHistory = await FundHistoryDownloader.GetMissingHistory(fundHistory, out DateTime missingStart, out DateTime missingEnd);
-            Console.WriteLine($"{ticker}: Missing history identified as {missingStart::yyyy-MM-dd} to {missingEnd:yyyy-MM-dd}");
+
+            if (missingFundHistory != null)
+            {
+                Console.WriteLine($"{ticker}: Missing history identified as {missingStart:yyyy-MM-dd} to {missingEnd:yyyy-MM-dd}");
+            }
         }
 
         if (missingFundHistory == null)
@@ -39,24 +60,8 @@ static async Task RefreshFundHistoryCache(FundHistoryRepository cache)
             continue;
         }
 
-        Console.WriteLine($"{ticker}: Saving missing history, {missingFundHistory.Prices.Count} record(s), {missingFundHistory.Prices[0].DateTime:yyyy-MM-dd} to {missingFundHistory.Prices[missingFundHistory.Prices.Count - 1].DateTime:yyyy-MM-dd}, to cache.");
+        Console.WriteLine($"{ticker}: Save {missingFundHistory.Prices.Count} new record(s), {missingFundHistory.Prices[0].DateTime:yyyy-MM-dd} to {missingFundHistory.Prices[missingFundHistory.Prices.Count - 1].DateTime:yyyy-MM-dd}.");
+
         await cache.Put(missingFundHistory);
     }
-}
-
-static HashSet<string> GetFundTickers()
-{
-    HashSet<SortedSet<string>> funds = [
-        ["VTSMX", "VTI"],       // US TSM
-        ["VFINX", "VOO"],       // US LCB
-        ["DFSVX", "AVUV"],      // US SCV
-        ["DFALX", "AVDE"],      // Int'l TSM
-        ["DFIVX", "AVIV"],      // Int'l LCV
-        ["DISVX", "AVDV"],      // Int'l SCV
-        ["VEIEX", "AVEM"],      // EM
-        ["DFEVX", "AVES"],      // EM LCV
-        ["DEMSX", "AVEE"]       // EM SCB
-    ];
-
-    return funds.SelectMany(set => set).ToHashSet<string>();
 }
