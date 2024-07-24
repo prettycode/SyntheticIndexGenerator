@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
 
-Load(Extract());
+await Load(await Extract());
 
-static void Load(Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerformance>> multiIndexReturns, string pathPath = @"..\..\..\data\")
+static async Task Load(Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerformance>> multiIndexReturns, string pathPath = @"..\..\..\data\")
 {
     var indexToTicker = new Dictionary<IndexId, string>
     {
@@ -23,12 +23,11 @@ static void Load(Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerfo
         var tickerHistoryFilename = Path.Combine(pathPath, $"{indexToTicker[index]}.monthly.csv");
         var lines = returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value.PeriodReturnPercent:G29}");
 
-        File.Delete(tickerHistoryFilename);
-        File.WriteAllLines(tickerHistoryFilename, lines);
+        await File.WriteAllLinesAsync(tickerHistoryFilename, lines);
     }
 }
 
-static Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerformance>> Extract(string csvFilename = @"..\..\..\source\Stock-Index-Data-20220923-Monthly.csv")
+static async Task<Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerformance>>> Extract(string csvFilename = @"..\..\..\source\Stock-Index-Data-20220923-Monthly.csv")
 {
     var columnIndexToCategory = new Dictionary<int, IndexId>
     {
@@ -48,8 +47,10 @@ static Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerformance>> E
     const int dateColumnIndex = 0;
 
     var returns = new Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerformance>>();
+    var fileLines = await File.ReadAllLinesAsync(csvFilename);
+    var fileLinesSansHeader = fileLines.Skip(headerLinesCount);
 
-    foreach (var line in File.ReadLines(csvFilename).Skip(headerLinesCount))
+    foreach (var line in fileLinesSansHeader)
     {
         var cells = line.Split(',');
         var date = DateOnly.Parse(cells[dateColumnIndex]);
