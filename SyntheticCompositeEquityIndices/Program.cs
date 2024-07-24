@@ -1,2 +1,1 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿throw new NotImplementedException("Combine SyntheticUsEquities and FundHistoryReturns output.");
