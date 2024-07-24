@@ -1,20 +1,23 @@
 ﻿var cache = new FundHistoryRepository("../../../../FundHistoryCache/data");
+var tickers = cache.GetCacheKeys();
 
-foreach(var ticker in cache.GetCacheKeys())
+await TimerUtility.TimeExecution("Write fund returns", async () =>
 {
-    var fundHistory = await cache.Get(ticker);
-    var fundPriceHistory = fundHistory!.Prices.ToList();
+    await Task.WhenAll(tickers.Select(async ticker =>
+    {
+        var history = await cache.Get(ticker);
+        var priceHistory = history!.Prices.ToList();
 
-    await Task.WhenAll([
-        WriteFundHistoryReturns(ticker, fundPriceHistory, TimePeriod.Daily),
-        WriteFundHistoryReturns(ticker, fundPriceHistory, TimePeriod.Monthly),
-        WriteFundHistoryReturns(ticker, fundPriceHistory, TimePeriod.Yearly)
-    ]);
-}
+        await Task.WhenAll(
+            WriteFundHistoryReturns(ticker, priceHistory, TimePeriod.Daily),
+            WriteFundHistoryReturns(ticker, priceHistory, TimePeriod.Monthly),
+            WriteFundHistoryReturns(ticker, priceHistory, TimePeriod.Yearly)
+        );
+    }));
+});
 
 static async Task WriteFundHistoryReturns(string ticker, List<PriceRecord> history, TimePeriod period)
 {
-    static string getFilePath(TimePeriod period, string ticker) => $"../../../data/{period.ToString().ToLowerInvariant()}/{ticker}.csv";
     List<KeyValuePair<DateTime, decimal>> returns = period switch
     {
         TimePeriod.Daily => FundHistoryPeriodReturns.GetDailyReturns(history),
@@ -23,12 +26,16 @@ static async Task WriteFundHistoryReturns(string ticker, List<PriceRecord> histo
         _ => throw new NotImplementedException()
     };
 
-    await File.WriteAllLinesAsync(getFilePath(period, ticker), returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value}"));
+    string csvFilePath = $"../../../data/{period.ToString().ToLowerInvariant()}/{ticker}.csv";
+    var csvFileLines = returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value}");
+
+    await File.WriteAllLinesAsync(csvFilePath, csvFileLines);
 }
 
 enum TimePeriod
 {
     Daily,
+    Weekly,
     Monthly,
     Yearly
 }

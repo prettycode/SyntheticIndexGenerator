@@ -30,10 +30,12 @@ public class FundHistoryRepository
 
     public IEnumerable<string> GetCacheKeys()
     {
-        var fauxTickerCacheFilePath = this.GetCacheFilePath("*", CacheType.Price);
-        var files = Directory.GetFiles(Path.GetDirectoryName(fauxTickerCacheFilePath), Path.GetFileName(fauxTickerCacheFilePath));
+        var cacheFilePath = this.GetCacheFilePath("*", CacheType.Price);
+        var dirNameOnly = Path.GetDirectoryName(cacheFilePath);
+        var fileNameOnly = Path.GetFileName(cacheFilePath);
+        var matchingFiles = Directory.GetFiles(dirNameOnly!, fileNameOnly);
 
-        return files.Select(file => Path.GetFileNameWithoutExtension(file));
+        return matchingFiles.Select(file => Path.GetFileNameWithoutExtension(file));
     }
 
     public async Task<FundHistory?> Get(string ticker)
@@ -46,14 +48,11 @@ public class FundHistoryRepository
             return null;
         }
 
-        var tasks = new[]
-        {
+        var results = await Task.WhenAll([
             this.GetRawCacheContent(ticker, CacheType.Dividend),
             this.GetRawCacheContent(ticker, CacheType.Price),
             this.GetRawCacheContent(ticker, CacheType.Split)
-        };
-
-        var results = await Task.WhenAll(tasks);
+        ]);
 
         history.Dividends = results[0].Select(line => JsonSerializer.Deserialize<DividendRecord>(line)).ToList();
         history.Prices = results[1].Select(line => JsonSerializer.Deserialize<PriceRecord>(line)).ToList();
@@ -74,45 +73,36 @@ public class FundHistoryRepository
         var serializedPrices = fundHistory.Prices.Select(price => JsonSerializer.Serialize<PriceRecord>(price));
         var serializedSplits = fundHistory.Splits.Select(split => JsonSerializer.Serialize<SplitRecord>(split));
 
-        await Task.WhenAll(new[]
-        {
+        await Task.WhenAll(
+        [
             File.AppendAllLinesAsync(cacheFilePaths[CacheType.Dividend], serializedDividends),
             File.AppendAllLinesAsync(cacheFilePaths[CacheType.Price], serializedPrices),
             File.AppendAllLinesAsync(cacheFilePaths[CacheType.Split], serializedSplits)
-        });
+        ]);
     }
 
-    private ReadOnlyDictionary<CacheType, string> GetCacheFilePaths(string ticker)
+    private ReadOnlyDictionary<CacheType, string> GetCacheFilePaths(string ticker) =>  new(new Dictionary<CacheType, string>()
     {
-        return new(new Dictionary<CacheType, string>()
-        {
-            [CacheType.Dividend] = this.GetCacheFilePath(ticker, CacheType.Dividend),
-            [CacheType.Price] = this.GetCacheFilePath(ticker, CacheType.Price),
-            [CacheType.Split] = this.GetCacheFilePath(ticker, CacheType.Split),
-        });
-    }
+        [CacheType.Dividend] = this.GetCacheFilePath(ticker, CacheType.Dividend),
+        [CacheType.Price] = this.GetCacheFilePath(ticker, CacheType.Price),
+        [CacheType.Split] = this.GetCacheFilePath(ticker, CacheType.Split),
+    });
 
-    private string GetCacheFilePath(string ticker, CacheType cacheType)
+    private string GetCacheFilePath(string ticker, CacheType cacheType) => cacheType switch
     {
-        return cacheType switch
-        {
-            CacheType.Dividend => Path.Combine(this.cachePath, $"dividend/{ticker}.txt"),
-            CacheType.Price => Path.Combine(this.cachePath, $"price/{ticker}.txt"),
-            CacheType.Split => Path.Combine(this.cachePath, $"split/{ticker}.txt"),
-            _ => throw new NotImplementedException(),
-        };
-    }
+        CacheType.Dividend => Path.Combine(this.cachePath, $"dividend/{ticker}.txt"),
+        CacheType.Price => Path.Combine(this.cachePath, $"price/{ticker}.txt"),
+        CacheType.Split => Path.Combine(this.cachePath, $"split/{ticker}.txt"),
+        _ => throw new NotImplementedException(),
+    };
 
-    private Task<string[]> GetRawCacheContent(string ticker, CacheType cacheType)
+    private Task<string[]> GetRawCacheContent(string ticker, CacheType cacheType) => cacheType switch
     {
-        return cacheType switch
-        {
-            CacheType.Dividend => File.ReadAllLinesAsync(this.GetCacheFilePath(ticker, CacheType.Dividend)),
-            CacheType.Price => File.ReadAllLinesAsync(this.GetCacheFilePath(ticker, CacheType.Price)),
-            CacheType.Split => File.ReadAllLinesAsync(this.GetCacheFilePath(ticker, CacheType.Split)),
-            _ => throw new NotImplementedException(),
-        };
-    }
+        CacheType.Dividend => File.ReadAllLinesAsync(this.GetCacheFilePath(ticker, CacheType.Dividend)),
+        CacheType.Price => File.ReadAllLinesAsync(this.GetCacheFilePath(ticker, CacheType.Price)),
+        CacheType.Split => File.ReadAllLinesAsync(this.GetCacheFilePath(ticker, CacheType.Split)),
+        _ => throw new NotImplementedException(),
+    };
 
     private static List<Exception> Inspect(FundHistory fundHistory)
     {

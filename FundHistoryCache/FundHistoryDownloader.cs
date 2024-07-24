@@ -5,10 +5,7 @@ public static class FundHistoryDownloader
 
     public static Task<FundHistory> GetMissingHistory(FundHistory history, out DateTime start, out DateTime end)
     {
-        if (history == null)
-        {
-            throw new ArgumentNullException(nameof(history));
-        }
+        ArgumentNullException.ThrowIfNull(history);
 
         var lastDate = history.Prices[history.Prices.Count - 1].DateTime.Date;
 
