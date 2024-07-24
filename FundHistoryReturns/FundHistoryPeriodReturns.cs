@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-public static class FundHistoryPeriodReturns
+﻿public static class FundHistoryPeriodReturns
 {
     public static List<KeyValuePair<DateTime, decimal>> GetDailyReturns(List<PriceRecord> dailyPrices)
     {
@@ -22,7 +13,11 @@ public static class FundHistoryPeriodReturns
             .OrderBy(r => r.DateTime)
             .ToList();
 
-        return FundHistoryPeriodReturns.GetReturns(monthlyCloses);
+        var monthlyReturns = FundHistoryPeriodReturns.GetReturns(monthlyCloses);
+
+        return monthlyReturns
+            .Select(r => new KeyValuePair<DateTime, decimal>(new DateTime(r.Key.Year, r.Key.Month, 1), r.Value))
+            .ToList();
     }
 
     public static List<KeyValuePair<DateTime, decimal>> GetYearlyReturns(List<PriceRecord> dailyPrices)
@@ -33,7 +28,11 @@ public static class FundHistoryPeriodReturns
             .OrderBy(r => r.DateTime)
             .ToList();
 
-        return FundHistoryPeriodReturns.GetReturns(yearlyCloses);
+        var yearlyReturns = FundHistoryPeriodReturns.GetReturns(yearlyCloses);
+
+        return yearlyReturns
+            .Select(r => new KeyValuePair<DateTime, decimal>(new DateTime(r.Key.Year, 1, 1), r.Value))
+            .ToList();
     }
 
     private static List<KeyValuePair<DateTime, decimal>> GetReturns(List<PriceRecord> prices, bool skipFirst = true)

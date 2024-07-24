@@ -23,7 +23,7 @@ static async Task WriteFundHistoryReturns(string ticker, List<PriceRecord> histo
         _ => throw new NotImplementedException()
     };
 
-    await File.WriteAllLinesAsync(getFilePath(period, ticker), returns.Select(r => $"{DateOnly.FromDateTime(r.Key)},{r.Value}"));
+    await File.WriteAllLinesAsync(getFilePath(period, ticker), returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value}"));
 }
 
 enum TimePeriod
