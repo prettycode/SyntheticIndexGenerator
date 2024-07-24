@@ -16,7 +16,7 @@ static async Task RefreshFundHistoryCache(FundHistoryRepository cache)
         }
         else
         {
-            Console.WriteLine($"{ticker}: {fundHistory.Prices.Count} records found in cache, {ToIsoDateString(fundHistory.Prices[0].DateTime)} to {ToIsoDateString(fundHistory.Prices[fundHistory.Prices.Count - 1].DateTime)}");
+            Console.WriteLine($"{ticker}: {fundHistory.Prices.Count} records found in cache, {fundHistory.Prices[0].DateTime:yyyy-MM-dd} to {fundHistory.Prices[fundHistory.Prices.Count - 1].DateTime:yyyy-MM-dd}");
         }
 
         FundHistory? missingFundHistory;
@@ -30,7 +30,7 @@ static async Task RefreshFundHistoryCache(FundHistoryRepository cache)
         {
             Console.WriteLine($"{ticker}: Download missing history.");
             missingFundHistory = await FundHistoryDownloader.GetMissingHistory(fundHistory, out DateTime missingStart, out DateTime missingEnd);
-            Console.WriteLine($"{ticker}: Missing history identified as {ToIsoDateString(missingStart)} to {ToIsoDateString(missingEnd)}");
+            Console.WriteLine($"{ticker}: Missing history identified as {missingStart::yyyy-MM-dd} to {missingEnd:yyyy-MM-dd}");
         }
 
         if (missingFundHistory == null)
@@ -39,23 +39,9 @@ static async Task RefreshFundHistoryCache(FundHistoryRepository cache)
             continue;
         }
 
-        Console.WriteLine($"{ticker}: Saving missing history, {missingFundHistory.Prices.Count} record(s), {ToIsoDateString(missingFundHistory.Prices[0].DateTime)} to {ToIsoDateString(missingFundHistory.Prices[missingFundHistory.Prices.Count - 1].DateTime)}, to cache.");
+        Console.WriteLine($"{ticker}: Saving missing history, {missingFundHistory.Prices.Count} record(s), {missingFundHistory.Prices[0].DateTime:yyyy-MM-dd} to {missingFundHistory.Prices[missingFundHistory.Prices.Count - 1].DateTime:yyyy-MM-dd}, to cache.");
         await cache.Put(missingFundHistory);
     }
-}
-
-
-static string ToIsoDateString(DateTime dateTime)
-{
-    const string zeroTime = "T00:00:00.0000000";
-    var dateString = dateTime.ToString("o", CultureInfo.InvariantCulture);
-
-    if (dateString.EndsWith(zeroTime))
-    {
-        dateString = dateString.Replace(zeroTime, String.Empty);
-    }
-
-    return dateString;
 }
 
 static HashSet<string> GetFundTickers()
