@@ -1,0 +1,2 @@
+﻿Stock-Index-Data-20220923.xlsx is from https://portfoliocharts.com/stock-index-calculator/.
+Stock-Index-Data-20220923-Monthly.xlsx is that same file, but with yearly data and comments removed.
