@@ -9,9 +9,9 @@ static HashSet<string> GetFundTickers() => new HashSet<SortedSet<string>>([
         ["VSGAX"],              // US SCG
         ["DFALX", "AVDE"],      // Int'l TSM
         ["DFIVX", "AVIV"],      // Int'l LCV
-        //[""],                   // *Int'l LCG
+        ["EFG"],                   // *Int'l LCG
         ["DISVX", "AVDV"],      // Int'l SCV
-        ["EFG"],                // *Int'l SCG
+        //["?"],                // *Int'l SCG
         ["VEIEX", "AVEM"],      // EM
         ["DFEVX", "AVES"],      // EM LCV
         ["DEMSX", "AVEE"],      // EM SCB
