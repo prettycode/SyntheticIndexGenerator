@@ -76,24 +76,3 @@ static async Task<Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerf
 
     return returns;
 }
-
-enum IndexId
-{
-    TotalStockMarket,
-    LargeCapBlend,
-    LargeCapGrowth,
-    LargeCapValue,
-    MidCapBlend,
-    MidCapGrowth,
-    MidCapValue,
-    SmallCapBlend,
-    SmallCapGrowth,
-    SmallCapValue
-}
-
-readonly record struct IndexPeriodPerformance
-{
-    public required IndexId IndexId { get; init; }
-    public required DateOnly PeriodStartDate { get; init; }
-    public required decimal PeriodReturnPercent { get; init; }
-}
