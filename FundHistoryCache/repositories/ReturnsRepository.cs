@@ -2,9 +2,9 @@
 
 public class ReturnsRepository
 {
-    public string CachePath { get; private set; }
+    private readonly string cachePath;
 
-    public string SyntheticReturnsFilePath { get; private set; }
+    private readonly string syntheticReturnsFilePath;
 
     public ReturnsRepository(string cachePath, string syntheticReturnsFilePath)
     {
@@ -15,13 +15,17 @@ public class ReturnsRepository
             Directory.CreateDirectory(cachePath);
         }
 
-        this.CachePath = cachePath;
-        this.SyntheticReturnsFilePath = syntheticReturnsFilePath;
+        this.cachePath = cachePath;
+        this.syntheticReturnsFilePath = syntheticReturnsFilePath;
     }
 
     public Task Put(string ticker, List<KeyValuePair<DateTime, decimal>> returns, ReturnPeriod period)
     {
-        string csvFilePath = Path.Combine(this.CachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
+        ArgumentNullException.ThrowIfNull(ticker);
+        ArgumentNullException.ThrowIfNull(returns);
+        ArgumentNullException.ThrowIfNull(period);
+
+        string csvFilePath = Path.Combine(this.cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
         var csvFileLines = returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value}");
 
         return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
@@ -47,7 +51,7 @@ public class ReturnsRepository
         const int dateColumnIndex = 0;
 
         var returns = new Dictionary<string, List<KeyValuePair<DateTime, decimal>>>();
-        var fileLines = await File.ReadAllLinesAsync(this.SyntheticReturnsFilePath);
+        var fileLines = await File.ReadAllLinesAsync(this.syntheticReturnsFilePath);
         var fileLinesSansHeader = fileLines.Skip(headerLinesCount);
 
         foreach (var line in fileLinesSansHeader)

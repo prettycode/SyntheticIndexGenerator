@@ -2,6 +2,9 @@
 {
     public static Task RefreshReturns(QuoteRepository quotesCache, ReturnsRepository returnsCache)
     {
+        ArgumentNullException.ThrowIfNull(quotesCache);
+        ArgumentNullException.ThrowIfNull(returnsCache);
+
         var tickers = quotesCache.GetAllTickers();
 
         return Task.WhenAll([

@@ -2,13 +2,16 @@
 
 public static class QuotesController
 {
-    public static async Task RefreshQuotes(QuoteRepository cache, HashSet<string> tickers)
+    public static async Task RefreshQuotes(QuoteRepository quotesCache, HashSet<string> tickers)
     {
+        ArgumentNullException.ThrowIfNull(quotesCache);
+        ArgumentNullException.ThrowIfNull(tickers);
+
         foreach (var ticker in tickers)
         {
             Console.WriteLine();
 
-            var fundHistory = await cache.Get(ticker);
+            var fundHistory = await quotesCache.Get(ticker);
 
             if (fundHistory == null)
             {
@@ -45,7 +48,7 @@ public static class QuotesController
 
             Console.WriteLine($"{ticker}: Save {missingFundHistory.Prices.Count} new record(s), {missingFundHistory.Prices[0].DateTime:yyyy-MM-dd} to {missingFundHistory.Prices[missingFundHistory.Prices.Count - 1].DateTime:yyyy-MM-dd}.");
 
-            await cache.Put(missingFundHistory);
+            await quotesCache.Put(missingFundHistory);
         }
     }
 

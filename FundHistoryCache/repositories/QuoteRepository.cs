@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.Json;
+using YahooFinanceApi;
 
 public class QuoteRepository
 {
@@ -36,6 +37,8 @@ public class QuoteRepository
 
     public async Task<Quote?> Get(string ticker)
     {
+        ArgumentNullException.ThrowIfNull(ticker);
+
         Quote history = new(ticker);
         ReadOnlyDictionary<CacheType, string> cacheFilePaths = this.GetCacheFilePaths(ticker);
 
@@ -61,6 +64,8 @@ public class QuoteRepository
 
     public async Task Put(Quote fundHistory)
     {
+        ArgumentNullException.ThrowIfNull(fundHistory);
+
         QuoteRepository.Inspect(fundHistory);
 
         ReadOnlyDictionary<CacheType, string> cacheFilePaths = this.GetCacheFilePaths(fundHistory.Ticker);

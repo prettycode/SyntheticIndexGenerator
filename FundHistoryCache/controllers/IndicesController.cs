@@ -64,6 +64,6 @@
 
     public static async Task RefreshIndices(string returnsPath)
     {
-
+        ArgumentNullException.ThrowIfNull(returnsPath);
     }
 }
