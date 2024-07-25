@@ -18,14 +18,14 @@
             var priceHistory = history!.Prices.ToList();
 
             await Task.WhenAll(
-                WriteFundHistoryReturns(ticker, priceHistory, TimePeriod.Daily, savePath),
-                WriteFundHistoryReturns(ticker, priceHistory, TimePeriod.Monthly, savePath),
-                WriteFundHistoryReturns(ticker, priceHistory, TimePeriod.Yearly, savePath)
+                SaveReturns(ticker, priceHistory, TimePeriod.Daily, savePath),
+                SaveReturns(ticker, priceHistory, TimePeriod.Monthly, savePath),
+                SaveReturns(ticker, priceHistory, TimePeriod.Yearly, savePath)
             );
         }));
     }
 
-    private static async Task WriteFundHistoryReturns(string ticker, List<QuotePriceRecord> history, TimePeriod period, string savePath)
+    private static async Task SaveReturns(string ticker, List<QuotePriceRecord> history, TimePeriod period, string savePath)
     {
         List<KeyValuePair<DateTime, decimal>> returns = period switch
         {
