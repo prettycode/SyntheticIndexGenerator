@@ -6,9 +6,15 @@
         ArgumentNullException.ThrowIfNull(returnsCache);
 
         var tickers = quotesCache.GetAllTickers();
+        var refreshSyntheticReturns = async () => {
+            var indexReturnsByTicker = await returnsCache.GetSyntheticMonthlyReturns();
+            var putReturnsTasks = indexReturnsByTicker.Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
+
+            return Task.WhenAll(putReturnsTasks);
+        };
 
         return Task.WhenAll([
-            SyntheticReturnsController.RefreshSyntheticReturns(returnsCache),
+            refreshSyntheticReturns(),
             .. tickers.Select(async ticker =>
             {
                 var history = await quotesCache.Get(ticker);
