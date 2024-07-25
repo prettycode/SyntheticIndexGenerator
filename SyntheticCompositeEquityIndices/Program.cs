@@ -1,13 +1,12 @@
-﻿throw new NotImplementedException();
-
-var fundRepository = new FundHistoryRepository("../../../../FundHistoryCache/data/");
+﻿var rootPath = @"..\..\..\..";
+var fundRepository = new FundHistoryRepository(@$"{rootPath}\FundHistoryCache\data\");
 
 await Task.WhenAll(
     SyntheticUsEquityIndicesController.SaveParsedReturnsToReturnsHistory(
-        "../../../../SyntheticUsEquityIndices/source/Stock-Index-Data-20220923-Monthly.csv", 
-        "../../../../SyntheticUsEquityIndices/data/monthly/"
+        @$"{rootPath}\SyntheticUsEquityIndices\source\Stock-Index-Data-20220923-Monthly.csv",
+        @$"{rootPath}\SyntheticUsEquityIndices\data\monthly\"
     ),
     FundHistoryCacheController.RefreshFundHistoryCache(fundRepository)
 );
 
-await FundHistoryReturnsController.WriteAllFundHistoryReturns(fundRepository, "../../../../SyntheticUsEquityIndices/data/");
+await FundHistoryReturnsController.WriteAllFundHistoryReturns(fundRepository, @$"{rootPath}\FundHistoryReturns\data\");

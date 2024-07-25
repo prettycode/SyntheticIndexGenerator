@@ -10,7 +10,7 @@ public class FundHistoryRepository
         Split
     }
 
-    private readonly string cachePath;
+    public string CachePath { get; private set; }
 
     public FundHistoryRepository(string cachePath)
     {
@@ -21,7 +21,7 @@ public class FundHistoryRepository
             Directory.CreateDirectory(cachePath);
         }
 
-        this.cachePath = cachePath;
+        this.CachePath = cachePath;
     }
 
     public IEnumerable<string> GetCacheKeys()
@@ -86,9 +86,9 @@ public class FundHistoryRepository
 
     private string GetCacheFilePath(string ticker, CacheType cacheType) => cacheType switch
     {
-        CacheType.Dividend => Path.Combine(this.cachePath, $"dividend/{ticker}.txt"),
-        CacheType.Price => Path.Combine(this.cachePath, $"price/{ticker}.txt"),
-        CacheType.Split => Path.Combine(this.cachePath, $"split/{ticker}.txt"),
+        CacheType.Dividend => Path.Combine(this.CachePath, $"dividend/{ticker}.txt"),
+        CacheType.Price => Path.Combine(this.CachePath, $"price/{ticker}.txt"),
+        CacheType.Split => Path.Combine(this.CachePath, $"split/{ticker}.txt"),
         _ => throw new NotImplementedException(),
     };
 
