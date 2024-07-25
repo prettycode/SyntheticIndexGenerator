@@ -11,8 +11,4 @@
     <PackageReference Include="YahooFinanceApi" Version="2.3.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="data\returns\" />
-  </ItemGroup>
-
 </Project>

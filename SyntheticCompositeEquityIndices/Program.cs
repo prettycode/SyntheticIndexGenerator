@@ -4,14 +4,14 @@ var syntheticUsSourcePath = Path.Combine(rootPath, "./SyntheticUsEquityIndices/s
 var syntheticUsSavePath = Path.Combine(rootPath, "./SyntheticUsEquityIndices/data/monthly/");
 var fundHistoryReturnsSavePath = Path.Combine(rootPath, "./FundHistoryReturns/data/");
 
-var fundRepository = new FundHistoryRepository(fundRepositorySourcePath);
+var fundRepository = new FundHistoryQuoteRepository(fundRepositorySourcePath);
 
 await Task.WhenAll(
     SyntheticUsEquityIndicesController.SaveParsedReturnsToReturnsHistory(syntheticUsSourcePath, syntheticUsSavePath),
-    FundHistoryCacheController.RefreshFundHistoryCache(fundRepository, GetFundTickers())
+    FundHistoryQuotesController.RefreshFundHistoryQuotes(fundRepository, GetFundTickers())
 );
 
-await FundHistoryReturnsController.WriteAllFundHistoryReturns(fundRepository, fundHistoryReturnsSavePath);
+await FundHistoryReturnsController.RefreshFundHistoryReturns(fundRepository, fundHistoryReturnsSavePath);
 
 GetSyntheticCompositeEquityIndexDefinitions().ToList().ForEach(index => Console.WriteLine($"Index: {index.Ticker}"));
 

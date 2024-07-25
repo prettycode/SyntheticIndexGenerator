@@ -11,10 +11,4 @@
     <ProjectReference Include="..\FundHistoryCache\FundHistoryCache.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="data\daily\" />
-    <Folder Include="data\monthly\" />
-    <Folder Include="data\yearly\" />
-  </ItemGroup>
-
 </Project>

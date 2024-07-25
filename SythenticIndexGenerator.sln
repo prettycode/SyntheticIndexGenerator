@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyntheticUsEquityIndices", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyntheticCompositeIndices", "SyntheticCompositeEquityIndices\SyntheticCompositeIndices.csproj", "{DA012AF6-47FC-4802-A6C9-415192F939DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundHistoryReturns", "FundHistoryReturns\FundHistoryReturns.csproj", "{4E9EA680-57AA-4BC3-AD6F-423CA9698943}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{DA012AF6-47FC-4802-A6C9-415192F939DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA012AF6-47FC-4802-A6C9-415192F939DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA012AF6-47FC-4802-A6C9-415192F939DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E9EA680-57AA-4BC3-AD6F-423CA9698943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E9EA680-57AA-4BC3-AD6F-423CA9698943}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E9EA680-57AA-4BC3-AD6F-423CA9698943}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E9EA680-57AA-4BC3-AD6F-423CA9698943}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
