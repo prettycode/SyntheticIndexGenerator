@@ -1,5 +1,5 @@
 ﻿using YahooFinanceApi;
-public struct FundHistoryQuotePriceRecord
+public struct QuotePriceRecord
 {
     public DateTime DateTime { get; set; }
 
@@ -15,9 +15,9 @@ public struct FundHistoryQuotePriceRecord
 
     public decimal AdjustedClose { get; set; }
 
-    public FundHistoryQuotePriceRecord() { }
+    public QuotePriceRecord() { }
 
-    public FundHistoryQuotePriceRecord(Candle candle)
+    public QuotePriceRecord(Candle candle)
     {
         ArgumentNullException.ThrowIfNull(candle);
 

@@ -1,8 +1,8 @@
 ﻿using YahooFinanceApi;
 
-public static class FundHistoryQuotesController
+public static class QuotesController
 {
-    public static async Task RefreshFundHistoryQuotes(FundHistoryQuoteRepository cache, HashSet<string> tickers)
+    public static async Task RefreshQuotes(QuoteRepository cache, HashSet<string> tickers)
     {
         foreach (var ticker in tickers)
         {
@@ -19,17 +19,17 @@ public static class FundHistoryQuotesController
                 Console.WriteLine($"{ticker}: {fundHistory.Prices.Count} record(s) in cache, {fundHistory.Prices[0].DateTime:yyyy-MM-dd} to {fundHistory.Prices[fundHistory.Prices.Count - 1].DateTime:yyyy-MM-dd}.");
             }
 
-            FundHistoryQuote? missingFundHistory;
+            Quote? missingFundHistory;
 
             if (fundHistory == null)
             {
                 Console.WriteLine($"{ticker}: Download entire history.");
 
-                missingFundHistory = await FundHistoryQuotesController.GetHistoryAll(ticker);
+                missingFundHistory = await QuotesController.GetHistoryAll(ticker);
             }
             else
             {
-                missingFundHistory = await FundHistoryQuotesController.GetMissingHistory(fundHistory, out DateTime missingStart, out DateTime missingEnd);
+                missingFundHistory = await QuotesController.GetMissingHistory(fundHistory, out DateTime missingStart, out DateTime missingEnd);
 
                 if (missingFundHistory != null)
                 {
@@ -50,7 +50,7 @@ public static class FundHistoryQuotesController
     }
 
 
-    public static Task<FundHistoryQuote> GetMissingHistory(FundHistoryQuote history, out DateTime start, out DateTime end)
+    public static Task<Quote> GetMissingHistory(Quote history, out DateTime start, out DateTime end)
     {
         ArgumentNullException.ThrowIfNull(history);
 
@@ -61,34 +61,34 @@ public static class FundHistoryQuotesController
 
         if (!(start < end))
         {
-            return Task.FromResult<FundHistoryQuote>(null!);
+            return Task.FromResult<Quote>(null!);
         }
 
-        return FundHistoryQuotesController.GetHistoryRange(history.Ticker, start, end);
+        return QuotesController.GetHistoryRange(history.Ticker, start, end);
     }
 
-    public static Task<FundHistoryQuote> GetHistoryAll(string ticker)
+    public static Task<Quote> GetHistoryAll(string ticker)
     {
-        return FundHistoryQuotesController.GetHistoryRange(ticker, new DateTime(1900, 1, 1), DateTime.UtcNow);
+        return QuotesController.GetHistoryRange(ticker, new DateTime(1900, 1, 1), DateTime.UtcNow);
     }
 
-    private static async Task<FundHistoryQuote> GetHistoryRange(string ticker, DateTime start, DateTime end)
+    private static async Task<Quote> GetHistoryRange(string ticker, DateTime start, DateTime end)
     {
         if (start == end)
         {
             return null!;
         }
 
-        FundHistoryQuote fundHistory = new(ticker);
+        Quote fundHistory = new(ticker);
         static async Task<T> throttle<T>(Func<Task<T>> operation)
         {
             await Task.Delay(1000);
             return await operation();
         }
 
-        fundHistory.Dividends = (await throttle(() => Yahoo.GetDividendsAsync(ticker, start, end))).Select(divTick => new FundHistoryQuoteDividendRecord(divTick)).ToList();
-        fundHistory.Prices = (await throttle(() => Yahoo.GetHistoricalAsync(ticker, start, end))).Select(candle => new FundHistoryQuotePriceRecord(candle)).ToList();
-        fundHistory.Splits = (await throttle(() => Yahoo.GetSplitsAsync(ticker, start, end))).Select(splitTick => new FundHistoryQuoteSplitRecord(splitTick)).ToList();
+        fundHistory.Dividends = (await throttle(() => Yahoo.GetDividendsAsync(ticker, start, end))).Select(divTick => new QuoteDividendRecord(divTick)).ToList();
+        fundHistory.Prices = (await throttle(() => Yahoo.GetHistoricalAsync(ticker, start, end))).Select(candle => new QuotePriceRecord(candle)).ToList();
+        fundHistory.Splits = (await throttle(() => Yahoo.GetSplitsAsync(ticker, start, end))).Select(splitTick => new QuoteSplitRecord(splitTick)).ToList();
 
         if (fundHistory.Prices[fundHistory.Prices.Count - 1].Open == 0)
         {

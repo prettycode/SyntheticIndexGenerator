@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.Json;
 
-public class FundHistoryQuoteRepository
+public class QuoteRepository
 {
     private enum CacheType
     {
@@ -12,7 +12,7 @@ public class FundHistoryQuoteRepository
 
     public string CachePath { get; private set; }
 
-    public FundHistoryQuoteRepository(string cachePath)
+    public QuoteRepository(string cachePath)
     {
         ArgumentNullException.ThrowIfNull(cachePath);
 
@@ -34,9 +34,9 @@ public class FundHistoryQuoteRepository
         return matchingFiles.Select(file => Path.GetFileNameWithoutExtension(file));
     }
 
-    public async Task<FundHistoryQuote?> Get(string ticker)
+    public async Task<Quote?> Get(string ticker)
     {
-        FundHistoryQuote history = new(ticker);
+        Quote history = new(ticker);
         ReadOnlyDictionary<CacheType, string> cacheFilePaths = this.GetCacheFilePaths(ticker);
 
         if (!File.Exists(cacheFilePaths[CacheType.Price]))
@@ -50,24 +50,24 @@ public class FundHistoryQuoteRepository
             this.GetRawCacheContent(ticker, CacheType.Split)
         ]);
 
-        history.Dividends = results[0].Select(line => JsonSerializer.Deserialize<FundHistoryQuoteDividendRecord>(line)).ToList();
-        history.Prices = results[1].Select(line => JsonSerializer.Deserialize<FundHistoryQuotePriceRecord>(line)).ToList();
-        history.Splits = results[2].Select(line => JsonSerializer.Deserialize<FundHistoryQuoteSplitRecord>(line)).ToList();
+        history.Dividends = results[0].Select(line => JsonSerializer.Deserialize<QuoteDividendRecord>(line)).ToList();
+        history.Prices = results[1].Select(line => JsonSerializer.Deserialize<QuotePriceRecord>(line)).ToList();
+        history.Splits = results[2].Select(line => JsonSerializer.Deserialize<QuoteSplitRecord>(line)).ToList();
 
-        FundHistoryQuoteRepository.Inspect(history);
+        QuoteRepository.Inspect(history);
 
         return history;
     }
 
-    public async Task Put(FundHistoryQuote fundHistory)
+    public async Task Put(Quote fundHistory)
     {
-        FundHistoryQuoteRepository.Inspect(fundHistory);
+        QuoteRepository.Inspect(fundHistory);
 
         ReadOnlyDictionary<CacheType, string> cacheFilePaths = this.GetCacheFilePaths(fundHistory.Ticker);
 
-        var serializedDividends = fundHistory.Dividends.Select(div => JsonSerializer.Serialize<FundHistoryQuoteDividendRecord>(div));
-        var serializedPrices = fundHistory.Prices.Select(price => JsonSerializer.Serialize<FundHistoryQuotePriceRecord>(price));
-        var serializedSplits = fundHistory.Splits.Select(split => JsonSerializer.Serialize<FundHistoryQuoteSplitRecord>(split));
+        var serializedDividends = fundHistory.Dividends.Select(div => JsonSerializer.Serialize<QuoteDividendRecord>(div));
+        var serializedPrices = fundHistory.Prices.Select(price => JsonSerializer.Serialize<QuotePriceRecord>(price));
+        var serializedSplits = fundHistory.Splits.Select(split => JsonSerializer.Serialize<QuoteSplitRecord>(split));
 
         await Task.WhenAll(
         [
@@ -100,7 +100,7 @@ public class FundHistoryQuoteRepository
         _ => throw new NotImplementedException(),
     };
 
-    private static List<Exception> Inspect(FundHistoryQuote fundHistory)
+    private static List<Exception> Inspect(Quote fundHistory)
     {
         var exceptions = new List<Exception>();
         var previousDateTime = DateTime.MinValue;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-public static class FundHistorySyntheticReturnsController
+public static class SyntheticReturnsController
 {    private enum IndexId
     {
         TotalStockMarket,
@@ -23,11 +23,11 @@ public static class FundHistorySyntheticReturnsController
         public required decimal PeriodReturnPercent { get; set; }
     }
 
-    public static async Task RefreshFundHistorySyntheticReturns(string csvFilePath, string savePath)
+    public static async Task RefreshSyntheticReturns(string csvFilePath, string savePath)
     {
-        var indexReturns = await FundHistorySyntheticReturnsController.ParseReturns(csvFilePath);
+        var indexReturns = await SyntheticReturnsController.ParseReturns(csvFilePath);
 
-        await FundHistorySyntheticReturnsController.SaveReturnsHistory(indexReturns, savePath);
+        await SyntheticReturnsController.SaveReturnsHistory(indexReturns, savePath);
     }
 
     private static async Task SaveReturnsHistory(Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerformance>> multiIndexReturns, string savePath)

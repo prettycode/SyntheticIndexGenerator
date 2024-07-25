@@ -1,4 +1,4 @@
-﻿public static class FundHistoryReturnsController
+﻿public static class ReturnsController
 {
     private enum TimePeriod
     {
@@ -8,7 +8,7 @@
         Yearly
     }
 
-    public static async Task RefreshFundHistoryReturns(FundHistoryQuoteRepository cache, string savePath)
+    public static async Task RefreshReturns(QuoteRepository cache, string savePath)
     {
         var tickers = cache.GetCacheKeys();
 
@@ -25,13 +25,13 @@
         }));
     }
 
-    private static async Task WriteFundHistoryReturns(string ticker, List<FundHistoryQuotePriceRecord> history, TimePeriod period, string savePath)
+    private static async Task WriteFundHistoryReturns(string ticker, List<QuotePriceRecord> history, TimePeriod period, string savePath)
     {
         List<KeyValuePair<DateTime, decimal>> returns = period switch
         {
-            TimePeriod.Daily => FundHistoryReturnsController.GetDailyReturns(history),
-            TimePeriod.Monthly => FundHistoryReturnsController.GetMonthReturns(history),
-            TimePeriod.Yearly => FundHistoryReturnsController.GetYearlyReturns(history),
+            TimePeriod.Daily => ReturnsController.GetDailyReturns(history),
+            TimePeriod.Monthly => ReturnsController.GetMonthReturns(history),
+            TimePeriod.Yearly => ReturnsController.GetYearlyReturns(history),
             _ => throw new NotImplementedException()
         };
 
@@ -41,12 +41,12 @@
         await File.WriteAllLinesAsync(csvFilePath, csvFileLines);
     }
 
-    private static List<KeyValuePair<DateTime, decimal>> GetDailyReturns(List<FundHistoryQuotePriceRecord> dailyPrices)
+    private static List<KeyValuePair<DateTime, decimal>> GetDailyReturns(List<QuotePriceRecord> dailyPrices)
     {
-        return FundHistoryReturnsController.GetReturns(dailyPrices);
+        return ReturnsController.GetReturns(dailyPrices);
     }
 
-    private static List<KeyValuePair<DateTime, decimal>> GetMonthReturns(List<FundHistoryQuotePriceRecord> dailyPrices)
+    private static List<KeyValuePair<DateTime, decimal>> GetMonthReturns(List<QuotePriceRecord> dailyPrices)
     {
         var monthlyCloses = dailyPrices
             .GroupBy(r => new { r.DateTime.Year, r.DateTime.Month })
@@ -54,14 +54,14 @@
             .OrderBy(r => r.DateTime)
             .ToList();
 
-        var monthlyReturns = FundHistoryReturnsController.GetReturns(monthlyCloses);
+        var monthlyReturns = ReturnsController.GetReturns(monthlyCloses);
 
         return monthlyReturns
             .Select(r => new KeyValuePair<DateTime, decimal>(new DateTime(r.Key.Year, r.Key.Month, 1), r.Value))
             .ToList();
     }
 
-    private static List<KeyValuePair<DateTime, decimal>> GetYearlyReturns(List<FundHistoryQuotePriceRecord> dailyPrices)
+    private static List<KeyValuePair<DateTime, decimal>> GetYearlyReturns(List<QuotePriceRecord> dailyPrices)
     {
         var yearlyCloses = dailyPrices
             .GroupBy(r => r.DateTime.Year)
@@ -69,17 +69,17 @@
             .OrderBy(r => r.DateTime)
             .ToList();
 
-        var yearlyReturns = FundHistoryReturnsController.GetReturns(yearlyCloses);
+        var yearlyReturns = ReturnsController.GetReturns(yearlyCloses);
 
         return yearlyReturns
             .Select(r => new KeyValuePair<DateTime, decimal>(new DateTime(r.Key.Year, 1, 1), r.Value))
             .ToList();
     }
 
-    private static List<KeyValuePair<DateTime, decimal>> GetReturns(List<FundHistoryQuotePriceRecord> prices, bool skipFirst = true)
+    private static List<KeyValuePair<DateTime, decimal>> GetReturns(List<QuotePriceRecord> prices, bool skipFirst = true)
     {
         static decimal calcChange(decimal x, decimal y) => (y - x) / x * 100m;
-        static decimal endingPrice(FundHistoryQuotePriceRecord record) => record.AdjustedClose;
+        static decimal endingPrice(QuotePriceRecord record) => record.AdjustedClose;
 
         List<KeyValuePair<DateTime, decimal>> returns = skipFirst
             ? []

@@ -1,14 +1,14 @@
 ﻿using YahooFinanceApi;
 
-public struct FundHistoryQuoteDividendRecord
+public struct QuoteDividendRecord
 {
     public DateTime DateTime { get; set; }
 
     public decimal Dividend { get; set; }
 
-    public FundHistoryQuoteDividendRecord() { }
+    public QuoteDividendRecord() { }
 
-    public FundHistoryQuoteDividendRecord(DividendTick dividend)
+    public QuoteDividendRecord(DividendTick dividend)
     {
         ArgumentNullException.ThrowIfNull(dividend);
 

@@ -1,5 +1,5 @@
 ﻿using YahooFinanceApi;
-public struct FundHistoryQuoteSplitRecord
+public struct QuoteSplitRecord
 {
     public DateTime DateTime { get; set; }
 
@@ -7,9 +7,9 @@ public struct FundHistoryQuoteSplitRecord
 
     public decimal AfterSplit { get; set; }
 
-    public FundHistoryQuoteSplitRecord() { }
+    public QuoteSplitRecord() { }
 
-    public FundHistoryQuoteSplitRecord(SplitTick split)
+    public QuoteSplitRecord(SplitTick split)
     {
         ArgumentNullException.ThrowIfNull(split);
 

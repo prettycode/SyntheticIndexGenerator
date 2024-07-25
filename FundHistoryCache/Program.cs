@@ -1,9 +1,9 @@
-﻿var fundRepository = new FundHistoryQuoteRepository("../../../data/quotes/");
+﻿var fundRepository = new QuoteRepository("../../../data/quotes/");
 
 
-await FundHistorySyntheticReturnsController.RefreshFundHistorySyntheticReturns("../../../source/Stock-Index-Data-20220923-Monthly.csv", "../../../data/returns/monthly/");
-await FundHistoryQuotesController.RefreshFundHistoryQuotes(fundRepository, GetFundTickers());
-await FundHistoryReturnsController.RefreshFundHistoryReturns(fundRepository, "../../../data/returns/");
+await SyntheticReturnsController.RefreshSyntheticReturns("../../../source/Stock-Index-Data-20220923-Monthly.csv", "../../../data/returns/monthly/");
+await QuotesController.RefreshQuotes(fundRepository, GetFundTickers());
+await ReturnsController.RefreshReturns(fundRepository, "../../../data/returns/");
 
 static HashSet<string> GetFundTickers() => new HashSet<SortedSet<string>>([
     ["VTSMX", "VTI"],       // US TSM
