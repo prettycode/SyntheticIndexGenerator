@@ -70,6 +70,16 @@ public class QuoteRepository
 
         ReadOnlyDictionary<CacheType, string> cacheFilePaths = this.GetCacheFilePaths(fundHistory.Ticker);
 
+        foreach(var cacheType in Enum.GetValues<CacheType>())
+        {
+            var cacheFilePath = Path.GetDirectoryName(cacheFilePaths[cacheType]);
+
+            if (!Directory.Exists(cacheFilePath))
+            {
+                Directory.CreateDirectory(cacheFilePath!);
+            }
+        }
+
         var serializedDividends = fundHistory.Dividends.Select(div => JsonSerializer.Serialize<QuoteDividendRecord>(div));
         var serializedPrices = fundHistory.Prices.Select(price => JsonSerializer.Serialize<QuotePriceRecord>(price));
         var serializedSplits = fundHistory.Splits.Select(split => JsonSerializer.Serialize<QuoteSplitRecord>(split));

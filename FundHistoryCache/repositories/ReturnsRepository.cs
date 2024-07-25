@@ -25,7 +25,14 @@ public class ReturnsRepository
         ArgumentNullException.ThrowIfNull(returns);
         ArgumentNullException.ThrowIfNull(period);
 
-        string csvFilePath = Path.Combine(this.cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
+        var csvDirPath = Path.Combine(this.cachePath, $"./{period.ToString().ToLowerInvariant()}");
+
+        if (!Directory.Exists(csvDirPath))
+        {
+            Directory.CreateDirectory(csvDirPath);
+        }
+
+        var csvFilePath = Path.Combine(csvDirPath, $"./{ticker}.csv");
         var csvFileLines = returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value}");
 
         return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
