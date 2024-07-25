@@ -4,7 +4,7 @@
     public MarketCap MarketCap { get; set; }
     public MarketFactor MarketFactor { get; set; }
 
-    public SortedSet<string> History { get; set; }
+    public SortedSet<string> BackfillTickerSequence { get; set; }
 
     public readonly string Ticker
     {
