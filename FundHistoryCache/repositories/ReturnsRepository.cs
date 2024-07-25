@@ -19,7 +19,7 @@ public class ReturnsRepository
         this.SyntheticReturnsFilePath = syntheticReturnsFilePath;
     }
 
-    public Task Put(string ticker, List<KeyValuePair<DateTime, decimal>> returns, ReturnsController.TimePeriod period)
+    public Task Put(string ticker, List<KeyValuePair<DateTime, decimal>> returns, ReturnPeriod period)
     {
         string csvFilePath = Path.Combine(this.CachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
         var csvFileLines = returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value}");

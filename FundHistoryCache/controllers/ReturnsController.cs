@@ -1,12 +1,5 @@
 ﻿public static class ReturnsController
 {
-    public enum TimePeriod
-    {
-        Daily,
-        Monthly,
-        Yearly
-    }
-
     public static Task RefreshReturns(QuoteRepository quotesCache, ReturnsRepository returnsCache)
     {
         var tickers = quotesCache.GetAllTickers();
@@ -19,9 +12,9 @@
                 var priceHistory = history!.Prices.ToList();
 
                 await Task.WhenAll(
-                    returnsCache.Put(ticker, ReturnsController.GetDailyReturns(priceHistory), TimePeriod.Daily),
-                    returnsCache.Put(ticker, ReturnsController.GetMonthReturns(priceHistory), TimePeriod.Monthly),
-                    returnsCache.Put(ticker, ReturnsController.GetYearlyReturns(priceHistory), TimePeriod.Yearly)
+                    returnsCache.Put(ticker, ReturnsController.GetDailyReturns(priceHistory), ReturnPeriod.Daily),
+                    returnsCache.Put(ticker, ReturnsController.GetMonthReturns(priceHistory), ReturnPeriod.Monthly),
+                    returnsCache.Put(ticker, ReturnsController.GetYearlyReturns(priceHistory), ReturnPeriod.Yearly)
                 );
             })
         ]);

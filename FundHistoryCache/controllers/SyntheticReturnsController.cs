@@ -4,7 +4,7 @@
     {
         var indexReturns = await returnsCache.GetSyntheticMonthlyReturns();
 
-        await Task.WhenAll(indexReturns.Select(r => returnsCache.Put(r.Key, r.Value, ReturnsController.TimePeriod.Monthly)));
+        await Task.WhenAll(indexReturns.Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Monthly)));
     }
 
 }
