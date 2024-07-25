@@ -1,9 +1,7 @@
-﻿var fundRepository = new QuoteRepository("../../../data/quotes/");
-
-await QuotesController.RefreshQuotes(fundRepository, GetFundTickers());
-await ReturnsController.RefreshReturns(fundRepository, "../../../source/Stock-Index-Data-20220923-Monthly.csv", "../../../data/returns/");
-
-static HashSet<string> GetFundTickers() => new HashSet<SortedSet<string>>([
+﻿var quotesPath = "../../../data/quotes/";
+var syntheticReturnsFilePath = "../../../source/Stock-Index-Data-20220923-Monthly.csv";
+var saveSyntheticReturnsPath = "../../../data/returns/";
+var quoteTickers = new HashSet<SortedSet<string>>([
     ["VTSMX", "VTI"],       // US TSM
     ["VFINX", "VOO"],       // US LCB
     ["DFLVX", "AVLV"],      // US LCV
@@ -26,3 +24,8 @@ static HashSet<string> GetFundTickers() => new HashSet<SortedSet<string>>([
 ])
 .SelectMany(set => set)
 .ToHashSet<string>();
+
+var fundRepository = new QuoteRepository(quotesPath);
+
+await QuotesController.RefreshQuotes(fundRepository, quoteTickers);
+await ReturnsController.RefreshReturns(fundRepository, syntheticReturnsFilePath, saveSyntheticReturnsPath);
