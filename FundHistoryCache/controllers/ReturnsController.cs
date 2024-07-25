@@ -8,21 +8,24 @@
         Yearly
     }
 
-    public static async Task RefreshReturns(QuoteRepository cache, string savePath)
+    public static Task RefreshReturns(QuoteRepository cache, string syntheticReturnsPath, string savePath)
     {
         var tickers = cache.GetCacheKeys();
 
-        await Task.WhenAll(tickers.Select(async ticker =>
-        {
-            var history = await cache.Get(ticker);
-            var priceHistory = history!.Prices.ToList();
+        return Task.WhenAll([
+            SyntheticReturnsController.RefreshSyntheticReturns(syntheticReturnsPath, Path.Combine(savePath, "./monthly/")),
+            .. tickers.Select(async ticker =>
+            {
+                var history = await cache.Get(ticker);
+                var priceHistory = history!.Prices.ToList();
 
-            await Task.WhenAll(
-                SaveReturns(ticker, priceHistory, TimePeriod.Daily, savePath),
-                SaveReturns(ticker, priceHistory, TimePeriod.Monthly, savePath),
-                SaveReturns(ticker, priceHistory, TimePeriod.Yearly, savePath)
-            );
-        }));
+                await Task.WhenAll(
+                    ReturnsController.SaveReturns(ticker, priceHistory, TimePeriod.Daily, savePath),
+                    ReturnsController.SaveReturns(ticker, priceHistory, TimePeriod.Monthly, savePath),
+                    ReturnsController.SaveReturns(ticker, priceHistory, TimePeriod.Yearly, savePath)
+                );
+            })
+        ]);
     }
 
     private static async Task SaveReturns(string ticker, List<QuotePriceRecord> history, TimePeriod period, string savePath)

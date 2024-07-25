@@ -1,80 +1,51 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 
-public static class SyntheticReturnsController
-{    private enum IndexId
-    {
-        TotalStockMarket,
-        LargeCapBlend,
-        LargeCapGrowth,
-        LargeCapValue,
-        MidCapBlend,
-        MidCapGrowth,
-        MidCapValue,
-        SmallCapBlend,
-        SmallCapGrowth,
-        SmallCapValue
-    }
+internal static class SyntheticReturnsController
+{
 
-    private struct IndexPeriodPerformance
+    private struct SyntheticReturn
     {
-        public required IndexId IndexId { get; set; }
-        public required DateOnly PeriodStartDate { get; set; }
-        public required decimal PeriodReturnPercent { get; set; }
+        public DateOnly PeriodStartDate { get; set; }
+        public decimal PeriodReturnPercent { get; set; }
     }
 
     public static async Task RefreshSyntheticReturns(string csvFilePath, string savePath)
     {
-        var indexReturns = await SyntheticReturnsController.ParseReturns(csvFilePath);
+        var indexReturns = await SyntheticReturnsController.GetMonthlyReturns(csvFilePath);
 
-        await SyntheticReturnsController.SaveReturnsHistory(indexReturns, savePath);
+        await SyntheticReturnsController.SaveReturns(indexReturns, savePath);
     }
 
-    private static async Task SaveReturnsHistory(Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerformance>> multiIndexReturns, string savePath)
+    private static Task SaveReturns(Dictionary<string, List<SyntheticReturn>> history, string savePath)
     {
-        var indexToTicker = new Dictionary<IndexId, string>
-        {
-            [IndexId.TotalStockMarket] = "$TSM",
-            [IndexId.LargeCapBlend] = "$LCB",
-            [IndexId.LargeCapValue] = "$LCV",
-            [IndexId.LargeCapGrowth] = "$LCG",
-            [IndexId.MidCapBlend] = "$MCB",
-            [IndexId.MidCapValue] = "$MCV",
-            [IndexId.MidCapGrowth] = "$MCG",
-            [IndexId.SmallCapBlend] = "$SCB",
-            [IndexId.SmallCapValue] = "$SCV",
-            [IndexId.SmallCapGrowth] = "$SCG"
-        };
+        return Task.WhenAll(history.Select(pair => {
+            var tickerHistoryFilename = Path.Combine(savePath, $"{pair.Key}.csv");
+            var lines = pair.Value.Select(r => $"{r.PeriodStartDate:yyyy-MM-dd},{r.PeriodReturnPercent:G29}");
 
-        foreach (var (index, returns) in multiIndexReturns)
-        {
-            var tickerHistoryFilename = Path.Combine(savePath, $"{indexToTicker[index]}.csv");
-            var lines = returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value.PeriodReturnPercent:G29}");
-
-            await File.WriteAllLinesAsync(tickerHistoryFilename, lines);
-        }
+            return File.WriteAllLinesAsync(tickerHistoryFilename, lines);
+        }));
     }
 
-    private static async Task<Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerformance>>> ParseReturns(string csvFilename)
+    private static async Task<Dictionary<string, List<SyntheticReturn>>> GetMonthlyReturns(string csvFilename)
     {
-        var columnIndexToCategory = new Dictionary<int, IndexId>
+        var columnIndexToCategory = new Dictionary<int, string>
         {
-            [1] = IndexId.TotalStockMarket,
-            [3] = IndexId.LargeCapBlend,
-            [4] = IndexId.LargeCapValue,
-            [5] = IndexId.LargeCapGrowth,
-            [6] = IndexId.MidCapBlend,
-            [7] = IndexId.MidCapValue,
-            [8] = IndexId.MidCapGrowth,
-            [9] = IndexId.SmallCapBlend,
-            [10] = IndexId.SmallCapValue,
-            [11] = IndexId.SmallCapGrowth
+            [1] = "$TSM",
+            [3] = "$LCB",
+            [4] = "$LCV",
+            [5] = "$LCG",
+            [6] = "$MCB",
+            [7] = "$MCV",
+            [8] = "$MCG",
+            [9] = "$SCB",
+            [10] = "$SCV",
+            [11] = "$SCG"
         };
 
         const int headerLinesCount = 1;
         const int dateColumnIndex = 0;
 
-        var returns = new Dictionary<IndexId, SortedDictionary<DateOnly, IndexPeriodPerformance>>();
+        var returns = new Dictionary<string, List<SyntheticReturn>>();
         var fileLines = await File.ReadAllLinesAsync(csvFilename);
         var fileLinesSansHeader = fileLines.Skip(headerLinesCount);
 
@@ -92,12 +63,11 @@ public static class SyntheticReturnsController
                         value = returns[cellCategory] = [];
                     }
 
-                    value[date] = new IndexPeriodPerformance
+                    value.Add(new()
                     {
                         PeriodStartDate = date,
-                        IndexId = cellCategory,
                         PeriodReturnPercent = cellValue
-                    };
+                    });
                 }
             }
         }
