@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FundHistoryCache\FundHistoryCache.csproj" />
+    <ProjectReference Include="..\FundHistoryReturns\FundHistoryReturns.csproj" />
+    <ProjectReference Include="..\SyntheticUsEquityIndices\SyntheticUsEquityIndices.csproj" />
+  </ItemGroup>
+
 </Project>

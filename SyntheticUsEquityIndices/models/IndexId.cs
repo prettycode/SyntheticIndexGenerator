@@ -1,5 +1,5 @@
 ﻿
-enum IndexId
+public enum IndexId
 {
     TotalStockMarket,
     LargeCapBlend,

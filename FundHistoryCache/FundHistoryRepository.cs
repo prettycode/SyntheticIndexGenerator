@@ -12,12 +12,9 @@ public class FundHistoryRepository
 
     private readonly string cachePath;
 
-    public FundHistoryRepository(string cachePath = @"../../../data/")
+    public FundHistoryRepository(string cachePath)
     {
-        if (string.IsNullOrWhiteSpace(cachePath))
-        {
-            throw new ArgumentNullException(nameof(cachePath));
-        }
+        ArgumentNullException.ThrowIfNull(cachePath);
 
         if (!Directory.Exists(cachePath))
         {
