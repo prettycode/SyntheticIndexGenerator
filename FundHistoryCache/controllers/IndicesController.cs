@@ -1,53 +1,53 @@
 ﻿public static class IndicesController
 {
-    public static HashSet<MarketIndex> GetIndices() => [
+    public static HashSet<Index> GetIndices() => [
         // U.S.
 
-        new() { MarketRegion = MarketRegion.Us, MarketCap = MarketCap.Total, MarketFactor = MarketFactor.Blend, BackfillTickerSequence = ["$TSM", "VTSMX", "VTI"]  },
+        new() { Region = IndexRegion.Us, MarketCap = IndexMarketCap.Total, Style = IndexStyle.Blend, BackfillTickerSequence = ["$TSM", "VTSMX", "VTI"]  },
 
-        new() { MarketRegion = MarketRegion.Us, MarketCap = MarketCap.Large, MarketFactor = MarketFactor.Blend, BackfillTickerSequence = ["$LCB", "VFINX", "VOO"] },
-        new() { MarketRegion = MarketRegion.Us, MarketCap = MarketCap.Large, MarketFactor = MarketFactor.Value, BackfillTickerSequence = ["$LCV", "DFLVX", "AVLV"] },
-        new() { MarketRegion = MarketRegion.Us, MarketCap = MarketCap.Large, MarketFactor = MarketFactor.Growth, BackfillTickerSequence = ["$LCG", "VIGAX"] },
+        new() { Region = IndexRegion.Us, MarketCap = IndexMarketCap.Large, Style = IndexStyle.Blend, BackfillTickerSequence = ["$LCB", "VFINX", "VOO"] },
+        new() { Region = IndexRegion.Us, MarketCap = IndexMarketCap.Large, Style = IndexStyle.Value, BackfillTickerSequence = ["$LCV", "DFLVX", "AVLV"] },
+        new() { Region = IndexRegion.Us, MarketCap = IndexMarketCap.Large, Style = IndexStyle.Growth, BackfillTickerSequence = ["$LCG", "VIGAX"] },
 
-        new() { MarketRegion = MarketRegion.Us, MarketCap = MarketCap.Mid, MarketFactor = MarketFactor.Blend, BackfillTickerSequence = ["$MCB", /*"?"*/] },
-        new() { MarketRegion = MarketRegion.Us, MarketCap = MarketCap.Mid, MarketFactor = MarketFactor.Value, BackfillTickerSequence = ["$MCV", /*"?"*/] },
-        new() { MarketRegion = MarketRegion.Us, MarketCap = MarketCap.Mid, MarketFactor = MarketFactor.Growth, BackfillTickerSequence = ["$MCG", /*"?"*/] },
+        new() { Region = IndexRegion.Us, MarketCap = IndexMarketCap.Mid, Style = IndexStyle.Blend, BackfillTickerSequence = ["$MCB", /*"?"*/] },
+        new() { Region = IndexRegion.Us, MarketCap = IndexMarketCap.Mid, Style = IndexStyle.Value, BackfillTickerSequence = ["$MCV", /*"?"*/] },
+        new() { Region = IndexRegion.Us, MarketCap = IndexMarketCap.Mid, Style = IndexStyle.Growth, BackfillTickerSequence = ["$MCG", /*"?"*/] },
 
-        new() { MarketRegion = MarketRegion.Us, MarketCap = MarketCap.Small, MarketFactor = MarketFactor.Blend, BackfillTickerSequence = ["$SCB", "VSMAX"] },
-        new() { MarketRegion = MarketRegion.Us, MarketCap = MarketCap.Small, MarketFactor = MarketFactor.Value, BackfillTickerSequence = ["$SCV", "DFSVX", "AVUV"] },
-        new() { MarketRegion = MarketRegion.Us, MarketCap = MarketCap.Small, MarketFactor = MarketFactor.Growth, BackfillTickerSequence = ["$SCG", "VSGAX"] },
+        new() { Region = IndexRegion.Us, MarketCap = IndexMarketCap.Small, Style = IndexStyle.Blend, BackfillTickerSequence = ["$SCB", "VSMAX"] },
+        new() { Region = IndexRegion.Us, MarketCap = IndexMarketCap.Small, Style = IndexStyle.Value, BackfillTickerSequence = ["$SCV", "DFSVX", "AVUV"] },
+        new() { Region = IndexRegion.Us, MarketCap = IndexMarketCap.Small, Style = IndexStyle.Growth, BackfillTickerSequence = ["$SCG", "VSGAX"] },
 
         // Int'l
 
-        new() { MarketRegion = MarketRegion.InternationalDeveloped, MarketCap = MarketCap.Total, MarketFactor = MarketFactor.Blend, BackfillTickerSequence = ["DFALX", "AVDE"] },
+        new() { Region = IndexRegion.InternationalDeveloped, MarketCap = IndexMarketCap.Total, Style = IndexStyle.Blend, BackfillTickerSequence = ["DFALX", "AVDE"] },
 
-        new() { MarketRegion = MarketRegion.InternationalDeveloped, MarketCap = MarketCap.Large, MarketFactor = MarketFactor.Blend, BackfillTickerSequence = ["DFALX", "AVDE"] },
-        new() { MarketRegion = MarketRegion.InternationalDeveloped, MarketCap = MarketCap.Large, MarketFactor = MarketFactor.Value, BackfillTickerSequence = ["DFIVX", "AVIV"] },
-        new() { MarketRegion = MarketRegion.InternationalDeveloped, MarketCap = MarketCap.Large, MarketFactor = MarketFactor.Growth, BackfillTickerSequence = [/* ? */ "EFG"] },
+        new() { Region = IndexRegion.InternationalDeveloped, MarketCap = IndexMarketCap.Large, Style = IndexStyle.Blend, BackfillTickerSequence = ["DFALX", "AVDE"] },
+        new() { Region = IndexRegion.InternationalDeveloped, MarketCap = IndexMarketCap.Large, Style = IndexStyle.Value, BackfillTickerSequence = ["DFIVX", "AVIV"] },
+        new() { Region = IndexRegion.InternationalDeveloped, MarketCap = IndexMarketCap.Large, Style = IndexStyle.Growth, BackfillTickerSequence = [/* ? */ "EFG"] },
 
-        new() { MarketRegion = MarketRegion.InternationalDeveloped, MarketCap = MarketCap.Mid, MarketFactor = MarketFactor.Blend },
-        new() { MarketRegion = MarketRegion.InternationalDeveloped, MarketCap = MarketCap.Mid, MarketFactor = MarketFactor.Value },
-        new() { MarketRegion = MarketRegion.InternationalDeveloped, MarketCap = MarketCap.Mid, MarketFactor = MarketFactor.Growth },
+        new() { Region = IndexRegion.InternationalDeveloped, MarketCap = IndexMarketCap.Mid, Style = IndexStyle.Blend },
+        new() { Region = IndexRegion.InternationalDeveloped, MarketCap = IndexMarketCap.Mid, Style = IndexStyle.Value },
+        new() { Region = IndexRegion.InternationalDeveloped, MarketCap = IndexMarketCap.Mid, Style = IndexStyle.Growth },
 
-        new() { MarketRegion = MarketRegion.InternationalDeveloped, MarketCap = MarketCap.Small, MarketFactor = MarketFactor.Blend },
-        new() { MarketRegion = MarketRegion.InternationalDeveloped, MarketCap = MarketCap.Small, MarketFactor = MarketFactor.Value, BackfillTickerSequence =  ["DISVX", "AVDV"] },
-        new() { MarketRegion = MarketRegion.InternationalDeveloped, MarketCap = MarketCap.Small, MarketFactor = MarketFactor.Growth, BackfillTickerSequence = [/* ? */ "DISMX"]},
+        new() { Region = IndexRegion.InternationalDeveloped, MarketCap = IndexMarketCap.Small, Style = IndexStyle.Blend },
+        new() { Region = IndexRegion.InternationalDeveloped, MarketCap = IndexMarketCap.Small, Style = IndexStyle.Value, BackfillTickerSequence =  ["DISVX", "AVDV"] },
+        new() { Region = IndexRegion.InternationalDeveloped, MarketCap = IndexMarketCap.Small, Style = IndexStyle.Growth, BackfillTickerSequence = [/* ? */ "DISMX"]},
 
         // EM
 
-        new() { MarketRegion = MarketRegion.Emerging, MarketCap = MarketCap.Total, MarketFactor = MarketFactor.Blend, BackfillTickerSequence = ["VEIEX", "AVEM"] },
+        new() { Region = IndexRegion.Emerging, MarketCap = IndexMarketCap.Total, Style = IndexStyle.Blend, BackfillTickerSequence = ["VEIEX", "AVEM"] },
 
-        new() { MarketRegion = MarketRegion.Emerging, MarketCap = MarketCap.Large, MarketFactor = MarketFactor.Blend, BackfillTickerSequence = ["VEIEX", "AVEM"] },
-        new() { MarketRegion = MarketRegion.Emerging, MarketCap = MarketCap.Large, MarketFactor = MarketFactor.Value, BackfillTickerSequence = ["DFEVX", "AVES"] },
-        new() { MarketRegion = MarketRegion.Emerging, MarketCap = MarketCap.Large, MarketFactor = MarketFactor.Growth, BackfillTickerSequence = [/* ? */ "XSOE"]  },
+        new() { Region = IndexRegion.Emerging, MarketCap = IndexMarketCap.Large, Style = IndexStyle.Blend, BackfillTickerSequence = ["VEIEX", "AVEM"] },
+        new() { Region = IndexRegion.Emerging, MarketCap = IndexMarketCap.Large, Style = IndexStyle.Value, BackfillTickerSequence = ["DFEVX", "AVES"] },
+        new() { Region = IndexRegion.Emerging, MarketCap = IndexMarketCap.Large, Style = IndexStyle.Growth, BackfillTickerSequence = [/* ? */ "XSOE"]  },
 
-        new() { MarketRegion = MarketRegion.Emerging, MarketCap = MarketCap.Mid, MarketFactor = MarketFactor.Blend },
-        new() { MarketRegion = MarketRegion.Emerging, MarketCap = MarketCap.Mid, MarketFactor = MarketFactor.Value },
-        new() { MarketRegion = MarketRegion.Emerging, MarketCap = MarketCap.Mid, MarketFactor = MarketFactor.Growth },
+        new() { Region = IndexRegion.Emerging, MarketCap = IndexMarketCap.Mid, Style = IndexStyle.Blend },
+        new() { Region = IndexRegion.Emerging, MarketCap = IndexMarketCap.Mid, Style = IndexStyle.Value },
+        new() { Region = IndexRegion.Emerging, MarketCap = IndexMarketCap.Mid, Style = IndexStyle.Growth },
 
-        new() { MarketRegion = MarketRegion.Emerging, MarketCap = MarketCap.Small, MarketFactor = MarketFactor.Blend, BackfillTickerSequence = ["DEMSX", "AVEE"] },
-        new() { MarketRegion = MarketRegion.Emerging, MarketCap = MarketCap.Small, MarketFactor = MarketFactor.Value, BackfillTickerSequence = ["DGS"] },
-        new() { MarketRegion = MarketRegion.Emerging, MarketCap = MarketCap.Small, MarketFactor = MarketFactor.Growth }
+        new() { Region = IndexRegion.Emerging, MarketCap = IndexMarketCap.Small, Style = IndexStyle.Blend, BackfillTickerSequence = ["DEMSX", "AVEE"] },
+        new() { Region = IndexRegion.Emerging, MarketCap = IndexMarketCap.Small, Style = IndexStyle.Value, BackfillTickerSequence = ["DGS"] },
+        new() { Region = IndexRegion.Emerging, MarketCap = IndexMarketCap.Small, Style = IndexStyle.Growth }
     ];
 
     public static HashSet<string> GetBackfillTickers(bool filterSynthetic = true)

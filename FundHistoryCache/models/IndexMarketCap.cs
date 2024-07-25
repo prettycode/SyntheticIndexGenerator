@@ -1,4 +1,4 @@
-﻿public enum MarketCap
+﻿public enum IndexMarketCap
 {
     Total,
     Large,

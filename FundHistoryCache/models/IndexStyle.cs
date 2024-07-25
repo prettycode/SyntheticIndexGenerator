@@ -1,4 +1,4 @@
-﻿public enum MarketFactor
+﻿public enum IndexStyle
 {
     Blend,
     Value,

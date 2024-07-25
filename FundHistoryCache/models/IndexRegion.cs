@@ -1,4 +1,4 @@
-﻿public enum MarketRegion
+﻿public enum IndexRegion
 {
     Us,
     InternationalDeveloped,
