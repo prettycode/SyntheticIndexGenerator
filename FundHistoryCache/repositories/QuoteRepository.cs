@@ -24,7 +24,7 @@ public class QuoteRepository
         this.CachePath = cachePath;
     }
 
-    public IEnumerable<string> GetCacheKeys()
+    public IEnumerable<string> GetAllTickers()
     {
         var cacheFilePath = this.GetCacheFilePath("*", CacheType.Price);
         var dirNameOnly = Path.GetDirectoryName(cacheFilePath);

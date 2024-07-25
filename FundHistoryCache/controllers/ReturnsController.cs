@@ -1,47 +1,33 @@
-﻿public static class ReturnsController
+﻿using System.Collections.Generic;
+using YahooFinanceApi;
+
+public static class ReturnsController
 {
-    private enum TimePeriod
+    public enum TimePeriod
     {
         Daily,
-        Weekly,
         Monthly,
         Yearly
     }
 
-    public static Task RefreshReturns(QuoteRepository cache, string syntheticReturnsPath, string savePath)
+    public static Task RefreshReturns(QuoteRepository quotesCache, ReturnsRepository returnsCache)
     {
-        var tickers = cache.GetCacheKeys();
+        var tickers = quotesCache.GetAllTickers();
 
         return Task.WhenAll([
-            SyntheticReturnsController.RefreshSyntheticReturns(syntheticReturnsPath, Path.Combine(savePath, "./monthly/")),
+            SyntheticReturnsController.RefreshSyntheticReturns(returnsCache),
             .. tickers.Select(async ticker =>
             {
-                var history = await cache.Get(ticker);
+                var history = await quotesCache.Get(ticker);
                 var priceHistory = history!.Prices.ToList();
 
                 await Task.WhenAll(
-                    ReturnsController.SaveReturns(ticker, priceHistory, TimePeriod.Daily, savePath),
-                    ReturnsController.SaveReturns(ticker, priceHistory, TimePeriod.Monthly, savePath),
-                    ReturnsController.SaveReturns(ticker, priceHistory, TimePeriod.Yearly, savePath)
+                    returnsCache.Put(ticker, ReturnsController.GetDailyReturns(priceHistory), TimePeriod.Daily),
+                    returnsCache.Put(ticker, ReturnsController.GetMonthReturns(priceHistory), TimePeriod.Monthly),
+                    returnsCache.Put(ticker, ReturnsController.GetYearlyReturns(priceHistory), TimePeriod.Yearly)
                 );
             })
         ]);
-    }
-
-    private static async Task SaveReturns(string ticker, List<QuotePriceRecord> history, TimePeriod period, string savePath)
-    {
-        List<KeyValuePair<DateTime, decimal>> returns = period switch
-        {
-            TimePeriod.Daily => ReturnsController.GetDailyReturns(history),
-            TimePeriod.Monthly => ReturnsController.GetMonthReturns(history),
-            TimePeriod.Yearly => ReturnsController.GetYearlyReturns(history),
-            _ => throw new NotImplementedException()
-        };
-
-        string csvFilePath = Path.Combine(savePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
-        var csvFileLines = returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value}");
-
-        await File.WriteAllLinesAsync(csvFilePath, csvFileLines);
     }
 
     private static List<KeyValuePair<DateTime, decimal>> GetDailyReturns(List<QuotePriceRecord> dailyPrices)
