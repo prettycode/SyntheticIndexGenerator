@@ -7,7 +7,7 @@ var fundHistoryReturnsSavePath = Path.Combine(rootPath, "./FundHistoryReturns/da
 var fundRepository = new FundHistoryQuoteRepository(fundRepositorySourcePath);
 
 await Task.WhenAll(
-    SyntheticUsEquityIndicesController.SaveParsedReturnsToReturnsHistory(syntheticUsSourcePath, syntheticUsSavePath),
+    FundHistorySyntheticReturnsController.RefreshFundHistorySyntheticReturns(syntheticUsSourcePath, syntheticUsSavePath),
     FundHistoryQuotesController.RefreshFundHistoryQuotes(fundRepository, GetFundTickers())
 );
 

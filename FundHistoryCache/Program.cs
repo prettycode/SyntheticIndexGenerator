@@ -1,5 +1,7 @@
 ﻿var fundRepository = new FundHistoryQuoteRepository("../../../data/quotes/");
 
+
+await FundHistorySyntheticReturnsController.RefreshFundHistorySyntheticReturns("../../../source/Stock-Index-Data-20220923-Monthly.csv", "../../../data/returns/monthly/");
 await FundHistoryQuotesController.RefreshFundHistoryQuotes(fundRepository, GetFundTickers());
 await FundHistoryReturnsController.RefreshFundHistoryReturns(fundRepository, "../../../data/returns/");
 

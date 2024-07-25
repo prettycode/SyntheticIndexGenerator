@@ -6,7 +6,7 @@
 
     public SortedSet<string> History { get; set; }
 
-    public string Ticker
+    public readonly string Ticker
     {
         get
         {

@@ -1,6 +1,6 @@
-﻿public readonly record struct IndexPeriodPerformance
+﻿private struct IndexPeriodPerformance
 {
-    public required IndexId IndexId { get; init; }
-    public required DateOnly PeriodStartDate { get; init; }
-    public required decimal PeriodReturnPercent { get; init; }
+    public required IndexId IndexId { get; set; }
+    public required DateOnly PeriodStartDate { get; set; }
+    public required decimal PeriodReturnPercent { get; set; }
 }

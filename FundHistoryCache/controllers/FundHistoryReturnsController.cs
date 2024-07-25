@@ -1,6 +1,6 @@
 ﻿public static class FundHistoryReturnsController
 {
-    public enum TimePeriod
+    private enum TimePeriod
     {
         Daily,
         Weekly,
