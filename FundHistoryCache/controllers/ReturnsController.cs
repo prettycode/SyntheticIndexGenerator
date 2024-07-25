@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using YahooFinanceApi;
-
-public static class ReturnsController
+﻿public static class ReturnsController
 {
     public enum TimePeriod
     {
