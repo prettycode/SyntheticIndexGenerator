@@ -1,4 +1,6 @@
-﻿var fundRepository = new FundHistoryRepository("../../../../FundHistoryCache/data/");
+﻿throw new NotImplementedException();
+
+var fundRepository = new FundHistoryRepository("../../../../FundHistoryCache/data/");
 
 await Task.WhenAll(
     SyntheticUsEquityIndicesController.SaveParsedReturnsToReturnsHistory(
