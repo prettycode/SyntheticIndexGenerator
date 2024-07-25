@@ -5,17 +5,19 @@
         ArgumentNullException.ThrowIfNull(quotesCache);
         ArgumentNullException.ThrowIfNull(returnsCache);
 
-        var tickers = quotesCache.GetAllTickers();
-        var refreshSyntheticReturns = async () => {
+        async Task<Task> refreshSyntheticReturns()
+        {
             var indexReturnsByTicker = await returnsCache.GetSyntheticMonthlyReturns();
             var putReturnsTasks = indexReturnsByTicker.Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
 
             return Task.WhenAll(putReturnsTasks);
-        };
+        }
 
-        return Task.WhenAll([
-            refreshSyntheticReturns(),
-            .. tickers.Select(async ticker =>
+        IEnumerable<Task> refreshQuoteReturns()
+        {
+            var tickers = quotesCache.GetAllTickers();
+
+            return tickers.Select(async ticker =>
             {
                 var history = await quotesCache.Get(ticker);
                 var priceHistory = history!.Prices.ToList();
@@ -25,7 +27,12 @@
                     returnsCache.Put(ticker, ReturnsController.GetMonthReturns(priceHistory), ReturnPeriod.Monthly),
                     returnsCache.Put(ticker, ReturnsController.GetYearlyReturns(priceHistory), ReturnPeriod.Yearly)
                 );
-            })
+            });
+        }
+
+        return Task.WhenAll([
+            refreshSyntheticReturns(),
+            .. refreshQuoteReturns()
         ]);
     }
 
