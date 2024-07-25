@@ -86,9 +86,9 @@ public class FundHistoryRepository
 
     private string GetCacheFilePath(string ticker, CacheType cacheType) => cacheType switch
     {
-        CacheType.Dividend => Path.Combine(this.CachePath, $"dividend/{ticker}.txt"),
-        CacheType.Price => Path.Combine(this.CachePath, $"price/{ticker}.txt"),
-        CacheType.Split => Path.Combine(this.CachePath, $"split/{ticker}.txt"),
+        CacheType.Dividend => Path.Combine(this.CachePath, $"./quotes/dividend/{ticker}.txt"),
+        CacheType.Price => Path.Combine(this.CachePath, $"./quotes/price/{ticker}.txt"),
+        CacheType.Split => Path.Combine(this.CachePath, $"./quotes/split/{ticker}.txt"),
         _ => throw new NotImplementedException(),
     };
 
