@@ -1,1 +1,1 @@
-﻿await FundHistoryCacheController.RefreshFundHistoryCache(new FundHistoryRepository(@"../../../data/"));
+﻿await FundHistoryCacheController.RefreshFundHistoryCache(new FundHistoryRepository("../../../data/"), ["AVUV"]);

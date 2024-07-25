@@ -13,16 +13,16 @@ public static class SyntheticUsEquityIndicesController
     {
         var indexToTicker = new Dictionary<IndexId, string>
         {
-            [IndexId.TotalStockMarket] = "^USTSM",
-            [IndexId.LargeCapBlend] = "^USLCB",
-            [IndexId.LargeCapValue] = "^USLCV",
-            [IndexId.LargeCapGrowth] = "^USLCG",
-            [IndexId.MidCapBlend] = "^USMCB",
-            [IndexId.MidCapValue] = "^USMCV",
-            [IndexId.MidCapGrowth] = "^USMCG",
-            [IndexId.SmallCapBlend] = "^USSCB",
-            [IndexId.SmallCapValue] = "^USSCV",
-            [IndexId.SmallCapGrowth] = "^USSCG"
+            [IndexId.TotalStockMarket] = "$TSM",
+            [IndexId.LargeCapBlend] = "$LCB",
+            [IndexId.LargeCapValue] = "$LCV",
+            [IndexId.LargeCapGrowth] = "$LCG",
+            [IndexId.MidCapBlend] = "$MCB",
+            [IndexId.MidCapValue] = "$MCV",
+            [IndexId.MidCapGrowth] = "$MCG",
+            [IndexId.SmallCapBlend] = "$SCB",
+            [IndexId.SmallCapValue] = "$SCV",
+            [IndexId.SmallCapGrowth] = "$SCG"
         };
 
         foreach (var (index, returns) in multiIndexReturns)

@@ -1,31 +1,8 @@
 ﻿public static class FundHistoryCacheController
 {
-    private static HashSet<string> GetFundTickers() => new HashSet<SortedSet<string>>([
-        ["VTSMX", "VTI"],       // US TSM
-        ["VFINX", "VOO"],       // US LCB
-        ["DFLVX", "AVLV"],      // US LCV
-        ["VIGAX"],              // US LCG
-        [/* ? */ "VSMAX"],      // US SCB
-        ["DFSVX", "AVUV"],      // US SCV
-        ["VSGAX"],              // US SCG
-        ["DFALX", "AVDE"],      // Int'l TSM/LCB
-        ["DFIVX", "AVIV"],      // Int'l LCV
-        [/* ? */ "EFG"],        // Int'l LCG
-        //["?"],                // Int'l SCB
-        ["DISVX", "AVDV"],      // Int'l SCV
-        [/* ? */ "DISMX"],      // Int'l SCG
-        ["VEIEX", "AVEM"],      // EM TSM/LCB
-        ["DFEVX", "AVES"],      // EM LCV
-        [/* ? */ "XSOE"],       // EM LCG
-        ["DEMSX", "AVEE"],      // EM SCB
-        ["DGS"],                // EM SCV
-        //["?"]                 // EM SCG
-    ])
-        .SelectMany(set => set).ToHashSet<string>();
-
-    public static async Task RefreshFundHistoryCache(FundHistoryRepository cache)
+    public static async Task RefreshFundHistoryCache(FundHistoryRepository cache, HashSet<string> tickers)
     {
-        foreach (var ticker in GetFundTickers())
+        foreach (var ticker in tickers)
         {
             Console.WriteLine();
 
