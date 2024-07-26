@@ -39,8 +39,7 @@ public class ReturnsRepository
         }
 
         var csvLines = await File.ReadAllLinesAsync(csvFilePath);
-        var csvLinesSplit = csvLines.Select(line => line.Split(','));
-        var allReturns = csvLinesSplit.Select(cells => new PeriodReturn(DateTime.Parse(cells[0]), decimal.Parse(cells[1])));
+        var allReturns = csvLines.Select(line => PeriodReturn.ParseCsvLine(line));
 
         return allReturns.Where(pair => pair.PeriodStart >= start && pair.PeriodStart <= end).ToList();
     }
@@ -82,7 +81,7 @@ public class ReturnsRepository
             Directory.CreateDirectory(csvDirPath!);
         }
 
-        var csvFileLines = returns.Select(r => $"{r.PeriodStart:yyyy-MM-dd},{r.ReturnPercentage}");
+        var csvFileLines = returns.Select(r => r.ToCsvLine());
 
         return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
     }
@@ -115,16 +114,16 @@ public class ReturnsRepository
             var cells = line.Split(',');
             var date = DateTime.Parse(cells[dateColumnIndex]);
 
-            foreach (var (currentCell, cellCategory) in columnIndexToCategory)
+            foreach (var (currentCell, ticker) in columnIndexToCategory)
             {
                 if (decimal.TryParse(cells[currentCell], NumberStyles.Any, CultureInfo.InvariantCulture, out var cellValue))
                 {
-                    if (!returns.TryGetValue(cellCategory, out var value))
+                    if (!returns.TryGetValue(ticker, out var value))
                     {
-                        value = returns[cellCategory] = [];
+                        value = returns[ticker] = [];
                     }
 
-                    value.Add(new PeriodReturn(date, decimal.Parse($"{cellValue:G29}")));
+                    value.Add(new PeriodReturn(date, decimal.Parse($"{cellValue:G29}"), ticker, ReturnPeriod.Monthly));
                 }
             }
         }

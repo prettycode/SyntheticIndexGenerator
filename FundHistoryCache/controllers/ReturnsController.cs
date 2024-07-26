@@ -23,9 +23,9 @@
                 var priceHistory = history!.Prices.ToList();
 
                 await Task.WhenAll(
-                    returnsCache.Put(ticker, ReturnsController.GetDailyReturns(priceHistory), ReturnPeriod.Daily),
-                    returnsCache.Put(ticker, ReturnsController.GetMonthReturns(priceHistory), ReturnPeriod.Monthly),
-                    returnsCache.Put(ticker, ReturnsController.GetYearlyReturns(priceHistory), ReturnPeriod.Yearly)
+                    returnsCache.Put(ticker, ReturnsController.GetDailyReturns(ticker, priceHistory), ReturnPeriod.Daily),
+                    returnsCache.Put(ticker, ReturnsController.GetMonthlyReturns(ticker, priceHistory), ReturnPeriod.Monthly),
+                    returnsCache.Put(ticker, ReturnsController.GetYearlyReturns(ticker, priceHistory), ReturnPeriod.Yearly)
                 );
             });
         }
@@ -36,12 +36,12 @@
         ]);
     }
 
-    private static List<PeriodReturn> GetDailyReturns(List<QuotePriceRecord> dailyPrices)
+    private static List<PeriodReturn> GetDailyReturns(string ticker, List<QuotePriceRecord> dailyPrices)
     {
-        return ReturnsController.GetReturns(dailyPrices);
+        return ReturnsController.GetReturns(dailyPrices, ticker, ReturnPeriod.Daily);
     }
 
-    private static List<PeriodReturn> GetMonthReturns(List<QuotePriceRecord> dailyPrices)
+    private static List<PeriodReturn> GetMonthlyReturns(string ticker, List<QuotePriceRecord> dailyPrices)
     {
         var monthlyCloses = dailyPrices
             .GroupBy(r => new { r.DateTime.Year, r.DateTime.Month })
@@ -49,14 +49,14 @@
             .OrderBy(r => r.DateTime)
             .ToList();
 
-        var monthlyReturns = ReturnsController.GetReturns(monthlyCloses);
+        var monthlyReturns = ReturnsController.GetReturns(monthlyCloses, ticker, ReturnPeriod.Monthly);
 
         return monthlyReturns
-            .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, r.PeriodStart.Month, 1), r.ReturnPercentage))
+            .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, r.PeriodStart.Month, 1), r.ReturnPercentage, r.SourceTicker, r.ReturnPeriod))
             .ToList();
     }
 
-    private static List<PeriodReturn> GetYearlyReturns(List<QuotePriceRecord> dailyPrices)
+    private static List<PeriodReturn> GetYearlyReturns(string ticker, List<QuotePriceRecord> dailyPrices)
     {
         var yearlyCloses = dailyPrices
             .GroupBy(r => r.DateTime.Year)
@@ -64,14 +64,14 @@
             .OrderBy(r => r.DateTime)
             .ToList();
 
-        var yearlyReturns = ReturnsController.GetReturns(yearlyCloses);
+        var yearlyReturns = ReturnsController.GetReturns(yearlyCloses, ticker, ReturnPeriod.Yearly);
 
         return yearlyReturns
-            .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, 1, 1), r.ReturnPercentage))
+            .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, 1, 1), r.ReturnPercentage, r.SourceTicker, r.ReturnPeriod))
             .ToList();
     }
 
-    private static List<PeriodReturn> GetReturns(List<QuotePriceRecord> prices, bool skipFirst = true)
+    private static List<PeriodReturn> GetReturns(List<QuotePriceRecord> prices, string ticker, ReturnPeriod returnPeriod, bool skipFirst = true)
     {
         static decimal calcChange(decimal x, decimal y) => (y - x) / x * 100m;
         static decimal endingPrice(QuotePriceRecord record) => record.AdjustedClose;
@@ -79,7 +79,7 @@
         List<PeriodReturn> returns = skipFirst
             ? []
             : [
-                new(prices[0].DateTime, calcChange(prices[0].Open, endingPrice(prices[0])))
+                new(prices[0].DateTime, calcChange(prices[0].Open, endingPrice(prices[0])), ticker, returnPeriod)
             ];
 
         for (int i = 1; i < prices.Count; i++)
@@ -95,7 +95,7 @@
             var currentEndPrice = endingPrice(prices[i]);
             var currentStartPrice = endingPrice(prices[i - 1]);
 
-            returns.Add(new(currentDate, calcChange(currentStartPrice, currentEndPrice)));
+            returns.Add(new(currentDate, calcChange(currentStartPrice, currentEndPrice), ticker, returnPeriod));
         }
 
         return returns;
