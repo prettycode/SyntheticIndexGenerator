@@ -9,6 +9,7 @@ public class ReturnsRepository
     public ReturnsRepository(string cachePath, string syntheticReturnsFilePath)
     {
         ArgumentNullException.ThrowIfNull(cachePath);
+        ArgumentNullException.ThrowIfNull(syntheticReturnsFilePath);
 
         if (!Directory.Exists(cachePath))
         {
@@ -21,6 +22,9 @@ public class ReturnsRepository
 
     public bool Has(string ticker, ReturnPeriod period, out string cacheFilePath)
     {
+        ArgumentNullException.ThrowIfNull(ticker);
+        ArgumentNullException.ThrowIfNull(period);
+
         cacheFilePath = this.GetCsvFilePath(ticker, period);
 
         return File.Exists(cacheFilePath);
@@ -35,8 +39,8 @@ public class ReturnsRepository
     {
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(period);
-        ArgumentNullException.ThrowIfNull(period);
-        ArgumentNullException.ThrowIfNull(period);
+        ArgumentNullException.ThrowIfNull(start);
+        ArgumentNullException.ThrowIfNull(end);
 
         if (!this.Has(ticker, period, out string csvFilePath))
         {
@@ -51,6 +55,8 @@ public class ReturnsRepository
 
     public Task<List<PeriodReturn>?> GetMostGranular(string ticker, out ReturnPeriod period)
     {
+        ArgumentNullException.ThrowIfNull(ticker);
+
         ReturnPeriod[] periodsToCheck =
         [
             ReturnPeriod.Daily,

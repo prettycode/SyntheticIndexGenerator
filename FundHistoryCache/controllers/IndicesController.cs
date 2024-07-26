@@ -1,4 +1,6 @@
-﻿public static class IndicesController
+﻿using YahooFinanceApi;
+
+public static class IndicesController
 {
     public static HashSet<Index> GetIndices() => [
         // U.S.
@@ -61,6 +63,8 @@
 
     public static Task RefreshIndices(ReturnsRepository returnsCache)
     {
+        ArgumentNullException.ThrowIfNull(returnsCache);
+
         async Task refreshIndex(string indexTicker, List<string> backfillTickers)
         {
             var (granularity, returns) = await IndicesController.CollateMostGranularReturns(returnsCache, backfillTickers);
