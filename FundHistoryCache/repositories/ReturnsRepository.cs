@@ -147,21 +147,19 @@ public class ReturnsRepository
 
     public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticYearlyReturns()
     {
-        var monthlyReturns = await this.GetSyntheticMonthlyReturns();
-        var returnsByYear = monthlyReturns.ToDictionary(pair => pair.Key, pair => {
+        static List<PeriodReturn> calcYearlyFromMonthly(string ticker, List<PeriodReturn> monthlyReturns)
+        {
             var result = new List<PeriodReturn>();
 
-            var ticker = pair.Key;
-            var monthlyReturns = pair.Value;
-            var yearStarts = pair.Value
+            var yearStarts = monthlyReturns
                 .GroupBy(r => r.PeriodStart.Year)
                 .Select(g => g.OrderBy(r => r.PeriodStart).First())
                 .OrderBy(r => r.PeriodStart)
-                .ToList();
+                .ToArray();
 
-            var i = yearStarts.First().PeriodStart.Month == 1 ? 0 : 1;
+            var i = yearStarts[0].PeriodStart.Month == 1 ? 0 : 1;
 
-            for (; i < yearStarts.Count; i++)
+            for (; i < yearStarts.Length; i++)
             {
                 var currentYear = yearStarts[i].PeriodStart.Year;
                 var currentYearMonthlyReturns = monthlyReturns.Where(r => r.PeriodStart.Year == currentYear);
@@ -178,9 +176,12 @@ public class ReturnsRepository
             }
 
             return result;
-        });
+        }
 
-        return returnsByYear;
+        var monthlyReturns = await this.GetSyntheticMonthlyReturns();
+        var yearlyReturns = monthlyReturns.ToDictionary(pair => pair.Key, pair => calcYearlyFromMonthly(pair.Key, pair.Value));
+
+        return yearlyReturns;
     }
 
     private string GetCsvFilePath(string ticker, ReturnPeriod period)
