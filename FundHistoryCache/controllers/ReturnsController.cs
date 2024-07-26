@@ -7,10 +7,16 @@
 
         async Task<Task> refreshSyntheticReturns()
         {
-            var indexReturnsByTicker = await returnsCache.GetSyntheticMonthlyReturns();
-            var putReturnsTasks = indexReturnsByTicker.Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
+            var synMonthlyReturnsByTicker = await returnsCache.GetSyntheticMonthlyReturns();
+            var synMonthlyReturnsPutTasks = synMonthlyReturnsByTicker.Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
 
-            return Task.WhenAll(putReturnsTasks);
+            var synYearlyReturnsByTicker = synMonthlyReturnsByTicker.ToDictionary(pair => pair.Key, pair => ReturnsController.GetYearlySyntheticReturns(pair.Key, pair.Value));
+            var synYearlyReturnsPutTasks = synYearlyReturnsByTicker.Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Yearly));
+
+            return Task.WhenAll([
+                .. synMonthlyReturnsPutTasks,
+                .. synYearlyReturnsPutTasks
+            ]);
         }
 
         IEnumerable<Task> refreshQuoteReturns()
@@ -69,6 +75,12 @@
         return yearlyReturns
             .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, 1, 1), r.ReturnPercentage, r.SourceTicker, r.ReturnPeriod))
             .ToList();
+    }
+
+    private static List<PeriodReturn> GetYearlySyntheticReturns(string ticker, List<PeriodReturn> monthlyReturns)
+    {
+        // TODO Compute yearly returns from monthly returns
+        return new List<PeriodReturn>();
     }
 
     private static List<PeriodReturn> GetReturns(List<QuotePriceRecord> prices, string ticker, ReturnPeriod returnPeriod, bool skipFirst = true)
