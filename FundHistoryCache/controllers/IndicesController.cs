@@ -65,30 +65,28 @@ public static class IndicesController
     {
         ArgumentNullException.ThrowIfNull(returnsCache);
 
-        async Task refreshIndex(string indexTicker, List<string> backfillTickers)
-        {
-            var returns = await IndicesController.CollateReturns(returnsCache, backfillTickers, ReturnPeriod.Monthly);
-            await returnsCache.Put(indexTicker, returns, ReturnPeriod.Monthly);
-        }
-
-        var backfillTickersByIndexTicker = IndicesController
+        var refreshTasks = IndicesController
             .GetIndices()
             .Where(index => index.OrderedBackfillTickerSequence != null)
-            .ToDictionary(index => index.Ticker, index => index.OrderedBackfillTickerSequence);
+            .Select(index => IndicesController.RefreshIndex(returnsCache, index));
 
-        return Task.WhenAll(backfillTickersByIndexTicker.Select(pair => refreshIndex(pair.Key, pair.Value)));
+        return Task.WhenAll(refreshTasks);
     }
 
     private static async Task RefreshIndex(ReturnsRepository returnsCache, Index index)
     {
-        var periods = Enum.GetValues<ReturnPeriod>();
-
-        foreach (var period in periods)
+        async Task refreshIndex(string indexTicker, List<string> backfillTickers, ReturnPeriod period)
         {
-            var returns = await IndicesController.CollateReturns(returnsCache, index.OrderedBackfillTickerSequence, period);
-
-            await returnsCache.Put(index.Ticker, returns, period);
+            var returns = await IndicesController.CollateReturns(returnsCache, backfillTickers, period);
+            await returnsCache.Put(indexTicker, returns, period);
         }
+
+        var periods = Enum.GetValues<ReturnPeriod>();
+        var ticker = index.Ticker;
+        var backfillTickers = index.OrderedBackfillTickerSequence;
+        var tasks = periods.Select(period => refreshIndex(ticker, backfillTickers, period));
+
+        await Task.WhenAll(tasks);
     }
 
     private async static Task<List<PeriodReturn>> CollateReturns(ReturnsRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
@@ -98,7 +96,7 @@ public static class IndicesController
         var availableBackfillTickers = backfillTickers.Where(ticker => returnsCache.Has(ticker, period)).ToList();
         var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => returnsCache.Get(ticker, period)));
 
-        for (var i = 0; i < backfillTickers.Count; i++)
+        for (var i = 0; i < backfillReturns.Length; i++)
         {
             var currentTickerReturns = backfillReturns[i]!;
             int nextTickerIndex = i + 1;
@@ -106,7 +104,7 @@ public static class IndicesController
             List<PeriodReturn> nextTickerReturns;
             DateTime startDateOfNextTicker = DateTime.MaxValue;
 
-            if (nextTickerIndex <= backfillTickers.Count - 1)
+            if (nextTickerIndex <= backfillReturns.Length - 1)
             {
                 nextTicker = backfillTickers.ElementAt(nextTickerIndex);
                 nextTickerReturns = backfillReturns[nextTickerIndex]!;
@@ -117,41 +115,6 @@ public static class IndicesController
         }
 
         return result;
-    }
-
-    [Obsolete("Being refactored out. Prefer `CollageReturns` and provide a period instead.")]
-    private async static Task<(ReturnPeriod granularity, List<PeriodReturn> returns)> CollateMostGranularReturns(ReturnsRepository returnsCache, List<string> backfillTickers)
-    {
-        var result = new List<PeriodReturn>();
-        var firstBackfillTicker = backfillTickers.First();
-        var firstBackfillReturns = await returnsCache.GetMostGranular(firstBackfillTicker, out ReturnPeriod backfillGranularity);
-        var remainingBackfillReturns = await Task.WhenAll(backfillTickers.Skip(1).Select(ticker => returnsCache.Get(ticker, backfillGranularity)));
-        var backfillReturns = new[] { firstBackfillReturns }.Concat(remainingBackfillReturns).ToList();
-
-        if (backfillReturns.Any(r => r == null))
-        {
-            throw new InvalidOperationException();
-        }
-
-        for (var i = 0; i < backfillTickers.Count; i++)
-        {
-            var currentTickerReturns = backfillReturns[i]!;
-            int nextTickerIndex = i + 1;
-            string nextTicker;
-            List<PeriodReturn> nextTickerReturns;
-            DateTime startDateOfNextTicker = DateTime.MaxValue;
-
-            if (nextTickerIndex <= backfillTickers.Count - 1)
-            {
-                nextTicker = backfillTickers.ElementAt(nextTickerIndex);
-                nextTickerReturns = backfillReturns[nextTickerIndex]!;
-                startDateOfNextTicker = nextTickerReturns.First().PeriodStart;
-            }
-
-            result.AddRange(currentTickerReturns.TakeWhile(pair => pair.PeriodStart < startDateOfNextTicker));
-        }
-
-        return (backfillGranularity, result);
     }
 
     private async static Task<List<PeriodReturn>> CollateCompositeReturns(ReturnsRepository returnsCache, List<string> backfillTickers)

@@ -82,6 +82,11 @@ public class ReturnsRepository
         ArgumentNullException.ThrowIfNull(returns);
         ArgumentNullException.ThrowIfNull(period);
 
+        if (returns.Count == 0)
+        {
+            return Task.FromResult(Task.CompletedTask);
+        }
+
         var csvFilePath = this.GetCsvFilePath(ticker, period);
         var csvDirPath = Path.GetDirectoryName(csvFilePath);
 
