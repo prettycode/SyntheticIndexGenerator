@@ -19,6 +19,13 @@ public class ReturnsRepository
         this.syntheticReturnsFilePath = syntheticReturnsFilePath;
     }
 
+    public bool Has(string ticker, ReturnPeriod period, out string cacheFilePath)
+    {
+        cacheFilePath = this.GetCsvFilePath(ticker, period);
+
+        return File.Exists(cacheFilePath);
+    }
+
     public Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period)
     {
         return this.Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
@@ -31,9 +38,7 @@ public class ReturnsRepository
         ArgumentNullException.ThrowIfNull(period);
         ArgumentNullException.ThrowIfNull(period);
 
-        var csvFilePath = this.GetCsvFilePath(ticker, period);
-
-        if (!File.Exists(csvFilePath))
+        if (!this.Has(ticker, period, out string csvFilePath))
         {
             return null;
         }
@@ -55,9 +60,7 @@ public class ReturnsRepository
 
         foreach (var checkPeriod in periodsToCheck)
         {
-            var csvFilePath = this.GetCsvFilePath(ticker, checkPeriod);
-
-            if (File.Exists(csvFilePath))
+            if (this.Has(ticker, checkPeriod, out string csvFilePath))
             {
                 period = checkPeriod;
                 return this.Get(ticker, checkPeriod);
