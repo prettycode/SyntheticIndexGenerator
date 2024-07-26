@@ -59,11 +59,29 @@
             return indices.ToHashSet();
         }
 
-        return indices.Where(ticker => !ticker.StartsWith("$")).ToHashSet();
+        return indices.Where(ticker => !ticker.StartsWith('$')).ToHashSet();
     }
 
-    public static async Task RefreshIndices(string returnsPath)
+    public static Task RefreshIndices(ReturnsRepository returnsCache)
     {
-        ArgumentNullException.ThrowIfNull(returnsPath);
+        async Task<Task> refreshIndex(string indexTicker, SortedSet<string> backfillTickers)
+        {
+            var compiledReturns = await IndicesController.CompileReturns(returnsCache, backfillTickers);
+            return returnsCache.Put(indexTicker, compiledReturns, ReturnPeriod.Composite);
+        }
+
+        var backfillTickersByIndexTicker = IndicesController
+            .GetIndices()
+            .Where(index => index.BackfillTickerSequence != null)
+            .ToDictionary(index => index.Ticker, index => index.BackfillTickerSequence);
+
+        return Task.WhenAll(backfillTickersByIndexTicker.Select(pair => refreshIndex(pair.Key, pair.Value)));
+    }
+
+    private static Task<List<KeyValuePair<DateTime, decimal>>> CompileReturns(ReturnsRepository returnsCache, SortedSet<string> backfillTickers)
+    {
+        var result = new List<KeyValuePair<DateTime, decimal>>();
+
+        return Task.FromResult(result);
     }
 }
