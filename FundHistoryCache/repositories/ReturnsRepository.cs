@@ -19,12 +19,12 @@ public class ReturnsRepository
         this.syntheticReturnsFilePath = syntheticReturnsFilePath;
     }
 
-    public Task<List<KeyValuePair<DateTime, decimal>>> Get(string ticker, ReturnPeriod period)
+    public Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period)
     {
         return this.Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
     }
 
-    public async Task<List<KeyValuePair<DateTime, decimal>>> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
+    public async Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
     {
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(period);
@@ -40,12 +40,12 @@ public class ReturnsRepository
 
         var csvLines = await File.ReadAllLinesAsync(csvFilePath);
         var csvLinesSplit = csvLines.Select(line => line.Split(','));
-        var allReturns = csvLinesSplit.Select(cells => new KeyValuePair<DateTime, decimal>(DateTime.Parse(cells[0]), decimal.Parse(cells[1])));
+        var allReturns = csvLinesSplit.Select(cells => new PeriodReturn(DateTime.Parse(cells[0]), decimal.Parse(cells[1])));
 
         return allReturns.Where(pair => pair.Key >= start && pair.Key <= end).ToList();
     }
 
-    public Task<List<KeyValuePair<DateTime, decimal>>> GetMostGranular(string ticker, out ReturnPeriod period)
+    public Task<List<PeriodReturn>> GetMostGranular(string ticker, out ReturnPeriod period)
     {
         ReturnPeriod[] periodsToCheck =
         [
@@ -68,7 +68,7 @@ public class ReturnsRepository
         throw new InvalidOperationException($"Returns for '{ticker}' not for any period.");
     }
 
-    public Task Put(string ticker, List<KeyValuePair<DateTime, decimal>> returns, ReturnPeriod period)
+    public Task Put(string ticker, List<PeriodReturn> returns, ReturnPeriod period)
     {
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(returns);
@@ -87,7 +87,7 @@ public class ReturnsRepository
         return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
     }
 
-    public async Task<Dictionary<string, List<KeyValuePair<DateTime, decimal>>>> GetSyntheticMonthlyReturns()
+    public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticMonthlyReturns()
     {
         var columnIndexToCategory = new Dictionary<int, string>
         {
@@ -106,7 +106,7 @@ public class ReturnsRepository
         const int headerLinesCount = 1;
         const int dateColumnIndex = 0;
 
-        var returns = new Dictionary<string, List<KeyValuePair<DateTime, decimal>>>();
+        var returns = new Dictionary<string, List<PeriodReturn>>();
         var fileLines = await File.ReadAllLinesAsync(this.syntheticReturnsFilePath);
         var fileLinesSansHeader = fileLines.Skip(headerLinesCount);
 
@@ -124,7 +124,7 @@ public class ReturnsRepository
                         value = returns[cellCategory] = [];
                     }
 
-                    value.Add(new KeyValuePair<DateTime, decimal>(date, decimal.Parse($"{cellValue:G29}")));
+                    value.Add(new PeriodReturn(date, decimal.Parse($"{cellValue:G29}")));
                 }
             }
         }

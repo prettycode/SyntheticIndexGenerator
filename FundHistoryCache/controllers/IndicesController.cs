@@ -78,9 +78,9 @@
         return Task.WhenAll(backfillTickersByIndexTicker.Select(pair => refreshIndex(pair.Key, pair.Value)));
     }
 
-    private async static Task<(ReturnPeriod granularity, List<KeyValuePair<DateTime, decimal>> returns)> CollateMostGranularReturns(ReturnsRepository returnsCache, SortedSet<string> backfillTickers)
+    private async static Task<(ReturnPeriod granularity, List<PeriodReturn> returns)> CollateMostGranularReturns(ReturnsRepository returnsCache, SortedSet<string> backfillTickers)
     {
-        var result = new List<KeyValuePair<DateTime, decimal>>();
+        var result = new List<PeriodReturn>();
         var firstBackfillTicker = backfillTickers.First();
         var firstBackfillReturns = await returnsCache.GetMostGranular(firstBackfillTicker, out ReturnPeriod backfillGranularity);
         var remainingBackfillReturns = await Task.WhenAll(backfillTickers.Select(ticker => returnsCache.Get(ticker, backfillGranularity)));
@@ -91,7 +91,7 @@
             var currentTickerReturns = backfillReturns[i];
             int nextTickerIndex = i + 1;
             string nextTicker;
-            List<KeyValuePair<DateTime, decimal>> nextTickerReturns;
+            List<PeriodReturn> nextTickerReturns;
             DateTime startDateOfNextTicker = DateTime.MaxValue;
 
             if (nextTickerIndex <= backfillTickers.Count - 1)
@@ -107,19 +107,19 @@
         return (backfillGranularity, result);
     }
 
-    private async static Task<List<KeyValuePair<DateTime, decimal>>> CollateCompositeReturns(ReturnsRepository returnsCache, SortedSet<string> backfillTickers)
+    private async static Task<List<PeriodReturn>> CollateCompositeReturns(ReturnsRepository returnsCache, SortedSet<string> backfillTickers)
     {
         throw new NotImplementedException();
 
-        List<KeyValuePair<DateTime, decimal>> result = [];
-        Dictionary<string, KeyValuePair<ReturnPeriod, List<KeyValuePair<DateTime, decimal>>>> backfillReturns = [];
+        List<PeriodReturn> result = [];
+        Dictionary<string, KeyValuePair<ReturnPeriod, List<PeriodReturn>>> backfillReturns = [];
 
         foreach (var ticker in backfillTickers)
         {
             ReturnPeriod periodGranularity;
             var mostGranularReturns = await returnsCache.GetMostGranular(ticker, out periodGranularity);
 
-            backfillReturns.Add(ticker, new KeyValuePair<ReturnPeriod, List<KeyValuePair<DateTime, decimal>>>(periodGranularity, mostGranularReturns));
+            backfillReturns.Add(ticker, new KeyValuePair<ReturnPeriod, List<PeriodReturn>>(periodGranularity, mostGranularReturns));
         }
 
         for(var i = 0; i < backfillTickers.Count; i++)

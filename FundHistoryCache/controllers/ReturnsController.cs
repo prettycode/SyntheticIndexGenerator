@@ -36,12 +36,12 @@
         ]);
     }
 
-    private static List<KeyValuePair<DateTime, decimal>> GetDailyReturns(List<QuotePriceRecord> dailyPrices)
+    private static List<PeriodReturn> GetDailyReturns(List<QuotePriceRecord> dailyPrices)
     {
         return ReturnsController.GetReturns(dailyPrices);
     }
 
-    private static List<KeyValuePair<DateTime, decimal>> GetMonthReturns(List<QuotePriceRecord> dailyPrices)
+    private static List<PeriodReturn> GetMonthReturns(List<QuotePriceRecord> dailyPrices)
     {
         var monthlyCloses = dailyPrices
             .GroupBy(r => new { r.DateTime.Year, r.DateTime.Month })
@@ -52,11 +52,11 @@
         var monthlyReturns = ReturnsController.GetReturns(monthlyCloses);
 
         return monthlyReturns
-            .Select(r => new KeyValuePair<DateTime, decimal>(new DateTime(r.Key.Year, r.Key.Month, 1), r.Value))
+            .Select(r => new PeriodReturn(new DateTime(r.Key.Year, r.Key.Month, 1), r.Value))
             .ToList();
     }
 
-    private static List<KeyValuePair<DateTime, decimal>> GetYearlyReturns(List<QuotePriceRecord> dailyPrices)
+    private static List<PeriodReturn> GetYearlyReturns(List<QuotePriceRecord> dailyPrices)
     {
         var yearlyCloses = dailyPrices
             .GroupBy(r => r.DateTime.Year)
@@ -67,16 +67,16 @@
         var yearlyReturns = ReturnsController.GetReturns(yearlyCloses);
 
         return yearlyReturns
-            .Select(r => new KeyValuePair<DateTime, decimal>(new DateTime(r.Key.Year, 1, 1), r.Value))
+            .Select(r => new PeriodReturn(new DateTime(r.Key.Year, 1, 1), r.Value))
             .ToList();
     }
 
-    private static List<KeyValuePair<DateTime, decimal>> GetReturns(List<QuotePriceRecord> prices, bool skipFirst = true)
+    private static List<PeriodReturn> GetReturns(List<QuotePriceRecord> prices, bool skipFirst = true)
     {
         static decimal calcChange(decimal x, decimal y) => (y - x) / x * 100m;
         static decimal endingPrice(QuotePriceRecord record) => record.AdjustedClose;
 
-        List<KeyValuePair<DateTime, decimal>> returns = skipFirst
+        List<PeriodReturn> returns = skipFirst
             ? []
             : [
                 new(prices[0].DateTime, calcChange(prices[0].Open, endingPrice(prices[0])))
