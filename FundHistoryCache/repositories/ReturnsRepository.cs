@@ -19,6 +19,33 @@ public class ReturnsRepository
         this.syntheticReturnsFilePath = syntheticReturnsFilePath;
     }
 
+    public Task<List<KeyValuePair<DateTime, decimal>>?> TryGet(string ticker, ReturnPeriod period)
+    {
+        return this.TryGet(ticker, period, DateTime.MinValue, DateTime.MaxValue);
+    }
+
+    public async Task<List<KeyValuePair<DateTime, decimal>>?> TryGet(string ticker, ReturnPeriod period, DateTime start, DateTime end)
+    {
+        ArgumentNullException.ThrowIfNull(ticker);
+        ArgumentNullException.ThrowIfNull(period);
+        ArgumentNullException.ThrowIfNull(period);
+        ArgumentNullException.ThrowIfNull(period);
+
+        var csvDirPath = Path.Combine(this.cachePath, $"./{period.ToString().ToLowerInvariant()}");
+        var csvFilePath = Path.Combine(csvDirPath, $"./{ticker}.csv");
+
+        if (!File.Exists(csvFilePath))
+        {
+            return null!;
+        }
+
+        var csvLines = await File.ReadAllLinesAsync(csvFilePath);
+        var csvLinesSplit = csvLines.Select(line => line.Split(','));
+        var allReturns = csvLinesSplit.Select(cells => new KeyValuePair<DateTime, decimal>(DateTime.Parse(cells[0]), decimal.Parse(cells[1])));
+
+        return allReturns.Where(pair => pair.Key >= start && pair.Key <= end).ToList();
+    }
+
     public Task Put(string ticker, List<KeyValuePair<DateTime, decimal>> returns, ReturnPeriod period)
     {
         ArgumentNullException.ThrowIfNull(ticker);
