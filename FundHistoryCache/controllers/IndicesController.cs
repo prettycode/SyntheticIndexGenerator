@@ -66,7 +66,7 @@
     {
         async Task<Task> refreshIndex(string indexTicker, SortedSet<string> backfillTickers)
         {
-            var collatedReturns = await IndicesController.CollateReturns(returnsCache, backfillTickers);
+            var collatedReturns = await IndicesController.CollateMostGranularReturns(returnsCache, backfillTickers);
             return returnsCache.Put(indexTicker, collatedReturns.returns, collatedReturns.granularity);
         }
 
@@ -78,7 +78,7 @@
         return Task.WhenAll(backfillTickersByIndexTicker.Select(pair => refreshIndex(pair.Key, pair.Value)));
     }
 
-    private async static Task<(ReturnPeriod granularity, List<KeyValuePair<DateTime, decimal>> returns)> CollateReturns(ReturnsRepository returnsCache, SortedSet<string> backfillTickers)
+    private async static Task<(ReturnPeriod granularity, List<KeyValuePair<DateTime, decimal>> returns)> CollateMostGranularReturns(ReturnsRepository returnsCache, SortedSet<string> backfillTickers)
     {
         var result = new List<KeyValuePair<DateTime, decimal>>();
         var firstBackfillTicker = backfillTickers.First();
