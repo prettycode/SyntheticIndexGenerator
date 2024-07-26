@@ -90,7 +90,7 @@
 
         for (var i = 0; i < backfillTickers.Count; i++)
         {
-            var currentTickerReturns = backfillReturns[i];
+            var currentTickerReturns = backfillReturns[i]!;
             int nextTickerIndex = i + 1;
             string nextTicker;
             List<PeriodReturn> nextTickerReturns;
