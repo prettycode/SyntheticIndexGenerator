@@ -98,10 +98,10 @@
             {
                 nextTicker = backfillTickers.ElementAt(nextTickerIndex);
                 nextTickerReturns = backfillReturns[nextTickerIndex];
-                startDateOfNextTicker = nextTickerReturns.First().Key;
+                startDateOfNextTicker = nextTickerReturns.First().PeriodStart;
             }
 
-            result.AddRange(currentTickerReturns.TakeWhile(pair => pair.Key < startDateOfNextTicker));
+            result.AddRange(currentTickerReturns.TakeWhile(pair => pair.PeriodStart < startDateOfNextTicker));
         }
 
         return (backfillGranularity, result);
@@ -132,7 +132,7 @@
                 var nextTickerPeriod = backfillReturns[nextTicker].Key;
                 var nextTickerReturns = backfillReturns[nextTicker].Value;
 
-                startDateOfNextTicker = nextTickerReturns.First().Key;
+                startDateOfNextTicker = nextTickerReturns.First().PeriodStart;
             }
 
         }

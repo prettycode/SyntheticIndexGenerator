@@ -12,11 +12,4 @@
         this.PeriodStart = PeriodStart;
         this.ReturnPercentage = ReturnPercentage;
     }
-
-    [Obsolete($"Use '{nameof(PeriodReturn.PeriodStart)}' instead.", false)]
-    public DateTime Key { get { return PeriodStart; } }
-
-
-    [Obsolete($"Use '{nameof(PeriodReturn.ReturnPercentage)}' instead.", false)]
-    public decimal Value { get { return ReturnPercentage; } }
 }

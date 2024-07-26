@@ -52,7 +52,7 @@
         var monthlyReturns = ReturnsController.GetReturns(monthlyCloses);
 
         return monthlyReturns
-            .Select(r => new PeriodReturn(new DateTime(r.Key.Year, r.Key.Month, 1), r.Value))
+            .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, r.PeriodStart.Month, 1), r.ReturnPercentage))
             .ToList();
     }
 
@@ -67,7 +67,7 @@
         var yearlyReturns = ReturnsController.GetReturns(yearlyCloses);
 
         return yearlyReturns
-            .Select(r => new PeriodReturn(new DateTime(r.Key.Year, 1, 1), r.Value))
+            .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, 1, 1), r.ReturnPercentage))
             .ToList();
     }
 

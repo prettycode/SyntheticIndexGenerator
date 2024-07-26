@@ -42,7 +42,7 @@ public class ReturnsRepository
         var csvLinesSplit = csvLines.Select(line => line.Split(','));
         var allReturns = csvLinesSplit.Select(cells => new PeriodReturn(DateTime.Parse(cells[0]), decimal.Parse(cells[1])));
 
-        return allReturns.Where(pair => pair.Key >= start && pair.Key <= end).ToList();
+        return allReturns.Where(pair => pair.PeriodStart >= start && pair.PeriodStart <= end).ToList();
     }
 
     public Task<List<PeriodReturn>> GetMostGranular(string ticker, out ReturnPeriod period)
@@ -82,7 +82,7 @@ public class ReturnsRepository
             Directory.CreateDirectory(csvDirPath!);
         }
 
-        var csvFileLines = returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value}");
+        var csvFileLines = returns.Select(r => $"{r.PeriodStart:yyyy-MM-dd},{r.ReturnPercentage}");
 
         return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
     }
