@@ -7607,3 +7607,4 @@
 {"DateTime":"2024-07-22T00:00:00","Open":28.150000,"High":28.150000,"Low":28.150000,"Close":28.150000,"Volume":0,"AdjustedClose":28.150000}
 {"DateTime":"2024-07-23T00:00:00","Open":27.969999,"High":27.969999,"Low":27.969999,"Close":27.969999,"Volume":0,"AdjustedClose":27.969999}
 {"DateTime":"2024-07-24T00:00:00","Open":27.660000,"High":27.660000,"Low":27.660000,"Close":27.660000,"Volume":0,"AdjustedClose":27.660000}
+{"DateTime":"2024-07-25T00:00:00","Open":27.580000,"High":27.580000,"Low":27.580000,"Close":27.580000,"Volume":0,"AdjustedClose":27.580000}
