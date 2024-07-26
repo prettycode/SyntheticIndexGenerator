@@ -66,8 +66,8 @@
     {
         async Task<Task> refreshIndex(string indexTicker, SortedSet<string> backfillTickers)
         {
-            var compiledReturns = await IndicesController.CompileReturns(returnsCache, backfillTickers);
-            return returnsCache.Put(indexTicker, compiledReturns, ReturnPeriod.Composite);
+            var collatedReturns = await IndicesController.CollateReturns(returnsCache, backfillTickers);
+            return returnsCache.Put(indexTicker, collatedReturns.returns, collatedReturns.granularity);
         }
 
         var backfillTickersByIndexTicker = IndicesController
@@ -78,10 +78,65 @@
         return Task.WhenAll(backfillTickersByIndexTicker.Select(pair => refreshIndex(pair.Key, pair.Value)));
     }
 
-    private static Task<List<KeyValuePair<DateTime, decimal>>> CompileReturns(ReturnsRepository returnsCache, SortedSet<string> backfillTickers)
+    private async static Task<(ReturnPeriod granularity, List<KeyValuePair<DateTime, decimal>> returns)> CollateReturns(ReturnsRepository returnsCache, SortedSet<string> backfillTickers)
     {
         var result = new List<KeyValuePair<DateTime, decimal>>();
+        var firstBackfillTicker = backfillTickers.First();
+        var firstBackfillReturns = await returnsCache.GetMostGranular(firstBackfillTicker, out ReturnPeriod backfillGranularity);
+        var remainingBackfillReturns = await Task.WhenAll(backfillTickers.Select(ticker => returnsCache.Get(ticker, backfillGranularity)));
+        var backfillReturns = new[] { firstBackfillReturns }.Concat(remainingBackfillReturns).ToList();
 
-        return Task.FromResult(result);
+        for (var i = 0; i < backfillTickers.Count; i++)
+        {
+            var currentTickerReturns = backfillReturns[i];
+            int nextTickerIndex = i + 1;
+            string nextTicker;
+            List<KeyValuePair<DateTime, decimal>> nextTickerReturns;
+            DateTime startDateOfNextTicker = DateTime.MaxValue;
+
+            if (nextTickerIndex <= backfillTickers.Count - 1)
+            {
+                nextTicker = backfillTickers.ElementAt(nextTickerIndex);
+                nextTickerReturns = backfillReturns[nextTickerIndex];
+                startDateOfNextTicker = nextTickerReturns.First().Key;
+            }
+
+            result.AddRange(currentTickerReturns.TakeWhile(pair => pair.Key < startDateOfNextTicker));
+        }
+
+        return (backfillGranularity, result);
+    }
+
+    private async static Task<List<KeyValuePair<DateTime, decimal>>> CollateCompositeReturns(ReturnsRepository returnsCache, SortedSet<string> backfillTickers)
+    {
+        throw new NotImplementedException();
+
+        List<KeyValuePair<DateTime, decimal>> result = [];
+        Dictionary<string, KeyValuePair<ReturnPeriod, List<KeyValuePair<DateTime, decimal>>>> backfillReturns = [];
+
+        foreach (var ticker in backfillTickers)
+        {
+            ReturnPeriod periodGranularity;
+            var mostGranularReturns = await returnsCache.GetMostGranular(ticker, out periodGranularity);
+
+            backfillReturns.Add(ticker, new KeyValuePair<ReturnPeriod, List<KeyValuePair<DateTime, decimal>>>(periodGranularity, mostGranularReturns));
+        }
+
+        for(var i = 0; i < backfillTickers.Count; i++)
+        {
+            var startDateOfNextTicker = DateTime.MaxValue;
+
+            if (i + 1 < backfillTickers.Count - 1)
+            {
+                var nextTicker = backfillTickers.ElementAt(i + 1);
+                var nextTickerPeriod = backfillReturns[nextTicker].Key;
+                var nextTickerReturns = backfillReturns[nextTicker].Value;
+
+                startDateOfNextTicker = nextTickerReturns.First().Key;
+            }
+
+        }
+
+        return result;
     }
 }

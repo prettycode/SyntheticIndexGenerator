@@ -19,12 +19,12 @@ public class ReturnsRepository
         this.syntheticReturnsFilePath = syntheticReturnsFilePath;
     }
 
-    public Task<List<KeyValuePair<DateTime, decimal>>?> TryGet(string ticker, ReturnPeriod period)
+    public Task<List<KeyValuePair<DateTime, decimal>>> Get(string ticker, ReturnPeriod period)
     {
-        return this.TryGet(ticker, period, DateTime.MinValue, DateTime.MaxValue);
+        return this.Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
     }
 
-    public async Task<List<KeyValuePair<DateTime, decimal>>?> TryGet(string ticker, ReturnPeriod period, DateTime start, DateTime end)
+    public async Task<List<KeyValuePair<DateTime, decimal>>> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
     {
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(period);
@@ -35,7 +35,7 @@ public class ReturnsRepository
 
         if (!File.Exists(csvFilePath))
         {
-            return null!;
+            throw new InvalidOperationException($"Returns for '{ticker}' not found.");
         }
 
         var csvLines = await File.ReadAllLinesAsync(csvFilePath);
@@ -45,7 +45,7 @@ public class ReturnsRepository
         return allReturns.Where(pair => pair.Key >= start && pair.Key <= end).ToList();
     }
 
-    public Task<List<KeyValuePair<DateTime, decimal>>?> TryGetMostGranular(string ticker, out ReturnPeriod? period)
+    public Task<List<KeyValuePair<DateTime, decimal>>> GetMostGranular(string ticker, out ReturnPeriod period)
     {
         ReturnPeriod[] periodsToCheck =
         [
@@ -61,12 +61,11 @@ public class ReturnsRepository
             if (File.Exists(csvFilePath))
             {
                 period = checkPeriod;
-                return this.TryGet(ticker, checkPeriod);
+                return this.Get(ticker, checkPeriod);
             }
         }
 
-        period = null;
-        return null!;
+        throw new InvalidOperationException($"Returns for '{ticker}' not for any period.");
     }
 
     public Task Put(string ticker, List<KeyValuePair<DateTime, decimal>> returns, ReturnPeriod period)
