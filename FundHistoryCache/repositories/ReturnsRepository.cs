@@ -31,8 +31,7 @@ public class ReturnsRepository
         ArgumentNullException.ThrowIfNull(period);
         ArgumentNullException.ThrowIfNull(period);
 
-        var csvDirPath = Path.Combine(this.cachePath, $"./{period.ToString().ToLowerInvariant()}");
-        var csvFilePath = Path.Combine(csvDirPath, $"./{ticker}.csv");
+        var csvFilePath = this.GetCsvFilePath(ticker, period);
 
         if (!File.Exists(csvFilePath))
         {
@@ -46,20 +45,44 @@ public class ReturnsRepository
         return allReturns.Where(pair => pair.Key >= start && pair.Key <= end).ToList();
     }
 
+    public Task<List<KeyValuePair<DateTime, decimal>>?> TryGetMostGranular(string ticker, out ReturnPeriod? period)
+    {
+        ReturnPeriod[] periodsToCheck =
+        [
+            ReturnPeriod.Daily,
+            ReturnPeriod.Monthly,
+            ReturnPeriod.Yearly
+        ];
+
+        foreach (var checkPeriod in periodsToCheck)
+        {
+            var csvFilePath = this.GetCsvFilePath(ticker, checkPeriod);
+
+            if (File.Exists(csvFilePath))
+            {
+                period = checkPeriod;
+                return this.TryGet(ticker, checkPeriod);
+            }
+        }
+
+        period = null;
+        return null!;
+    }
+
     public Task Put(string ticker, List<KeyValuePair<DateTime, decimal>> returns, ReturnPeriod period)
     {
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(returns);
         ArgumentNullException.ThrowIfNull(period);
 
-        var csvDirPath = Path.Combine(this.cachePath, $"./{period.ToString().ToLowerInvariant()}");
+        var csvFilePath = this.GetCsvFilePath(ticker, period);
+        var csvDirPath = Path.GetDirectoryName(csvFilePath);
 
         if (!Directory.Exists(csvDirPath))
         {
-            Directory.CreateDirectory(csvDirPath);
+            Directory.CreateDirectory(csvDirPath!);
         }
 
-        var csvFilePath = Path.Combine(csvDirPath, $"./{ticker}.csv");
         var csvFileLines = returns.Select(r => $"{r.Key:yyyy-MM-dd},{r.Value}");
 
         return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
@@ -108,5 +131,10 @@ public class ReturnsRepository
         }
 
         return returns;
+    }
+
+    private string GetCsvFilePath(string ticker, ReturnPeriod period)
+    {
+        return Path.Combine(this.cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
     }
 }
