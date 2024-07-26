@@ -40,7 +40,7 @@
                 marketFactorDesignation = string.Empty;
             }
 
-            return $"${regionDesignation}{marketCapDesignation}{marketFactorDesignation}";
+            return $"$^{regionDesignation}{marketCapDesignation}{marketFactorDesignation}";
         }
     }
 }
