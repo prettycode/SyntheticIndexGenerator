@@ -8,4 +8,4 @@ var quoteTickersNeeded = IndicesController.GetBackfillTickers();
 
 await Timer.Exec("Refresh quotes",  QuotesController.RefreshQuotes(quoteRepository, quoteTickersNeeded));
 await Timer.Exec("Refresh returns", ReturnsController.RefreshReturns(quoteRepository, returnsRepository));
-await Timer.Exec("Refresh indices", IndicesController.RefreshIndices(returnsRepository));
+await IndicesController.RefreshIndices(returnsRepository);

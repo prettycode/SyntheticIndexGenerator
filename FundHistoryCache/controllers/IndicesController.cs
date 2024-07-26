@@ -64,10 +64,10 @@
 
     public static Task RefreshIndices(ReturnsRepository returnsCache)
     {
-        async Task<Task> refreshIndex(string indexTicker, SortedSet<string> backfillTickers)
+        async Task refreshIndex(string indexTicker, SortedSet<string> backfillTickers)
         {
             var collatedReturns = await IndicesController.CollateMostGranularReturns(returnsCache, backfillTickers);
-            return returnsCache.Put(indexTicker, collatedReturns.returns, collatedReturns.granularity);
+            await returnsCache.Put(indexTicker, collatedReturns.returns, collatedReturns.granularity);
         }
 
         var backfillTickersByIndexTicker = IndicesController
