@@ -6,6 +6,6 @@ var quoteRepository = new QuoteRepository(quotesPath);
 var returnsRepository = new ReturnsRepository(saveSyntheticReturnsPath, syntheticReturnsFilePath);
 var quoteTickersNeeded = IndicesController.GetBackfillTickers();
 
-await QuotesController.RefreshQuotes(quoteRepository, quoteTickersNeeded);
-await ReturnsController.RefreshReturns(quoteRepository, returnsRepository);
-await IndicesController.RefreshIndices(returnsRepository);
+await Timer.Exec("Refresh quotes",  QuotesController.RefreshQuotes(quoteRepository, quoteTickersNeeded));
+await Timer.Exec("Refresh returns", ReturnsController.RefreshReturns(quoteRepository, returnsRepository));
+await Timer.Exec("Refresh indices", IndicesController.RefreshIndices(returnsRepository));
