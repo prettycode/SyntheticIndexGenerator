@@ -145,6 +145,44 @@ public class ReturnsRepository
         return returns;
     }
 
+    public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticYearlyReturns()
+    {
+        var monthlyReturns = await this.GetSyntheticMonthlyReturns();
+        var returnsByYear = monthlyReturns.ToDictionary(pair => pair.Key, pair => {
+            var result = new List<PeriodReturn>();
+
+            var ticker = pair.Key;
+            var monthlyReturns = pair.Value;
+            var yearStarts = pair.Value
+                .GroupBy(r => r.PeriodStart.Year)
+                .Select(g => g.OrderBy(r => r.PeriodStart).First())
+                .OrderBy(r => r.PeriodStart)
+                .ToList();
+
+            var i = yearStarts.First().PeriodStart.Month == 1 ? 0 : 1;
+
+            for (; i < yearStarts.Count; i++)
+            {
+                var currentYear = yearStarts[i].PeriodStart.Year;
+                var currentYearMonthlyReturns = monthlyReturns.Where(r => r.PeriodStart.Year == currentYear);
+                var currentYearAggregateReturn = currentYearMonthlyReturns.Aggregate(1.0m, (acc, item) => acc * (1 + item.ReturnPercentage / 100)) - 1;
+                var periodReturn = new PeriodReturn()
+                {
+                    PeriodStart = new DateTime(currentYear, 1, 1),
+                    ReturnPercentage = currentYearAggregateReturn,
+                    SourceTicker = ticker,
+                    ReturnPeriod = ReturnPeriod.Yearly
+                };
+
+                result.Add(periodReturn);
+            }
+
+            return result;
+        });
+
+        return returnsByYear;
+    }
+
     private string GetCsvFilePath(string ticker, ReturnPeriod period)
     {
         return Path.Combine(this.cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
