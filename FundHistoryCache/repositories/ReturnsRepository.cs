@@ -19,12 +19,12 @@ public class ReturnsRepository
         this.syntheticReturnsFilePath = syntheticReturnsFilePath;
     }
 
-    public Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period)
+    public Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period)
     {
         return this.Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
     }
 
-    public async Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
+    public async Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
     {
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(period);
@@ -35,7 +35,7 @@ public class ReturnsRepository
 
         if (!File.Exists(csvFilePath))
         {
-            throw new InvalidOperationException($"Returns for '{ticker}' not found.");
+            return null;
         }
 
         var csvLines = await File.ReadAllLinesAsync(csvFilePath);
@@ -44,7 +44,7 @@ public class ReturnsRepository
         return allReturns.Where(pair => pair.PeriodStart >= start && pair.PeriodStart <= end).ToList();
     }
 
-    public Task<List<PeriodReturn>> GetMostGranular(string ticker, out ReturnPeriod period)
+    public Task<List<PeriodReturn>?> GetMostGranular(string ticker, out ReturnPeriod period)
     {
         ReturnPeriod[] periodsToCheck =
         [

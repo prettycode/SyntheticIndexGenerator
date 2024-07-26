@@ -63,8 +63,8 @@
     {
         async Task refreshIndex(string indexTicker, List<string> backfillTickers)
         {
-            var collatedReturns = await IndicesController.CollateMostGranularReturns(returnsCache, backfillTickers);
-            await returnsCache.Put(indexTicker, collatedReturns.returns, collatedReturns.granularity);
+            var (granularity, returns) = await IndicesController.CollateMostGranularReturns(returnsCache, backfillTickers);
+            await returnsCache.Put(indexTicker, returns, granularity);
         }
 
         var backfillTickersByIndexTicker = IndicesController
@@ -83,6 +83,11 @@
         var remainingBackfillReturns = await Task.WhenAll(backfillTickers.Skip(1).Select(ticker => returnsCache.Get(ticker, backfillGranularity)));
         var backfillReturns = new[] { firstBackfillReturns }.Concat(remainingBackfillReturns).ToList();
 
+        if (backfillReturns.Any(r => r == null))
+        {
+            throw new InvalidOperationException();
+        }
+
         for (var i = 0; i < backfillTickers.Count; i++)
         {
             var currentTickerReturns = backfillReturns[i];
@@ -94,7 +99,7 @@
             if (nextTickerIndex <= backfillTickers.Count - 1)
             {
                 nextTicker = backfillTickers.ElementAt(nextTickerIndex);
-                nextTickerReturns = backfillReturns[nextTickerIndex];
+                nextTickerReturns = backfillReturns[nextTickerIndex]!;
                 startDateOfNextTicker = nextTickerReturns.First().PeriodStart;
             }
 
