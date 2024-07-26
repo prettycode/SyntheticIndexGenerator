@@ -2,6 +2,5 @@
 {
     Daily,
     Monthly,
-    Yearly,
-    Composite
+    Yearly
 }

@@ -20,11 +20,16 @@ public class ReturnsRepository
         this.syntheticReturnsFilePath = syntheticReturnsFilePath;
     }
 
-    public bool Has(string ticker, ReturnPeriod period, out string cacheFilePath)
+    public bool Has(string ticker, ReturnPeriod period)
     {
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(period);
 
+        return this.Has(ticker, period, out string _);
+    }
+
+    private bool Has(string ticker, ReturnPeriod period, out string cacheFilePath)
+    {
         cacheFilePath = this.GetCsvFilePath(ticker, period);
 
         return File.Exists(cacheFilePath);
@@ -57,19 +62,14 @@ public class ReturnsRepository
     {
         ArgumentNullException.ThrowIfNull(ticker);
 
-        ReturnPeriod[] periodsToCheck =
-        [
-            ReturnPeriod.Daily,
-            ReturnPeriod.Monthly,
-            ReturnPeriod.Yearly
-        ];
+        var periods = Enum.GetValues<ReturnPeriod>();
 
-        foreach (var checkPeriod in periodsToCheck)
+        foreach (var p in periods)
         {
-            if (this.Has(ticker, checkPeriod, out string csvFilePath))
+            if (this.Has(ticker, p, out string csvFilePath))
             {
-                period = checkPeriod;
-                return this.Get(ticker, checkPeriod);
+                period = p;
+                return this.Get(ticker, period);
             }
         }
 
