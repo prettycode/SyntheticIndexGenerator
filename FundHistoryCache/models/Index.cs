@@ -4,7 +4,7 @@
     public IndexMarketCap MarketCap { get; set; }
     public IndexStyle Style { get; set; }
 
-    public SortedSet<string> BackfillTickerSequence { get; set; }
+    public List<string> OrderedBackfillTickerSequence { get; set; }
 
     public readonly string Ticker
     {
