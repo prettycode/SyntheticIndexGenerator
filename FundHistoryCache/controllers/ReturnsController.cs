@@ -58,7 +58,7 @@
         var monthlyReturns = ReturnsController.GetReturns(monthlyCloses, ticker, ReturnPeriod.Monthly);
 
         return monthlyReturns
-            .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, r.PeriodStart.Month, 1), r.ReturnPercentage, r.SourceTicker, r.ReturnPeriod))
+            .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, r.PeriodStart.Month, 1), r.ReturnPercentage, r.SourceTicker!, r.ReturnPeriod))
             .ToList();
     }
 
@@ -73,14 +73,38 @@
         var yearlyReturns = ReturnsController.GetReturns(yearlyCloses, ticker, ReturnPeriod.Yearly);
 
         return yearlyReturns
-            .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, 1, 1), r.ReturnPercentage, r.SourceTicker, r.ReturnPeriod))
+            .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, 1, 1), r.ReturnPercentage, r.SourceTicker!, r.ReturnPeriod))
             .ToList();
     }
 
     private static List<PeriodReturn> GetYearlySyntheticReturns(string ticker, List<PeriodReturn> monthlyReturns)
     {
-        // TODO Compute yearly returns from monthly returns
-        return new List<PeriodReturn>();
+        var result = new List<PeriodReturn>();
+        var yearStarts = monthlyReturns
+            .GroupBy(r => r.PeriodStart.Year)
+            .Select(g => g.OrderBy(r => r.PeriodStart).First())
+            .OrderBy(r => r.PeriodStart)
+            .ToList();
+
+        var i = yearStarts.First().PeriodStart.Month == 1 ? 0 : 1;
+
+        for(; i < yearStarts.Count; i++)
+        {
+            var currentYear = yearStarts[i].PeriodStart.Year;
+            var currentYearMonthlyReturns = monthlyReturns.Where(r => r.PeriodStart.Year == currentYear);
+            var currentYearAggregateReturn = currentYearMonthlyReturns.Aggregate(1.0m, (acc, item) => acc * (1 + item.ReturnPercentage / 100)) - 1;
+            var periodReturn = new PeriodReturn()
+            {
+                PeriodStart = new DateTime(currentYear, 1, 1),
+                ReturnPercentage = currentYearAggregateReturn,
+                SourceTicker = ticker,
+                ReturnPeriod = ReturnPeriod.Yearly
+            };
+
+            result.Add(periodReturn);
+        }
+
+        return result;
     }
 
     private static List<PeriodReturn> GetReturns(List<QuotePriceRecord> prices, string ticker, ReturnPeriod returnPeriod, bool skipFirst = true)

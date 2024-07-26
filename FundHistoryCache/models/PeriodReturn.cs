@@ -1,13 +1,23 @@
-﻿public class PeriodReturn(DateTime periodStart, decimal returnPercentage, string sourceTicker, ReturnPeriod periodType)
+﻿public class PeriodReturn
 {
-    public DateTime PeriodStart { get; set; } = periodStart;
+    public DateTime PeriodStart { get; set; }
 
     /// <summary>
     /// Scale is 0 - 100, not 0 - 1.
     /// </summary>
-    public decimal ReturnPercentage { get; set; } = returnPercentage;
-    public string SourceTicker { get; set; } = sourceTicker;
-    public ReturnPeriod ReturnPeriod { get; set; } = periodType;
+    public decimal ReturnPercentage { get; set; }
+    public string? SourceTicker { get; set; }
+    public ReturnPeriod ReturnPeriod { get; set; }
+
+    public PeriodReturn() { }
+
+    public PeriodReturn(DateTime periodStart, decimal returnPercentage, string sourceTicker, ReturnPeriod periodType)
+    {
+        this.PeriodStart = periodStart;
+        this.ReturnPercentage = returnPercentage;
+        this.SourceTicker = sourceTicker;
+        this.ReturnPeriod = periodType;
+    }
 
     public string ToCsvLine()
     {
