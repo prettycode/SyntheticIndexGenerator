@@ -1,5 +1,5 @@
-﻿using YahooQuotesApi;
-using FundHistoryCache.Models;
+﻿using FundHistoryCache.Models;
+using YahooQuotesApi;
 
 namespace FundHistoryCache.Extensions
 {
