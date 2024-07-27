@@ -1,7 +1,10 @@
-﻿public enum IndexMarketCap
+﻿namespace FundHistoryCache.Models
 {
-    Total,
-    Large,
-    Mid,
-    Small
+    public enum IndexMarketCap
+    {
+        Total,
+        Large,
+        Mid,
+        Small
+    }
 }

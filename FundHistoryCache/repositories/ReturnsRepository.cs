@@ -1,191 +1,196 @@
 ﻿using System.Globalization;
+using FundHistoryCache.Models;
 
-public class ReturnsRepository
+namespace FundHistoryCache.Repositories
 {
-    private readonly string cachePath;
-
-    private readonly string syntheticReturnsFilePath;
-
-    public ReturnsRepository(string cachePath, string syntheticReturnsFilePath)
+    public class ReturnsRepository
     {
-        ArgumentNullException.ThrowIfNull(cachePath);
-        ArgumentNullException.ThrowIfNull(syntheticReturnsFilePath);
+        private readonly string cachePath;
 
-        if (!Directory.Exists(cachePath))
+        private readonly string syntheticReturnsFilePath;
+
+        public ReturnsRepository(string cachePath, string syntheticReturnsFilePath)
         {
-            Directory.CreateDirectory(cachePath);
-        }
+            ArgumentNullException.ThrowIfNull(cachePath);
+            ArgumentNullException.ThrowIfNull(syntheticReturnsFilePath);
 
-        this.cachePath = cachePath;
-        this.syntheticReturnsFilePath = syntheticReturnsFilePath;
-    }
-
-    public bool Has(string ticker, ReturnPeriod period)
-    {
-        ArgumentNullException.ThrowIfNull(ticker);
-        ArgumentNullException.ThrowIfNull(period);
-
-        return this.Has(ticker, period, out string _);
-    }
-
-    private bool Has(string ticker, ReturnPeriod period, out string cacheFilePath)
-    {
-        cacheFilePath = this.GetCsvFilePath(ticker, period);
-
-        return File.Exists(cacheFilePath);
-    }
-
-    public Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period)
-    {
-        return this.Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
-    }
-
-    public async Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
-    {
-        ArgumentNullException.ThrowIfNull(ticker);
-        ArgumentNullException.ThrowIfNull(period);
-        ArgumentNullException.ThrowIfNull(start);
-        ArgumentNullException.ThrowIfNull(end);
-
-        if (!this.Has(ticker, period, out string csvFilePath))
-        {
-            return null;
-        }
-
-        var csvLines = await File.ReadAllLinesAsync(csvFilePath);
-        var allReturns = csvLines.Select(line => PeriodReturn.ParseCsvLine(line));
-
-        return allReturns.Where(pair => pair.PeriodStart >= start && pair.PeriodStart <= end).ToList();
-    }
-
-    public Task<List<PeriodReturn>?> GetMostGranular(string ticker, out ReturnPeriod period)
-    {
-        ArgumentNullException.ThrowIfNull(ticker);
-
-        var periods = Enum.GetValues<ReturnPeriod>();
-
-        foreach (var p in periods)
-        {
-            if (this.Has(ticker, p, out string csvFilePath))
+            if (!Directory.Exists(cachePath))
             {
-                period = p;
-                return this.Get(ticker, period);
+                Directory.CreateDirectory(cachePath);
             }
+
+            this.cachePath = cachePath;
+            this.syntheticReturnsFilePath = syntheticReturnsFilePath;
         }
 
-        throw new InvalidOperationException($"Returns for '{ticker}' not for any period.");
-    }
-
-    public Task Put(string ticker, List<PeriodReturn> returns, ReturnPeriod period)
-    {
-        ArgumentNullException.ThrowIfNull(ticker);
-        ArgumentNullException.ThrowIfNull(returns);
-        ArgumentNullException.ThrowIfNull(period);
-
-        if (returns.Count == 0)
+        public bool Has(string ticker, ReturnPeriod period)
         {
-            return Task.FromResult(Task.CompletedTask);
+            ArgumentNullException.ThrowIfNull(ticker);
+            ArgumentNullException.ThrowIfNull(period);
+
+            return Has(ticker, period, out string _);
         }
 
-        var csvFilePath = this.GetCsvFilePath(ticker, period);
-        var csvDirPath = Path.GetDirectoryName(csvFilePath);
-
-        if (!Directory.Exists(csvDirPath))
+        private bool Has(string ticker, ReturnPeriod period, out string cacheFilePath)
         {
-            Directory.CreateDirectory(csvDirPath!);
+            cacheFilePath = GetCsvFilePath(ticker, period);
+
+            return File.Exists(cacheFilePath);
         }
 
-        var csvFileLines = returns.Select(r => r.ToCsvLine());
-
-        return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
-    }
-
-    public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticMonthlyReturns()
-    {
-        var columnIndexToCategory = new Dictionary<int, string>
+        public Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period)
         {
-            [1] = "$TSM",
-            [3] = "$LCB",
-            [4] = "$LCV",
-            [5] = "$LCG",
-            [6] = "$MCB",
-            [7] = "$MCV",
-            [8] = "$MCG",
-            [9] = "$SCB",
-            [10] = "$SCV",
-            [11] = "$SCG"
-        };
+            return Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
+        }
 
-        const int headerLinesCount = 1;
-        const int dateColumnIndex = 0;
-
-        var returns = new Dictionary<string, List<PeriodReturn>>();
-        var fileLines = await File.ReadAllLinesAsync(this.syntheticReturnsFilePath);
-        var fileLinesSansHeader = fileLines.Skip(headerLinesCount);
-
-        foreach (var line in fileLinesSansHeader)
+        public async Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
         {
-            var cells = line.Split(',');
-            var date = DateTime.Parse(cells[dateColumnIndex]);
+            ArgumentNullException.ThrowIfNull(ticker);
+            ArgumentNullException.ThrowIfNull(period);
+            ArgumentNullException.ThrowIfNull(start);
+            ArgumentNullException.ThrowIfNull(end);
 
-            foreach (var (currentCell, ticker) in columnIndexToCategory)
+            if (!Has(ticker, period, out string csvFilePath))
             {
-                if (decimal.TryParse(cells[currentCell], NumberStyles.Any, CultureInfo.InvariantCulture, out var cellValue))
-                {
-                    if (!returns.TryGetValue(ticker, out var value))
-                    {
-                        value = returns[ticker] = [];
-                    }
+                return null;
+            }
 
-                    value.Add(new PeriodReturn(date, decimal.Parse($"{cellValue:G29}"), ticker, ReturnPeriod.Monthly));
+            var csvLines = await File.ReadAllLinesAsync(csvFilePath);
+            var allReturns = csvLines.Select(line => PeriodReturn.ParseCsvLine(line));
+            var dateFilteredReturns = allReturns.Where(pair => pair.PeriodStart >= start && pair.PeriodStart <= end);
+
+            return dateFilteredReturns.ToList();
+        }
+
+        public Task<List<PeriodReturn>?> GetMostGranular(string ticker, out ReturnPeriod period)
+        {
+            ArgumentNullException.ThrowIfNull(ticker);
+
+            var periods = Enum.GetValues<ReturnPeriod>();
+
+            foreach (var p in periods)
+            {
+                if (Has(ticker, p, out string csvFilePath))
+                {
+                    period = p;
+                    return Get(ticker, period);
                 }
             }
+
+            throw new InvalidOperationException($"Returns for '{ticker}' not for any period.");
         }
 
-        return returns;
-    }
-
-    public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticYearlyReturns()
-    {
-        static List<PeriodReturn> calcYearlyFromMonthly(string ticker, List<PeriodReturn> monthlyReturns)
+        public Task Put(string ticker, List<PeriodReturn> returns, ReturnPeriod period)
         {
-            var result = new List<PeriodReturn>();
+            ArgumentNullException.ThrowIfNull(ticker);
+            ArgumentNullException.ThrowIfNull(returns);
+            ArgumentNullException.ThrowIfNull(period);
 
-            var yearStarts = monthlyReturns
-                .GroupBy(r => r.PeriodStart.Year)
-                .Select(g => g.OrderBy(r => r.PeriodStart).First())
-                .OrderBy(r => r.PeriodStart)
-                .ToArray();
-
-            var i = yearStarts[0].PeriodStart.Month == 1 ? 0 : 1;
-
-            for (; i < yearStarts.Length; i++)
+            if (returns.Count == 0)
             {
-                var currentYear = yearStarts[i].PeriodStart.Year;
-                var currentYearMonthlyReturns = monthlyReturns.Where(r => r.PeriodStart.Year == currentYear);
-                var currentYearAggregateReturn = currentYearMonthlyReturns.Aggregate(1.0m, (acc, item) => acc * (1 + item.ReturnPercentage / 100)) - 1;
-                var periodReturn = new PeriodReturn()
-                {
-                    PeriodStart = new DateTime(currentYear, 1, 1),
-                    ReturnPercentage = currentYearAggregateReturn,
-                    SourceTicker = ticker,
-                    ReturnPeriod = ReturnPeriod.Yearly
-                };
-
-                result.Add(periodReturn);
+                return Task.FromResult(Task.CompletedTask);
             }
 
-            return result;
+            var csvFilePath = GetCsvFilePath(ticker, period);
+            var csvDirPath = Path.GetDirectoryName(csvFilePath);
+
+            if (!Directory.Exists(csvDirPath))
+            {
+                Directory.CreateDirectory(csvDirPath!);
+            }
+
+            var csvFileLines = returns.Select(r => r.ToCsvLine());
+
+            return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
         }
 
-        var monthlyReturns = await this.GetSyntheticMonthlyReturns();
-        var yearlyReturns = monthlyReturns.ToDictionary(pair => pair.Key, pair => calcYearlyFromMonthly(pair.Key, pair.Value));
+        public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticMonthlyReturns()
+        {
+            var columnIndexToCategory = new Dictionary<int, string>
+            {
+                [1] = "$TSM",
+                [3] = "$LCB",
+                [4] = "$LCV",
+                [5] = "$LCG",
+                [6] = "$MCB",
+                [7] = "$MCV",
+                [8] = "$MCG",
+                [9] = "$SCB",
+                [10] = "$SCV",
+                [11] = "$SCG"
+            };
 
-        return yearlyReturns;
-    }
+            const int headerLinesCount = 1;
+            const int dateColumnIndex = 0;
 
-    private string GetCsvFilePath(string ticker, ReturnPeriod period)
-    {
-        return Path.Combine(this.cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
+            var returns = new Dictionary<string, List<PeriodReturn>>();
+            var fileLines = await File.ReadAllLinesAsync(syntheticReturnsFilePath);
+            var fileLinesSansHeader = fileLines.Skip(headerLinesCount);
+
+            foreach (var line in fileLinesSansHeader)
+            {
+                var cells = line.Split(',');
+                var date = DateTime.Parse(cells[dateColumnIndex]);
+
+                foreach (var (currentCell, ticker) in columnIndexToCategory)
+                {
+                    if (decimal.TryParse(cells[currentCell], NumberStyles.Any, CultureInfo.InvariantCulture, out var cellValue))
+                    {
+                        if (!returns.TryGetValue(ticker, out var value))
+                        {
+                            value = returns[ticker] = [];
+                        }
+
+                        value.Add(new PeriodReturn(date, decimal.Parse($"{cellValue:G29}"), ticker, ReturnPeriod.Monthly));
+                    }
+                }
+            }
+
+            return returns;
+        }
+
+        public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticYearlyReturns()
+        {
+            static List<PeriodReturn> calcYearlyFromMonthly(string ticker, List<PeriodReturn> monthlyReturns)
+            {
+                var result = new List<PeriodReturn>();
+
+                var yearStarts = monthlyReturns
+                    .GroupBy(r => r.PeriodStart.Year)
+                    .Select(g => g.OrderBy(r => r.PeriodStart).First())
+                    .OrderBy(r => r.PeriodStart)
+                    .ToArray();
+
+                var i = yearStarts[0].PeriodStart.Month == 1 ? 0 : 1;
+
+                for (; i < yearStarts.Length; i++)
+                {
+                    var currentYear = yearStarts[i].PeriodStart.Year;
+                    var currentYearMonthlyReturns = monthlyReturns.Where(r => r.PeriodStart.Year == currentYear);
+                    var currentYearAggregateReturn = currentYearMonthlyReturns.Aggregate(1.0m, (acc, item) => acc * (1 + item.ReturnPercentage / 100)) - 1;
+                    var periodReturn = new PeriodReturn()
+                    {
+                        PeriodStart = new DateTime(currentYear, 1, 1),
+                        ReturnPercentage = currentYearAggregateReturn,
+                        SourceTicker = ticker,
+                        ReturnPeriod = ReturnPeriod.Yearly
+                    };
+
+                    result.Add(periodReturn);
+                }
+
+                return result;
+            }
+
+            var monthlyReturns = await GetSyntheticMonthlyReturns();
+            var yearlyReturns = monthlyReturns.ToDictionary(pair => pair.Key, pair => calcYearlyFromMonthly(pair.Key, pair.Value));
+
+            return yearlyReturns;
+        }
+
+        private string GetCsvFilePath(string ticker, ReturnPeriod period)
+        {
+            return Path.Combine(cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
+        }
     }
 }

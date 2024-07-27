@@ -1,18 +1,21 @@
 ﻿using YahooFinanceApi;
 
-public struct QuoteDividendRecord
+namespace FundHistoryCache.Models
 {
-    public DateTime DateTime { get; set; }
-
-    public decimal Dividend { get; set; }
-
-    public QuoteDividendRecord() { }
-
-    public QuoteDividendRecord(DividendTick dividend)
+    public struct QuoteDividendRecord
     {
-        ArgumentNullException.ThrowIfNull(dividend);
+        public DateTime DateTime { get; set; }
 
-        this.DateTime = dividend.DateTime;
-        this.Dividend = dividend.Dividend;
+        public decimal Dividend { get; set; }
+
+        public QuoteDividendRecord() { }
+
+        public QuoteDividendRecord(DividendTick dividend)
+        {
+            ArgumentNullException.ThrowIfNull(dividend);
+
+            DateTime = dividend.DateTime;
+            Dividend = dividend.Dividend;
+        }
     }
 }

@@ -1,6 +1,9 @@
-﻿public enum ReturnPeriod
+﻿namespace FundHistoryCache.Models
 {
-    Daily,
-    Monthly,
-    Yearly
+    public enum ReturnPeriod
+    {
+        Daily,
+        Monthly,
+        Yearly
+    }
 }

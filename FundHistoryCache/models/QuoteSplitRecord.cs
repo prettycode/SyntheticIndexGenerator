@@ -1,21 +1,24 @@
 ﻿using YahooFinanceApi;
 
-public struct QuoteSplitRecord
+namespace FundHistoryCache.Models
 {
-    public DateTime DateTime { get; set; }
-
-    public decimal BeforeSplit { get; set; }
-
-    public decimal AfterSplit { get; set; }
-
-    public QuoteSplitRecord() { }
-
-    public QuoteSplitRecord(SplitTick split)
+    public struct QuoteSplitRecord
     {
-        ArgumentNullException.ThrowIfNull(split);
+        public DateTime DateTime { get; set; }
 
-        this.DateTime = split.DateTime;
-        this.BeforeSplit = split.BeforeSplit;
-        this.AfterSplit = split.AfterSplit;
+        public decimal BeforeSplit { get; set; }
+
+        public decimal AfterSplit { get; set; }
+
+        public QuoteSplitRecord() { }
+
+        public QuoteSplitRecord(SplitTick split)
+        {
+            ArgumentNullException.ThrowIfNull(split);
+
+            DateTime = split.DateTime;
+            BeforeSplit = split.BeforeSplit;
+            AfterSplit = split.AfterSplit;
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿public class Quote
+﻿using FundHistoryCache.Models;
+
+public class Quote
 {
     public readonly string Ticker;
     public List<QuoteDividendRecord> Dividends { get; set; } = [];

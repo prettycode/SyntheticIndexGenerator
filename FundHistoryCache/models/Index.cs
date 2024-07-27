@@ -1,48 +1,51 @@
-﻿public class Index(IndexRegion region, IndexMarketCap marketCap, IndexStyle style, List<string> backfillTickers)
+﻿namespace FundHistoryCache.Models
 {
-    public IndexRegion Region { get; set; } = region;
-
-    public IndexMarketCap MarketCap { get; set; } = marketCap;
-
-    public IndexStyle Style { get; set; } = style;
-
-    public List<string> BackfillTickers { get; set; } = backfillTickers ?? throw new ArgumentNullException(nameof(backfillTickers));
-
-    public string Ticker
+    public class Index(IndexRegion region, IndexMarketCap marketCap, IndexStyle style, List<string> backfillTickers)
     {
-        get
+        public IndexRegion Region { get; set; } = region;
+
+        public IndexMarketCap MarketCap { get; set; } = marketCap;
+
+        public IndexStyle Style { get; set; } = style;
+
+        public List<string> BackfillTickers { get; set; } = backfillTickers ?? throw new ArgumentNullException(nameof(backfillTickers));
+
+        public string Ticker
         {
-            var regionDesignation = this.Region switch
+            get
             {
-                IndexRegion.Us => "US",
-                IndexRegion.IntlDeveloped => "I",
-                IndexRegion.Emerging => "EM",
-                _ => throw new NotImplementedException(),
-            };
+                var regionDesignation = Region switch
+                {
+                    IndexRegion.Us => "US",
+                    IndexRegion.IntlDeveloped => "I",
+                    IndexRegion.Emerging => "EM",
+                    _ => throw new NotImplementedException(),
+                };
 
-            var marketCapDesignation = this.MarketCap switch
-            {
-                IndexMarketCap.Total => "TSM",
-                IndexMarketCap.Large => "LC",
-                IndexMarketCap.Mid => "MC",
-                IndexMarketCap.Small => "SC",
-                _ => throw new NotImplementedException(),
-            };
+                var marketCapDesignation = MarketCap switch
+                {
+                    IndexMarketCap.Total => "TSM",
+                    IndexMarketCap.Large => "LC",
+                    IndexMarketCap.Mid => "MC",
+                    IndexMarketCap.Small => "SC",
+                    _ => throw new NotImplementedException(),
+                };
 
-            var marketFactorDesignation = this.Style switch
-            {
-                IndexStyle.Blend => "B",
-                IndexStyle.Value => "V",
-                IndexStyle.Growth => "G",
-                _ => throw new NotImplementedException(),
-            };
+                var marketFactorDesignation = Style switch
+                {
+                    IndexStyle.Blend => "B",
+                    IndexStyle.Value => "V",
+                    IndexStyle.Growth => "G",
+                    _ => throw new NotImplementedException(),
+                };
 
-            if (this.MarketCap == IndexMarketCap.Total)
-            {
-                marketFactorDesignation = string.Empty;
+                if (MarketCap == IndexMarketCap.Total)
+                {
+                    marketFactorDesignation = string.Empty;
+                }
+
+                return $"$^{regionDesignation}{marketCapDesignation}{marketFactorDesignation}";
             }
-
-            return $"$^{regionDesignation}{marketCapDesignation}{marketFactorDesignation}";
         }
     }
 }

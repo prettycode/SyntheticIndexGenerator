@@ -1,4 +1,6 @@
-﻿public class PeriodReturn
+﻿using FundHistoryCache.Models;
+
+public class PeriodReturn
 {
     public DateTime PeriodStart { get; set; }
 

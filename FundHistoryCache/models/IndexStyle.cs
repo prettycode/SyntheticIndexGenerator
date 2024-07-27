@@ -1,6 +1,9 @@
-﻿public enum IndexStyle
+﻿namespace FundHistoryCache.Models
 {
-    Blend,
-    Value,
-    Growth
+    public enum IndexStyle
+    {
+        Blend,
+        Value,
+        Growth
+    }
 }

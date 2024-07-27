@@ -1,36 +1,39 @@
 ﻿
 using System.Diagnostics;
 
-public static class Timer
+namespace FundHistoryCache.Utils
 {
-    private static async Task<(T Result, TimeSpan Elapsed)> ExecInternal<T>(string operationName, Func<Task<T>> operation)
+    public static class Timer
     {
-        Stopwatch stopwatch = new();
-
-        stopwatch.Start();
-        T result = await operation();
-        stopwatch.Stop();
-
-        TimeSpan elapsed = stopwatch.Elapsed;
-
-        Console.WriteLine($"\"{operationName}\" execution time: {elapsed.TotalMilliseconds} ms");
-
-        return (result, elapsed);
-    }
-
-    public static Task<(T Result, TimeSpan Elapsed)> Exec<T>(string operationName, Func<Task<T>> operation)
-        => ExecInternal(operationName, operation);
-
-    public static async Task<TimeSpan> Exec(string operationName, Func<Task> operation)
-    {
-        var (_, elapsed) = await ExecInternal(operationName, async () =>
+        private static async Task<(T Result, TimeSpan Elapsed)> ExecInternal<T>(string operationName, Func<Task<T>> operation)
         {
-            await operation();
-            return 0;
-        });
-        return elapsed;
-    }
+            Stopwatch stopwatch = new();
 
-    public static Task<TimeSpan> Exec(string operationName, Task task)
-        => Exec(operationName, () => task);
+            stopwatch.Start();
+            T result = await operation();
+            stopwatch.Stop();
+
+            TimeSpan elapsed = stopwatch.Elapsed;
+
+            Console.WriteLine($"\"{operationName}\" execution time: {elapsed.TotalMilliseconds} ms");
+
+            return (result, elapsed);
+        }
+
+        public static Task<(T Result, TimeSpan Elapsed)> Exec<T>(string operationName, Func<Task<T>> operation)
+            => ExecInternal(operationName, operation);
+
+        public static async Task<TimeSpan> Exec(string operationName, Func<Task> operation)
+        {
+            var (_, elapsed) = await ExecInternal(operationName, async () =>
+            {
+                await operation();
+                return 0;
+            });
+            return elapsed;
+        }
+
+        public static Task<TimeSpan> Exec(string operationName, Task task)
+            => Exec(operationName, () => task);
+    }
 }

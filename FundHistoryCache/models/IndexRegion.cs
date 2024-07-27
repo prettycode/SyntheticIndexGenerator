@@ -1,6 +1,9 @@
-﻿public enum IndexRegion
+﻿namespace FundHistoryCache.Models
 {
-    Us,
-    IntlDeveloped,
-    Emerging
+    public enum IndexRegion
+    {
+        Us,
+        IntlDeveloped,
+        Emerging
+    }
 }
