@@ -74,7 +74,7 @@ namespace FundHistoryCache.Controllers
             }
         }
 
-        public static Task<Quote?> GetMissingHistory(Quote history, out DateTime start, out DateTime end)
+        private static Task<Quote?> GetMissingHistory(Quote history, out DateTime start, out DateTime end)
         {
             ArgumentNullException.ThrowIfNull(history);
 
@@ -91,7 +91,7 @@ namespace FundHistoryCache.Controllers
             return GetHistoryRange(history.Ticker, start, end);
         }
 
-        public static Task<Quote?> GetEntireHistory(string ticker)
+        private static Task<Quote?> GetEntireHistory(string ticker)
         {
             return GetHistoryRange(ticker, new DateTime(1900, 1, 1), DateTime.UtcNow.Date.AddDays(-1));
         }

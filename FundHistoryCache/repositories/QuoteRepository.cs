@@ -50,8 +50,8 @@ namespace FundHistoryCache.Repositories
 
             var rawCacheContent = await Task.WhenAll([
                 GetRawCacheContent(ticker, CacheType.Dividend),
-            GetRawCacheContent(ticker, CacheType.Price),
-            GetRawCacheContent(ticker, CacheType.Split)
+                GetRawCacheContent(ticker, CacheType.Price),
+                GetRawCacheContent(ticker, CacheType.Split)
             ]);
 
             var history = new Quote(ticker)
@@ -88,11 +88,10 @@ namespace FundHistoryCache.Repositories
             var serializedPrices = fundHistory.Prices.Select(price => JsonSerializer.Serialize(price));
             var serializedSplits = fundHistory.Splits.Select(split => JsonSerializer.Serialize(split));
 
-            await Task.WhenAll(
-            [
+            await Task.WhenAll([
                 File.AppendAllLinesAsync(cacheFilePaths[CacheType.Dividend], serializedDividends),
-            File.AppendAllLinesAsync(cacheFilePaths[CacheType.Price], serializedPrices),
-            File.AppendAllLinesAsync(cacheFilePaths[CacheType.Split], serializedSplits)
+                File.AppendAllLinesAsync(cacheFilePaths[CacheType.Price], serializedPrices),
+                File.AppendAllLinesAsync(cacheFilePaths[CacheType.Split], serializedSplits)
             ]);
         }
 

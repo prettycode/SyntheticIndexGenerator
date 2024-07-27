@@ -12,12 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="data\quotes\dividend\" />
-    <Folder Include="data\quotes\price\" />
-    <Folder Include="data\quotes\split\" />
-    <Folder Include="data\returns\daily\" />
-    <Folder Include="data\returns\monthly\" />
-    <Folder Include="data\returns\yearly\" />
+    <Folder Include="data\" />
   </ItemGroup>
 
 </Project>

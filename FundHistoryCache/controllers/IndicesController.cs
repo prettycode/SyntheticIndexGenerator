@@ -6,7 +6,30 @@ namespace FundHistoryCache.Controllers
 {
     public static class IndicesController
     {
-        public static HashSet<Index> GetIndices() => [
+        public static HashSet<string> GetBackfillTickers(bool filterSynthetic = true)
+        {
+            var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []);
+
+            if (!filterSynthetic)
+            {
+                return indices.ToHashSet();
+            }
+
+            return indices.Where(ticker => !ticker.StartsWith('$')).ToHashSet();
+        }
+
+        public static Task RefreshIndices(ReturnsRepository returnsCache)
+        {
+            ArgumentNullException.ThrowIfNull(returnsCache);
+
+            var refreshTasks = GetIndices()
+                .Where(index => index.BackfillTickers != null)
+                .Select(index => RefreshIndex(returnsCache, index));
+
+            return Task.WhenAll(refreshTasks);
+        }
+
+        private static HashSet<Index> GetIndices() => [
             new (IndexRegion.Us, IndexMarketCap.Total, IndexStyle.Blend, ["$TSM", "VTSMX", "VTI", "AVUS"]),
             new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Blend, ["$LCB", "VFINX", "VOO"]),
             new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Value, ["$LCV", "DFLVX", "AVLV"]),
@@ -24,37 +47,14 @@ namespace FundHistoryCache.Controllers
             new (IndexRegion.IntlDeveloped, IndexMarketCap.Small, IndexStyle.Blend, ["DFISX", "AVDS"]),
             new (IndexRegion.IntlDeveloped, IndexMarketCap.Small, IndexStyle.Value, ["DISVX", "AVDV"]),
             new (IndexRegion.IntlDeveloped, IndexMarketCap.Small, IndexStyle.Growth, ["DISMX"]),
-            new (IndexRegion.Emerging, IndexMarketCap.Total, IndexStyle.Blend, ["VEIEX", "AVEM"]),
-            new (IndexRegion.Emerging, IndexMarketCap.Large, IndexStyle.Blend, ["VEIEX", "AVEM"]),
+            new (IndexRegion.Emerging, IndexMarketCap.Total, IndexStyle.Blend, ["DFEMX", "AVEM"]),
+            new (IndexRegion.Emerging, IndexMarketCap.Large, IndexStyle.Blend, ["DFEMX", "AVEM"]),
             new (IndexRegion.Emerging, IndexMarketCap.Large, IndexStyle.Value, ["DFEVX", "AVES"]),
             new (IndexRegion.Emerging, IndexMarketCap.Large, IndexStyle.Growth, ["XSOE"]),
             new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Blend, ["DEMSX", "AVEE"]),
             new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Value, ["DGS"])
         ];
 
-        public static HashSet<string> GetBackfillTickers(bool filterSynthetic = true)
-        {
-            var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []);
-
-            if (!filterSynthetic)
-            {
-                return indices.ToHashSet();
-            }
-
-            return indices.Where(ticker => !ticker.StartsWith('$')).ToHashSet();
-        }
-
-        public static Task RefreshIndices(ReturnsRepository returnsCache)
-        {
-            ArgumentNullException.ThrowIfNull(returnsCache);
-
-            var refreshTasks =
-                GetIndices()
-                .Where(index => index.BackfillTickers != null)
-                .Select(index => RefreshIndex(returnsCache, index));
-
-            return Task.WhenAll(refreshTasks);
-        }
 
         private static async Task RefreshIndex(ReturnsRepository returnsCache, Index index)
         {
@@ -71,6 +71,7 @@ namespace FundHistoryCache.Controllers
 
             await Task.WhenAll(tasks);
         }
+
         private static async Task<List<PeriodReturn>> CollateReturns(ReturnsRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
         {
             var availableBackfillTickers = backfillTickers.Where(ticker => returnsCache.Has(ticker, period));

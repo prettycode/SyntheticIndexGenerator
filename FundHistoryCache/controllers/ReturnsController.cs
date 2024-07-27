@@ -14,7 +14,7 @@ namespace FundHistoryCache.Controllers
             {
                 var synReturnsByTicker = await Task.WhenAll([
                     returnsCache.GetSyntheticMonthlyReturns(),
-                returnsCache.GetSyntheticYearlyReturns()
+                    returnsCache.GetSyntheticYearlyReturns()
                 ]);
 
                 var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
@@ -22,7 +22,7 @@ namespace FundHistoryCache.Controllers
 
                 return Task.WhenAll([
                     .. synMonthlyReturnsPutTasks,
-                .. synYearlyReturnsPutTasks
+                    .. synYearlyReturnsPutTasks
                 ]);
             }
 
@@ -45,7 +45,7 @@ namespace FundHistoryCache.Controllers
 
             return Task.WhenAll([
                 refreshSyntheticReturns(),
-            .. refreshQuoteReturns()
+                .. refreshQuoteReturns()
             ]);
         }
 

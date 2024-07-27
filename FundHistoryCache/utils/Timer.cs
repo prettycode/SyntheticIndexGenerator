@@ -30,6 +30,7 @@ namespace FundHistoryCache.Utils
                 await operation();
                 return 0;
             });
+
             return elapsed;
         }
 
