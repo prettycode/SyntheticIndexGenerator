@@ -132,17 +132,16 @@ namespace FundHistoryCache.Repositories
                 var cells = line.Split(',');
                 var date = DateTime.Parse(cells[dateColumnIndex]);
 
-                foreach (var (currentCell, ticker) in columnIndexToCategory)
+                foreach (var (cellIndex, ticker) in columnIndexToCategory)
                 {
-                    if (decimal.TryParse(cells[currentCell], NumberStyles.Any, CultureInfo.InvariantCulture, out var cellValue))
-                    {
-                        if (!returns.TryGetValue(ticker, out var value))
-                        {
-                            value = returns[ticker] = [];
-                        }
+                    var cellValue = decimal.Parse(cells[cellIndex], NumberStyles.Any, CultureInfo.InvariantCulture);
 
-                        value.Add(new PeriodReturn(date, decimal.Parse($"{cellValue:G29}"), ticker, ReturnPeriod.Monthly));
+                    if (!returns.TryGetValue(ticker, out var tickerReturns))
+                    {
+                        tickerReturns = returns[ticker] = [];
                     }
+
+                    tickerReturns.Add(new PeriodReturn(date, decimal.Parse($"{cellValue:G29}"), ticker, ReturnPeriod.Monthly));
                 }
             }
 
