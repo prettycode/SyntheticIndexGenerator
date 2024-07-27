@@ -8,7 +8,8 @@ namespace FundHistoryCache.Controllers
     {
         public static HashSet<string> GetBackfillTickers(bool filterSynthetic = true)
         {
-            var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []);
+            var miscTickers = new string[] { "VEIEX" };
+            var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []).Concat(miscTickers);
 
             if (!filterSynthetic)
             {
@@ -54,7 +55,6 @@ namespace FundHistoryCache.Controllers
             new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Blend, ["DEMSX", "AVEE"]),
             new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Value, ["DGS"])
         ];
-
 
         private static async Task RefreshIndex(ReturnsRepository returnsCache, Index index)
         {

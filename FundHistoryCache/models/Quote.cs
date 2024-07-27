@@ -3,9 +3,9 @@
     public class Quote
     {
         public readonly string Ticker;
-        public List<QuoteDividendRecord> Dividends { get; set; } = [];
-        public List<QuotePriceRecord> Prices { get; set; } = [];
-        public List<QuoteSplitRecord> Splits { get; set; } = [];
+        public List<QuoteDividend> Dividends { get; set; } = [];
+        public List<QuotePrice> Prices { get; set; } = [];
+        public List<QuoteSplit> Splits { get; set; } = [];
 
         public Quote(string ticker)
         {

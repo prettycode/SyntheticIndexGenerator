@@ -49,12 +49,12 @@ namespace FundHistoryCache.Controllers
             ]);
         }
 
-        private static List<PeriodReturn> GetDailyReturns(string ticker, List<QuotePriceRecord> dailyPrices)
+        private static List<PeriodReturn> GetDailyReturns(string ticker, List<QuotePrice> dailyPrices)
         {
             return GetReturns(dailyPrices, ticker, ReturnPeriod.Daily);
         }
 
-        private static List<PeriodReturn> GetMonthlyReturns(string ticker, List<QuotePriceRecord> dailyPrices)
+        private static List<PeriodReturn> GetMonthlyReturns(string ticker, List<QuotePrice> dailyPrices)
         {
             var monthlyCloses = dailyPrices
                 .GroupBy(r => new { r.DateTime.Year, r.DateTime.Month })
@@ -69,7 +69,7 @@ namespace FundHistoryCache.Controllers
                 .ToList();
         }
 
-        private static List<PeriodReturn> GetYearlyReturns(string ticker, List<QuotePriceRecord> dailyPrices)
+        private static List<PeriodReturn> GetYearlyReturns(string ticker, List<QuotePrice> dailyPrices)
         {
             var yearlyCloses = dailyPrices
                 .GroupBy(r => r.DateTime.Year)
@@ -84,10 +84,10 @@ namespace FundHistoryCache.Controllers
                 .ToList();
         }
 
-        private static List<PeriodReturn> GetReturns(List<QuotePriceRecord> prices, string ticker, ReturnPeriod returnPeriod, bool skipFirst = true)
+        private static List<PeriodReturn> GetReturns(List<QuotePrice> prices, string ticker, ReturnPeriod returnPeriod, bool skipFirst = true)
         {
             static decimal calcChange(decimal x, decimal y) => (y - x) / x * 100m;
-            static decimal endingPrice(QuotePriceRecord record) => record.AdjustedClose;
+            static decimal endingPrice(QuotePrice record) => record.AdjustedClose;
 
             List<PeriodReturn> returns = skipFirst
                 ? []

@@ -1,6 +1,8 @@
-﻿using FundHistoryCache.Models;
+﻿using FundHistoryCache.Extensions;
+using FundHistoryCache.Models;
 using FundHistoryCache.Repositories;
-using YahooFinanceApi;
+using NodaTime;
+using YahooQuotesApi;
 
 namespace FundHistoryCache.Controllers
 {
@@ -98,31 +100,25 @@ namespace FundHistoryCache.Controllers
 
         private static async Task<Quote?> GetHistoryRange(string ticker, DateTime start, DateTime end)
         {
-            static async Task<T> throttle<T>(Func<Task<T>> operation)
-            {
-                await Task.Delay(1000);
-                return await operation();
-            }
-
             if (start >= end)
             {
                 return null;
             }
 
+            var yahooQuotes = new YahooQuotesBuilder()
+                .WithHistoryStartDate(Instant.FromUtc(start.Year, start.Month, start.Day, 0, 0))
+                .WithCacheDuration(Duration.FromHours(1), Duration.FromHours(1))
+                .WithPriceHistoryFrequency(Frequency.Daily)
+                .Build();
+
             var history = new Quote(ticker)
             {
-                Dividends = (await throttle(() => Yahoo.GetDividendsAsync(ticker, start, end)))
-                    .Select(divTick => new QuoteDividendRecord(divTick))
-                    .ToList(),
-                Prices = (await throttle(() => Yahoo.GetHistoricalAsync(ticker, start, end)))
-                    .Select(candle => new QuotePriceRecord(candle))
-                    .ToList(),
-                Splits = (await throttle(() => Yahoo.GetSplitsAsync(ticker, start, end)))
-                    .Select(splitTick => new QuoteSplitRecord(splitTick))
-                    .ToList()
+                Dividends = await yahooQuotes.GetDividends(ticker),
+                Prices = await yahooQuotes.GetPrices(ticker),
+                Splits = await yahooQuotes.GetSplits(ticker)
             };
 
-            // API will sometimes return zeroed records if `end` is today
+            // API will sometimes return zeroed records if the record's date is today and markets are open
             if (history.Prices[^1].Open == 0)
             {
                 history.Prices.RemoveAt(history.Prices.Count - 1);

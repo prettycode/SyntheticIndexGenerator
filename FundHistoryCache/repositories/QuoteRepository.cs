@@ -56,9 +56,9 @@ namespace FundHistoryCache.Repositories
 
             var history = new Quote(ticker)
             {
-                Dividends = rawCacheContent[0].Select(line => JsonSerializer.Deserialize<QuoteDividendRecord>(line)).ToList(),
-                Prices = rawCacheContent[1].Select(line => JsonSerializer.Deserialize<QuotePriceRecord>(line)).ToList(),
-                Splits = rawCacheContent[2].Select(line => JsonSerializer.Deserialize<QuoteSplitRecord>(line)).ToList()
+                Dividends = rawCacheContent[0].Select(line => JsonSerializer.Deserialize<QuoteDividend>(line)).ToList(),
+                Prices = rawCacheContent[1].Select(line => JsonSerializer.Deserialize<QuotePrice>(line)).ToList(),
+                Splits = rawCacheContent[2].Select(line => JsonSerializer.Deserialize<QuoteSplit>(line)).ToList()
             };
 
             Inspect(history);

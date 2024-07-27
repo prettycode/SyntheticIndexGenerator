@@ -1,8 +1,9 @@
-﻿using YahooFinanceApi;
+﻿using YahooQuotesApi;
+using Legacy = YahooFinanceApi;
 
 namespace FundHistoryCache.Models
 {
-    public struct QuotePriceRecord
+    public struct QuotePrice
     {
         public DateTime DateTime { get; set; }
 
@@ -18,9 +19,22 @@ namespace FundHistoryCache.Models
 
         public decimal AdjustedClose { get; set; }
 
-        public QuotePriceRecord() { }
+        public QuotePrice() { }
 
-        public QuotePriceRecord(Candle candle)
+        public QuotePrice(PriceTick price)
+        {
+            ArgumentNullException.ThrowIfNull(price);
+
+            DateTime = price.Date.ToDateTimeUnspecified();
+            Open = Convert.ToDecimal(price.Open);
+            High = Convert.ToDecimal(price.High);
+            Low = Convert.ToDecimal(price.Low);
+            Close = Convert.ToDecimal(price.Close);
+            AdjustedClose = Convert.ToDecimal(price.AdjustedClose);
+            Volume = price.Volume;
+        }
+
+        public QuotePrice(Legacy.Candle candle)
         {
             ArgumentNullException.ThrowIfNull(candle);
 
