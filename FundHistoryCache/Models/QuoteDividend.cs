@@ -1,6 +1,4 @@
-﻿using YahooQuotesApi;
-
-namespace FundHistoryCache.Models
+﻿namespace FundHistoryCache.Models
 {
     public struct QuoteDividend
     {
@@ -10,12 +8,20 @@ namespace FundHistoryCache.Models
 
         public QuoteDividend() { }
 
-        public QuoteDividend(DividendTick dividend)
+        public QuoteDividend(YahooQuotesApi.DividendTick dividend)
         {
             ArgumentNullException.ThrowIfNull(dividend);
 
             DateTime = dividend.Date.ToDateTimeUnspecified();
             Dividend = Convert.ToDecimal(dividend.Dividend);
+        }
+
+        public QuoteDividend(YahooFinanceApi.DividendTick dividend)
+        {
+            ArgumentNullException.ThrowIfNull(dividend);
+
+            DateTime = dividend.DateTime;
+            Dividend = dividend.Dividend;
         }
     }
 }

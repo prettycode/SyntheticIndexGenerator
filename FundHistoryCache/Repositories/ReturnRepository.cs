@@ -3,13 +3,13 @@ using FundHistoryCache.Models;
 
 namespace FundHistoryCache.Repositories
 {
-    public class ReturnsRepository
+    public class ReturnRepository
     {
         private readonly string cachePath;
 
         private readonly string syntheticReturnsFilePath;
 
-        public ReturnsRepository(string cachePath, string syntheticReturnsFilePath)
+        public ReturnRepository(string cachePath, string syntheticReturnsFilePath)
         {
             ArgumentNullException.ThrowIfNull(cachePath);
             ArgumentNullException.ThrowIfNull(syntheticReturnsFilePath);

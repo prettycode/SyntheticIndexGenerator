@@ -1,0 +1,10 @@
+{"DateTime":"2022-08-26T00:00:00","Dividend":0.150000}
+{"DateTime":"2022-09-27T00:00:00","Dividend":0.150000}
+{"DateTime":"2022-10-26T00:00:00","Dividend":0.150000}
+{"DateTime":"2022-11-25T00:00:00","Dividend":0.150000}
+{"DateTime":"2022-12-27T00:00:00","Dividend":1.111000}
+{"DateTime":"2023-06-27T00:00:00","Dividend":0.100000}
+{"DateTime":"2023-09-27T00:00:00","Dividend":0.100000}
+{"DateTime":"2023-12-26T00:00:00","Dividend":1.635000}
+{"DateTime":"2024-03-25T00:00:00","Dividend":0.150000}
+{"DateTime":"2024-06-25T00:00:00","Dividend":0.150000}

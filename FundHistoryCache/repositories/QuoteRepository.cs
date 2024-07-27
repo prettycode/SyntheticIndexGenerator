@@ -37,13 +37,20 @@ namespace FundHistoryCache.Repositories
             return matchingFiles.Select(file => Path.GetFileNameWithoutExtension(file));
         }
 
-        public async Task<Quote?> Get(string ticker)
+        public bool Has(string ticker)
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
             ReadOnlyDictionary<CacheType, string> cacheFilePaths = GetCacheFilePaths(ticker);
 
-            if (!File.Exists(cacheFilePaths[CacheType.Price]))
+            return File.Exists(cacheFilePaths[CacheType.Price]);
+        }
+
+        public async Task<Quote?> Get(string ticker)
+        {
+            ArgumentNullException.ThrowIfNull(ticker);
+
+            if (!Has(ticker))
             {
                 return null;
             }

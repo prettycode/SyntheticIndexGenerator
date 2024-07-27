@@ -8,21 +8,39 @@ var syntheticReturnsFilePath = "../../../source/Stock-Index-Data-20220923-Monthl
 var saveSyntheticReturnsPath = "../../../data/returns/";
 
 var quoteRepository = new QuoteRepository(quotesPath);
-var returnsRepository = new ReturnsRepository(saveSyntheticReturnsPath, syntheticReturnsFilePath);
-var quoteTickersNeeded = IndicesController.GetBackfillTickers();
+var returnsRepository = new ReturnRepository(saveSyntheticReturnsPath, syntheticReturnsFilePath);
+var quoteTickersNeeded = IndexController.GetBackfillTickers();
 
-await Timer.Exec("Refresh quotes", QuotesController.RefreshQuotes(quoteRepository, quoteTickersNeeded));
-await Timer.Exec("Refresh returns", ReturnsController.RefreshReturns(quoteRepository, returnsRepository));
-await Timer.Exec("Refresh indices", IndicesController.RefreshIndices(returnsRepository));
+await Timer.Exec("Refresh quotes", QuoteController.RefreshQuotes(quoteRepository, quoteTickersNeeded));
+await Timer.Exec("Refresh returns", ReturnController.RefreshReturns(quoteRepository, returnsRepository));
+await Timer.Exec("Refresh indices", IndexController.RefreshIndices(returnsRepository));
 
-GetPerformance(returnsRepository, "AVUV").Result.ForEach(tick => Console.WriteLine($"AVUV: {tick.Period.PeriodStart:yyyy-MM-dd} {tick.EndingBalance:C} ({tick.BalanceIncrease:N2}%)"));
+GetPerformance(returnsRepository, quoteRepository, "AVUV")
+    .Result
+    .ForEach(tick => Console.WriteLine($"AVUV: {tick.Period.PeriodStart:yyyy-MM-dd} {tick.EndingBalance:C} ({tick.BalanceIncrease:N2}%)"));
 
 static async Task<List<PerformanceTick>> GetPerformance(
-    ReturnsRepository returnsCache,
+    ReturnRepository returnsCache,
+    QuoteRepository quotesCache,
     string ticker,
     decimal startingBalance = 100,
     ReturnPeriod granularity = ReturnPeriod.Daily)
 {
+    if (!returnsCache.Has(ticker, granularity))
+    {
+        if (!quotesCache.Has(ticker))
+        {
+            var successful = await QuoteController.RefreshQuote(quotesCache, ticker);
+
+            if (!successful)
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        await ReturnController.RefreshReturn(quotesCache, returnsCache, ticker);
+    }
+
     var tickerReturns = await returnsCache.Get(ticker, granularity)
         ?? throw new ArgumentException($"No returns found in `{nameof(returnsCache)}`", nameof(ticker));
 
@@ -30,26 +48,20 @@ static async Task<List<PerformanceTick>> GetPerformance(
 
     foreach (var currentReturnTick in tickerReturns)
     {
-        performanceTicks.Add(new PerformanceTick(currentReturnTick, startingBalance));
-        startingBalance = performanceTicks.Last().EndingBalance;
+        performanceTicks.Add(new(currentReturnTick, startingBalance));
+        startingBalance = performanceTicks[^1].EndingBalance;
     }
 
     return performanceTicks;
 }
 
-class PerformanceTick
+class PerformanceTick(PeriodReturn period, decimal startingBalance)
 {
-    public PeriodReturn Period { get; set; }
+    public PeriodReturn Period { get; set; } = period;
 
-    public decimal StartingBalance { get; set; }
+    public decimal StartingBalance { get; set; } = startingBalance;
 
     public decimal EndingBalance { get { return this.StartingBalance + this.BalanceIncrease; } }
 
     public decimal BalanceIncrease { get { return this.StartingBalance * (this.Period.ReturnPercentage / 100m); } }
-
-    public PerformanceTick(PeriodReturn period, decimal startingBalance)
-    {
-        this.Period = period;
-        this.StartingBalance = startingBalance;
-    }
 }

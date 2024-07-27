@@ -3,9 +3,25 @@ using FundHistoryCache.Repositories;
 
 namespace FundHistoryCache.Controllers
 {
-    public static class ReturnsController
+    public static class ReturnController
     {
-        public static Task RefreshReturns(QuoteRepository quotesCache, ReturnsRepository returnsCache)
+        public static async Task<Task> RefreshReturn(QuoteRepository quotesCache, ReturnRepository returnsCache, string ticker)
+        {
+            ArgumentNullException.ThrowIfNull(quotesCache);
+            ArgumentNullException.ThrowIfNull(returnsCache);
+            ArgumentNullException.ThrowIfNull(ticker);
+
+            var history = await quotesCache.Get(ticker) ?? throw new InvalidOperationException();
+            var priceHistory = history.Prices;
+
+            return Task.WhenAll(
+                returnsCache.Put(ticker, GetDailyReturns(ticker, priceHistory), ReturnPeriod.Daily),
+                returnsCache.Put(ticker, GetMonthlyReturns(ticker, priceHistory), ReturnPeriod.Monthly),
+                returnsCache.Put(ticker, GetYearlyReturns(ticker, priceHistory), ReturnPeriod.Yearly)
+            );
+        }
+
+        public static Task RefreshReturns(QuoteRepository quotesCache, ReturnRepository returnsCache)
         {
             ArgumentNullException.ThrowIfNull(quotesCache);
             ArgumentNullException.ThrowIfNull(returnsCache);
@@ -29,18 +45,9 @@ namespace FundHistoryCache.Controllers
             IEnumerable<Task> refreshQuoteReturns()
             {
                 var tickers = quotesCache.GetAllTickers();
+                var tickerRefreshTasks = tickers.Select(ticker => RefreshReturn(quotesCache, returnsCache, ticker));
 
-                return tickers.Select(async ticker =>
-                {
-                    var history = await quotesCache.Get(ticker);
-                    var priceHistory = history!.Prices;
-
-                    await Task.WhenAll(
-                        returnsCache.Put(ticker, GetDailyReturns(ticker, priceHistory), ReturnPeriod.Daily),
-                        returnsCache.Put(ticker, GetMonthlyReturns(ticker, priceHistory), ReturnPeriod.Monthly),
-                        returnsCache.Put(ticker, GetYearlyReturns(ticker, priceHistory), ReturnPeriod.Yearly)
-                    );
-                });
+                return tickerRefreshTasks;
             }
 
             return Task.WhenAll([

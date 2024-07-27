@@ -1,6 +1,4 @@
-﻿using YahooQuotesApi;
-
-namespace FundHistoryCache.Models
+﻿namespace FundHistoryCache.Models
 {
     public struct QuoteSplit
     {
@@ -12,13 +10,24 @@ namespace FundHistoryCache.Models
 
         public QuoteSplit() { }
 
-        public QuoteSplit(SplitTick split)
+        public QuoteSplit(YahooQuotesApi.SplitTick split)
         {
             ArgumentNullException.ThrowIfNull(split);
 
             DateTime = split.Date.ToDateTimeUnspecified();
             BeforeSplit = Convert.ToDecimal(split.BeforeSplit);
             AfterSplit = Convert.ToDecimal(split.AfterSplit);
+        }
+
+        public QuoteSplit(YahooFinanceApi.SplitTick split)
+        {
+            ArgumentNullException.ThrowIfNull(split);
+
+            DateTime = split.DateTime;
+
+            // YahooFinanceApi has the split fields reversed, so fix it here
+            BeforeSplit = split.AfterSplit;
+            AfterSplit = split.BeforeSplit;
         }
     }
 }

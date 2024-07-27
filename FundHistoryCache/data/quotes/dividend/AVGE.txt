@@ -1,0 +1,4 @@
+{"DateTime":"2022-12-19T00:00:00","Dividend":0.412}
+{"DateTime":"2023-06-22T00:00:00","Dividend":0.573}
+{"DateTime":"2023-12-20T00:00:00","Dividend":0.679}
+{"DateTime":"2024-06-26T00:00:00","Dividend":0.629}

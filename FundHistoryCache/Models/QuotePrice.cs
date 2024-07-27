@@ -1,6 +1,4 @@
-﻿using YahooQuotesApi;
-
-namespace FundHistoryCache.Models
+﻿namespace FundHistoryCache.Models
 {
     public struct QuotePrice
     {
@@ -20,7 +18,7 @@ namespace FundHistoryCache.Models
 
         public QuotePrice() { }
 
-        public QuotePrice(PriceTick price)
+        public QuotePrice(YahooQuotesApi.PriceTick price)
         {
             ArgumentNullException.ThrowIfNull(price);
 
@@ -31,6 +29,19 @@ namespace FundHistoryCache.Models
             Close = Convert.ToDecimal(price.Close);
             AdjustedClose = Convert.ToDecimal(price.AdjustedClose);
             Volume = price.Volume;
+        }
+
+        public QuotePrice(YahooFinanceApi.Candle candle)
+        {
+            ArgumentNullException.ThrowIfNull(candle);
+
+            DateTime = candle.DateTime;
+            Open = candle.Open;
+            High = candle.High;
+            Low = candle.Low;
+            Close = candle.Close;
+            AdjustedClose = candle.AdjustedClose;
+            Volume = candle.Volume;
         }
     }
 }
