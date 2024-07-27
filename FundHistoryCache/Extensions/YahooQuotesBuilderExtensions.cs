@@ -3,6 +3,9 @@ using FundHistoryCache.Models;
 
 namespace FundHistoryCache.Extensions
 {
+    /// <summary>
+    /// Break up the individual requests so we don't run into rate-limiting issues.
+    /// </summary>
     public static class YahooQuotesBuilderExtensions
     {
         private static async Task<T> Throttle<T>(Func<Task<T>> operation)
