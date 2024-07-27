@@ -1,4 +1,5 @@
 ﻿using YahooFinanceApi;
+
 public struct QuotePriceRecord
 {
     public DateTime DateTime { get; set; }

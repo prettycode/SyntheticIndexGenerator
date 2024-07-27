@@ -1,4 +1,5 @@
 ﻿using YahooFinanceApi;
+
 public struct QuoteSplitRecord
 {
     public DateTime DateTime { get; set; }

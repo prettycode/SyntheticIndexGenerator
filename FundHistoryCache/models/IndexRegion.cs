@@ -1,6 +1,6 @@
 ﻿public enum IndexRegion
 {
     Us,
-    InternationalDeveloped,
+    IntlDeveloped,
     Emerging
 }

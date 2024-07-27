@@ -1,19 +1,21 @@
-﻿public struct Index
+﻿public class Index(IndexRegion region, IndexMarketCap marketCap, IndexStyle style, List<string> backfillTickers)
 {
-    public IndexRegion Region { get; set; }
-    public IndexMarketCap MarketCap { get; set; }
-    public IndexStyle Style { get; set; }
+    public IndexRegion Region { get; set; } = region;
 
-    public List<string> OrderedBackfillTickerSequence { get; set; }
+    public IndexMarketCap MarketCap { get; set; } = marketCap;
 
-    public readonly string Ticker
+    public IndexStyle Style { get; set; } = style;
+
+    public List<string> BackfillTickers { get; set; } = backfillTickers ?? throw new ArgumentNullException(nameof(backfillTickers));
+
+    public string Ticker
     {
         get
         {
             var regionDesignation = this.Region switch
             {
                 IndexRegion.Us => "US",
-                IndexRegion.InternationalDeveloped => "I",
+                IndexRegion.IntlDeveloped => "I",
                 IndexRegion.Emerging => "EM",
                 _ => throw new NotImplementedException(),
             };

@@ -70,7 +70,6 @@ public static class QuotesController
         }
     }
 
-
     public static Task<Quote?> GetMissingHistory(Quote history, out DateTime start, out DateTime end)
     {
         ArgumentNullException.ThrowIfNull(history);
