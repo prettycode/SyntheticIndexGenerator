@@ -30,7 +30,7 @@ public static class QuotesController
 
                 try
                 {
-                    missingFundHistory = await QuotesController.GetHistoryAll(ticker);
+                    missingFundHistory = await QuotesController.GetEntireHistory(ticker);
                 }
                 catch (Exception ex)
                 {
@@ -88,7 +88,7 @@ public static class QuotesController
         return QuotesController.GetHistoryRange(history.Ticker, start, end);
     }
 
-    public static Task<Quote?> GetHistoryAll(string ticker)
+    public static Task<Quote?> GetEntireHistory(string ticker)
     {
         return QuotesController.GetHistoryRange(ticker, new DateTime(1900, 1, 1), DateTime.UtcNow.Date.AddDays(-1));
     }
