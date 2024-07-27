@@ -116,37 +116,4 @@ public static class IndicesController
 
         return result;
     }
-
-    private async static Task<List<PeriodReturn>> CollateCompositeReturns(ReturnsRepository returnsCache, List<string> backfillTickers)
-    {
-        throw new NotImplementedException();
-
-        List<PeriodReturn> result = [];
-        Dictionary<string, KeyValuePair<ReturnPeriod, List<PeriodReturn>>> backfillReturns = [];
-
-        foreach (var ticker in backfillTickers)
-        {
-            ReturnPeriod periodGranularity;
-            var mostGranularReturns = await returnsCache.GetMostGranular(ticker, out periodGranularity);
-
-            backfillReturns.Add(ticker, new KeyValuePair<ReturnPeriod, List<PeriodReturn>>(periodGranularity, mostGranularReturns));
-        }
-
-        for(var i = 0; i < backfillTickers.Count; i++)
-        {
-            var startDateOfNextTicker = DateTime.MaxValue;
-
-            if (i + 1 < backfillTickers.Count - 1)
-            {
-                var nextTicker = backfillTickers.ElementAt(i + 1);
-                var nextTickerPeriod = backfillReturns[nextTicker].Key;
-                var nextTickerReturns = backfillReturns[nextTicker].Value;
-
-                startDateOfNextTicker = nextTickerReturns.First().PeriodStart;
-            }
-
-        }
-
-        return result;
-    }
 }
