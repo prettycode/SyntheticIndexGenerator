@@ -1,5 +1,4 @@
 ﻿using YahooQuotesApi;
-using Legacy = YahooFinanceApi;
 
 namespace FundHistoryCache.Models
 {
@@ -17,14 +16,6 @@ namespace FundHistoryCache.Models
 
             DateTime = dividend.Date.ToDateTimeUnspecified();
             Dividend = Convert.ToDecimal(dividend.Dividend);
-        }
-
-        public QuoteDividend(Legacy.DividendTick dividend)
-        {
-            ArgumentNullException.ThrowIfNull(dividend);
-
-            DateTime = dividend.DateTime;
-            Dividend = dividend.Dividend;
         }
     }
 }

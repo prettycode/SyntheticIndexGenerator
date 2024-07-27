@@ -1,5 +1,4 @@
 ﻿using YahooQuotesApi;
-using Legacy = YahooFinanceApi;
 
 namespace FundHistoryCache.Models
 {
@@ -32,19 +31,6 @@ namespace FundHistoryCache.Models
             Close = Convert.ToDecimal(price.Close);
             AdjustedClose = Convert.ToDecimal(price.AdjustedClose);
             Volume = price.Volume;
-        }
-
-        public QuotePrice(Legacy.Candle candle)
-        {
-            ArgumentNullException.ThrowIfNull(candle);
-
-            DateTime = candle.DateTime;
-            Open = candle.Open;
-            High = candle.High;
-            Low = candle.Low;
-            Close = candle.Close;
-            Volume = candle.Volume;
-            AdjustedClose = candle.AdjustedClose;
         }
     }
 }

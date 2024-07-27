@@ -1,5 +1,4 @@
 ﻿using YahooQuotesApi;
-using Legacy = YahooFinanceApi;
 
 namespace FundHistoryCache.Models
 {
@@ -20,15 +19,6 @@ namespace FundHistoryCache.Models
             DateTime = split.Date.ToDateTimeUnspecified();
             BeforeSplit = Convert.ToDecimal(split.BeforeSplit);
             AfterSplit = Convert.ToDecimal(split.AfterSplit);
-        }
-
-        public QuoteSplit(Legacy.SplitTick split)
-        {
-            ArgumentNullException.ThrowIfNull(split);
-
-            DateTime = split.DateTime;
-            BeforeSplit = split.BeforeSplit;
-            AfterSplit = split.AfterSplit;
         }
     }
 }
