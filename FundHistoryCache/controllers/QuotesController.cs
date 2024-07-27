@@ -90,7 +90,7 @@ public static class QuotesController
 
     public static Task<Quote?> GetHistoryAll(string ticker)
     {
-        return QuotesController.GetHistoryRange(ticker, new DateTime(1900, 1, 1), DateTime.UtcNow);
+        return QuotesController.GetHistoryRange(ticker, new DateTime(1900, 1, 1), DateTime.UtcNow.Date.AddDays(-1));
     }
 
     private static async Task<Quote?> GetHistoryRange(string ticker, DateTime start, DateTime end)
