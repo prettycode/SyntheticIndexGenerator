@@ -7,11 +7,13 @@
 
         async Task<Task> refreshSyntheticReturns()
         {
-            var synMonthlyReturnsByTicker = await returnsCache.GetSyntheticMonthlyReturns();
-            var synMonthlyReturnsPutTasks = synMonthlyReturnsByTicker.Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
+            var synReturnsByTicker = await Task.WhenAll([
+                returnsCache.GetSyntheticMonthlyReturns(),
+                returnsCache.GetSyntheticYearlyReturns()
+            ]);
 
-            var synYearlyReturnsByTicker = await returnsCache.GetSyntheticYearlyReturns();
-            var synYearlyReturnsPutTasks = synYearlyReturnsByTicker.Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Yearly));
+            var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
+            var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Yearly));
 
             return Task.WhenAll([
                 .. synMonthlyReturnsPutTasks,
@@ -26,7 +28,7 @@
             return tickers.Select(async ticker =>
             {
                 var history = await quotesCache.Get(ticker);
-                var priceHistory = history!.Prices.ToList();
+                var priceHistory = history!.Prices;
 
                 await Task.WhenAll(
                     returnsCache.Put(ticker, ReturnsController.GetDailyReturns(ticker, priceHistory), ReturnPeriod.Daily),

@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.Json;
-using YahooFinanceApi;
 
 public class QuoteRepository
 {
@@ -39,7 +38,6 @@ public class QuoteRepository
     {
         ArgumentNullException.ThrowIfNull(ticker);
 
-        Quote history = new(ticker);
         ReadOnlyDictionary<CacheType, string> cacheFilePaths = this.GetCacheFilePaths(ticker);
 
         if (!File.Exists(cacheFilePaths[CacheType.Price]))
@@ -47,15 +45,18 @@ public class QuoteRepository
             return null;
         }
 
-        var results = await Task.WhenAll([
+        var rawCacheContent = await Task.WhenAll([
             this.GetRawCacheContent(ticker, CacheType.Dividend),
             this.GetRawCacheContent(ticker, CacheType.Price),
             this.GetRawCacheContent(ticker, CacheType.Split)
         ]);
 
-        history.Dividends = results[0].Select(line => JsonSerializer.Deserialize<QuoteDividendRecord>(line)).ToList();
-        history.Prices = results[1].Select(line => JsonSerializer.Deserialize<QuotePriceRecord>(line)).ToList();
-        history.Splits = results[2].Select(line => JsonSerializer.Deserialize<QuoteSplitRecord>(line)).ToList();
+        var history = new Quote(ticker)
+        {
+            Dividends = rawCacheContent[0].Select(line => JsonSerializer.Deserialize<QuoteDividendRecord>(line)).ToList(),
+            Prices = rawCacheContent[1].Select(line => JsonSerializer.Deserialize<QuotePriceRecord>(line)).ToList(),
+            Splits = rawCacheContent[2].Select(line => JsonSerializer.Deserialize<QuoteSplitRecord>(line)).ToList()
+        };
 
         QuoteRepository.Inspect(history);
 

@@ -19,7 +19,7 @@ public static class QuotesController
             }
             else
             {
-                Console.WriteLine($"{ticker}: {fundHistory.Prices.Count} record(s) in cache, {fundHistory.Prices[0].DateTime:yyyy-MM-dd} to {fundHistory.Prices[fundHistory.Prices.Count - 1].DateTime:yyyy-MM-dd}.");
+                Console.WriteLine($"{ticker}: {fundHistory.Prices.Count} record(s) in cache, {fundHistory.Prices[0].DateTime:yyyy-MM-dd} to {fundHistory.Prices[^1].DateTime:yyyy-MM-dd}.");
             }
 
             Quote? missingFundHistory;
@@ -28,15 +28,33 @@ public static class QuotesController
             {
                 Console.WriteLine($"{ticker}: Download entire history.");
 
-                missingFundHistory = await QuotesController.GetHistoryAll(ticker);
+                try
+                {
+                    missingFundHistory = await QuotesController.GetHistoryAll(ticker);
+                }
+                catch (Exception ex)
+                {
+                    // API will sometimes return 404 if ticker is being updated on their end
+                    Console.WriteLine($"{ticker}: ERROR DOWNLOAD FAILED: {ex.Message}");
+                    continue;
+                }
             }
             else
             {
-                missingFundHistory = await QuotesController.GetMissingHistory(fundHistory, out DateTime missingStart, out DateTime missingEnd);
-
-                if (missingFundHistory != null)
+                try
                 {
-                    Console.WriteLine($"{ticker}: Missing history identified as {missingStart:yyyy-MM-dd} to {missingEnd:yyyy-MM-dd}");
+                    missingFundHistory = await QuotesController.GetMissingHistory(fundHistory, out DateTime missingStart, out DateTime missingEnd);
+
+                    if (missingFundHistory != null)
+                    {
+                        Console.WriteLine($"{ticker}: Missing history identified as {missingStart:yyyy-MM-dd} to {missingEnd:yyyy-MM-dd}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // API will sometimes return 404 if ticker is being updated on their end
+                    Console.WriteLine($"{ticker}: ERROR DOWNLOAD FAILED: {ex.Message}");
+                    continue;
                 }
             }
 
@@ -46,58 +64,67 @@ public static class QuotesController
                 continue;
             }
 
-            Console.WriteLine($"{ticker}: Save {missingFundHistory.Prices.Count} new record(s), {missingFundHistory.Prices[0].DateTime:yyyy-MM-dd} to {missingFundHistory.Prices[missingFundHistory.Prices.Count - 1].DateTime:yyyy-MM-dd}.");
+            Console.WriteLine($"{ticker}: Save {missingFundHistory.Prices.Count} new record(s), {missingFundHistory.Prices[0].DateTime:yyyy-MM-dd} to {missingFundHistory.Prices[^1].DateTime:yyyy-MM-dd}.");
 
             await quotesCache.Put(missingFundHistory);
         }
     }
 
 
-    public static Task<Quote> GetMissingHistory(Quote history, out DateTime start, out DateTime end)
+    public static Task<Quote?> GetMissingHistory(Quote history, out DateTime start, out DateTime end)
     {
         ArgumentNullException.ThrowIfNull(history);
 
-        var lastDate = history.Prices[history.Prices.Count - 1].DateTime.Date;
+        var lastDate = history.Prices[^1].DateTime.Date;
 
         start = lastDate.AddDays(1);
         end = DateTime.SpecifyKind(DateTime.UtcNow.Date, DateTimeKind.Unspecified);
 
         if (!(start < end))
         {
-            return Task.FromResult<Quote>(null!);
+            return Task.FromResult<Quote?>(null);
         }
 
         return QuotesController.GetHistoryRange(history.Ticker, start, end);
     }
 
-    public static Task<Quote> GetHistoryAll(string ticker)
+    public static Task<Quote?> GetHistoryAll(string ticker)
     {
         return QuotesController.GetHistoryRange(ticker, new DateTime(1900, 1, 1), DateTime.UtcNow);
     }
 
-    private static async Task<Quote> GetHistoryRange(string ticker, DateTime start, DateTime end)
+    private static async Task<Quote?> GetHistoryRange(string ticker, DateTime start, DateTime end)
     {
-        if (start == end)
-        {
-            return null!;
-        }
-
-        Quote fundHistory = new(ticker);
         static async Task<T> throttle<T>(Func<Task<T>> operation)
         {
             await Task.Delay(1000);
             return await operation();
         }
 
-        fundHistory.Dividends = (await throttle(() => Yahoo.GetDividendsAsync(ticker, start, end))).Select(divTick => new QuoteDividendRecord(divTick)).ToList();
-        fundHistory.Prices = (await throttle(() => Yahoo.GetHistoricalAsync(ticker, start, end))).Select(candle => new QuotePriceRecord(candle)).ToList();
-        fundHistory.Splits = (await throttle(() => Yahoo.GetSplitsAsync(ticker, start, end))).Select(splitTick => new QuoteSplitRecord(splitTick)).ToList();
-
-        if (fundHistory.Prices[fundHistory.Prices.Count - 1].Open == 0)
+        if (start >= end)
         {
-            fundHistory.Prices = fundHistory.Prices.Take(fundHistory.Prices.Count - 1).ToList();
+            return null;
         }
 
-        return fundHistory;
+        var history = new Quote(ticker)
+        {
+            Dividends = (await throttle(() => Yahoo.GetDividendsAsync(ticker, start, end)))
+                .Select(divTick => new QuoteDividendRecord(divTick))
+                .ToList(),
+            Prices = (await throttle(() => Yahoo.GetHistoricalAsync(ticker, start, end)))
+                .Select(candle => new QuotePriceRecord(candle))
+                .ToList(),
+            Splits = (await throttle(() => Yahoo.GetSplitsAsync(ticker, start, end)))
+                .Select(splitTick => new QuoteSplitRecord(splitTick))
+                .ToList()
+        };
+
+        // API will sometimes return zeroed records if `end` is today
+        if (history.Prices[^1].Open == 0)
+        {
+            history.Prices.RemoveAt(history.Prices.Count - 1);
+        }
+
+        return history;
     }
 }
