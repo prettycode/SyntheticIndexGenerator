@@ -60,7 +60,7 @@ namespace FundHistoryCache.Controllers
         {
             async Task refreshIndex(string indexTicker, List<string> backfillTickers, ReturnPeriod period)
             {
-                var returns = await CollateReturns(returnsCache, backfillTickers, period);
+                var returns = await CollateReturnsA(returnsCache, backfillTickers, period);
                 await returnsCache.Put(indexTicker, returns, period);
             }
 
@@ -72,7 +72,7 @@ namespace FundHistoryCache.Controllers
             await Task.WhenAll(tasks);
         }
 
-        private static async Task<List<PeriodReturn>> CollateReturns(ReturnsRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
+        private static async Task<List<PeriodReturn>> CollateReturnsA(ReturnsRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
         {
             var availableBackfillTickers = backfillTickers.Where(ticker => returnsCache.Has(ticker, period));
             var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => returnsCache.Get(ticker, period)));
@@ -88,30 +88,28 @@ namespace FundHistoryCache.Controllers
             return collatedReturns.ToList();
         }
 
-        /*private async static Task<List<PeriodReturn>> CollateReturns(ReturnsRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
+        private async static Task<List<PeriodReturn>> CollateReturnsB(ReturnsRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
         {
-            var result = new List<PeriodReturn>();
-
-            var availableBackfillTickers = backfillTickers.Where(ticker => returnsCache.Has(ticker, period)).ToList();
+            var collatedReturns = new List<PeriodReturn>();
+            var availableBackfillTickers = backfillTickers.Where(ticker => returnsCache.Has(ticker, period));
             var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => returnsCache.Get(ticker, period)));
 
             for (var i = 0; i < backfillReturns.Length; i++)
             {
                 var currentTickerReturns = backfillReturns[i]!;
                 int nextTickerIndex = i + 1;
-                List<PeriodReturn> nextTickerReturns;
                 DateTime startDateOfNextTicker = DateTime.MaxValue;
 
-                if (nextTickerIndex <= backfillReturns.Length - 1)
+                if (nextTickerIndex < backfillReturns.Length)
                 {
-                    nextTickerReturns = backfillReturns[nextTickerIndex]!;
+                    var nextTickerReturns = backfillReturns[nextTickerIndex]!;
                     startDateOfNextTicker = nextTickerReturns.First().PeriodStart;
                 }
 
-                result.AddRange(currentTickerReturns.TakeWhile(pair => pair.PeriodStart < startDateOfNextTicker));
+                collatedReturns.AddRange(currentTickerReturns.TakeWhile(pair => pair.PeriodStart < startDateOfNextTicker));
             }
 
-            return result;
-        }*/
+            return collatedReturns;
+        }
     }
 }
