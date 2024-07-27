@@ -65,8 +65,23 @@
 
         await Task.WhenAll(tasks);
     }
+    private static async Task<List<PeriodReturn>> CollateReturns(ReturnsRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
+    {
+        var availableBackfillTickers = backfillTickers.Where(ticker => returnsCache.Has(ticker, period));
+        var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => returnsCache.Get(ticker, period)));
+        var collatedReturns = backfillReturns
+            .Select((returns, index) =>
+                (returns, nextStartDate: index < backfillReturns.Length - 1
+                    ? backfillReturns[index + 1]?.First().PeriodStart
+                    : DateTime.MaxValue
+                )
+            )
+            .SelectMany(item => item.returns!.TakeWhile(pair => pair.PeriodStart < item.nextStartDate));
 
-    private async static Task<List<PeriodReturn>> CollateReturns(ReturnsRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
+        return collatedReturns.ToList();
+    }
+
+    /*private async static Task<List<PeriodReturn>> CollateReturns(ReturnsRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
     {
         var result = new List<PeriodReturn>();
 
@@ -77,13 +92,11 @@
         {
             var currentTickerReturns = backfillReturns[i]!;
             int nextTickerIndex = i + 1;
-            string nextTicker;
             List<PeriodReturn> nextTickerReturns;
             DateTime startDateOfNextTicker = DateTime.MaxValue;
 
             if (nextTickerIndex <= backfillReturns.Length - 1)
             {
-                nextTicker = backfillTickers.ElementAt(nextTickerIndex);
                 nextTickerReturns = backfillReturns[nextTickerIndex]!;
                 startDateOfNextTicker = nextTickerReturns.First().PeriodStart;
             }
@@ -92,5 +105,5 @@
         }
 
         return result;
-    }
+    }*/
 }
