@@ -33,14 +33,41 @@
 
         public QuotePrice(YahooFinanceApi.Candle candle)
         {
+            // TODO
+            static decimal TemporaryHack(decimal value, int sigFigs = 4, bool fillCents = false)
+            {
+                var rounded = Decimal.Round(value, sigFigs).ToString().TrimEnd('0');
+                
+                if (rounded.EndsWith('.'))
+                {
+                    if (fillCents)
+                    {
+                        rounded += "00";
+                    }
+                    else
+                    {
+                        rounded = rounded.TrimEnd('.');
+                    }
+                }
+                else if (rounded.Length > 2 && rounded[^2] == '.')
+                {
+                    if (fillCents)
+                    {
+                        rounded += "0";
+                    }
+                }
+
+                return decimal.Parse(rounded);
+            }
+
             ArgumentNullException.ThrowIfNull(candle);
 
             DateTime = candle.DateTime;
-            Open = candle.Open;
-            High = candle.High;
-            Low = candle.Low;
-            Close = candle.Close;
-            AdjustedClose = candle.AdjustedClose;
+            Open = TemporaryHack(candle.Open);
+            High = TemporaryHack(candle.High);
+            Low = TemporaryHack(candle.Low);
+            Close = TemporaryHack(candle.Close);
+            AdjustedClose = TemporaryHack(candle.AdjustedClose, 5);
             Volume = candle.Volume;
         }
     }

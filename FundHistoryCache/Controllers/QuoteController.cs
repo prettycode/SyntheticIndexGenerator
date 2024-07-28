@@ -125,16 +125,16 @@ namespace FundHistoryCache.Controllers
                 history.Prices.RemoveAt(history.Prices.Count - 1);
             }
 
-            // Haven't seen but just in case
+            // TODO
 
-            if (history.Splits[^1].BeforeSplit == 0 || history.Splits[^1].AfterSplit == 0)
+            if (history.Splits.Count > 0 && (history.Splits[^1].BeforeSplit == 0 || history.Splits[^1].AfterSplit == 0))
             {
                 history.Splits.RemoveAt(history.Splits.Count - 1);
             }
 
-            // Haven't seen but just in case
+            // TODO
 
-            if (history.Dividends[^1].Dividend == 0)
+            if (history.Dividends.Count > 0 && history.Dividends[^1].Dividend == 0)
             {
                 history.Dividends.RemoveAt(history.Dividends.Count - 1);
             }

@@ -19,30 +19,19 @@ GetPerformance(returnsRepository, quoteRepository, "AVUV")
     .Result
     .ForEach(tick => Console.WriteLine($"AVUV: {tick.Period.PeriodStart:yyyy-MM-dd} {tick.EndingBalance:C} ({tick.BalanceIncrease:N2}%)"));
 
-static async Task<List<PerformanceTick>> GetPerformance(
+static async Task<List<PerformanceTick>?> GetPerformance(
     ReturnRepository returnsCache,
     QuoteRepository quotesCache,
     string ticker,
     decimal startingBalance = 100,
     ReturnPeriod granularity = ReturnPeriod.Daily)
 {
-    if (!returnsCache.Has(ticker, granularity))
+    var tickerReturns = await returnsCache.Get(ticker, granularity);
+
+    if (tickerReturns == null)
     {
-        if (!quotesCache.Has(ticker))
-        {
-            var successful = await QuoteController.RefreshQuote(quotesCache, ticker);
-
-            if (!successful)
-            {
-                throw new InvalidOperationException();
-            }
-        }
-
-        await ReturnController.RefreshReturn(quotesCache, returnsCache, ticker);
+        return null;
     }
-
-    var tickerReturns = await returnsCache.Get(ticker, granularity)
-        ?? throw new ArgumentException($"No returns found in `{nameof(returnsCache)}`", nameof(ticker));
 
     var performanceTicks = new List<PerformanceTick>();
 

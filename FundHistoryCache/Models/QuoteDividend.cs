@@ -21,7 +21,8 @@
             ArgumentNullException.ThrowIfNull(dividend);
 
             DateTime = dividend.DateTime;
-            Dividend = dividend.Dividend;
+            // TODO
+            Dividend = Decimal.Parse(dividend.Dividend.ToString().TrimEnd('0'));
         }
     }
 }
