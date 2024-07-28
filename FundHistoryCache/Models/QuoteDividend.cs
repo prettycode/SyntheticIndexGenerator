@@ -15,7 +15,7 @@ namespace FundHistoryCache.Models
             ArgumentNullException.ThrowIfNull(dividend);
 
             DateTime = dividend.Date.ToDateTimeUnspecified();
-            Dividend = Convert.ToDecimal(dividend.Dividend);
+            Dividend = Convert.ToDecimal(dividend.Dividend).ToQuotePrice();
         }
 
         public QuoteDividend(YahooFinanceApi.DividendTick dividend)

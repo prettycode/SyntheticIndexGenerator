@@ -25,11 +25,11 @@ namespace FundHistoryCache.Models
             ArgumentNullException.ThrowIfNull(price);
 
             DateTime = price.Date.ToDateTimeUnspecified();
-            Open = Convert.ToDecimal(price.Open);
-            High = Convert.ToDecimal(price.High);
-            Low = Convert.ToDecimal(price.Low);
-            Close = Convert.ToDecimal(price.Close);
-            AdjustedClose = Convert.ToDecimal(price.AdjustedClose);
+            Open = Convert.ToDecimal(price.Open).ToQuotePrice();
+            High = Convert.ToDecimal(price.High).ToQuotePrice();
+            Low = Convert.ToDecimal(price.Low).ToQuotePrice();
+            Close = Convert.ToDecimal(price.Close).ToQuotePrice();
+            AdjustedClose = Convert.ToDecimal(price.AdjustedClose).ToQuotePrice();
             Volume = price.Volume;
         }
 

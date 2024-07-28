@@ -33,7 +33,7 @@ namespace FundHistoryCache.Extensions
             return value;
         }
 
-        public static decimal ToQuotePrice(this decimal value, int digits = 4, bool trimZeros = true)
+        public static decimal ToQuotePrice(this decimal value, int digits = 4, bool trimZeros = false)
         {
             var rounded = Math.Round(value, digits);
 

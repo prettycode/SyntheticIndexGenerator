@@ -1,6 +1,6 @@
-{"DateTime":"2021-12-16T00:00:00","Dividend":0.29}
-{"DateTime":"2022-06-21T00:00:00","Dividend":0.879}
-{"DateTime":"2022-12-15T00:00:00","Dividend":0.4}
-{"DateTime":"2023-06-20T00:00:00","Dividend":1.071}
-{"DateTime":"2023-12-18T00:00:00","Dividend":0.801}
-{"DateTime":"2024-06-24T00:00:00","Dividend":1.144}
+{"DateTime":"2021-12-16T00:00:00","Dividend":0.2900}
+{"DateTime":"2022-06-21T00:00:00","Dividend":0.8790}
+{"DateTime":"2022-12-15T00:00:00","Dividend":0.4000}
+{"DateTime":"2023-06-20T00:00:00","Dividend":1.0710}
+{"DateTime":"2023-12-18T00:00:00","Dividend":0.8010}
+{"DateTime":"2024-06-24T00:00:00","Dividend":1.1440}
