@@ -8,18 +8,7 @@ namespace FundHistoryCache.Controllers
     {
         public static HashSet<string> GetBackfillTickers(bool filterSynthetic = true)
         {
-            var miscTickers = new string[] {
-                "VEIEX",
-                "AVGE", "AVGV",
-                "RSST", "RSSB", "RSBT", "RSSY",
-                "NTSX", "NTSI", "NTSE",
-                "SSO",
-                "ZROZ", "GOVZ", "EDV",
-                "GLDM", "IAUM",
-                "KMLM", "DBMF", "CTA"
-            };
-
-            var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []).Concat(miscTickers);
+            var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []);
 
             if (!filterSynthetic)
             {
