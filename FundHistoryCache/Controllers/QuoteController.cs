@@ -111,12 +111,32 @@ namespace FundHistoryCache.Controllers
                 return null;
             }
 
-            Quote history = await GetQuote(ticker, start, end);
+            var history = await GetQuote(ticker, start, end);
+
+            if (history.Prices.Count == 1 && history.Prices[0].DateTime == start.AddDays(-1))
+            {
+                return null;
+            }
 
             // API will sometimes return zeroed records if the record's date is today and markets are open
+
             if (history.Prices[^1].Open == 0)
             {
                 history.Prices.RemoveAt(history.Prices.Count - 1);
+            }
+
+            // Haven't seen but just in case
+
+            if (history.Splits[^1].BeforeSplit == 0 || history.Splits[^1].AfterSplit == 0)
+            {
+                history.Splits.RemoveAt(history.Splits.Count - 1);
+            }
+
+            // Haven't seen but just in case
+
+            if (history.Dividends[^1].Dividend == 0)
+            {
+                history.Dividends.RemoveAt(history.Dividends.Count - 1);
             }
 
             return history;
