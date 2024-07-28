@@ -23,7 +23,7 @@ namespace FundHistoryCache.Models
             ArgumentNullException.ThrowIfNull(dividend);
 
             DateTime = dividend.DateTime;
-            Dividend = dividend.Dividend.TrimZeros();
+            Dividend = dividend.Dividend.ToQuotePrice();
         }
     }
 }

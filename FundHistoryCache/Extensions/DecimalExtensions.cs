@@ -33,9 +33,11 @@ namespace FundHistoryCache.Extensions
             return value;
         }
 
-        public static decimal ToDigits(this decimal value, int digits = 4)
+        public static decimal ToQuotePrice(this decimal value, int digits = 4, bool trimZeros = true)
         {
-            return Math.Round(value, digits);
+            var rounded = Math.Round(value, digits);
+
+            return trimZeros ? rounded.TrimZeros() : rounded;
         }
     }
 }
