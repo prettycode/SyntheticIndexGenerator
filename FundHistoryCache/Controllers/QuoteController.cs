@@ -65,7 +65,7 @@ namespace FundHistoryCache.Controllers
 
             Console.WriteLine($"{ticker}: Save {missingFundHistory.Prices.Count} new record(s), {missingFundHistory.Prices[0].DateTime:yyyy-MM-dd} to {missingFundHistory.Prices[^1].DateTime:yyyy-MM-dd}.");
 
-            await quotesCache.Put(missingFundHistory);
+            await quotesCache.Append(missingFundHistory);
 
             return true;
         }

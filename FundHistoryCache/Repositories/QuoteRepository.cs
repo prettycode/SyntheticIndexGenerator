@@ -73,7 +73,13 @@ namespace FundHistoryCache.Repositories
             return history;
         }
 
-        public async Task Put(Quote fundHistory)
+        public async Task Append(Quote fundHistory) =>
+            await Put(fundHistory, (path, lines) => File.AppendAllLinesAsync(path, lines));
+
+        public async Task Replace(Quote fundHistory) =>
+            await Put(fundHistory, (path, lines) => File.WriteAllLinesAsync(path, lines));
+
+        private async Task Put(Quote fundHistory, Func<string, IEnumerable<string>, Task> fileOperation)
         {
             ArgumentNullException.ThrowIfNull(fundHistory);
 
@@ -96,9 +102,9 @@ namespace FundHistoryCache.Repositories
             var serializedSplits = fundHistory.Splits.Select(split => JsonSerializer.Serialize(split));
 
             await Task.WhenAll([
-                File.AppendAllLinesAsync(cacheFilePaths[CacheType.Dividend], serializedDividends),
-                File.AppendAllLinesAsync(cacheFilePaths[CacheType.Price], serializedPrices),
-                File.AppendAllLinesAsync(cacheFilePaths[CacheType.Split], serializedSplits)
+                fileOperation(cacheFilePaths[CacheType.Dividend], serializedDividends),
+                fileOperation(cacheFilePaths[CacheType.Price], serializedPrices),
+                fileOperation(cacheFilePaths[CacheType.Split], serializedSplits)
             ]);
         }
 
