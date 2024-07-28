@@ -1,4 +1,6 @@
-﻿namespace FundHistoryCache.Models
+﻿using FundHistoryCache.Extensions;
+
+namespace FundHistoryCache.Models
 {
     public struct QuoteDividend
     {
@@ -21,8 +23,7 @@
             ArgumentNullException.ThrowIfNull(dividend);
 
             DateTime = dividend.DateTime;
-            // TODO
-            Dividend = Decimal.Parse(dividend.Dividend.ToString().TrimEnd('0'));
+            Dividend = dividend.Dividend.TrimZeros();
         }
     }
 }
