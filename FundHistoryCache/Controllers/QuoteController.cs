@@ -15,6 +15,8 @@ namespace FundHistoryCache.Controllers
             // Do serially vs. all at once; avoid rate-limiting
             foreach (var ticker in tickers)
             {
+                Console.WriteLine($"{ticker}: Refreshing...");
+
                 await RefreshQuote(quotesCache, ticker);
             }
         }
@@ -28,17 +30,36 @@ namespace FundHistoryCache.Controllers
 
             if (knownHistory == null)
             {
+                Console.WriteLine($"{ticker}: No history found in cache.");
+
                 var allHistory = await GetAllHistory(ticker);
+
+                Console.WriteLine($"{ticker}: Writing {allHistory.Prices.Count} record(s) to cache, {allHistory.Prices[0].DateTime:yyyy-MM-dd} to {allHistory.Prices[^1].DateTime:yyyy-MM-dd}.");
+
                 await quotesCache.Append(allHistory);
+
                 return;
+            }
+            else
+            {
+                Console.WriteLine($"{ticker}: {knownHistory.Prices.Count} record(s) in cache, {knownHistory.Prices[0].DateTime:yyyy-MM-dd} to {knownHistory.Prices[^1].DateTime:yyyy-MM-dd}.");
             }
 
             var (isAllHistory, newHistory) = await GetNewHistory(knownHistory);
 
             if (newHistory == null)
             {
+                Console.WriteLine($"{ticker}: No new history found.");
                 return;
             }
+
+            if (!isAllHistory)
+            {
+                Console.WriteLine($"{ticker}: Missing history identified as {newHistory.Prices[0].DateTime:yyyy-MM-dd} to {newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
+            }
+
+
+            Console.WriteLine($"{ticker}: Writing {newHistory.Prices.Count} record(s) to cache, {newHistory.Prices[0].DateTime:yyyy-MM-dd} to {newHistory.Prices[^1].DateTime:yyyy-MM-dd}.");
 
             var updateTask = isAllHistory
                 ? quotesCache.Replace(newHistory)
@@ -47,7 +68,10 @@ namespace FundHistoryCache.Controllers
             await updateTask;
         }
 
-        private static async Task<Quote> GetAllHistory(string ticker) {
+        private static async Task<Quote> GetAllHistory(string ticker)
+        {
+            Console.WriteLine($"{ticker}: Downloading all history.");
+
             var allHistory = await GetQuote(ticker)
                 ?? throw new InvalidOperationException($"{ticker}: No history found."); ;
 
@@ -57,6 +81,9 @@ namespace FundHistoryCache.Controllers
         private static async Task<(bool, Quote?)> GetNewHistory(Quote fundHistory)
         {
             var ticker = fundHistory.Ticker;
+
+            Console.WriteLine($"{ticker}: Downloading new history.");
+
             var staleHistoryLastTick = fundHistory.Prices[^1];
             var staleHistoryLastTickDate = staleHistoryLastTick.DateTime;
             var staleHistoryLastTickOpen = staleHistoryLastTick.Open;
@@ -74,6 +101,8 @@ namespace FundHistoryCache.Controllers
 
             if (freshHistory.Prices[0].Open != staleHistoryLastTickOpen)
             {
+                Console.WriteLine($"{ticker}: All history has been recomputed.");
+
                 return (true, await GetAllHistory(ticker));
             }
 
