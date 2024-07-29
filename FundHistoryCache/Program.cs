@@ -1,15 +1,18 @@
 ﻿using FundHistoryCache.Controllers;
 using FundHistoryCache.Models;
 using FundHistoryCache.Repositories;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Timer = FundHistoryCache.Utils.Timer;
 
-var quotesPath = "../../../data/quotes/";
-var syntheticReturnsFilePath = "../../../source/Stock-Index-Data-20220923-Monthly.csv";
-var saveSyntheticReturnsPath = "../../../data/returns/";
+var settings = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.debug.json")
+    .Build()
+    .Get<AppSettings>() ?? throw new ApplicationException("Settings malformed.");
 
-var quoteCache = new QuoteRepository(quotesPath);
-var returnCache = new ReturnRepository(saveSyntheticReturnsPath, syntheticReturnsFilePath);
+var quoteCache = new QuoteRepository(settings.QuoteRepositoryDataPath);
+var returnCache = new ReturnRepository(settings.ReturnRepositoryDataPath, settings.SyntheticReturnsFilePath);
 
 var quotesManager = new QuotesManager(quoteCache, CreateLogger<QuotesManager>());
 var returnsManager = new ReturnsManager(quoteCache, returnCache, CreateLogger<ReturnsManager>());
@@ -50,6 +53,12 @@ static async Task<List<PerformanceTick>?> GetPerformance(
     }
 
     return performanceTicks;
+}
+class AppSettings
+{
+    public string QuoteRepositoryDataPath { get; set; }
+    public string ReturnRepositoryDataPath { get; set; }
+    public string SyntheticReturnsFilePath { get; set; }
 }
 
 class PerformanceTick(PeriodReturn period, decimal startingBalance)
