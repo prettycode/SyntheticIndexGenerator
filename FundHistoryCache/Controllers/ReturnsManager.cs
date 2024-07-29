@@ -1,40 +1,41 @@
 ﻿using FundHistoryCache.Models;
 using FundHistoryCache.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace FundHistoryCache.Controllers
 {
-    public static class ReturnController
+    public class ReturnsManager(QuoteRepository quoteRepository, ReturnRepository returnRepository, ILogger<ReturnsManager> logger)
     {
-        public static async Task<Task> RefreshReturn(QuoteRepository quotesCache, ReturnRepository returnsCache, string ticker)
+        private QuoteRepository QuoteCache { get; init; } = quoteRepository;
+        private ReturnRepository ReturnCache { get; init; } = returnRepository;
+        private ILogger<ReturnsManager> Logger { get; init; } = logger;
+
+        public async Task<Task> RefreshReturn(string ticker)
         {
-            ArgumentNullException.ThrowIfNull(quotesCache);
-            ArgumentNullException.ThrowIfNull(returnsCache);
             ArgumentNullException.ThrowIfNull(ticker);
 
-            var history = await quotesCache.Get(ticker) ?? throw new InvalidOperationException();
+            var history = await QuoteCache.Get(ticker)
+                ?? throw new InvalidOperationException($"Cannot calculate return for '{ticker}'; no history data.");
             var priceHistory = history.Prices;
 
             return Task.WhenAll(
-                returnsCache.Put(ticker, GetDailyReturns(ticker, priceHistory), ReturnPeriod.Daily),
-                returnsCache.Put(ticker, GetMonthlyReturns(ticker, priceHistory), ReturnPeriod.Monthly),
-                returnsCache.Put(ticker, GetYearlyReturns(ticker, priceHistory), ReturnPeriod.Yearly)
+                ReturnCache.Put(ticker, GetDailyReturns(ticker, priceHistory), ReturnPeriod.Daily),
+                ReturnCache.Put(ticker, GetMonthlyReturns(ticker, priceHistory), ReturnPeriod.Monthly),
+                ReturnCache.Put(ticker, GetYearlyReturns(ticker, priceHistory), ReturnPeriod.Yearly)
             );
         }
 
-        public static Task RefreshReturns(QuoteRepository quotesCache, ReturnRepository returnsCache)
+        public Task RefreshReturns()
         {
-            ArgumentNullException.ThrowIfNull(quotesCache);
-            ArgumentNullException.ThrowIfNull(returnsCache);
-
             async Task<Task> refreshSyntheticReturns()
             {
                 var synReturnsByTicker = await Task.WhenAll([
-                    returnsCache.GetSyntheticMonthlyReturns(),
-                    returnsCache.GetSyntheticYearlyReturns()
+                    ReturnCache.GetSyntheticMonthlyReturns(),
+                    ReturnCache.GetSyntheticYearlyReturns()
                 ]);
 
-                var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
-                var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => returnsCache.Put(r.Key, r.Value, ReturnPeriod.Yearly));
+                var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r => ReturnCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
+                var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => ReturnCache.Put(r.Key, r.Value, ReturnPeriod.Yearly));
 
                 return Task.WhenAll([
                     .. synMonthlyReturnsPutTasks,
@@ -44,8 +45,8 @@ namespace FundHistoryCache.Controllers
 
             IEnumerable<Task> refreshQuoteReturns()
             {
-                var tickers = quotesCache.GetAllTickers();
-                var tickerRefreshTasks = tickers.Select(ticker => RefreshReturn(quotesCache, returnsCache, ticker));
+                var tickers = QuoteCache.GetAllTickers();
+                var tickerRefreshTasks = tickers.Select(ticker => RefreshReturn(ticker));
 
                 return tickerRefreshTasks;
             }
@@ -93,13 +94,13 @@ namespace FundHistoryCache.Controllers
 
         private static List<PeriodReturn> GetReturns(List<QuotePrice> prices, string ticker, ReturnPeriod returnPeriod, bool skipFirst = true)
         {
-            static decimal calcChange(decimal x, decimal y) => (y - x) / x * 100m;
+            static decimal calculateChange(decimal x, decimal y) => (y - x) / x * 100m;
             static decimal endingPrice(QuotePrice record) => record.AdjustedClose;
 
             List<PeriodReturn> returns = skipFirst
                 ? []
                 : [
-                    new(prices[0].DateTime, calcChange(prices[0].Open, endingPrice(prices[0])), ticker, returnPeriod)
+                    new(prices[0].DateTime, calculateChange(prices[0].Open, endingPrice(prices[0])), ticker, returnPeriod)
                 ];
 
             for (int i = 1; i < prices.Count; i++)
@@ -115,7 +116,7 @@ namespace FundHistoryCache.Controllers
                 var currentEndPrice = endingPrice(prices[i]);
                 var currentStartPrice = endingPrice(prices[i - 1]);
 
-                returns.Add(new(currentDate, calcChange(currentStartPrice, currentEndPrice), ticker, returnPeriod));
+                returns.Add(new(currentDate, calculateChange(currentStartPrice, currentEndPrice), ticker, returnPeriod));
             }
 
             return returns;

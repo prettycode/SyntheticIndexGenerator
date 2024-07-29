@@ -1,11 +1,24 @@
 ﻿using FundHistoryCache.Models;
 using FundHistoryCache.Repositories;
+using Microsoft.Extensions.Logging;
 using Index = FundHistoryCache.Models.Index;
 
 namespace FundHistoryCache.Controllers
 {
-    public static class IndexController
+    public class IndicesManager(ReturnRepository returnRepository, ILogger<IndicesManager> logger)
     {
+        private ReturnRepository ReturnCache { get; init; } = returnRepository;
+        private ILogger<IndicesManager> Logger { get; init; } = logger;
+
+        public Task RefreshIndices()
+        {
+            var refreshTasks = GetIndices()
+                .Where(index => index.BackfillTickers != null)
+                .Select(index => RefreshIndex(index));
+
+            return Task.WhenAll(refreshTasks);
+        }
+
         public static HashSet<string> GetBackfillTickers(bool filterSynthetic = true)
         {
             var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []);
@@ -16,17 +29,6 @@ namespace FundHistoryCache.Controllers
             }
 
             return indices.Where(ticker => !ticker.StartsWith('$')).ToHashSet();
-        }
-
-        public static Task RefreshIndices(ReturnRepository returnsCache)
-        {
-            ArgumentNullException.ThrowIfNull(returnsCache);
-
-            var refreshTasks = GetIndices()
-                .Where(index => index.BackfillTickers != null)
-                .Select(index => RefreshIndex(returnsCache, index));
-
-            return Task.WhenAll(refreshTasks);
         }
 
         private static HashSet<Index> GetIndices() => [
@@ -55,12 +57,12 @@ namespace FundHistoryCache.Controllers
             new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Value, ["DGS"])
         ];
 
-        private static async Task RefreshIndex(ReturnRepository returnsCache, Index index)
+        private async Task RefreshIndex(Index index)
         {
             async Task refreshIndex(string indexTicker, List<string> backfillTickers, ReturnPeriod period)
             {
-                var returns = await CollateReturnsA(returnsCache, backfillTickers, period);
-                await returnsCache.Put(indexTicker, returns, period);
+                var returns = await CollateReturnsA(backfillTickers, period);
+                await ReturnCache.Put(indexTicker, returns, period);
             }
 
             var periods = Enum.GetValues<ReturnPeriod>();
@@ -71,10 +73,10 @@ namespace FundHistoryCache.Controllers
             await Task.WhenAll(tasks);
         }
 
-        private static async Task<List<PeriodReturn>> CollateReturnsA(ReturnRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
+        private async Task<List<PeriodReturn>> CollateReturnsA(List<string> backfillTickers, ReturnPeriod period)
         {
-            var availableBackfillTickers = backfillTickers.Where(ticker => returnsCache.Has(ticker, period));
-            var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => returnsCache.Get(ticker, period)));
+            var availableBackfillTickers = backfillTickers.Where(ticker => ReturnCache.Has(ticker, period));
+            var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => ReturnCache.Get(ticker, period)));
             var collatedReturns = backfillReturns
                 .Select((returns, index) =>
                     (returns, nextStartDate: index < backfillReturns.Length - 1
@@ -87,11 +89,11 @@ namespace FundHistoryCache.Controllers
             return collatedReturns.ToList();
         }
 
-        private async static Task<List<PeriodReturn>> CollateReturnsB(ReturnRepository returnsCache, List<string> backfillTickers, ReturnPeriod period)
+        private async Task<List<PeriodReturn>> CollateReturnsB(List<string> backfillTickers, ReturnPeriod period)
         {
             var collatedReturns = new List<PeriodReturn>();
-            var availableBackfillTickers = backfillTickers.Where(ticker => returnsCache.Has(ticker, period));
-            var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => returnsCache.Get(ticker, period)));
+            var availableBackfillTickers = backfillTickers.Where(ticker => ReturnCache.Has(ticker, period));
+            var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => ReturnCache.Get(ticker, period)));
 
             for (var i = 0; i < backfillReturns.Length; i++)
             {

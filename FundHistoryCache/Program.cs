@@ -1,27 +1,35 @@
 ﻿using FundHistoryCache.Controllers;
 using FundHistoryCache.Models;
 using FundHistoryCache.Repositories;
+using Microsoft.Extensions.Logging;
 using Timer = FundHistoryCache.Utils.Timer;
 
 var quotesPath = "../../../data/quotes/";
 var syntheticReturnsFilePath = "../../../source/Stock-Index-Data-20220923-Monthly.csv";
 var saveSyntheticReturnsPath = "../../../data/returns/";
 
-var quoteRepository = new QuoteRepository(quotesPath);
-var returnsRepository = new ReturnRepository(saveSyntheticReturnsPath, syntheticReturnsFilePath);
-var quoteTickersNeeded = IndexController.GetBackfillTickers();
+var quoteCache = new QuoteRepository(quotesPath);
+var returnCache = new ReturnRepository(saveSyntheticReturnsPath, syntheticReturnsFilePath);
 
-await Timer.Exec("Refresh quotes", QuoteController.RefreshQuotes(quoteRepository, quoteTickersNeeded));
-await Timer.Exec("Refresh returns", ReturnController.RefreshReturns(quoteRepository, returnsRepository));
-await Timer.Exec("Refresh indices", IndexController.RefreshIndices(returnsRepository));
+var quotesManager = new QuotesManager(quoteCache, CreateLogger<QuotesManager>());
+var returnsManager = new ReturnsManager(quoteCache, returnCache, CreateLogger<ReturnsManager>());
+var indicesManager = new IndicesManager(returnCache, CreateLogger<IndicesManager>());
 
-GetPerformance(returnsRepository, quoteRepository, "AVUV")
-    .Result
+var quoteTickersNeeded = IndicesManager.GetBackfillTickers();
+
+await Timer.Exec("Refresh quotes", quotesManager.RefreshQuotes(quoteTickersNeeded));
+await Timer.Exec("Refresh returns", returnsManager.RefreshReturns());
+await Timer.Exec("Refresh indices", indicesManager.RefreshIndices());
+
+GetPerformance(returnCache, quoteCache, "AVUV")
+    .Result!
     .ForEach(tick => Console.WriteLine($"AVUV: {tick.Period.PeriodStart:yyyy-MM-dd} {tick.EndingBalance:C} ({tick.BalanceIncrease:N2}%)"));
+
+static ILogger<T> CreateLogger<T>() where T : class => LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<T>();
 
 static async Task<List<PerformanceTick>?> GetPerformance(
     ReturnRepository returnsCache,
-    QuoteRepository quotesCache,
+    QuoteRepository quoteCache,
     string ticker,
     decimal startingBalance = 100,
     ReturnPeriod granularity = ReturnPeriod.Daily)

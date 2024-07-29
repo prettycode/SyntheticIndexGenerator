@@ -110,7 +110,7 @@
 {"DateTime":"1998-08-10T00:00:00","Open":8.7500,"High":8.7500,"Low":8.7500,"Close":8.7500,"Volume":0,"AdjustedClose":1.7482}
 {"DateTime":"1998-08-11T00:00:00","Open":8.4800,"High":8.4800,"Low":8.4800,"Close":8.4800,"Volume":0,"AdjustedClose":1.6942}
 {"DateTime":"1998-08-12T00:00:00","Open":8.5500,"High":8.5500,"Low":8.5500,"Close":8.5500,"Volume":0,"AdjustedClose":1.7082}
-{"DateTime":"1998-08-13T00:00:00","Open":8.4400,"High":8.4400,"Low":8.4400,"Close":8.4400,"Volume":0,"AdjustedClose":1.6862}
+{"DateTime":"1998-08-13T00:00:00","Open":8.4400,"High":8.4400,"Low":8.4400,"Close":8.4400,"Volume":0,"AdjustedClose":1.6863}
 {"DateTime":"1998-08-14T00:00:00","Open":8.5100,"High":8.5100,"Low":8.5100,"Close":8.5100,"Volume":0,"AdjustedClose":1.7002}
 {"DateTime":"1998-08-17T00:00:00","Open":8.3600,"High":8.3600,"Low":8.3600,"Close":8.3600,"Volume":0,"AdjustedClose":1.6703}
 {"DateTime":"1998-08-18T00:00:00","Open":8.3700,"High":8.3700,"Low":8.3700,"Close":8.3700,"Volume":0,"AdjustedClose":1.6723}
@@ -324,7 +324,7 @@
 {"DateTime":"1999-06-16T00:00:00","Open":12.7000,"High":12.7000,"Low":12.7000,"Close":12.7000,"Volume":0,"AdjustedClose":2.5475}
 {"DateTime":"1999-06-17T00:00:00","Open":12.9100,"High":12.9100,"Low":12.9100,"Close":12.9100,"Volume":0,"AdjustedClose":2.5896}
 {"DateTime":"1999-06-18T00:00:00","Open":12.9500,"High":12.9500,"Low":12.9500,"Close":12.9500,"Volume":0,"AdjustedClose":2.5976}
-{"DateTime":"1999-06-21T00:00:00","Open":13.1400,"High":13.1400,"Low":13.1400,"Close":13.1400,"Volume":0,"AdjustedClose":2.6357}
+{"DateTime":"1999-06-21T00:00:00","Open":13.1400,"High":13.1400,"Low":13.1400,"Close":13.1400,"Volume":0,"AdjustedClose":2.6358}
 {"DateTime":"1999-06-22T00:00:00","Open":13.2500,"High":13.2500,"Low":13.2500,"Close":13.2500,"Volume":0,"AdjustedClose":2.6578}
 {"DateTime":"1999-06-23T00:00:00","Open":13.2300,"High":13.2300,"Low":13.2300,"Close":13.2300,"Volume":0,"AdjustedClose":2.6538}
 {"DateTime":"1999-06-24T00:00:00","Open":13.2500,"High":13.2500,"Low":13.2500,"Close":13.2500,"Volume":0,"AdjustedClose":2.6578}
@@ -411,7 +411,7 @@
 {"DateTime":"1999-10-19T00:00:00","Open":13.3300,"High":13.3300,"Low":13.3300,"Close":13.3300,"Volume":0,"AdjustedClose":2.6739}
 {"DateTime":"1999-10-20T00:00:00","Open":13.5900,"High":13.5900,"Low":13.5900,"Close":13.5900,"Volume":0,"AdjustedClose":2.7260}
 {"DateTime":"1999-10-21T00:00:00","Open":13.6000,"High":13.6000,"Low":13.6000,"Close":13.6000,"Volume":0,"AdjustedClose":2.7280}
-{"DateTime":"1999-10-22T00:00:00","Open":13.6500,"High":13.6500,"Low":13.6500,"Close":13.6500,"Volume":0,"AdjustedClose":2.7381}
+{"DateTime":"1999-10-22T00:00:00","Open":13.6500,"High":13.6500,"Low":13.6500,"Close":13.6500,"Volume":0,"AdjustedClose":2.7380}
 {"DateTime":"1999-10-25T00:00:00","Open":13.5700,"High":13.5700,"Low":13.5700,"Close":13.5700,"Volume":0,"AdjustedClose":2.7220}
 {"DateTime":"1999-10-26T00:00:00","Open":13.5500,"High":13.5500,"Low":13.5500,"Close":13.5500,"Volume":0,"AdjustedClose":2.7180}
 {"DateTime":"1999-10-27T00:00:00","Open":13.4300,"High":13.4300,"Low":13.4300,"Close":13.4300,"Volume":0,"AdjustedClose":2.6939}
@@ -477,7 +477,7 @@
 {"DateTime":"2000-01-24T00:00:00","Open":10.4600,"High":10.4600,"Low":10.4600,"Close":10.4600,"Volume":0,"AdjustedClose":3.5276}
 {"DateTime":"2000-01-25T00:00:00","Open":10.3300,"High":10.3300,"Low":10.3300,"Close":10.3300,"Volume":0,"AdjustedClose":3.4837}
 {"DateTime":"2000-01-26T00:00:00","Open":10.3400,"High":10.3400,"Low":10.3400,"Close":10.3400,"Volume":0,"AdjustedClose":3.4871}
-{"DateTime":"2000-01-27T00:00:00","Open":10.4000,"High":10.4000,"Low":10.4000,"Close":10.4000,"Volume":0,"AdjustedClose":3.5073}
+{"DateTime":"2000-01-27T00:00:00","Open":10.4000,"High":10.4000,"Low":10.4000,"Close":10.4000,"Volume":0,"AdjustedClose":3.5074}
 {"DateTime":"2000-01-28T00:00:00","Open":10.3600,"High":10.3600,"Low":10.3600,"Close":10.3600,"Volume":0,"AdjustedClose":3.4939}
 {"DateTime":"2000-01-31T00:00:00","Open":10.1600,"High":10.1600,"Low":10.1600,"Close":10.1600,"Volume":0,"AdjustedClose":3.4264}
 {"DateTime":"2000-02-01T00:00:00","Open":10.2000,"High":10.2000,"Low":10.2000,"Close":10.2000,"Volume":0,"AdjustedClose":3.4399}
@@ -522,7 +522,7 @@
 {"DateTime":"2000-03-28T00:00:00","Open":10.2900,"High":10.2900,"Low":10.2900,"Close":10.2900,"Volume":0,"AdjustedClose":3.4703}
 {"DateTime":"2000-03-29T00:00:00","Open":10.2300,"High":10.2300,"Low":10.2300,"Close":10.2300,"Volume":0,"AdjustedClose":3.4500}
 {"DateTime":"2000-03-30T00:00:00","Open":9.9600,"High":9.9600,"Low":9.9600,"Close":9.9600,"Volume":0,"AdjustedClose":3.3590}
-{"DateTime":"2000-03-31T00:00:00","Open":10.0000,"High":10.0000,"Low":10.0000,"Close":10.0000,"Volume":0,"AdjustedClose":3.3725}
+{"DateTime":"2000-03-31T00:00:00","Open":10.0000,"High":10.0000,"Low":10.0000,"Close":10.0000,"Volume":0,"AdjustedClose":3.3724}
 {"DateTime":"2000-04-03T00:00:00","Open":9.7400,"High":9.7400,"Low":9.7400,"Close":9.7400,"Volume":0,"AdjustedClose":3.2848}
 {"DateTime":"2000-04-04T00:00:00","Open":9.6500,"High":9.6500,"Low":9.6500,"Close":9.6500,"Volume":0,"AdjustedClose":3.2544}
 {"DateTime":"2000-04-05T00:00:00","Open":9.5200,"High":9.5200,"Low":9.5200,"Close":9.5200,"Volume":0,"AdjustedClose":3.2106}
@@ -558,10 +558,10 @@
 {"DateTime":"2000-05-18T00:00:00","Open":8.8700,"High":8.8700,"Low":8.8700,"Close":8.8700,"Volume":0,"AdjustedClose":2.9914}
 {"DateTime":"2000-05-19T00:00:00","Open":8.8000,"High":8.8000,"Low":8.8000,"Close":8.8000,"Volume":0,"AdjustedClose":2.9678}
 {"DateTime":"2000-05-22T00:00:00","Open":8.5900,"High":8.5900,"Low":8.5900,"Close":8.5900,"Volume":0,"AdjustedClose":2.8969}
-{"DateTime":"2000-05-23T00:00:00","Open":8.4400,"High":8.4400,"Low":8.4400,"Close":8.4400,"Volume":0,"AdjustedClose":2.8463}
+{"DateTime":"2000-05-23T00:00:00","Open":8.4400,"High":8.4400,"Low":8.4400,"Close":8.4400,"Volume":0,"AdjustedClose":2.8464}
 {"DateTime":"2000-05-24T00:00:00","Open":8.4200,"High":8.4200,"Low":8.4200,"Close":8.4200,"Volume":0,"AdjustedClose":2.8396}
 {"DateTime":"2000-05-25T00:00:00","Open":8.5300,"High":8.5300,"Low":8.5300,"Close":8.5300,"Volume":0,"AdjustedClose":2.8767}
-{"DateTime":"2000-05-26T00:00:00","Open":8.4400,"High":8.4400,"Low":8.4400,"Close":8.4400,"Volume":0,"AdjustedClose":2.8463}
+{"DateTime":"2000-05-26T00:00:00","Open":8.4400,"High":8.4400,"Low":8.4400,"Close":8.4400,"Volume":0,"AdjustedClose":2.8464}
 {"DateTime":"2000-05-30T00:00:00","Open":8.6400,"High":8.6400,"Low":8.6400,"Close":8.6400,"Volume":0,"AdjustedClose":2.9138}
 {"DateTime":"2000-05-31T00:00:00","Open":8.7600,"High":8.7600,"Low":8.7600,"Close":8.7600,"Volume":0,"AdjustedClose":2.9543}
 {"DateTime":"2000-06-01T00:00:00","Open":8.8500,"High":8.8500,"Low":8.8500,"Close":8.8500,"Volume":0,"AdjustedClose":2.9846}
@@ -614,7 +614,7 @@
 {"DateTime":"2000-08-08T00:00:00","Open":8.3700,"High":8.3700,"Low":8.3700,"Close":8.3700,"Volume":0,"AdjustedClose":2.8227}
 {"DateTime":"2000-08-09T00:00:00","Open":8.3600,"High":8.3600,"Low":8.3600,"Close":8.3600,"Volume":0,"AdjustedClose":2.8194}
 {"DateTime":"2000-08-10T00:00:00","Open":8.3500,"High":8.3500,"Low":8.3500,"Close":8.3500,"Volume":0,"AdjustedClose":2.8160}
-{"DateTime":"2000-08-11T00:00:00","Open":8.4400,"High":8.4400,"Low":8.4400,"Close":8.4400,"Volume":0,"AdjustedClose":2.8463}
+{"DateTime":"2000-08-11T00:00:00","Open":8.4400,"High":8.4400,"Low":8.4400,"Close":8.4400,"Volume":0,"AdjustedClose":2.8464}
 {"DateTime":"2000-08-14T00:00:00","Open":8.4800,"High":8.4800,"Low":8.4800,"Close":8.4800,"Volume":0,"AdjustedClose":2.8598}
 {"DateTime":"2000-08-15T00:00:00","Open":8.4800,"High":8.4800,"Low":8.4800,"Close":8.4800,"Volume":0,"AdjustedClose":2.8598}
 {"DateTime":"2000-08-16T00:00:00","Open":8.4800,"High":8.4800,"Low":8.4800,"Close":8.4800,"Volume":0,"AdjustedClose":2.8598}
@@ -629,7 +629,7 @@
 {"DateTime":"2000-08-29T00:00:00","Open":8.3700,"High":8.3700,"Low":8.3700,"Close":8.3700,"Volume":0,"AdjustedClose":2.8227}
 {"DateTime":"2000-08-30T00:00:00","Open":8.3900,"High":8.3900,"Low":8.3900,"Close":8.3900,"Volume":0,"AdjustedClose":2.8295}
 {"DateTime":"2000-08-31T00:00:00","Open":8.4200,"High":8.4200,"Low":8.4200,"Close":8.4200,"Volume":0,"AdjustedClose":2.8396}
-{"DateTime":"2000-09-01T00:00:00","Open":8.4400,"High":8.4400,"Low":8.4400,"Close":8.4400,"Volume":0,"AdjustedClose":2.8463}
+{"DateTime":"2000-09-01T00:00:00","Open":8.4400,"High":8.4400,"Low":8.4400,"Close":8.4400,"Volume":0,"AdjustedClose":2.8464}
 {"DateTime":"2000-09-05T00:00:00","Open":8.4700,"High":8.4700,"Low":8.4700,"Close":8.4700,"Volume":0,"AdjustedClose":2.8565}
 {"DateTime":"2000-09-06T00:00:00","Open":8.4300,"High":8.4300,"Low":8.4300,"Close":8.4300,"Volume":0,"AdjustedClose":2.8430}
 {"DateTime":"2000-09-07T00:00:00","Open":8.3500,"High":8.3500,"Low":8.3500,"Close":8.3500,"Volume":0,"AdjustedClose":2.8160}
@@ -1512,7 +1512,7 @@
 {"DateTime":"2004-03-09T00:00:00","Open":10.3500,"High":10.3500,"Low":10.3500,"Close":10.3500,"Volume":0,"AdjustedClose":4.2202}
 {"DateTime":"2004-03-10T00:00:00","Open":10.2200,"High":10.2200,"Low":10.2200,"Close":10.2200,"Volume":0,"AdjustedClose":4.1672}
 {"DateTime":"2004-03-11T00:00:00","Open":10.1000,"High":10.1000,"Low":10.1000,"Close":10.1000,"Volume":0,"AdjustedClose":4.1183}
-{"DateTime":"2004-03-12T00:00:00","Open":10.1200,"High":10.1200,"Low":10.1200,"Close":10.1200,"Volume":0,"AdjustedClose":4.1265}
+{"DateTime":"2004-03-12T00:00:00","Open":10.1200,"High":10.1200,"Low":10.1200,"Close":10.1200,"Volume":0,"AdjustedClose":4.1264}
 {"DateTime":"2004-03-15T00:00:00","Open":10.0800,"High":10.0800,"Low":10.0800,"Close":10.0800,"Volume":0,"AdjustedClose":4.1101}
 {"DateTime":"2004-03-16T00:00:00","Open":10.1000,"High":10.1000,"Low":10.1000,"Close":10.1000,"Volume":0,"AdjustedClose":4.1183}
 {"DateTime":"2004-03-17T00:00:00","Open":10.2000,"High":10.2000,"Low":10.2000,"Close":10.2000,"Volume":0,"AdjustedClose":4.1591}
@@ -1520,7 +1520,7 @@
 {"DateTime":"2004-03-19T00:00:00","Open":10.3000,"High":10.3000,"Low":10.3000,"Close":10.3000,"Volume":0,"AdjustedClose":4.1998}
 {"DateTime":"2004-03-22T00:00:00","Open":10.1700,"High":10.1700,"Low":10.1700,"Close":10.1700,"Volume":0,"AdjustedClose":4.1468}
 {"DateTime":"2004-03-23T00:00:00","Open":10.1400,"High":10.1400,"Low":10.1400,"Close":10.1400,"Volume":0,"AdjustedClose":4.1346}
-{"DateTime":"2004-03-24T00:00:00","Open":10.1200,"High":10.1200,"Low":10.1200,"Close":10.1200,"Volume":0,"AdjustedClose":4.1265}
+{"DateTime":"2004-03-24T00:00:00","Open":10.1200,"High":10.1200,"Low":10.1200,"Close":10.1200,"Volume":0,"AdjustedClose":4.1264}
 {"DateTime":"2004-03-25T00:00:00","Open":10.1100,"High":10.1100,"Low":10.1100,"Close":10.1100,"Volume":0,"AdjustedClose":4.1224}
 {"DateTime":"2004-03-26T00:00:00","Open":10.0900,"High":10.0900,"Low":10.0900,"Close":10.0900,"Volume":0,"AdjustedClose":4.1142}
 {"DateTime":"2004-03-29T00:00:00","Open":10.1900,"High":10.1900,"Low":10.1900,"Close":10.1900,"Volume":0,"AdjustedClose":4.1550}
@@ -1692,7 +1692,7 @@
 {"DateTime":"2004-11-23T00:00:00","Open":11.2200,"High":11.2200,"Low":11.2200,"Close":11.2200,"Volume":0,"AdjustedClose":4.6208}
 {"DateTime":"2004-11-24T00:00:00","Open":11.2900,"High":11.2900,"Low":11.2900,"Close":11.2900,"Volume":0,"AdjustedClose":4.6496}
 {"DateTime":"2004-11-26T00:00:00","Open":11.4000,"High":11.4000,"Low":11.4000,"Close":11.4000,"Volume":0,"AdjustedClose":4.6949}
-{"DateTime":"2004-11-29T00:00:00","Open":11.3600,"High":11.3600,"Low":11.3600,"Close":11.3600,"Volume":0,"AdjustedClose":4.6785}
+{"DateTime":"2004-11-29T00:00:00","Open":11.3600,"High":11.3600,"Low":11.3600,"Close":11.3600,"Volume":0,"AdjustedClose":4.6784}
 {"DateTime":"2004-11-30T00:00:00","Open":11.4400,"High":11.4400,"Low":11.4400,"Close":11.4400,"Volume":0,"AdjustedClose":4.7114}
 {"DateTime":"2004-12-01T00:00:00","Open":11.5500,"High":11.5500,"Low":11.5500,"Close":11.5500,"Volume":0,"AdjustedClose":4.7567}
 {"DateTime":"2004-12-02T00:00:00","Open":11.5800,"High":11.5800,"Low":11.5800,"Close":11.5800,"Volume":0,"AdjustedClose":4.7691}
@@ -1700,7 +1700,7 @@
 {"DateTime":"2004-12-06T00:00:00","Open":11.6100,"High":11.6100,"Low":11.6100,"Close":11.6100,"Volume":0,"AdjustedClose":4.7814}
 {"DateTime":"2004-12-07T00:00:00","Open":11.5100,"High":11.5100,"Low":11.5100,"Close":11.5100,"Volume":0,"AdjustedClose":4.7402}
 {"DateTime":"2004-12-08T00:00:00","Open":11.4500,"High":11.4500,"Low":11.4500,"Close":11.4500,"Volume":0,"AdjustedClose":4.7155}
-{"DateTime":"2004-12-09T00:00:00","Open":11.3600,"High":11.3600,"Low":11.3600,"Close":11.3600,"Volume":0,"AdjustedClose":4.6785}
+{"DateTime":"2004-12-09T00:00:00","Open":11.3600,"High":11.3600,"Low":11.3600,"Close":11.3600,"Volume":0,"AdjustedClose":4.6784}
 {"DateTime":"2004-12-10T00:00:00","Open":11.2900,"High":11.2900,"Low":11.2900,"Close":11.2900,"Volume":0,"AdjustedClose":4.6496}
 {"DateTime":"2004-12-13T00:00:00","Open":11.3800,"High":11.3800,"Low":11.3800,"Close":11.3800,"Volume":0,"AdjustedClose":4.6867}
 {"DateTime":"2004-12-14T00:00:00","Open":11.4200,"High":11.4200,"Low":11.4200,"Close":11.4200,"Volume":0,"AdjustedClose":4.7032}
@@ -2127,7 +2127,7 @@
 {"DateTime":"2006-08-16T00:00:00","Open":15.2900,"High":15.2900,"Low":15.2900,"Close":15.2900,"Volume":0,"AdjustedClose":6.9364}
 {"DateTime":"2006-08-17T00:00:00","Open":15.2700,"High":15.2700,"Low":15.2700,"Close":15.2700,"Volume":0,"AdjustedClose":6.9273}
 {"DateTime":"2006-08-18T00:00:00","Open":15.2000,"High":15.2000,"Low":15.2000,"Close":15.2000,"Volume":0,"AdjustedClose":6.8956}
-{"DateTime":"2006-08-21T00:00:00","Open":15.1100,"High":15.1100,"Low":15.1100,"Close":15.1100,"Volume":0,"AdjustedClose":6.8548}
+{"DateTime":"2006-08-21T00:00:00","Open":15.1100,"High":15.1100,"Low":15.1100,"Close":15.1100,"Volume":0,"AdjustedClose":6.8547}
 {"DateTime":"2006-08-22T00:00:00","Open":15.0900,"High":15.0900,"Low":15.0900,"Close":15.0900,"Volume":0,"AdjustedClose":6.8457}
 {"DateTime":"2006-08-23T00:00:00","Open":14.9500,"High":14.9500,"Low":14.9500,"Close":14.9500,"Volume":0,"AdjustedClose":6.7822}
 {"DateTime":"2006-08-24T00:00:00","Open":14.9300,"High":14.9300,"Low":14.9300,"Close":14.9300,"Volume":0,"AdjustedClose":6.7731}
@@ -2237,7 +2237,7 @@
 {"DateTime":"2007-01-25T00:00:00","Open":17.7200,"High":17.7200,"Low":17.7200,"Close":17.7200,"Volume":0,"AdjustedClose":8.6440}
 {"DateTime":"2007-01-26T00:00:00","Open":17.7700,"High":17.7700,"Low":17.7700,"Close":17.7700,"Volume":0,"AdjustedClose":8.6684}
 {"DateTime":"2007-01-29T00:00:00","Open":17.7300,"High":17.7300,"Low":17.7300,"Close":17.7300,"Volume":0,"AdjustedClose":8.6489}
-{"DateTime":"2007-01-30T00:00:00","Open":17.8300,"High":17.8300,"Low":17.8300,"Close":17.8300,"Volume":0,"AdjustedClose":8.6976}
+{"DateTime":"2007-01-30T00:00:00","Open":17.8300,"High":17.8300,"Low":17.8300,"Close":17.8300,"Volume":0,"AdjustedClose":8.6977}
 {"DateTime":"2007-01-31T00:00:00","Open":17.8900,"High":17.8900,"Low":17.8900,"Close":17.8900,"Volume":0,"AdjustedClose":8.7269}
 {"DateTime":"2007-02-01T00:00:00","Open":18.1000,"High":18.1000,"Low":18.1000,"Close":18.1000,"Volume":0,"AdjustedClose":8.8294}
 {"DateTime":"2007-02-02T00:00:00","Open":18.1900,"High":18.1900,"Low":18.1900,"Close":18.1900,"Volume":0,"AdjustedClose":8.8733}
@@ -2297,20 +2297,20 @@
 {"DateTime":"2007-04-23T00:00:00","Open":20.4600,"High":20.4600,"Low":20.4600,"Close":20.4600,"Volume":0,"AdjustedClose":9.9806}
 {"DateTime":"2007-04-24T00:00:00","Open":20.5300,"High":20.5300,"Low":20.5300,"Close":20.5300,"Volume":0,"AdjustedClose":10.0147}
 {"DateTime":"2007-04-25T00:00:00","Open":20.7800,"High":20.7800,"Low":20.7800,"Close":20.7800,"Volume":0,"AdjustedClose":10.1367}
-{"DateTime":"2007-04-26T00:00:00","Open":20.5700,"High":20.5700,"Low":20.5700,"Close":20.5700,"Volume":0,"AdjustedClose":10.0343}
+{"DateTime":"2007-04-26T00:00:00","Open":20.5700,"High":20.5700,"Low":20.5700,"Close":20.5700,"Volume":0,"AdjustedClose":10.0342}
 {"DateTime":"2007-04-27T00:00:00","Open":20.5200,"High":20.5200,"Low":20.5200,"Close":20.5200,"Volume":0,"AdjustedClose":10.0099}
 {"DateTime":"2007-04-30T00:00:00","Open":20.2900,"High":20.2900,"Low":20.2900,"Close":20.2900,"Volume":0,"AdjustedClose":9.8977}
 {"DateTime":"2007-05-01T00:00:00","Open":20.3700,"High":20.3700,"Low":20.3700,"Close":20.3700,"Volume":0,"AdjustedClose":9.9367}
 {"DateTime":"2007-05-02T00:00:00","Open":20.5800,"High":20.5800,"Low":20.5800,"Close":20.5800,"Volume":0,"AdjustedClose":10.0391}
 {"DateTime":"2007-05-03T00:00:00","Open":20.7200,"High":20.7200,"Low":20.7200,"Close":20.7200,"Volume":0,"AdjustedClose":10.1074}
-{"DateTime":"2007-05-04T00:00:00","Open":20.8900,"High":20.8900,"Low":20.8900,"Close":20.8900,"Volume":0,"AdjustedClose":10.1904}
+{"DateTime":"2007-05-04T00:00:00","Open":20.8900,"High":20.8900,"Low":20.8900,"Close":20.8900,"Volume":0,"AdjustedClose":10.1903}
 {"DateTime":"2007-05-07T00:00:00","Open":21.0200,"High":21.0200,"Low":21.0200,"Close":21.0200,"Volume":0,"AdjustedClose":10.2538}
 {"DateTime":"2007-05-08T00:00:00","Open":20.8500,"High":20.8500,"Low":20.8500,"Close":20.8500,"Volume":0,"AdjustedClose":10.1708}
 {"DateTime":"2007-05-09T00:00:00","Open":20.9500,"High":20.9500,"Low":20.9500,"Close":20.9500,"Volume":0,"AdjustedClose":10.2196}
-{"DateTime":"2007-05-10T00:00:00","Open":20.6600,"High":20.6600,"Low":20.6600,"Close":20.6600,"Volume":0,"AdjustedClose":10.0782}
+{"DateTime":"2007-05-10T00:00:00","Open":20.6600,"High":20.6600,"Low":20.6600,"Close":20.6600,"Volume":0,"AdjustedClose":10.0781}
 {"DateTime":"2007-05-11T00:00:00","Open":21.0600,"High":21.0600,"Low":21.0600,"Close":21.0600,"Volume":0,"AdjustedClose":10.2733}
 {"DateTime":"2007-05-14T00:00:00","Open":21.0400,"High":21.0400,"Low":21.0400,"Close":21.0400,"Volume":0,"AdjustedClose":10.2635}
-{"DateTime":"2007-05-15T00:00:00","Open":20.9800,"High":20.9800,"Low":20.9800,"Close":20.9800,"Volume":0,"AdjustedClose":10.2343}
+{"DateTime":"2007-05-15T00:00:00","Open":20.9800,"High":20.9800,"Low":20.9800,"Close":20.9800,"Volume":0,"AdjustedClose":10.2342}
 {"DateTime":"2007-05-16T00:00:00","Open":21.2700,"High":21.2700,"Low":21.2700,"Close":21.2700,"Volume":0,"AdjustedClose":10.3757}
 {"DateTime":"2007-05-17T00:00:00","Open":21.2000,"High":21.2000,"Low":21.2000,"Close":21.2000,"Volume":0,"AdjustedClose":10.3416}
 {"DateTime":"2007-05-18T00:00:00","Open":21.3200,"High":21.3200,"Low":21.3200,"Close":21.3200,"Volume":0,"AdjustedClose":10.4001}
@@ -2346,7 +2346,7 @@
 {"DateTime":"2007-07-02T00:00:00","Open":22.8800,"High":22.8800,"Low":22.8800,"Close":22.8800,"Volume":0,"AdjustedClose":11.2234}
 {"DateTime":"2007-07-03T00:00:00","Open":23.0600,"High":23.0600,"Low":23.0600,"Close":23.0600,"Volume":0,"AdjustedClose":11.3117}
 {"DateTime":"2007-07-05T00:00:00","Open":23.2600,"High":23.2600,"Low":23.2600,"Close":23.2600,"Volume":0,"AdjustedClose":11.4098}
-{"DateTime":"2007-07-06T00:00:00","Open":23.4300,"High":23.4300,"Low":23.4300,"Close":23.4300,"Volume":0,"AdjustedClose":11.4931}
+{"DateTime":"2007-07-06T00:00:00","Open":23.4300,"High":23.4300,"Low":23.4300,"Close":23.4300,"Volume":0,"AdjustedClose":11.4932}
 {"DateTime":"2007-07-09T00:00:00","Open":23.6000,"High":23.6000,"Low":23.6000,"Close":23.6000,"Volume":0,"AdjustedClose":11.5765}
 {"DateTime":"2007-07-10T00:00:00","Open":23.4400,"High":23.4400,"Low":23.4400,"Close":23.4400,"Volume":0,"AdjustedClose":11.4981}
 {"DateTime":"2007-07-11T00:00:00","Open":23.6500,"High":23.6500,"Low":23.6500,"Close":23.6500,"Volume":0,"AdjustedClose":11.6011}
@@ -2392,7 +2392,7 @@
 {"DateTime":"2007-09-06T00:00:00","Open":22.7000,"High":22.7000,"Low":22.7000,"Close":22.7000,"Volume":0,"AdjustedClose":11.1351}
 {"DateTime":"2007-09-07T00:00:00","Open":22.5400,"High":22.5400,"Low":22.5400,"Close":22.5400,"Volume":0,"AdjustedClose":11.0566}
 {"DateTime":"2007-09-10T00:00:00","Open":22.2200,"High":22.2200,"Low":22.2200,"Close":22.2200,"Volume":0,"AdjustedClose":10.9350}
-{"DateTime":"2007-09-11T00:00:00","Open":22.6100,"High":22.6100,"Low":22.6100,"Close":22.6100,"Volume":0,"AdjustedClose":11.1270}
+{"DateTime":"2007-09-11T00:00:00","Open":22.6100,"High":22.6100,"Low":22.6100,"Close":22.6100,"Volume":0,"AdjustedClose":11.1269}
 {"DateTime":"2007-09-12T00:00:00","Open":22.5500,"High":22.5500,"Low":22.5500,"Close":22.5500,"Volume":0,"AdjustedClose":11.0974}
 {"DateTime":"2007-09-13T00:00:00","Open":22.7200,"High":22.7200,"Low":22.7200,"Close":22.7200,"Volume":0,"AdjustedClose":11.1811}
 {"DateTime":"2007-09-14T00:00:00","Open":22.7000,"High":22.7000,"Low":22.7000,"Close":22.7000,"Volume":0,"AdjustedClose":11.1712}
@@ -2406,7 +2406,7 @@
 {"DateTime":"2007-09-26T00:00:00","Open":23.7700,"High":23.7700,"Low":23.7700,"Close":23.7700,"Volume":0,"AdjustedClose":11.6978}
 {"DateTime":"2007-09-27T00:00:00","Open":24.0000,"High":24.0000,"Low":24.0000,"Close":24.0000,"Volume":0,"AdjustedClose":11.8110}
 {"DateTime":"2007-09-28T00:00:00","Open":24.0100,"High":24.0100,"Low":24.0100,"Close":24.0100,"Volume":0,"AdjustedClose":11.8159}
-{"DateTime":"2007-10-01T00:00:00","Open":24.5400,"High":24.5400,"Low":24.5400,"Close":24.5400,"Volume":0,"AdjustedClose":12.0767}
+{"DateTime":"2007-10-01T00:00:00","Open":24.5400,"High":24.5400,"Low":24.5400,"Close":24.5400,"Volume":0,"AdjustedClose":12.0768}
 {"DateTime":"2007-10-02T00:00:00","Open":24.5000,"High":24.5000,"Low":24.5000,"Close":24.5000,"Volume":0,"AdjustedClose":12.0571}
 {"DateTime":"2007-10-03T00:00:00","Open":24.3500,"High":24.3500,"Low":24.3500,"Close":24.3500,"Volume":0,"AdjustedClose":11.9832}
 {"DateTime":"2007-10-04T00:00:00","Open":24.4800,"High":24.4800,"Low":24.4800,"Close":24.4800,"Volume":0,"AdjustedClose":12.0472}
@@ -2428,7 +2428,7 @@
 {"DateTime":"2007-10-26T00:00:00","Open":25.6200,"High":25.6200,"Low":25.6200,"Close":25.6200,"Volume":0,"AdjustedClose":12.6082}
 {"DateTime":"2007-10-29T00:00:00","Open":25.7100,"High":25.7100,"Low":25.7100,"Close":25.7100,"Volume":0,"AdjustedClose":12.6525}
 {"DateTime":"2007-10-30T00:00:00","Open":25.5500,"High":25.5500,"Low":25.5500,"Close":25.5500,"Volume":0,"AdjustedClose":12.5738}
-{"DateTime":"2007-10-31T00:00:00","Open":25.8100,"High":25.8100,"Low":25.8100,"Close":25.8100,"Volume":0,"AdjustedClose":12.7018}
+{"DateTime":"2007-10-31T00:00:00","Open":25.8100,"High":25.8100,"Low":25.8100,"Close":25.8100,"Volume":0,"AdjustedClose":12.7017}
 {"DateTime":"2007-11-01T00:00:00","Open":25.4800,"High":25.4800,"Low":25.4800,"Close":25.4800,"Volume":0,"AdjustedClose":12.5393}
 {"DateTime":"2007-11-02T00:00:00","Open":25.3600,"High":25.3600,"Low":25.3600,"Close":25.3600,"Volume":0,"AdjustedClose":12.4803}
 {"DateTime":"2007-11-05T00:00:00","Open":25.1200,"High":25.1200,"Low":25.1200,"Close":25.1200,"Volume":0,"AdjustedClose":12.3622}
@@ -2449,7 +2449,7 @@
 {"DateTime":"2007-11-27T00:00:00","Open":22.9700,"High":22.9700,"Low":22.9700,"Close":22.9700,"Volume":0,"AdjustedClose":11.3041}
 {"DateTime":"2007-11-28T00:00:00","Open":23.5500,"High":23.5500,"Low":23.5500,"Close":23.5500,"Volume":0,"AdjustedClose":11.5895}
 {"DateTime":"2007-11-29T00:00:00","Open":23.4200,"High":23.4200,"Low":23.4200,"Close":23.4200,"Volume":0,"AdjustedClose":11.5256}
-{"DateTime":"2007-11-30T00:00:00","Open":23.7400,"High":23.7400,"Low":23.7400,"Close":23.7400,"Volume":0,"AdjustedClose":11.6831}
+{"DateTime":"2007-11-30T00:00:00","Open":23.7400,"High":23.7400,"Low":23.7400,"Close":23.7400,"Volume":0,"AdjustedClose":11.6830}
 {"DateTime":"2007-12-03T00:00:00","Open":23.7700,"High":23.7700,"Low":23.7700,"Close":23.7700,"Volume":0,"AdjustedClose":11.6978}
 {"DateTime":"2007-12-04T00:00:00","Open":23.9000,"High":23.9000,"Low":23.9000,"Close":23.9000,"Volume":0,"AdjustedClose":11.7618}
 {"DateTime":"2007-12-05T00:00:00","Open":24.4400,"High":24.4400,"Low":24.4400,"Close":24.4400,"Volume":0,"AdjustedClose":12.0275}
@@ -2466,7 +2466,7 @@
 {"DateTime":"2007-12-20T00:00:00","Open":21.3700,"High":21.3700,"Low":21.3700,"Close":21.3700,"Volume":0,"AdjustedClose":11.2840}
 {"DateTime":"2007-12-21T00:00:00","Open":21.7700,"High":21.7700,"Low":21.7700,"Close":21.7700,"Volume":0,"AdjustedClose":11.4952}
 {"DateTime":"2007-12-24T00:00:00","Open":21.9500,"High":21.9500,"Low":21.9500,"Close":21.9500,"Volume":0,"AdjustedClose":11.5903}
-{"DateTime":"2007-12-26T00:00:00","Open":22.0700,"High":22.0700,"Low":22.0700,"Close":22.0700,"Volume":0,"AdjustedClose":11.6537}
+{"DateTime":"2007-12-26T00:00:00","Open":22.0700,"High":22.0700,"Low":22.0700,"Close":22.0700,"Volume":0,"AdjustedClose":11.6536}
 {"DateTime":"2007-12-27T00:00:00","Open":22.0500,"High":22.0500,"Low":22.0500,"Close":22.0500,"Volume":0,"AdjustedClose":11.6431}
 {"DateTime":"2007-12-28T00:00:00","Open":22.3400,"High":22.3400,"Low":22.3400,"Close":22.3400,"Volume":0,"AdjustedClose":11.7962}
 {"DateTime":"2007-12-31T00:00:00","Open":22.3900,"High":22.3900,"Low":22.3900,"Close":22.3900,"Volume":0,"AdjustedClose":11.8226}
@@ -2480,7 +2480,7 @@
 {"DateTime":"2008-01-11T00:00:00","Open":21.8700,"High":21.8700,"Low":21.8700,"Close":21.8700,"Volume":0,"AdjustedClose":11.5480}
 {"DateTime":"2008-01-14T00:00:00","Open":22.0100,"High":22.0100,"Low":22.0100,"Close":22.0100,"Volume":0,"AdjustedClose":11.6220}
 {"DateTime":"2008-01-15T00:00:00","Open":21.4100,"High":21.4100,"Low":21.4100,"Close":21.4100,"Volume":0,"AdjustedClose":11.3051}
-{"DateTime":"2008-01-16T00:00:00","Open":20.9500,"High":20.9500,"Low":20.9500,"Close":20.9500,"Volume":0,"AdjustedClose":11.0622}
+{"DateTime":"2008-01-16T00:00:00","Open":20.9500,"High":20.9500,"Low":20.9500,"Close":20.9500,"Volume":0,"AdjustedClose":11.0623}
 {"DateTime":"2008-01-17T00:00:00","Open":20.3800,"High":20.3800,"Low":20.3800,"Close":20.3800,"Volume":0,"AdjustedClose":10.7613}
 {"DateTime":"2008-01-18T00:00:00","Open":20.4100,"High":20.4100,"Low":20.4100,"Close":20.4100,"Volume":0,"AdjustedClose":10.7771}
 {"DateTime":"2008-01-22T00:00:00","Open":19.3200,"High":19.3200,"Low":19.3200,"Close":19.3200,"Volume":0,"AdjustedClose":10.2016}
@@ -2513,12 +2513,12 @@
 {"DateTime":"2008-02-29T00:00:00","Open":20.2600,"High":20.2600,"Low":20.2600,"Close":20.2600,"Volume":0,"AdjustedClose":10.6979}
 {"DateTime":"2008-03-03T00:00:00","Open":20.3000,"High":20.3000,"Low":20.3000,"Close":20.3000,"Volume":0,"AdjustedClose":10.7190}
 {"DateTime":"2008-03-04T00:00:00","Open":20.1100,"High":20.1100,"Low":20.1100,"Close":20.1100,"Volume":0,"AdjustedClose":10.6187}
-{"DateTime":"2008-03-05T00:00:00","Open":20.2400,"High":20.2400,"Low":20.2400,"Close":20.2400,"Volume":0,"AdjustedClose":10.6874}
+{"DateTime":"2008-03-05T00:00:00","Open":20.2400,"High":20.2400,"Low":20.2400,"Close":20.2400,"Volume":0,"AdjustedClose":10.6873}
 {"DateTime":"2008-03-06T00:00:00","Open":19.8200,"High":19.8200,"Low":19.8200,"Close":19.8200,"Volume":0,"AdjustedClose":10.4656}
 {"DateTime":"2008-03-07T00:00:00","Open":19.6500,"High":19.6500,"Low":19.6500,"Close":19.6500,"Volume":0,"AdjustedClose":10.3758}
 {"DateTime":"2008-03-10T00:00:00","Open":19.0500,"High":19.0500,"Low":19.0500,"Close":19.0500,"Volume":0,"AdjustedClose":10.0641}
 {"DateTime":"2008-03-11T00:00:00","Open":19.9100,"High":19.9100,"Low":19.9100,"Close":19.9100,"Volume":0,"AdjustedClose":10.5185}
-{"DateTime":"2008-03-12T00:00:00","Open":19.5600,"High":19.5600,"Low":19.5600,"Close":19.5600,"Volume":0,"AdjustedClose":10.3336}
+{"DateTime":"2008-03-12T00:00:00","Open":19.5600,"High":19.5600,"Low":19.5600,"Close":19.5600,"Volume":0,"AdjustedClose":10.3335}
 {"DateTime":"2008-03-13T00:00:00","Open":19.4600,"High":19.4600,"Low":19.4600,"Close":19.4600,"Volume":0,"AdjustedClose":10.2807}
 {"DateTime":"2008-03-14T00:00:00","Open":18.9500,"High":18.9500,"Low":18.9500,"Close":18.9500,"Volume":0,"AdjustedClose":10.0113}
 {"DateTime":"2008-03-17T00:00:00","Open":18.4100,"High":18.4100,"Low":18.4100,"Close":18.4100,"Volume":0,"AdjustedClose":9.7260}
@@ -2539,7 +2539,7 @@
 {"DateTime":"2008-04-08T00:00:00","Open":19.7400,"High":19.7400,"Low":19.7400,"Close":19.7400,"Volume":0,"AdjustedClose":10.4286}
 {"DateTime":"2008-04-09T00:00:00","Open":19.6600,"High":19.6600,"Low":19.6600,"Close":19.6600,"Volume":0,"AdjustedClose":10.3864}
 {"DateTime":"2008-04-10T00:00:00","Open":19.8900,"High":19.8900,"Low":19.8900,"Close":19.8900,"Volume":0,"AdjustedClose":10.5079}
-{"DateTime":"2008-04-11T00:00:00","Open":19.6200,"High":19.6200,"Low":19.6200,"Close":19.6200,"Volume":0,"AdjustedClose":10.3653}
+{"DateTime":"2008-04-11T00:00:00","Open":19.6200,"High":19.6200,"Low":19.6200,"Close":19.6200,"Volume":0,"AdjustedClose":10.3652}
 {"DateTime":"2008-04-14T00:00:00","Open":19.6400,"High":19.6400,"Low":19.6400,"Close":19.6400,"Volume":0,"AdjustedClose":10.3758}
 {"DateTime":"2008-04-15T00:00:00","Open":19.8600,"High":19.8600,"Low":19.8600,"Close":19.8600,"Volume":0,"AdjustedClose":10.4920}
 {"DateTime":"2008-04-16T00:00:00","Open":20.2500,"High":20.2500,"Low":20.2500,"Close":20.2500,"Volume":0,"AdjustedClose":10.6981}
@@ -2553,7 +2553,7 @@
 {"DateTime":"2008-04-28T00:00:00","Open":20.4900,"High":20.4900,"Low":20.4900,"Close":20.4900,"Volume":0,"AdjustedClose":10.8249}
 {"DateTime":"2008-04-29T00:00:00","Open":20.2600,"High":20.2600,"Low":20.2600,"Close":20.2600,"Volume":0,"AdjustedClose":10.7034}
 {"DateTime":"2008-04-30T00:00:00","Open":20.4700,"High":20.4700,"Low":20.4700,"Close":20.4700,"Volume":0,"AdjustedClose":10.8143}
-{"DateTime":"2008-05-01T00:00:00","Open":20.6200,"High":20.6200,"Low":20.6200,"Close":20.6200,"Volume":0,"AdjustedClose":10.8936}
+{"DateTime":"2008-05-01T00:00:00","Open":20.6200,"High":20.6200,"Low":20.6200,"Close":20.6200,"Volume":0,"AdjustedClose":10.8935}
 {"DateTime":"2008-05-02T00:00:00","Open":20.7300,"High":20.7300,"Low":20.7300,"Close":20.7300,"Volume":0,"AdjustedClose":10.9517}
 {"DateTime":"2008-05-05T00:00:00","Open":20.7300,"High":20.7300,"Low":20.7300,"Close":20.7300,"Volume":0,"AdjustedClose":10.9517}
 {"DateTime":"2008-05-06T00:00:00","Open":20.8000,"High":20.8000,"Low":20.8000,"Close":20.8000,"Volume":0,"AdjustedClose":10.9886}
@@ -2600,7 +2600,7 @@
 {"DateTime":"2008-07-03T00:00:00","Open":17.1300,"High":17.1300,"Low":17.1300,"Close":17.1300,"Volume":0,"AdjustedClose":9.1328}
 {"DateTime":"2008-07-07T00:00:00","Open":17.0000,"High":17.0000,"Low":17.0000,"Close":17.0000,"Volume":0,"AdjustedClose":9.0635}
 {"DateTime":"2008-07-08T00:00:00","Open":17.0900,"High":17.0900,"Low":17.0900,"Close":17.0900,"Volume":0,"AdjustedClose":9.1115}
-{"DateTime":"2008-07-09T00:00:00","Open":16.8900,"High":16.8900,"Low":16.8900,"Close":16.8900,"Volume":0,"AdjustedClose":9.0048}
+{"DateTime":"2008-07-09T00:00:00","Open":16.8900,"High":16.8900,"Low":16.8900,"Close":16.8900,"Volume":0,"AdjustedClose":9.0049}
 {"DateTime":"2008-07-10T00:00:00","Open":17.2100,"High":17.2100,"Low":17.2100,"Close":17.2100,"Volume":0,"AdjustedClose":9.1755}
 {"DateTime":"2008-07-11T00:00:00","Open":17.2100,"High":17.2100,"Low":17.2100,"Close":17.2100,"Volume":0,"AdjustedClose":9.1755}
 {"DateTime":"2008-07-14T00:00:00","Open":17.1400,"High":17.1400,"Low":17.1400,"Close":17.1400,"Volume":0,"AdjustedClose":9.1381}
@@ -2761,7 +2761,7 @@
 {"DateTime":"2009-02-24T00:00:00","Open":8.8500,"High":8.8500,"Low":8.8500,"Close":8.8500,"Volume":0,"AdjustedClose":4.8143}
 {"DateTime":"2009-02-25T00:00:00","Open":8.7600,"High":8.7600,"Low":8.7600,"Close":8.7600,"Volume":0,"AdjustedClose":4.7653}
 {"DateTime":"2009-02-26T00:00:00","Open":8.6500,"High":8.6500,"Low":8.6500,"Close":8.6500,"Volume":0,"AdjustedClose":4.7055}
-{"DateTime":"2009-02-27T00:00:00","Open":8.5600,"High":8.5600,"Low":8.5600,"Close":8.5600,"Volume":0,"AdjustedClose":4.6565}
+{"DateTime":"2009-02-27T00:00:00","Open":8.5600,"High":8.5600,"Low":8.5600,"Close":8.5600,"Volume":0,"AdjustedClose":4.6566}
 {"DateTime":"2009-03-02T00:00:00","Open":8.1700,"High":8.1700,"Low":8.1700,"Close":8.1700,"Volume":0,"AdjustedClose":4.4444}
 {"DateTime":"2009-03-03T00:00:00","Open":8.1900,"High":8.1900,"Low":8.1900,"Close":8.1900,"Volume":0,"AdjustedClose":4.4553}
 {"DateTime":"2009-03-04T00:00:00","Open":8.5200,"High":8.5200,"Low":8.5200,"Close":8.5200,"Volume":0,"AdjustedClose":4.6348}
@@ -2785,7 +2785,7 @@
 {"DateTime":"2009-03-30T00:00:00","Open":9.4800,"High":9.4800,"Low":9.4800,"Close":9.4800,"Volume":0,"AdjustedClose":5.1614}
 {"DateTime":"2009-03-31T00:00:00","Open":9.7300,"High":9.7300,"Low":9.7300,"Close":9.7300,"Volume":0,"AdjustedClose":5.2975}
 {"DateTime":"2009-04-01T00:00:00","Open":10.0500,"High":10.0500,"Low":10.0500,"Close":10.0500,"Volume":0,"AdjustedClose":5.4717}
-{"DateTime":"2009-04-02T00:00:00","Open":10.4600,"High":10.4600,"Low":10.4600,"Close":10.4600,"Volume":0,"AdjustedClose":5.6949}
+{"DateTime":"2009-04-02T00:00:00","Open":10.4600,"High":10.4600,"Low":10.4600,"Close":10.4600,"Volume":0,"AdjustedClose":5.6950}
 {"DateTime":"2009-04-03T00:00:00","Open":10.5500,"High":10.5500,"Low":10.5500,"Close":10.5500,"Volume":0,"AdjustedClose":5.7440}
 {"DateTime":"2009-04-06T00:00:00","Open":10.6200,"High":10.6200,"Low":10.6200,"Close":10.6200,"Volume":0,"AdjustedClose":5.7821}
 {"DateTime":"2009-04-07T00:00:00","Open":10.5700,"High":10.5700,"Low":10.5700,"Close":10.5700,"Volume":0,"AdjustedClose":5.7548}
@@ -2830,7 +2830,7 @@
 {"DateTime":"2009-06-03T00:00:00","Open":14.6100,"High":14.6100,"Low":14.6100,"Close":14.6100,"Volume":0,"AdjustedClose":7.9544}
 {"DateTime":"2009-06-04T00:00:00","Open":14.7000,"High":14.7000,"Low":14.7000,"Close":14.7000,"Volume":0,"AdjustedClose":8.0034}
 {"DateTime":"2009-06-05T00:00:00","Open":14.7400,"High":14.7400,"Low":14.7400,"Close":14.7400,"Volume":0,"AdjustedClose":8.0252}
-{"DateTime":"2009-06-08T00:00:00","Open":14.5500,"High":14.5500,"Low":14.5500,"Close":14.5500,"Volume":0,"AdjustedClose":7.9217}
+{"DateTime":"2009-06-08T00:00:00","Open":14.5500,"High":14.5500,"Low":14.5500,"Close":14.5500,"Volume":0,"AdjustedClose":7.9218}
 {"DateTime":"2009-06-09T00:00:00","Open":14.3400,"High":14.3400,"Low":14.3400,"Close":14.3400,"Volume":0,"AdjustedClose":7.8723}
 {"DateTime":"2009-06-10T00:00:00","Open":14.4400,"High":14.4400,"Low":14.4400,"Close":14.4400,"Volume":0,"AdjustedClose":7.9272}
 {"DateTime":"2009-06-11T00:00:00","Open":14.5600,"High":14.5600,"Low":14.5600,"Close":14.5600,"Volume":0,"AdjustedClose":7.9931}
@@ -3005,7 +3005,7 @@
 {"DateTime":"2010-02-11T00:00:00","Open":18.6500,"High":18.6500,"Low":18.6500,"Close":18.6500,"Volume":0,"AdjustedClose":10.3094}
 {"DateTime":"2010-02-12T00:00:00","Open":18.6300,"High":18.6300,"Low":18.6300,"Close":18.6300,"Volume":0,"AdjustedClose":10.2983}
 {"DateTime":"2010-02-16T00:00:00","Open":18.8800,"High":18.8800,"Low":18.8800,"Close":18.8800,"Volume":0,"AdjustedClose":10.4365}
-{"DateTime":"2010-02-17T00:00:00","Open":19.0300,"High":19.0300,"Low":19.0300,"Close":19.0300,"Volume":0,"AdjustedClose":10.5195}
+{"DateTime":"2010-02-17T00:00:00","Open":19.0300,"High":19.0300,"Low":19.0300,"Close":19.0300,"Volume":0,"AdjustedClose":10.5194}
 {"DateTime":"2010-02-18T00:00:00","Open":19.0800,"High":19.0800,"Low":19.0800,"Close":19.0800,"Volume":0,"AdjustedClose":10.5471}
 {"DateTime":"2010-02-19T00:00:00","Open":18.9100,"High":18.9100,"Low":18.9100,"Close":18.9100,"Volume":0,"AdjustedClose":10.4531}
 {"DateTime":"2010-02-22T00:00:00","Open":18.9400,"High":18.9400,"Low":18.9400,"Close":18.9400,"Volume":0,"AdjustedClose":10.4697}
@@ -3032,7 +3032,7 @@
 {"DateTime":"2010-03-23T00:00:00","Open":20.2200,"High":20.2200,"Low":20.2200,"Close":20.2200,"Volume":0,"AdjustedClose":11.1840}
 {"DateTime":"2010-03-24T00:00:00","Open":20.0900,"High":20.0900,"Low":20.0900,"Close":20.0900,"Volume":0,"AdjustedClose":11.1121}
 {"DateTime":"2010-03-25T00:00:00","Open":20.0500,"High":20.0500,"Low":20.0500,"Close":20.0500,"Volume":0,"AdjustedClose":11.0900}
-{"DateTime":"2010-03-26T00:00:00","Open":20.1700,"High":20.1700,"Low":20.1700,"Close":20.1700,"Volume":0,"AdjustedClose":11.1564}
+{"DateTime":"2010-03-26T00:00:00","Open":20.1700,"High":20.1700,"Low":20.1700,"Close":20.1700,"Volume":0,"AdjustedClose":11.1563}
 {"DateTime":"2010-03-29T00:00:00","Open":20.4000,"High":20.4000,"Low":20.4000,"Close":20.4000,"Volume":0,"AdjustedClose":11.2836}
 {"DateTime":"2010-03-30T00:00:00","Open":20.4600,"High":20.4600,"Low":20.4600,"Close":20.4600,"Volume":0,"AdjustedClose":11.3168}
 {"DateTime":"2010-03-31T00:00:00","Open":20.4800,"High":20.4800,"Low":20.4800,"Close":20.4800,"Volume":0,"AdjustedClose":11.3278}
@@ -3063,7 +3063,7 @@
 {"DateTime":"2010-05-06T00:00:00","Open":19.1200,"High":19.1200,"Low":19.1200,"Close":19.1200,"Volume":0,"AdjustedClose":10.5756}
 {"DateTime":"2010-05-07T00:00:00","Open":19.0100,"High":19.0100,"Low":19.0100,"Close":19.0100,"Volume":0,"AdjustedClose":10.5147}
 {"DateTime":"2010-05-10T00:00:00","Open":20.0700,"High":20.0700,"Low":20.0700,"Close":20.0700,"Volume":0,"AdjustedClose":11.1010}
-{"DateTime":"2010-05-11T00:00:00","Open":19.8800,"High":19.8800,"Low":19.8800,"Close":19.8800,"Volume":0,"AdjustedClose":10.9959}
+{"DateTime":"2010-05-11T00:00:00","Open":19.8800,"High":19.8800,"Low":19.8800,"Close":19.8800,"Volume":0,"AdjustedClose":10.9960}
 {"DateTime":"2010-05-12T00:00:00","Open":20.0600,"High":20.0600,"Low":20.0600,"Close":20.0600,"Volume":0,"AdjustedClose":11.0955}
 {"DateTime":"2010-05-13T00:00:00","Open":20.0100,"High":20.0100,"Low":20.0100,"Close":20.0100,"Volume":0,"AdjustedClose":11.0679}
 {"DateTime":"2010-05-14T00:00:00","Open":19.7400,"High":19.7400,"Low":19.7400,"Close":19.7400,"Volume":0,"AdjustedClose":10.9185}
@@ -3080,7 +3080,7 @@
 {"DateTime":"2010-06-01T00:00:00","Open":18.5000,"High":18.5000,"Low":18.5000,"Close":18.5000,"Volume":0,"AdjustedClose":10.2326}
 {"DateTime":"2010-06-02T00:00:00","Open":18.8400,"High":18.8400,"Low":18.8400,"Close":18.8400,"Volume":0,"AdjustedClose":10.4207}
 {"DateTime":"2010-06-03T00:00:00","Open":18.9400,"High":18.9400,"Low":18.9400,"Close":18.9400,"Volume":0,"AdjustedClose":10.4760}
-{"DateTime":"2010-06-04T00:00:00","Open":18.4700,"High":18.4700,"Low":18.4700,"Close":18.4700,"Volume":0,"AdjustedClose":10.2161}
+{"DateTime":"2010-06-04T00:00:00","Open":18.4700,"High":18.4700,"Low":18.4700,"Close":18.4700,"Volume":0,"AdjustedClose":10.2160}
 {"DateTime":"2010-06-07T00:00:00","Open":18.2300,"High":18.2300,"Low":18.2300,"Close":18.2300,"Volume":0,"AdjustedClose":10.0833}
 {"DateTime":"2010-06-08T00:00:00","Open":18.3800,"High":18.3800,"Low":18.3800,"Close":18.3800,"Volume":0,"AdjustedClose":10.2393}
 {"DateTime":"2010-06-09T00:00:00","Open":18.2900,"High":18.2900,"Low":18.2900,"Close":18.2900,"Volume":0,"AdjustedClose":10.1892}
@@ -3150,9 +3150,9 @@
 {"DateTime":"2010-09-09T00:00:00","Open":21.8600,"High":21.8600,"Low":21.8600,"Close":21.8600,"Volume":0,"AdjustedClose":12.2430}
 {"DateTime":"2010-09-10T00:00:00","Open":21.9800,"High":21.9800,"Low":21.9800,"Close":21.9800,"Volume":0,"AdjustedClose":12.3102}
 {"DateTime":"2010-09-13T00:00:00","Open":22.2400,"High":22.2400,"Low":22.2400,"Close":22.2400,"Volume":0,"AdjustedClose":12.4558}
-{"DateTime":"2010-09-14T00:00:00","Open":22.2800,"High":22.2800,"Low":22.2800,"Close":22.2800,"Volume":0,"AdjustedClose":12.4783}
+{"DateTime":"2010-09-14T00:00:00","Open":22.2800,"High":22.2800,"Low":22.2800,"Close":22.2800,"Volume":0,"AdjustedClose":12.4782}
 {"DateTime":"2010-09-15T00:00:00","Open":22.3600,"High":22.3600,"Low":22.3600,"Close":22.3600,"Volume":0,"AdjustedClose":12.5231}
-{"DateTime":"2010-09-16T00:00:00","Open":22.3000,"High":22.3000,"Low":22.3000,"Close":22.3000,"Volume":0,"AdjustedClose":12.4895}
+{"DateTime":"2010-09-16T00:00:00","Open":22.3000,"High":22.3000,"Low":22.3000,"Close":22.3000,"Volume":0,"AdjustedClose":12.4894}
 {"DateTime":"2010-09-17T00:00:00","Open":22.4200,"High":22.4200,"Low":22.4200,"Close":22.4200,"Volume":0,"AdjustedClose":12.5567}
 {"DateTime":"2010-09-20T00:00:00","Open":22.7200,"High":22.7200,"Low":22.7200,"Close":22.7200,"Volume":0,"AdjustedClose":12.7247}
 {"DateTime":"2010-09-21T00:00:00","Open":22.6800,"High":22.6800,"Low":22.6800,"Close":22.6800,"Volume":0,"AdjustedClose":12.7023}
@@ -3212,7 +3212,7 @@
 {"DateTime":"2010-12-07T00:00:00","Open":24.4000,"High":24.4000,"Low":24.4000,"Close":24.4000,"Volume":0,"AdjustedClose":13.6656}
 {"DateTime":"2010-12-08T00:00:00","Open":24.2000,"High":24.2000,"Low":24.2000,"Close":24.2000,"Volume":0,"AdjustedClose":13.5536}
 {"DateTime":"2010-12-09T00:00:00","Open":23.1800,"High":23.1800,"Low":23.1800,"Close":23.1800,"Volume":0,"AdjustedClose":13.4630}
-{"DateTime":"2010-12-10T00:00:00","Open":23.2800,"High":23.2800,"Low":23.2800,"Close":23.2800,"Volume":0,"AdjustedClose":13.5210}
+{"DateTime":"2010-12-10T00:00:00","Open":23.2800,"High":23.2800,"Low":23.2800,"Close":23.2800,"Volume":0,"AdjustedClose":13.5211}
 {"DateTime":"2010-12-13T00:00:00","Open":23.4100,"High":23.4100,"Low":23.4100,"Close":23.4100,"Volume":0,"AdjustedClose":13.5966}
 {"DateTime":"2010-12-14T00:00:00","Open":23.5500,"High":23.5500,"Low":23.5500,"Close":23.5500,"Volume":0,"AdjustedClose":13.6779}
 {"DateTime":"2010-12-15T00:00:00","Open":23.3300,"High":23.3300,"Low":23.3300,"Close":23.3300,"Volume":0,"AdjustedClose":13.5501}
@@ -3232,7 +3232,7 @@
 {"DateTime":"2011-01-05T00:00:00","Open":24.3300,"High":24.3300,"Low":24.3300,"Close":24.3300,"Volume":0,"AdjustedClose":14.1309}
 {"DateTime":"2011-01-06T00:00:00","Open":24.1500,"High":24.1500,"Low":24.1500,"Close":24.1500,"Volume":0,"AdjustedClose":14.0263}
 {"DateTime":"2011-01-07T00:00:00","Open":23.9500,"High":23.9500,"Low":23.9500,"Close":23.9500,"Volume":0,"AdjustedClose":13.9102}
-{"DateTime":"2011-01-10T00:00:00","Open":23.7800,"High":23.7800,"Low":23.7800,"Close":23.7800,"Volume":0,"AdjustedClose":13.8114}
+{"DateTime":"2011-01-10T00:00:00","Open":23.7800,"High":23.7800,"Low":23.7800,"Close":23.7800,"Volume":0,"AdjustedClose":13.8115}
 {"DateTime":"2011-01-11T00:00:00","Open":23.8600,"High":23.8600,"Low":23.8600,"Close":23.8600,"Volume":0,"AdjustedClose":13.8579}
 {"DateTime":"2011-01-12T00:00:00","Open":24.1700,"High":24.1700,"Low":24.1700,"Close":24.1700,"Volume":0,"AdjustedClose":14.0380}
 {"DateTime":"2011-01-13T00:00:00","Open":24.1100,"High":24.1100,"Low":24.1100,"Close":24.1100,"Volume":0,"AdjustedClose":14.0031}
@@ -3319,7 +3319,7 @@
 {"DateTime":"2011-05-11T00:00:00","Open":24.3100,"High":24.3100,"Low":24.3100,"Close":24.3100,"Volume":0,"AdjustedClose":14.1193}
 {"DateTime":"2011-05-12T00:00:00","Open":24.2400,"High":24.2400,"Low":24.2400,"Close":24.2400,"Volume":0,"AdjustedClose":14.0786}
 {"DateTime":"2011-05-13T00:00:00","Open":24.0700,"High":24.0700,"Low":24.0700,"Close":24.0700,"Volume":0,"AdjustedClose":13.9799}
-{"DateTime":"2011-05-16T00:00:00","Open":23.9100,"High":23.9100,"Low":23.9100,"Close":23.9100,"Volume":0,"AdjustedClose":13.8869}
+{"DateTime":"2011-05-16T00:00:00","Open":23.9100,"High":23.9100,"Low":23.9100,"Close":23.9100,"Volume":0,"AdjustedClose":13.8870}
 {"DateTime":"2011-05-17T00:00:00","Open":23.9300,"High":23.9300,"Low":23.9300,"Close":23.9300,"Volume":0,"AdjustedClose":13.8986}
 {"DateTime":"2011-05-18T00:00:00","Open":24.0900,"High":24.0900,"Low":24.0900,"Close":24.0900,"Volume":0,"AdjustedClose":13.9915}
 {"DateTime":"2011-05-19T00:00:00","Open":23.9400,"High":23.9400,"Low":23.9400,"Close":23.9400,"Volume":0,"AdjustedClose":13.9044}
@@ -3422,7 +3422,7 @@
 {"DateTime":"2011-10-06T00:00:00","Open":17.9100,"High":17.9100,"Low":17.9100,"Close":17.9100,"Volume":0,"AdjustedClose":10.5358}
 {"DateTime":"2011-10-07T00:00:00","Open":18.0000,"High":18.0000,"Low":18.0000,"Close":18.0000,"Volume":0,"AdjustedClose":10.5887}
 {"DateTime":"2011-10-10T00:00:00","Open":18.4400,"High":18.4400,"Low":18.4400,"Close":18.4400,"Volume":0,"AdjustedClose":10.8476}
-{"DateTime":"2011-10-11T00:00:00","Open":18.5700,"High":18.5700,"Low":18.5700,"Close":18.5700,"Volume":0,"AdjustedClose":10.9241}
+{"DateTime":"2011-10-11T00:00:00","Open":18.5700,"High":18.5700,"Low":18.5700,"Close":18.5700,"Volume":0,"AdjustedClose":10.9240}
 {"DateTime":"2011-10-12T00:00:00","Open":18.8900,"High":18.8900,"Low":18.8900,"Close":18.8900,"Volume":0,"AdjustedClose":11.1123}
 {"DateTime":"2011-10-13T00:00:00","Open":19.1100,"High":19.1100,"Low":19.1100,"Close":19.1100,"Volume":0,"AdjustedClose":11.2417}
 {"DateTime":"2011-10-14T00:00:00","Open":19.2800,"High":19.2800,"Low":19.2800,"Close":19.2800,"Volume":0,"AdjustedClose":11.3417}
@@ -3521,7 +3521,7 @@
 {"DateTime":"2012-02-29T00:00:00","Open":21.4600,"High":21.4600,"Low":21.4600,"Close":21.4600,"Volume":0,"AdjustedClose":13.0093}
 {"DateTime":"2012-03-01T00:00:00","Open":21.5800,"High":21.5800,"Low":21.5800,"Close":21.5800,"Volume":0,"AdjustedClose":13.0821}
 {"DateTime":"2012-03-02T00:00:00","Open":21.6000,"High":21.6000,"Low":21.6000,"Close":21.6000,"Volume":0,"AdjustedClose":13.0942}
-{"DateTime":"2012-03-05T00:00:00","Open":21.4300,"High":21.4300,"Low":21.4300,"Close":21.4300,"Volume":0,"AdjustedClose":12.9912}
+{"DateTime":"2012-03-05T00:00:00","Open":21.4300,"High":21.4300,"Low":21.4300,"Close":21.4300,"Volume":0,"AdjustedClose":12.9911}
 {"DateTime":"2012-03-06T00:00:00","Open":20.8600,"High":20.8600,"Low":20.8600,"Close":20.8600,"Volume":0,"AdjustedClose":12.6456}
 {"DateTime":"2012-03-07T00:00:00","Open":21.0600,"High":21.0600,"Low":21.0600,"Close":21.0600,"Volume":0,"AdjustedClose":12.7668}
 {"DateTime":"2012-03-08T00:00:00","Open":21.4100,"High":21.4100,"Low":21.4100,"Close":21.4100,"Volume":0,"AdjustedClose":12.9790}
@@ -3731,7 +3731,7 @@
 {"DateTime":"2012-12-31T00:00:00","Open":21.1700,"High":21.1700,"Low":21.1700,"Close":21.1700,"Volume":0,"AdjustedClose":13.4503}
 {"DateTime":"2013-01-02T00:00:00","Open":21.4800,"High":21.4800,"Low":21.4800,"Close":21.4800,"Volume":0,"AdjustedClose":13.6472}
 {"DateTime":"2013-01-03T00:00:00","Open":21.5300,"High":21.5300,"Low":21.5300,"Close":21.5300,"Volume":0,"AdjustedClose":13.6790}
-{"DateTime":"2013-01-04T00:00:00","Open":21.6100,"High":21.6100,"Low":21.6100,"Close":21.6100,"Volume":0,"AdjustedClose":13.7298}
+{"DateTime":"2013-01-04T00:00:00","Open":21.6100,"High":21.6100,"Low":21.6100,"Close":21.6100,"Volume":0,"AdjustedClose":13.7299}
 {"DateTime":"2013-01-07T00:00:00","Open":21.7100,"High":21.7100,"Low":21.7100,"Close":21.7100,"Volume":0,"AdjustedClose":13.7934}
 {"DateTime":"2013-01-08T00:00:00","Open":21.5700,"High":21.5700,"Low":21.5700,"Close":21.5700,"Volume":0,"AdjustedClose":13.7044}
 {"DateTime":"2013-01-09T00:00:00","Open":21.7400,"High":21.7400,"Low":21.7400,"Close":21.7400,"Volume":0,"AdjustedClose":13.8124}
@@ -3753,7 +3753,7 @@
 {"DateTime":"2013-02-01T00:00:00","Open":21.7200,"High":21.7200,"Low":21.7200,"Close":21.7200,"Volume":0,"AdjustedClose":13.7997}
 {"DateTime":"2013-02-04T00:00:00","Open":21.5600,"High":21.5600,"Low":21.5600,"Close":21.5600,"Volume":0,"AdjustedClose":13.6981}
 {"DateTime":"2013-02-05T00:00:00","Open":21.6800,"High":21.6800,"Low":21.6800,"Close":21.6800,"Volume":0,"AdjustedClose":13.7743}
-{"DateTime":"2013-02-06T00:00:00","Open":21.6100,"High":21.6100,"Low":21.6100,"Close":21.6100,"Volume":0,"AdjustedClose":13.7298}
+{"DateTime":"2013-02-06T00:00:00","Open":21.6100,"High":21.6100,"Low":21.6100,"Close":21.6100,"Volume":0,"AdjustedClose":13.7299}
 {"DateTime":"2013-02-07T00:00:00","Open":21.5200,"High":21.5200,"Low":21.5200,"Close":21.5200,"Volume":0,"AdjustedClose":13.6727}
 {"DateTime":"2013-02-08T00:00:00","Open":21.5300,"High":21.5300,"Low":21.5300,"Close":21.5300,"Volume":0,"AdjustedClose":13.6790}
 {"DateTime":"2013-02-11T00:00:00","Open":21.5400,"High":21.5400,"Low":21.5400,"Close":21.5400,"Volume":0,"AdjustedClose":13.6854}
@@ -3778,7 +3778,7 @@
 {"DateTime":"2013-03-11T00:00:00","Open":22.1200,"High":22.1200,"Low":22.1200,"Close":22.1200,"Volume":0,"AdjustedClose":14.0654}
 {"DateTime":"2013-03-12T00:00:00","Open":21.9800,"High":21.9800,"Low":21.9800,"Close":21.9800,"Volume":0,"AdjustedClose":13.9763}
 {"DateTime":"2013-03-13T00:00:00","Open":21.8700,"High":21.8700,"Low":21.8700,"Close":21.8700,"Volume":0,"AdjustedClose":13.9064}
-{"DateTime":"2013-03-14T00:00:00","Open":21.8800,"High":21.8800,"Low":21.8800,"Close":21.8800,"Volume":0,"AdjustedClose":13.9128}
+{"DateTime":"2013-03-14T00:00:00","Open":21.8800,"High":21.8800,"Low":21.8800,"Close":21.8800,"Volume":0,"AdjustedClose":13.9127}
 {"DateTime":"2013-03-15T00:00:00","Open":21.7400,"High":21.7400,"Low":21.7400,"Close":21.7400,"Volume":0,"AdjustedClose":13.8237}
 {"DateTime":"2013-03-18T00:00:00","Open":21.5800,"High":21.5800,"Low":21.5800,"Close":21.5800,"Volume":0,"AdjustedClose":13.7220}
 {"DateTime":"2013-03-19T00:00:00","Open":21.5800,"High":21.5800,"Low":21.5800,"Close":21.5800,"Volume":0,"AdjustedClose":13.7220}
@@ -3871,8 +3871,8 @@
 {"DateTime":"2013-07-23T00:00:00","Open":20.4400,"High":20.4400,"Low":20.4400,"Close":20.4400,"Volume":0,"AdjustedClose":13.0725}
 {"DateTime":"2013-07-24T00:00:00","Open":20.3600,"High":20.3600,"Low":20.3600,"Close":20.3600,"Volume":0,"AdjustedClose":13.0213}
 {"DateTime":"2013-07-25T00:00:00","Open":20.3600,"High":20.3600,"Low":20.3600,"Close":20.3600,"Volume":0,"AdjustedClose":13.0213}
-{"DateTime":"2013-07-26T00:00:00","Open":20.3000,"High":20.3000,"Low":20.3000,"Close":20.3000,"Volume":0,"AdjustedClose":12.9830}
-{"DateTime":"2013-07-29T00:00:00","Open":20.0700,"High":20.0700,"Low":20.0700,"Close":20.0700,"Volume":0,"AdjustedClose":12.8358}
+{"DateTime":"2013-07-26T00:00:00","Open":20.3000,"High":20.3000,"Low":20.3000,"Close":20.3000,"Volume":0,"AdjustedClose":12.9829}
+{"DateTime":"2013-07-29T00:00:00","Open":20.0700,"High":20.0700,"Low":20.0700,"Close":20.0700,"Volume":0,"AdjustedClose":12.8359}
 {"DateTime":"2013-07-30T00:00:00","Open":20.0300,"High":20.0300,"Low":20.0300,"Close":20.0300,"Volume":0,"AdjustedClose":12.8103}
 {"DateTime":"2013-07-31T00:00:00","Open":19.8700,"High":19.8700,"Low":19.8700,"Close":19.8700,"Volume":0,"AdjustedClose":12.7079}
 {"DateTime":"2013-08-01T00:00:00","Open":19.9900,"High":19.9900,"Low":19.9900,"Close":19.9900,"Volume":0,"AdjustedClose":12.7847}
@@ -4033,7 +4033,7 @@
 {"DateTime":"2014-03-14T00:00:00","Open":20.0600,"High":20.0600,"Low":20.0600,"Close":20.0600,"Volume":0,"AdjustedClose":13.2305}
 {"DateTime":"2014-03-17T00:00:00","Open":20.1900,"High":20.1900,"Low":20.1900,"Close":20.1900,"Volume":0,"AdjustedClose":13.3163}
 {"DateTime":"2014-03-18T00:00:00","Open":20.3200,"High":20.3200,"Low":20.3200,"Close":20.3200,"Volume":0,"AdjustedClose":13.4020}
-{"DateTime":"2014-03-19T00:00:00","Open":20.2000,"High":20.2000,"Low":20.2000,"Close":20.2000,"Volume":0,"AdjustedClose":13.3229}
+{"DateTime":"2014-03-19T00:00:00","Open":20.2000,"High":20.2000,"Low":20.2000,"Close":20.2000,"Volume":0,"AdjustedClose":13.3228}
 {"DateTime":"2014-03-20T00:00:00","Open":20.1700,"High":20.1700,"Low":20.1700,"Close":20.1700,"Volume":0,"AdjustedClose":13.3031}
 {"DateTime":"2014-03-21T00:00:00","Open":20.1300,"High":20.1300,"Low":20.1300,"Close":20.1300,"Volume":0,"AdjustedClose":13.2767}
 {"DateTime":"2014-03-24T00:00:00","Open":20.1700,"High":20.1700,"Low":20.1700,"Close":20.1700,"Volume":0,"AdjustedClose":13.3031}
@@ -4074,7 +4074,7 @@
 {"DateTime":"2014-05-13T00:00:00","Open":21.2400,"High":21.2400,"Low":21.2400,"Close":21.2400,"Volume":0,"AdjustedClose":14.0088}
 {"DateTime":"2014-05-14T00:00:00","Open":21.3100,"High":21.3100,"Low":21.3100,"Close":21.3100,"Volume":0,"AdjustedClose":14.0549}
 {"DateTime":"2014-05-15T00:00:00","Open":21.1900,"High":21.1900,"Low":21.1900,"Close":21.1900,"Volume":0,"AdjustedClose":13.9758}
-{"DateTime":"2014-05-16T00:00:00","Open":21.3000,"High":21.3000,"Low":21.3000,"Close":21.3000,"Volume":0,"AdjustedClose":14.0483}
+{"DateTime":"2014-05-16T00:00:00","Open":21.3000,"High":21.3000,"Low":21.3000,"Close":21.3000,"Volume":0,"AdjustedClose":14.0484}
 {"DateTime":"2014-05-19T00:00:00","Open":21.4500,"High":21.4500,"Low":21.4500,"Close":21.4500,"Volume":0,"AdjustedClose":14.1473}
 {"DateTime":"2014-05-20T00:00:00","Open":21.2800,"High":21.2800,"Low":21.2800,"Close":21.2800,"Volume":0,"AdjustedClose":14.0352}
 {"DateTime":"2014-05-21T00:00:00","Open":21.4300,"High":21.4300,"Low":21.4300,"Close":21.4300,"Volume":0,"AdjustedClose":14.1341}
@@ -4147,7 +4147,7 @@
 {"DateTime":"2014-08-26T00:00:00","Open":22.8100,"High":22.8100,"Low":22.8100,"Close":22.8100,"Volume":0,"AdjustedClose":15.0902}
 {"DateTime":"2014-08-27T00:00:00","Open":22.9300,"High":22.9300,"Low":22.9300,"Close":22.9300,"Volume":0,"AdjustedClose":15.1696}
 {"DateTime":"2014-08-28T00:00:00","Open":22.8600,"High":22.8600,"Low":22.8600,"Close":22.8600,"Volume":0,"AdjustedClose":15.1233}
-{"DateTime":"2014-08-29T00:00:00","Open":22.8900,"High":22.8900,"Low":22.8900,"Close":22.8900,"Volume":0,"AdjustedClose":15.1432}
+{"DateTime":"2014-08-29T00:00:00","Open":22.8900,"High":22.8900,"Low":22.8900,"Close":22.8900,"Volume":0,"AdjustedClose":15.1431}
 {"DateTime":"2014-09-02T00:00:00","Open":22.9400,"High":22.9400,"Low":22.9400,"Close":22.9400,"Volume":0,"AdjustedClose":15.1762}
 {"DateTime":"2014-09-03T00:00:00","Open":23.0800,"High":23.0800,"Low":23.0800,"Close":23.0800,"Volume":0,"AdjustedClose":15.2688}
 {"DateTime":"2014-09-04T00:00:00","Open":23.0800,"High":23.0800,"Low":23.0800,"Close":23.0800,"Volume":0,"AdjustedClose":15.2688}
@@ -4157,7 +4157,7 @@
 {"DateTime":"2014-09-10T00:00:00","Open":22.7500,"High":22.7500,"Low":22.7500,"Close":22.7500,"Volume":0,"AdjustedClose":15.1475}
 {"DateTime":"2014-09-11T00:00:00","Open":22.7100,"High":22.7100,"Low":22.7100,"Close":22.7100,"Volume":0,"AdjustedClose":15.1209}
 {"DateTime":"2014-09-12T00:00:00","Open":22.5200,"High":22.5200,"Low":22.5200,"Close":22.5200,"Volume":0,"AdjustedClose":14.9944}
-{"DateTime":"2014-09-15T00:00:00","Open":22.4500,"High":22.4500,"Low":22.4500,"Close":22.4500,"Volume":0,"AdjustedClose":14.9477}
+{"DateTime":"2014-09-15T00:00:00","Open":22.4500,"High":22.4500,"Low":22.4500,"Close":22.4500,"Volume":0,"AdjustedClose":14.9478}
 {"DateTime":"2014-09-16T00:00:00","Open":22.3600,"High":22.3600,"Low":22.3600,"Close":22.3600,"Volume":0,"AdjustedClose":14.8878}
 {"DateTime":"2014-09-17T00:00:00","Open":22.3700,"High":22.3700,"Low":22.3700,"Close":22.3700,"Volume":0,"AdjustedClose":14.8945}
 {"DateTime":"2014-09-18T00:00:00","Open":22.3400,"High":22.3400,"Low":22.3400,"Close":22.3400,"Volume":0,"AdjustedClose":14.8745}
@@ -4169,12 +4169,12 @@
 {"DateTime":"2014-09-26T00:00:00","Open":21.9200,"High":21.9200,"Low":21.9200,"Close":21.9200,"Volume":0,"AdjustedClose":14.5949}
 {"DateTime":"2014-09-29T00:00:00","Open":21.6300,"High":21.6300,"Low":21.6300,"Close":21.6300,"Volume":0,"AdjustedClose":14.4018}
 {"DateTime":"2014-09-30T00:00:00","Open":21.6100,"High":21.6100,"Low":21.6100,"Close":21.6100,"Volume":0,"AdjustedClose":14.3885}
-{"DateTime":"2014-10-01T00:00:00","Open":21.4200,"High":21.4200,"Low":21.4200,"Close":21.4200,"Volume":0,"AdjustedClose":14.2619}
+{"DateTime":"2014-10-01T00:00:00","Open":21.4200,"High":21.4200,"Low":21.4200,"Close":21.4200,"Volume":0,"AdjustedClose":14.2620}
 {"DateTime":"2014-10-02T00:00:00","Open":21.4400,"High":21.4400,"Low":21.4400,"Close":21.4400,"Volume":0,"AdjustedClose":14.2753}
 {"DateTime":"2014-10-03T00:00:00","Open":21.5700,"High":21.5700,"Low":21.5700,"Close":21.5700,"Volume":0,"AdjustedClose":14.3618}
 {"DateTime":"2014-10-06T00:00:00","Open":21.6400,"High":21.6400,"Low":21.6400,"Close":21.6400,"Volume":0,"AdjustedClose":14.4084}
 {"DateTime":"2014-10-07T00:00:00","Open":21.5500,"High":21.5500,"Low":21.5500,"Close":21.5500,"Volume":0,"AdjustedClose":14.3485}
-{"DateTime":"2014-10-08T00:00:00","Open":21.6600,"High":21.6600,"Low":21.6600,"Close":21.6600,"Volume":0,"AdjustedClose":14.4217}
+{"DateTime":"2014-10-08T00:00:00","Open":21.6600,"High":21.6600,"Low":21.6600,"Close":21.6600,"Volume":0,"AdjustedClose":14.4218}
 {"DateTime":"2014-10-09T00:00:00","Open":21.5400,"High":21.5400,"Low":21.5400,"Close":21.5400,"Volume":0,"AdjustedClose":14.3418}
 {"DateTime":"2014-10-10T00:00:00","Open":21.2300,"High":21.2300,"Low":21.2300,"Close":21.2300,"Volume":0,"AdjustedClose":14.1354}
 {"DateTime":"2014-10-13T00:00:00","Open":21.1000,"High":21.1000,"Low":21.1000,"Close":21.1000,"Volume":0,"AdjustedClose":14.0489}
@@ -4191,7 +4191,7 @@
 {"DateTime":"2014-10-28T00:00:00","Open":21.2600,"High":21.2600,"Low":21.2600,"Close":21.2600,"Volume":0,"AdjustedClose":14.1554}
 {"DateTime":"2014-10-29T00:00:00","Open":21.3300,"High":21.3300,"Low":21.3300,"Close":21.3300,"Volume":0,"AdjustedClose":14.2020}
 {"DateTime":"2014-10-30T00:00:00","Open":21.4100,"High":21.4100,"Low":21.4100,"Close":21.4100,"Volume":0,"AdjustedClose":14.2553}
-{"DateTime":"2014-10-31T00:00:00","Open":21.4200,"High":21.4200,"Low":21.4200,"Close":21.4200,"Volume":0,"AdjustedClose":14.2619}
+{"DateTime":"2014-10-31T00:00:00","Open":21.4200,"High":21.4200,"Low":21.4200,"Close":21.4200,"Volume":0,"AdjustedClose":14.2620}
 {"DateTime":"2014-11-03T00:00:00","Open":21.3900,"High":21.3900,"Low":21.3900,"Close":21.3900,"Volume":0,"AdjustedClose":14.2420}
 {"DateTime":"2014-11-04T00:00:00","Open":21.3300,"High":21.3300,"Low":21.3300,"Close":21.3300,"Volume":0,"AdjustedClose":14.2020}
 {"DateTime":"2014-11-05T00:00:00","Open":21.2500,"High":21.2500,"Low":21.2500,"Close":21.2500,"Volume":0,"AdjustedClose":14.1488}
@@ -4298,19 +4298,19 @@
 {"DateTime":"2015-04-02T00:00:00","Open":21.0600,"High":21.0600,"Low":21.0600,"Close":21.0600,"Volume":0,"AdjustedClose":14.4614}
 {"DateTime":"2015-04-06T00:00:00","Open":21.3600,"High":21.3600,"Low":21.3600,"Close":21.3600,"Volume":0,"AdjustedClose":14.6674}
 {"DateTime":"2015-04-07T00:00:00","Open":21.3000,"High":21.3000,"Low":21.3000,"Close":21.3000,"Volume":0,"AdjustedClose":14.6262}
-{"DateTime":"2015-04-08T00:00:00","Open":21.6900,"High":21.6900,"Low":21.6900,"Close":21.6900,"Volume":0,"AdjustedClose":14.8941}
+{"DateTime":"2015-04-08T00:00:00","Open":21.6900,"High":21.6900,"Low":21.6900,"Close":21.6900,"Volume":0,"AdjustedClose":14.8940}
 {"DateTime":"2015-04-09T00:00:00","Open":21.8000,"High":21.8000,"Low":21.8000,"Close":21.8000,"Volume":0,"AdjustedClose":14.9696}
 {"DateTime":"2015-04-10T00:00:00","Open":21.8900,"High":21.8900,"Low":21.8900,"Close":21.8900,"Volume":0,"AdjustedClose":15.0314}
-{"DateTime":"2015-04-13T00:00:00","Open":21.9600,"High":21.9600,"Low":21.9600,"Close":21.9600,"Volume":0,"AdjustedClose":15.0795}
+{"DateTime":"2015-04-13T00:00:00","Open":21.9600,"High":21.9600,"Low":21.9600,"Close":21.9600,"Volume":0,"AdjustedClose":15.0794}
 {"DateTime":"2015-04-14T00:00:00","Open":21.9300,"High":21.9300,"Low":21.9300,"Close":21.9300,"Volume":0,"AdjustedClose":15.0589}
 {"DateTime":"2015-04-15T00:00:00","Open":21.9300,"High":21.9300,"Low":21.9300,"Close":21.9300,"Volume":0,"AdjustedClose":15.0589}
 {"DateTime":"2015-04-16T00:00:00","Open":22.1100,"High":22.1100,"Low":22.1100,"Close":22.1100,"Volume":0,"AdjustedClose":15.1825}
 {"DateTime":"2015-04-17T00:00:00","Open":21.9900,"High":21.9900,"Low":21.9900,"Close":21.9900,"Volume":0,"AdjustedClose":15.1001}
-{"DateTime":"2015-04-20T00:00:00","Open":21.8400,"High":21.8400,"Low":21.8400,"Close":21.8400,"Volume":0,"AdjustedClose":14.9971}
-{"DateTime":"2015-04-21T00:00:00","Open":21.8400,"High":21.8400,"Low":21.8400,"Close":21.8400,"Volume":0,"AdjustedClose":14.9971}
+{"DateTime":"2015-04-20T00:00:00","Open":21.8400,"High":21.8400,"Low":21.8400,"Close":21.8400,"Volume":0,"AdjustedClose":14.9970}
+{"DateTime":"2015-04-21T00:00:00","Open":21.8400,"High":21.8400,"Low":21.8400,"Close":21.8400,"Volume":0,"AdjustedClose":14.9970}
 {"DateTime":"2015-04-22T00:00:00","Open":22.0100,"High":22.0100,"Low":22.0100,"Close":22.0100,"Volume":0,"AdjustedClose":15.1138}
-{"DateTime":"2015-04-23T00:00:00","Open":22.0500,"High":22.0500,"Low":22.0500,"Close":22.0500,"Volume":0,"AdjustedClose":15.1412}
-{"DateTime":"2015-04-24T00:00:00","Open":22.0200,"High":22.0200,"Low":22.0200,"Close":22.0200,"Volume":0,"AdjustedClose":15.1207}
+{"DateTime":"2015-04-23T00:00:00","Open":22.0500,"High":22.0500,"Low":22.0500,"Close":22.0500,"Volume":0,"AdjustedClose":15.1413}
+{"DateTime":"2015-04-24T00:00:00","Open":22.0200,"High":22.0200,"Low":22.0200,"Close":22.0200,"Volume":0,"AdjustedClose":15.1206}
 {"DateTime":"2015-04-27T00:00:00","Open":22.1100,"High":22.1100,"Low":22.1100,"Close":22.1100,"Volume":0,"AdjustedClose":15.1825}
 {"DateTime":"2015-04-28T00:00:00","Open":22.2000,"High":22.2000,"Low":22.2000,"Close":22.2000,"Volume":0,"AdjustedClose":15.2443}
 {"DateTime":"2015-04-29T00:00:00","Open":22.1200,"High":22.1200,"Low":22.1200,"Close":22.1200,"Volume":0,"AdjustedClose":15.1893}
@@ -4321,11 +4321,11 @@
 {"DateTime":"2015-05-06T00:00:00","Open":21.7300,"High":21.7300,"Low":21.7300,"Close":21.7300,"Volume":0,"AdjustedClose":14.9215}
 {"DateTime":"2015-05-07T00:00:00","Open":21.4600,"High":21.4600,"Low":21.4600,"Close":21.4600,"Volume":0,"AdjustedClose":14.7361}
 {"DateTime":"2015-05-08T00:00:00","Open":21.7800,"High":21.7800,"Low":21.7800,"Close":21.7800,"Volume":0,"AdjustedClose":14.9558}
-{"DateTime":"2015-05-11T00:00:00","Open":21.6900,"High":21.6900,"Low":21.6900,"Close":21.6900,"Volume":0,"AdjustedClose":14.8941}
+{"DateTime":"2015-05-11T00:00:00","Open":21.6900,"High":21.6900,"Low":21.6900,"Close":21.6900,"Volume":0,"AdjustedClose":14.8940}
 {"DateTime":"2015-05-12T00:00:00","Open":21.5900,"High":21.5900,"Low":21.5900,"Close":21.5900,"Volume":0,"AdjustedClose":14.8254}
 {"DateTime":"2015-05-13T00:00:00","Open":21.7100,"High":21.7100,"Low":21.7100,"Close":21.7100,"Volume":0,"AdjustedClose":14.9078}
 {"DateTime":"2015-05-14T00:00:00","Open":22.0100,"High":22.0100,"Low":22.0100,"Close":22.0100,"Volume":0,"AdjustedClose":15.1138}
-{"DateTime":"2015-05-15T00:00:00","Open":22.0800,"High":22.0800,"Low":22.0800,"Close":22.0800,"Volume":0,"AdjustedClose":15.1619}
+{"DateTime":"2015-05-15T00:00:00","Open":22.0800,"High":22.0800,"Low":22.0800,"Close":22.0800,"Volume":0,"AdjustedClose":15.1618}
 {"DateTime":"2015-05-18T00:00:00","Open":22.1100,"High":22.1100,"Low":22.1100,"Close":22.1100,"Volume":0,"AdjustedClose":15.1825}
 {"DateTime":"2015-05-19T00:00:00","Open":22.1600,"High":22.1600,"Low":22.1600,"Close":22.1600,"Volume":0,"AdjustedClose":15.2168}
 {"DateTime":"2015-05-20T00:00:00","Open":22.1400,"High":22.1400,"Low":22.1400,"Close":22.1400,"Volume":0,"AdjustedClose":15.2031}
@@ -4390,7 +4390,7 @@
 {"DateTime":"2015-08-13T00:00:00","Open":19.0500,"High":19.0500,"Low":19.0500,"Close":19.0500,"Volume":0,"AdjustedClose":13.0905}
 {"DateTime":"2015-08-14T00:00:00","Open":19.1400,"High":19.1400,"Low":19.1400,"Close":19.1400,"Volume":0,"AdjustedClose":13.1523}
 {"DateTime":"2015-08-17T00:00:00","Open":18.9800,"High":18.9800,"Low":18.9800,"Close":18.9800,"Volume":0,"AdjustedClose":13.0424}
-{"DateTime":"2015-08-18T00:00:00","Open":18.7800,"High":18.7800,"Low":18.7800,"Close":18.7800,"Volume":0,"AdjustedClose":12.9049}
+{"DateTime":"2015-08-18T00:00:00","Open":18.7800,"High":18.7800,"Low":18.7800,"Close":18.7800,"Volume":0,"AdjustedClose":12.9050}
 {"DateTime":"2015-08-19T00:00:00","Open":18.5400,"High":18.5400,"Low":18.5400,"Close":18.5400,"Volume":0,"AdjustedClose":12.7400}
 {"DateTime":"2015-08-20T00:00:00","Open":18.2400,"High":18.2400,"Low":18.2400,"Close":18.2400,"Volume":0,"AdjustedClose":12.5339}
 {"DateTime":"2015-08-21T00:00:00","Open":17.7200,"High":17.7200,"Low":17.7200,"Close":17.7200,"Volume":0,"AdjustedClose":12.1766}
@@ -4515,7 +4515,7 @@
 {"DateTime":"2016-02-11T00:00:00","Open":15.9400,"High":15.9400,"Low":15.9400,"Close":15.9400,"Volume":0,"AdjustedClose":11.3112}
 {"DateTime":"2016-02-12T00:00:00","Open":15.8900,"High":15.8900,"Low":15.8900,"Close":15.8900,"Volume":0,"AdjustedClose":11.2757}
 {"DateTime":"2016-02-16T00:00:00","Open":16.1800,"High":16.1800,"Low":16.1800,"Close":16.1800,"Volume":0,"AdjustedClose":11.4815}
-{"DateTime":"2016-02-17T00:00:00","Open":16.3600,"High":16.3600,"Low":16.3600,"Close":16.3600,"Volume":0,"AdjustedClose":11.6092}
+{"DateTime":"2016-02-17T00:00:00","Open":16.3600,"High":16.3600,"Low":16.3600,"Close":16.3600,"Volume":0,"AdjustedClose":11.6093}
 {"DateTime":"2016-02-18T00:00:00","Open":16.3900,"High":16.3900,"Low":16.3900,"Close":16.3900,"Volume":0,"AdjustedClose":11.6305}
 {"DateTime":"2016-02-19T00:00:00","Open":16.4400,"High":16.4400,"Low":16.4400,"Close":16.4400,"Volume":0,"AdjustedClose":11.6660}
 {"DateTime":"2016-02-22T00:00:00","Open":16.6700,"High":16.6700,"Low":16.6700,"Close":16.6700,"Volume":0,"AdjustedClose":11.8292}
@@ -4636,7 +4636,7 @@
 {"DateTime":"2016-08-04T00:00:00","Open":20.1700,"High":20.1700,"Low":20.1700,"Close":20.1700,"Volume":0,"AdjustedClose":14.4816}
 {"DateTime":"2016-08-05T00:00:00","Open":20.3700,"High":20.3700,"Low":20.3700,"Close":20.3700,"Volume":0,"AdjustedClose":14.6252}
 {"DateTime":"2016-08-08T00:00:00","Open":20.4100,"High":20.4100,"Low":20.4100,"Close":20.4100,"Volume":0,"AdjustedClose":14.6539}
-{"DateTime":"2016-08-09T00:00:00","Open":20.5300,"High":20.5300,"Low":20.5300,"Close":20.5300,"Volume":0,"AdjustedClose":14.7401}
+{"DateTime":"2016-08-09T00:00:00","Open":20.5300,"High":20.5300,"Low":20.5300,"Close":20.5300,"Volume":0,"AdjustedClose":14.7400}
 {"DateTime":"2016-08-10T00:00:00","Open":20.5600,"High":20.5600,"Low":20.5600,"Close":20.5600,"Volume":0,"AdjustedClose":14.7616}
 {"DateTime":"2016-08-11T00:00:00","Open":20.6200,"High":20.6200,"Low":20.6200,"Close":20.6200,"Volume":0,"AdjustedClose":14.8047}
 {"DateTime":"2016-08-12T00:00:00","Open":20.5400,"High":20.5400,"Low":20.5400,"Close":20.5400,"Volume":0,"AdjustedClose":14.7472}
@@ -4666,7 +4666,7 @@
 {"DateTime":"2016-09-16T00:00:00","Open":20.0800,"High":20.0800,"Low":20.0800,"Close":20.0800,"Volume":0,"AdjustedClose":14.4170}
 {"DateTime":"2016-09-19T00:00:00","Open":20.2200,"High":20.2200,"Low":20.2200,"Close":20.2200,"Volume":0,"AdjustedClose":14.5175}
 {"DateTime":"2016-09-20T00:00:00","Open":20.2600,"High":20.2600,"Low":20.2600,"Close":20.2600,"Volume":0,"AdjustedClose":14.5462}
-{"DateTime":"2016-09-21T00:00:00","Open":20.5300,"High":20.5300,"Low":20.5300,"Close":20.5300,"Volume":0,"AdjustedClose":14.7401}
+{"DateTime":"2016-09-21T00:00:00","Open":20.5300,"High":20.5300,"Low":20.5300,"Close":20.5300,"Volume":0,"AdjustedClose":14.7400}
 {"DateTime":"2016-09-22T00:00:00","Open":20.7200,"High":20.7200,"Low":20.7200,"Close":20.7200,"Volume":0,"AdjustedClose":14.8765}
 {"DateTime":"2016-09-23T00:00:00","Open":20.6200,"High":20.6200,"Low":20.6200,"Close":20.6200,"Volume":0,"AdjustedClose":14.8047}
 {"DateTime":"2016-09-26T00:00:00","Open":20.4000,"High":20.4000,"Low":20.4000,"Close":20.4000,"Volume":0,"AdjustedClose":14.6467}
@@ -4677,7 +4677,7 @@
 {"DateTime":"2016-10-03T00:00:00","Open":20.6500,"High":20.6500,"Low":20.6500,"Close":20.6500,"Volume":0,"AdjustedClose":14.8398}
 {"DateTime":"2016-10-04T00:00:00","Open":20.5900,"High":20.5900,"Low":20.5900,"Close":20.5900,"Volume":0,"AdjustedClose":14.7967}
 {"DateTime":"2016-10-05T00:00:00","Open":20.7500,"High":20.7500,"Low":20.7500,"Close":20.7500,"Volume":0,"AdjustedClose":14.9117}
-{"DateTime":"2016-10-06T00:00:00","Open":20.7100,"High":20.7100,"Low":20.7100,"Close":20.7100,"Volume":0,"AdjustedClose":14.8829}
+{"DateTime":"2016-10-06T00:00:00","Open":20.7100,"High":20.7100,"Low":20.7100,"Close":20.7100,"Volume":0,"AdjustedClose":14.8830}
 {"DateTime":"2016-10-07T00:00:00","Open":20.5900,"High":20.5900,"Low":20.5900,"Close":20.5900,"Volume":0,"AdjustedClose":14.7967}
 {"DateTime":"2016-10-10T00:00:00","Open":20.6600,"High":20.6600,"Low":20.6600,"Close":20.6600,"Volume":0,"AdjustedClose":14.8470}
 {"DateTime":"2016-10-11T00:00:00","Open":20.3800,"High":20.3800,"Low":20.3800,"Close":20.3800,"Volume":0,"AdjustedClose":14.6458}
@@ -4696,9 +4696,9 @@
 {"DateTime":"2016-10-28T00:00:00","Open":20.3500,"High":20.3500,"Low":20.3500,"Close":20.3500,"Volume":0,"AdjustedClose":14.6242}
 {"DateTime":"2016-10-31T00:00:00","Open":20.3900,"High":20.3900,"Low":20.3900,"Close":20.3900,"Volume":0,"AdjustedClose":14.6530}
 {"DateTime":"2016-11-01T00:00:00","Open":20.2600,"High":20.2600,"Low":20.2600,"Close":20.2600,"Volume":0,"AdjustedClose":14.5596}
-{"DateTime":"2016-11-02T00:00:00","Open":19.9800,"High":19.9800,"Low":19.9800,"Close":19.9800,"Volume":0,"AdjustedClose":14.3583}
+{"DateTime":"2016-11-02T00:00:00","Open":19.9800,"High":19.9800,"Low":19.9800,"Close":19.9800,"Volume":0,"AdjustedClose":14.3584}
 {"DateTime":"2016-11-03T00:00:00","Open":19.9200,"High":19.9200,"Low":19.9200,"Close":19.9200,"Volume":0,"AdjustedClose":14.3152}
-{"DateTime":"2016-11-04T00:00:00","Open":19.8300,"High":19.8300,"Low":19.8300,"Close":19.8300,"Volume":0,"AdjustedClose":14.2505}
+{"DateTime":"2016-11-04T00:00:00","Open":19.8300,"High":19.8300,"Low":19.8300,"Close":19.8300,"Volume":0,"AdjustedClose":14.2506}
 {"DateTime":"2016-11-07T00:00:00","Open":20.1800,"High":20.1800,"Low":20.1800,"Close":20.1800,"Volume":0,"AdjustedClose":14.5021}
 {"DateTime":"2016-11-08T00:00:00","Open":20.2900,"High":20.2900,"Low":20.2900,"Close":20.2900,"Volume":0,"AdjustedClose":14.5811}
 {"DateTime":"2016-11-09T00:00:00","Open":19.9500,"High":19.9500,"Low":19.9500,"Close":19.9500,"Volume":0,"AdjustedClose":14.3368}
@@ -4769,7 +4769,7 @@
 {"DateTime":"2017-02-14T00:00:00","Open":20.5600,"High":20.5600,"Low":20.5600,"Close":20.5600,"Volume":0,"AdjustedClose":15.3405}
 {"DateTime":"2017-02-15T00:00:00","Open":20.6500,"High":20.6500,"Low":20.6500,"Close":20.6500,"Volume":0,"AdjustedClose":15.4077}
 {"DateTime":"2017-02-16T00:00:00","Open":20.6200,"High":20.6200,"Low":20.6200,"Close":20.6200,"Volume":0,"AdjustedClose":15.3853}
-{"DateTime":"2017-02-17T00:00:00","Open":20.6100,"High":20.6100,"Low":20.6100,"Close":20.6100,"Volume":0,"AdjustedClose":15.3778}
+{"DateTime":"2017-02-17T00:00:00","Open":20.6100,"High":20.6100,"Low":20.6100,"Close":20.6100,"Volume":0,"AdjustedClose":15.3779}
 {"DateTime":"2017-02-21T00:00:00","Open":20.7300,"High":20.7300,"Low":20.7300,"Close":20.7300,"Volume":0,"AdjustedClose":15.4674}
 {"DateTime":"2017-02-22T00:00:00","Open":20.7900,"High":20.7900,"Low":20.7900,"Close":20.7900,"Volume":0,"AdjustedClose":15.5122}
 {"DateTime":"2017-02-23T00:00:00","Open":20.8300,"High":20.8300,"Low":20.8300,"Close":20.8300,"Volume":0,"AdjustedClose":15.5420}
@@ -4846,7 +4846,7 @@
 {"DateTime":"2017-06-06T00:00:00","Open":21.8800,"High":21.8800,"Low":21.8800,"Close":21.8800,"Volume":0,"AdjustedClose":16.3254}
 {"DateTime":"2017-06-07T00:00:00","Open":21.9200,"High":21.9200,"Low":21.9200,"Close":21.9200,"Volume":0,"AdjustedClose":16.3553}
 {"DateTime":"2017-06-08T00:00:00","Open":21.9600,"High":21.9600,"Low":21.9600,"Close":21.9600,"Volume":0,"AdjustedClose":16.3851}
-{"DateTime":"2017-06-09T00:00:00","Open":21.9300,"High":21.9300,"Low":21.9300,"Close":21.9300,"Volume":0,"AdjustedClose":16.3627}
+{"DateTime":"2017-06-09T00:00:00","Open":21.9300,"High":21.9300,"Low":21.9300,"Close":21.9300,"Volume":0,"AdjustedClose":16.3628}
 {"DateTime":"2017-06-12T00:00:00","Open":21.8100,"High":21.8100,"Low":21.8100,"Close":21.8100,"Volume":0,"AdjustedClose":16.2732}
 {"DateTime":"2017-06-13T00:00:00","Open":21.8900,"High":21.8900,"Low":21.8900,"Close":21.8900,"Volume":0,"AdjustedClose":16.3329}
 {"DateTime":"2017-06-14T00:00:00","Open":21.9200,"High":21.9200,"Low":21.9200,"Close":21.9200,"Volume":0,"AdjustedClose":16.3553}
@@ -4902,7 +4902,7 @@
 {"DateTime":"2017-08-24T00:00:00","Open":22.7500,"High":22.7500,"Low":22.7500,"Close":22.7500,"Volume":0,"AdjustedClose":17.0255}
 {"DateTime":"2017-08-25T00:00:00","Open":22.8600,"High":22.8600,"Low":22.8600,"Close":22.8600,"Volume":0,"AdjustedClose":17.1078}
 {"DateTime":"2017-08-28T00:00:00","Open":22.9500,"High":22.9500,"Low":22.9500,"Close":22.9500,"Volume":0,"AdjustedClose":17.1752}
-{"DateTime":"2017-08-29T00:00:00","Open":22.9100,"High":22.9100,"Low":22.9100,"Close":22.9100,"Volume":0,"AdjustedClose":17.1452}
+{"DateTime":"2017-08-29T00:00:00","Open":22.9100,"High":22.9100,"Low":22.9100,"Close":22.9100,"Volume":0,"AdjustedClose":17.1453}
 {"DateTime":"2017-08-30T00:00:00","Open":23.0100,"High":23.0100,"Low":23.0100,"Close":23.0100,"Volume":0,"AdjustedClose":17.2201}
 {"DateTime":"2017-08-31T00:00:00","Open":23.1500,"High":23.1500,"Low":23.1500,"Close":23.1500,"Volume":0,"AdjustedClose":17.3249}
 {"DateTime":"2017-09-01T00:00:00","Open":23.2600,"High":23.2600,"Low":23.2600,"Close":23.2600,"Volume":0,"AdjustedClose":17.4072}
@@ -4996,8 +4996,8 @@
 {"DateTime":"2018-01-09T00:00:00","Open":24.6400,"High":24.6400,"Low":24.6400,"Close":24.6400,"Volume":0,"AdjustedClose":19.3313}
 {"DateTime":"2018-01-10T00:00:00","Open":24.5900,"High":24.5900,"Low":24.5900,"Close":24.5900,"Volume":0,"AdjustedClose":19.2921}
 {"DateTime":"2018-01-11T00:00:00","Open":24.7000,"High":24.7000,"Low":24.7000,"Close":24.7000,"Volume":0,"AdjustedClose":19.3784}
-{"DateTime":"2018-01-12T00:00:00","Open":24.8300,"High":24.8300,"Low":24.8300,"Close":24.8300,"Volume":0,"AdjustedClose":19.4804}
-{"DateTime":"2018-01-16T00:00:00","Open":24.8300,"High":24.8300,"Low":24.8300,"Close":24.8300,"Volume":0,"AdjustedClose":19.4804}
+{"DateTime":"2018-01-12T00:00:00","Open":24.8300,"High":24.8300,"Low":24.8300,"Close":24.8300,"Volume":0,"AdjustedClose":19.4803}
+{"DateTime":"2018-01-16T00:00:00","Open":24.8300,"High":24.8300,"Low":24.8300,"Close":24.8300,"Volume":0,"AdjustedClose":19.4803}
 {"DateTime":"2018-01-17T00:00:00","Open":24.9600,"High":24.9600,"Low":24.9600,"Close":24.9600,"Volume":0,"AdjustedClose":19.5823}
 {"DateTime":"2018-01-18T00:00:00","Open":24.8900,"High":24.8900,"Low":24.8900,"Close":24.8900,"Volume":0,"AdjustedClose":19.5274}
 {"DateTime":"2018-01-19T00:00:00","Open":25.0700,"High":25.0700,"Low":25.0700,"Close":25.0700,"Volume":0,"AdjustedClose":19.6686}
@@ -5019,7 +5019,7 @@
 {"DateTime":"2018-02-12T00:00:00","Open":23.8400,"High":23.8400,"Low":23.8400,"Close":23.8400,"Volume":0,"AdjustedClose":18.7036}
 {"DateTime":"2018-02-13T00:00:00","Open":23.9200,"High":23.9200,"Low":23.9200,"Close":23.9200,"Volume":0,"AdjustedClose":18.7664}
 {"DateTime":"2018-02-14T00:00:00","Open":24.3100,"High":24.3100,"Low":24.3100,"Close":24.3100,"Volume":0,"AdjustedClose":19.0724}
-{"DateTime":"2018-02-15T00:00:00","Open":24.5000,"High":24.5000,"Low":24.5000,"Close":24.5000,"Volume":0,"AdjustedClose":19.2215}
+{"DateTime":"2018-02-15T00:00:00","Open":24.5000,"High":24.5000,"Low":24.5000,"Close":24.5000,"Volume":0,"AdjustedClose":19.2214}
 {"DateTime":"2018-02-16T00:00:00","Open":24.4500,"High":24.4500,"Low":24.4500,"Close":24.4500,"Volume":0,"AdjustedClose":19.1822}
 {"DateTime":"2018-02-20T00:00:00","Open":24.3400,"High":24.3400,"Low":24.3400,"Close":24.3400,"Volume":0,"AdjustedClose":19.0959}
 {"DateTime":"2018-02-21T00:00:00","Open":24.4700,"High":24.4700,"Low":24.4700,"Close":24.4700,"Volume":0,"AdjustedClose":19.1979}
@@ -5035,7 +5035,7 @@
 {"DateTime":"2018-03-07T00:00:00","Open":24.2300,"High":24.2300,"Low":24.2300,"Close":24.2300,"Volume":0,"AdjustedClose":19.0096}
 {"DateTime":"2018-03-08T00:00:00","Open":24.2700,"High":24.2700,"Low":24.2700,"Close":24.2700,"Volume":0,"AdjustedClose":19.0410}
 {"DateTime":"2018-03-09T00:00:00","Open":24.5600,"High":24.5600,"Low":24.5600,"Close":24.5600,"Volume":0,"AdjustedClose":19.2685}
-{"DateTime":"2018-03-12T00:00:00","Open":24.6100,"High":24.6100,"Low":24.6100,"Close":24.6100,"Volume":0,"AdjustedClose":19.3077}
+{"DateTime":"2018-03-12T00:00:00","Open":24.6100,"High":24.6100,"Low":24.6100,"Close":24.6100,"Volume":0,"AdjustedClose":19.3078}
 {"DateTime":"2018-03-13T00:00:00","Open":24.5600,"High":24.5600,"Low":24.5600,"Close":24.5600,"Volume":0,"AdjustedClose":19.2685}
 {"DateTime":"2018-03-14T00:00:00","Open":24.5500,"High":24.5500,"Low":24.5500,"Close":24.5500,"Volume":0,"AdjustedClose":19.2607}
 {"DateTime":"2018-03-15T00:00:00","Open":24.5900,"High":24.5900,"Low":24.5900,"Close":24.5900,"Volume":0,"AdjustedClose":19.2921}
@@ -5120,7 +5120,7 @@
 {"DateTime":"2018-07-09T00:00:00","Open":21.9000,"High":21.9000,"Low":21.9000,"Close":21.9000,"Volume":0,"AdjustedClose":17.1816}
 {"DateTime":"2018-07-10T00:00:00","Open":22.0100,"High":22.0100,"Low":22.0100,"Close":22.0100,"Volume":0,"AdjustedClose":17.2679}
 {"DateTime":"2018-07-11T00:00:00","Open":21.6900,"High":21.6900,"Low":21.6900,"Close":21.6900,"Volume":0,"AdjustedClose":17.0169}
-{"DateTime":"2018-07-12T00:00:00","Open":21.9500,"High":21.9500,"Low":21.9500,"Close":21.9500,"Volume":0,"AdjustedClose":17.2209}
+{"DateTime":"2018-07-12T00:00:00","Open":21.9500,"High":21.9500,"Low":21.9500,"Close":21.9500,"Volume":0,"AdjustedClose":17.2208}
 {"DateTime":"2018-07-13T00:00:00","Open":22.0200,"High":22.0200,"Low":22.0200,"Close":22.0200,"Volume":0,"AdjustedClose":17.2758}
 {"DateTime":"2018-07-16T00:00:00","Open":21.8600,"High":21.8600,"Low":21.8600,"Close":21.8600,"Volume":0,"AdjustedClose":17.1502}
 {"DateTime":"2018-07-17T00:00:00","Open":21.9900,"High":21.9900,"Low":21.9900,"Close":21.9900,"Volume":0,"AdjustedClose":17.2522}
@@ -5192,20 +5192,20 @@
 {"DateTime":"2018-10-18T00:00:00","Open":19.1200,"High":19.1200,"Low":19.1200,"Close":19.1200,"Volume":0,"AdjustedClose":15.1367}
 {"DateTime":"2018-10-19T00:00:00","Open":19.2200,"High":19.2200,"Low":19.2200,"Close":19.2200,"Volume":0,"AdjustedClose":15.2159}
 {"DateTime":"2018-10-22T00:00:00","Open":19.3200,"High":19.3200,"Low":19.3200,"Close":19.3200,"Volume":0,"AdjustedClose":15.2951}
-{"DateTime":"2018-10-23T00:00:00","Open":19.0700,"High":19.0700,"Low":19.0700,"Close":19.0700,"Volume":0,"AdjustedClose":15.0971}
+{"DateTime":"2018-10-23T00:00:00","Open":19.0700,"High":19.0700,"Low":19.0700,"Close":19.0700,"Volume":0,"AdjustedClose":15.0972}
 {"DateTime":"2018-10-24T00:00:00","Open":18.6400,"High":18.6400,"Low":18.6400,"Close":18.6400,"Volume":0,"AdjustedClose":14.7567}
 {"DateTime":"2018-10-25T00:00:00","Open":18.7900,"High":18.7900,"Low":18.7900,"Close":18.7900,"Volume":0,"AdjustedClose":14.8755}
 {"DateTime":"2018-10-26T00:00:00","Open":18.5600,"High":18.5600,"Low":18.5600,"Close":18.5600,"Volume":0,"AdjustedClose":14.6934}
 {"DateTime":"2018-10-29T00:00:00","Open":18.2200,"High":18.2200,"Low":18.2200,"Close":18.2200,"Volume":0,"AdjustedClose":14.4242}
 {"DateTime":"2018-10-30T00:00:00","Open":18.5100,"High":18.5100,"Low":18.5100,"Close":18.5100,"Volume":0,"AdjustedClose":14.6538}
 {"DateTime":"2018-10-31T00:00:00","Open":18.7200,"High":18.7200,"Low":18.7200,"Close":18.7200,"Volume":0,"AdjustedClose":14.8201}
-{"DateTime":"2018-11-01T00:00:00","Open":19.1300,"High":19.1300,"Low":19.1300,"Close":19.1300,"Volume":0,"AdjustedClose":15.1447}
+{"DateTime":"2018-11-01T00:00:00","Open":19.1300,"High":19.1300,"Low":19.1300,"Close":19.1300,"Volume":0,"AdjustedClose":15.1446}
 {"DateTime":"2018-11-02T00:00:00","Open":19.4100,"High":19.4100,"Low":19.4100,"Close":19.4100,"Volume":0,"AdjustedClose":15.3663}
 {"DateTime":"2018-11-05T00:00:00","Open":19.5300,"High":19.5300,"Low":19.5300,"Close":19.5300,"Volume":0,"AdjustedClose":15.4613}
 {"DateTime":"2018-11-06T00:00:00","Open":19.4700,"High":19.4700,"Low":19.4700,"Close":19.4700,"Volume":0,"AdjustedClose":15.4138}
 {"DateTime":"2018-11-07T00:00:00","Open":19.6900,"High":19.6900,"Low":19.6900,"Close":19.6900,"Volume":0,"AdjustedClose":15.5880}
 {"DateTime":"2018-11-08T00:00:00","Open":19.5000,"High":19.5000,"Low":19.5000,"Close":19.5000,"Volume":0,"AdjustedClose":15.4376}
-{"DateTime":"2018-11-09T00:00:00","Open":19.3100,"High":19.3100,"Low":19.3100,"Close":19.3100,"Volume":0,"AdjustedClose":15.2871}
+{"DateTime":"2018-11-09T00:00:00","Open":19.3100,"High":19.3100,"Low":19.3100,"Close":19.3100,"Volume":0,"AdjustedClose":15.2872}
 {"DateTime":"2018-11-12T00:00:00","Open":19.0200,"High":19.0200,"Low":19.0200,"Close":19.0200,"Volume":0,"AdjustedClose":15.0576}
 {"DateTime":"2018-11-13T00:00:00","Open":19.1400,"High":19.1400,"Low":19.1400,"Close":19.1400,"Volume":0,"AdjustedClose":15.1526}
 {"DateTime":"2018-11-14T00:00:00","Open":19.1500,"High":19.1500,"Low":19.1500,"Close":19.1500,"Volume":0,"AdjustedClose":15.1605}
@@ -5319,7 +5319,7 @@
 {"DateTime":"2019-04-24T00:00:00","Open":20.7200,"High":20.7200,"Low":20.7200,"Close":20.7200,"Volume":0,"AdjustedClose":17.0726}
 {"DateTime":"2019-04-25T00:00:00","Open":20.6200,"High":20.6200,"Low":20.6200,"Close":20.6200,"Volume":0,"AdjustedClose":16.9902}
 {"DateTime":"2019-04-26T00:00:00","Open":20.6000,"High":20.6000,"Low":20.6000,"Close":20.6000,"Volume":0,"AdjustedClose":16.9737}
-{"DateTime":"2019-04-29T00:00:00","Open":20.5500,"High":20.5500,"Low":20.5500,"Close":20.5500,"Volume":0,"AdjustedClose":16.9326}
+{"DateTime":"2019-04-29T00:00:00","Open":20.5500,"High":20.5500,"Low":20.5500,"Close":20.5500,"Volume":0,"AdjustedClose":16.9325}
 {"DateTime":"2019-04-30T00:00:00","Open":20.5800,"High":20.5800,"Low":20.5800,"Close":20.5800,"Volume":0,"AdjustedClose":16.9573}
 {"DateTime":"2019-05-01T00:00:00","Open":20.5100,"High":20.5100,"Low":20.5100,"Close":20.5100,"Volume":0,"AdjustedClose":16.8996}
 {"DateTime":"2019-05-02T00:00:00","Open":20.5300,"High":20.5300,"Low":20.5300,"Close":20.5300,"Volume":0,"AdjustedClose":16.9161}
@@ -5340,7 +5340,7 @@
 {"DateTime":"2019-05-23T00:00:00","Open":19.1000,"High":19.1000,"Low":19.1000,"Close":19.1000,"Volume":0,"AdjustedClose":15.7378}
 {"DateTime":"2019-05-24T00:00:00","Open":19.1800,"High":19.1800,"Low":19.1800,"Close":19.1800,"Volume":0,"AdjustedClose":15.8037}
 {"DateTime":"2019-05-28T00:00:00","Open":19.3200,"High":19.3200,"Low":19.3200,"Close":19.3200,"Volume":0,"AdjustedClose":15.9191}
-{"DateTime":"2019-05-29T00:00:00","Open":19.3400,"High":19.3400,"Low":19.3400,"Close":19.3400,"Volume":0,"AdjustedClose":15.9355}
+{"DateTime":"2019-05-29T00:00:00","Open":19.3400,"High":19.3400,"Low":19.3400,"Close":19.3400,"Volume":0,"AdjustedClose":15.9356}
 {"DateTime":"2019-05-30T00:00:00","Open":19.4500,"High":19.4500,"Low":19.4500,"Close":19.4500,"Volume":0,"AdjustedClose":16.0262}
 {"DateTime":"2019-05-31T00:00:00","Open":19.5600,"High":19.5600,"Low":19.5600,"Close":19.5600,"Volume":0,"AdjustedClose":16.1168}
 {"DateTime":"2019-06-03T00:00:00","Open":19.6500,"High":19.6500,"Low":19.6500,"Close":19.6500,"Volume":0,"AdjustedClose":16.1910}
@@ -5387,7 +5387,7 @@
 {"DateTime":"2019-07-31T00:00:00","Open":20.0100,"High":20.0100,"Low":20.0100,"Close":20.0100,"Volume":0,"AdjustedClose":16.5168}
 {"DateTime":"2019-08-01T00:00:00","Open":19.7900,"High":19.7900,"Low":19.7900,"Close":19.7900,"Volume":0,"AdjustedClose":16.3352}
 {"DateTime":"2019-08-02T00:00:00","Open":19.5400,"High":19.5400,"Low":19.5400,"Close":19.5400,"Volume":0,"AdjustedClose":16.1288}
-{"DateTime":"2019-08-05T00:00:00","Open":18.8100,"High":18.8100,"Low":18.8100,"Close":18.8100,"Volume":0,"AdjustedClose":15.5263}
+{"DateTime":"2019-08-05T00:00:00","Open":18.8100,"High":18.8100,"Low":18.8100,"Close":18.8100,"Volume":0,"AdjustedClose":15.5262}
 {"DateTime":"2019-08-06T00:00:00","Open":18.9900,"High":18.9900,"Low":18.9900,"Close":18.9900,"Volume":0,"AdjustedClose":15.6748}
 {"DateTime":"2019-08-07T00:00:00","Open":19.0500,"High":19.0500,"Low":19.0500,"Close":19.0500,"Volume":0,"AdjustedClose":15.7244}
 {"DateTime":"2019-08-08T00:00:00","Open":19.3900,"High":19.3900,"Low":19.3900,"Close":19.3900,"Volume":0,"AdjustedClose":16.0050}
@@ -5397,7 +5397,7 @@
 {"DateTime":"2019-08-14T00:00:00","Open":18.7600,"High":18.7600,"Low":18.7600,"Close":18.7600,"Volume":0,"AdjustedClose":15.4850}
 {"DateTime":"2019-08-15T00:00:00","Open":18.8200,"High":18.8200,"Low":18.8200,"Close":18.8200,"Volume":0,"AdjustedClose":15.5345}
 {"DateTime":"2019-08-16T00:00:00","Open":18.9700,"High":18.9700,"Low":18.9700,"Close":18.9700,"Volume":0,"AdjustedClose":15.6583}
-{"DateTime":"2019-08-19T00:00:00","Open":19.0300,"High":19.0300,"Low":19.0300,"Close":19.0300,"Volume":0,"AdjustedClose":15.7079}
+{"DateTime":"2019-08-19T00:00:00","Open":19.0300,"High":19.0300,"Low":19.0300,"Close":19.0300,"Volume":0,"AdjustedClose":15.7078}
 {"DateTime":"2019-08-20T00:00:00","Open":19.0600,"High":19.0600,"Low":19.0600,"Close":19.0600,"Volume":0,"AdjustedClose":15.7326}
 {"DateTime":"2019-08-21T00:00:00","Open":19.2500,"High":19.2500,"Low":19.2500,"Close":19.2500,"Volume":0,"AdjustedClose":15.8894}
 {"DateTime":"2019-08-22T00:00:00","Open":19.0600,"High":19.0600,"Low":19.0600,"Close":19.0600,"Volume":0,"AdjustedClose":15.7326}
@@ -5408,7 +5408,7 @@
 {"DateTime":"2019-08-29T00:00:00","Open":18.9700,"High":18.9700,"Low":18.9700,"Close":18.9700,"Volume":0,"AdjustedClose":15.6583}
 {"DateTime":"2019-08-30T00:00:00","Open":19.1700,"High":19.1700,"Low":19.1700,"Close":19.1700,"Volume":0,"AdjustedClose":15.8234}
 {"DateTime":"2019-09-03T00:00:00","Open":19.1000,"High":19.1000,"Low":19.1000,"Close":19.1000,"Volume":0,"AdjustedClose":15.7656}
-{"DateTime":"2019-09-04T00:00:00","Open":19.3800,"High":19.3800,"Low":19.3800,"Close":19.3800,"Volume":0,"AdjustedClose":15.9967}
+{"DateTime":"2019-09-04T00:00:00","Open":19.3800,"High":19.3800,"Low":19.3800,"Close":19.3800,"Volume":0,"AdjustedClose":15.9968}
 {"DateTime":"2019-09-05T00:00:00","Open":19.5300,"High":19.5300,"Low":19.5300,"Close":19.5300,"Volume":0,"AdjustedClose":16.1206}
 {"DateTime":"2019-09-06T00:00:00","Open":19.5800,"High":19.5800,"Low":19.5800,"Close":19.5800,"Volume":0,"AdjustedClose":16.1618}
 {"DateTime":"2019-09-09T00:00:00","Open":19.5100,"High":19.5100,"Low":19.5100,"Close":19.5100,"Volume":0,"AdjustedClose":16.1041}
@@ -5451,7 +5451,7 @@
 {"DateTime":"2019-10-30T00:00:00","Open":20.1000,"High":20.1000,"Low":20.1000,"Close":20.1000,"Volume":0,"AdjustedClose":16.7675}
 {"DateTime":"2019-10-31T00:00:00","Open":20.0700,"High":20.0700,"Low":20.0700,"Close":20.0700,"Volume":0,"AdjustedClose":16.7425}
 {"DateTime":"2019-11-01T00:00:00","Open":20.0700,"High":20.0700,"Low":20.0700,"Close":20.0700,"Volume":0,"AdjustedClose":16.7425}
-{"DateTime":"2019-11-04T00:00:00","Open":20.3700,"High":20.3700,"Low":20.3700,"Close":20.3700,"Volume":0,"AdjustedClose":16.9927}
+{"DateTime":"2019-11-04T00:00:00","Open":20.3700,"High":20.3700,"Low":20.3700,"Close":20.3700,"Volume":0,"AdjustedClose":16.9928}
 {"DateTime":"2019-11-05T00:00:00","Open":20.3600,"High":20.3600,"Low":20.3600,"Close":20.3600,"Volume":0,"AdjustedClose":16.9844}
 {"DateTime":"2019-11-06T00:00:00","Open":20.3200,"High":20.3200,"Low":20.3200,"Close":20.3200,"Volume":0,"AdjustedClose":16.9510}
 {"DateTime":"2019-11-07T00:00:00","Open":20.3400,"High":20.3400,"Low":20.3400,"Close":20.3400,"Volume":0,"AdjustedClose":16.9677}
@@ -5533,7 +5533,7 @@
 {"DateTime":"2020-02-28T00:00:00","Open":18.5900,"High":18.5900,"Low":18.5900,"Close":18.5900,"Volume":0,"AdjustedClose":15.8181}
 {"DateTime":"2020-03-02T00:00:00","Open":19.0100,"High":19.0100,"Low":19.0100,"Close":19.0100,"Volume":0,"AdjustedClose":16.1755}
 {"DateTime":"2020-03-03T00:00:00","Open":18.8000,"High":18.8000,"Low":18.8000,"Close":18.8000,"Volume":0,"AdjustedClose":15.9968}
-{"DateTime":"2020-03-04T00:00:00","Open":19.1900,"High":19.1900,"Low":19.1900,"Close":19.1900,"Volume":0,"AdjustedClose":16.3287}
+{"DateTime":"2020-03-04T00:00:00","Open":19.1900,"High":19.1900,"Low":19.1900,"Close":19.1900,"Volume":0,"AdjustedClose":16.3286}
 {"DateTime":"2020-03-05T00:00:00","Open":18.8400,"High":18.8400,"Low":18.8400,"Close":18.8400,"Volume":0,"AdjustedClose":16.0308}
 {"DateTime":"2020-03-06T00:00:00","Open":18.6400,"High":18.6400,"Low":18.6400,"Close":18.6400,"Volume":0,"AdjustedClose":15.8607}
 {"DateTime":"2020-03-09T00:00:00","Open":17.3500,"High":17.3500,"Low":17.3500,"Close":17.3500,"Volume":0,"AdjustedClose":14.7630}
@@ -5613,7 +5613,7 @@
 {"DateTime":"2020-06-23T00:00:00","Open":18.2000,"High":18.2000,"Low":18.2000,"Close":18.2000,"Volume":0,"AdjustedClose":15.4863}
 {"DateTime":"2020-06-24T00:00:00","Open":17.9700,"High":17.9700,"Low":17.9700,"Close":17.9700,"Volume":0,"AdjustedClose":15.2906}
 {"DateTime":"2020-06-25T00:00:00","Open":18.0800,"High":18.0800,"Low":18.0800,"Close":18.0800,"Volume":0,"AdjustedClose":15.3842}
-{"DateTime":"2020-06-26T00:00:00","Open":17.8500,"High":17.8500,"Low":17.8500,"Close":17.8500,"Volume":0,"AdjustedClose":15.1885}
+{"DateTime":"2020-06-26T00:00:00","Open":17.8500,"High":17.8500,"Low":17.8500,"Close":17.8500,"Volume":0,"AdjustedClose":15.1884}
 {"DateTime":"2020-06-29T00:00:00","Open":17.9300,"High":17.9300,"Low":17.9300,"Close":17.9300,"Volume":0,"AdjustedClose":15.3028}
 {"DateTime":"2020-06-30T00:00:00","Open":18.0000,"High":18.0000,"Low":18.0000,"Close":18.0000,"Volume":0,"AdjustedClose":15.3626}
 {"DateTime":"2020-07-01T00:00:00","Open":18.1100,"High":18.1100,"Low":18.1100,"Close":18.1100,"Volume":0,"AdjustedClose":15.4564}
@@ -5632,7 +5632,7 @@
 {"DateTime":"2020-07-21T00:00:00","Open":19.3000,"High":19.3000,"Low":19.3000,"Close":19.3000,"Volume":0,"AdjustedClose":16.4721}
 {"DateTime":"2020-07-22T00:00:00","Open":19.4000,"High":19.4000,"Low":19.4000,"Close":19.4000,"Volume":0,"AdjustedClose":16.5574}
 {"DateTime":"2020-07-23T00:00:00","Open":19.2800,"High":19.2800,"Low":19.2800,"Close":19.2800,"Volume":0,"AdjustedClose":16.4550}
-{"DateTime":"2020-07-24T00:00:00","Open":19.1200,"High":19.1200,"Low":19.1200,"Close":19.1200,"Volume":0,"AdjustedClose":16.3184}
+{"DateTime":"2020-07-24T00:00:00","Open":19.1200,"High":19.1200,"Low":19.1200,"Close":19.1200,"Volume":0,"AdjustedClose":16.3185}
 {"DateTime":"2020-07-27T00:00:00","Open":19.2000,"High":19.2000,"Low":19.2000,"Close":19.2000,"Volume":0,"AdjustedClose":16.3867}
 {"DateTime":"2020-07-28T00:00:00","Open":19.1100,"High":19.1100,"Low":19.1100,"Close":19.1100,"Volume":0,"AdjustedClose":16.3099}
 {"DateTime":"2020-07-29T00:00:00","Open":19.3900,"High":19.3900,"Low":19.3900,"Close":19.3900,"Volume":0,"AdjustedClose":16.5489}
@@ -5651,7 +5651,7 @@
 {"DateTime":"2020-08-17T00:00:00","Open":19.8600,"High":19.8600,"Low":19.8600,"Close":19.8600,"Volume":0,"AdjustedClose":16.9500}
 {"DateTime":"2020-08-18T00:00:00","Open":19.8700,"High":19.8700,"Low":19.8700,"Close":19.8700,"Volume":0,"AdjustedClose":16.9586}
 {"DateTime":"2020-08-19T00:00:00","Open":19.8200,"High":19.8200,"Low":19.8200,"Close":19.8200,"Volume":0,"AdjustedClose":16.9159}
-{"DateTime":"2020-08-20T00:00:00","Open":19.5800,"High":19.5800,"Low":19.5800,"Close":19.5800,"Volume":0,"AdjustedClose":16.7111}
+{"DateTime":"2020-08-20T00:00:00","Open":19.5800,"High":19.5800,"Low":19.5800,"Close":19.5800,"Volume":0,"AdjustedClose":16.7110}
 {"DateTime":"2020-08-21T00:00:00","Open":19.7000,"High":19.7000,"Low":19.7000,"Close":19.7000,"Volume":0,"AdjustedClose":16.8135}
 {"DateTime":"2020-08-24T00:00:00","Open":19.8900,"High":19.8900,"Low":19.8900,"Close":19.8900,"Volume":0,"AdjustedClose":16.9756}
 {"DateTime":"2020-08-25T00:00:00","Open":20.0100,"High":20.0100,"Low":20.0100,"Close":20.0100,"Volume":0,"AdjustedClose":17.0780}
@@ -5690,7 +5690,7 @@
 {"DateTime":"2020-10-12T00:00:00","Open":20.5200,"High":20.5200,"Low":20.5200,"Close":20.5200,"Volume":0,"AdjustedClose":17.6084}
 {"DateTime":"2020-10-13T00:00:00","Open":20.3700,"High":20.3700,"Low":20.3700,"Close":20.3700,"Volume":0,"AdjustedClose":17.4797}
 {"DateTime":"2020-10-14T00:00:00","Open":20.3300,"High":20.3300,"Low":20.3300,"Close":20.3300,"Volume":0,"AdjustedClose":17.4454}
-{"DateTime":"2020-10-15T00:00:00","Open":20.2300,"High":20.2300,"Low":20.2300,"Close":20.2300,"Volume":0,"AdjustedClose":17.3595}
+{"DateTime":"2020-10-15T00:00:00","Open":20.2300,"High":20.2300,"Low":20.2300,"Close":20.2300,"Volume":0,"AdjustedClose":17.3596}
 {"DateTime":"2020-10-16T00:00:00","Open":20.1800,"High":20.1800,"Low":20.1800,"Close":20.1800,"Volume":0,"AdjustedClose":17.3166}
 {"DateTime":"2020-10-19T00:00:00","Open":20.1000,"High":20.1000,"Low":20.1000,"Close":20.1000,"Volume":0,"AdjustedClose":17.2480}
 {"DateTime":"2020-10-20T00:00:00","Open":20.3400,"High":20.3400,"Low":20.3400,"Close":20.3400,"Volume":0,"AdjustedClose":17.4539}
@@ -5714,7 +5714,7 @@
 {"DateTime":"2020-11-13T00:00:00","Open":21.2100,"High":21.2100,"Low":21.2100,"Close":21.2100,"Volume":0,"AdjustedClose":18.2005}
 {"DateTime":"2020-11-16T00:00:00","Open":21.3900,"High":21.3900,"Low":21.3900,"Close":21.3900,"Volume":0,"AdjustedClose":18.3550}
 {"DateTime":"2020-11-17T00:00:00","Open":21.4500,"High":21.4500,"Low":21.4500,"Close":21.4500,"Volume":0,"AdjustedClose":18.4064}
-{"DateTime":"2020-11-18T00:00:00","Open":21.5000,"High":21.5000,"Low":21.5000,"Close":21.5000,"Volume":0,"AdjustedClose":18.4494}
+{"DateTime":"2020-11-18T00:00:00","Open":21.5000,"High":21.5000,"Low":21.5000,"Close":21.5000,"Volume":0,"AdjustedClose":18.4493}
 {"DateTime":"2020-11-19T00:00:00","Open":21.6200,"High":21.6200,"Low":21.6200,"Close":21.6200,"Volume":0,"AdjustedClose":18.5523}
 {"DateTime":"2020-11-20T00:00:00","Open":21.6900,"High":21.6900,"Low":21.6900,"Close":21.6900,"Volume":0,"AdjustedClose":18.6124}
 {"DateTime":"2020-11-23T00:00:00","Open":21.8600,"High":21.8600,"Low":21.8600,"Close":21.8600,"Volume":0,"AdjustedClose":18.7583}
@@ -5732,7 +5732,7 @@
 {"DateTime":"2020-12-10T00:00:00","Open":22.7100,"High":22.7100,"Low":22.7100,"Close":22.7100,"Volume":0,"AdjustedClose":19.4877}
 {"DateTime":"2020-12-11T00:00:00","Open":22.6900,"High":22.6900,"Low":22.6900,"Close":22.6900,"Volume":0,"AdjustedClose":19.4705}
 {"DateTime":"2020-12-14T00:00:00","Open":22.7000,"High":22.7000,"Low":22.7000,"Close":22.7000,"Volume":0,"AdjustedClose":19.4791}
-{"DateTime":"2020-12-15T00:00:00","Open":22.8200,"High":22.8200,"Low":22.8200,"Close":22.8200,"Volume":0,"AdjustedClose":19.5821}
+{"DateTime":"2020-12-15T00:00:00","Open":22.8200,"High":22.8200,"Low":22.8200,"Close":22.8200,"Volume":0,"AdjustedClose":19.5820}
 {"DateTime":"2020-12-16T00:00:00","Open":22.6300,"High":22.6300,"Low":22.6300,"Close":22.6300,"Volume":0,"AdjustedClose":19.7303}
 {"DateTime":"2020-12-17T00:00:00","Open":22.7300,"High":22.7300,"Low":22.7300,"Close":22.7300,"Volume":0,"AdjustedClose":19.8175}
 {"DateTime":"2020-12-18T00:00:00","Open":22.7500,"High":22.7500,"Low":22.7500,"Close":22.7500,"Volume":0,"AdjustedClose":19.8349}
@@ -5860,7 +5860,7 @@
 {"DateTime":"2021-06-16T00:00:00","Open":26.9500,"High":26.9500,"Low":26.9500,"Close":26.9500,"Volume":0,"AdjustedClose":23.5235}
 {"DateTime":"2021-06-17T00:00:00","Open":26.9500,"High":26.9500,"Low":26.9500,"Close":26.9500,"Volume":0,"AdjustedClose":23.5235}
 {"DateTime":"2021-06-18T00:00:00","Open":26.7600,"High":26.7600,"Low":26.7600,"Close":26.7600,"Volume":0,"AdjustedClose":23.3576}
-{"DateTime":"2021-06-21T00:00:00","Open":26.9100,"High":26.9100,"Low":26.9100,"Close":26.9100,"Volume":0,"AdjustedClose":23.4885}
+{"DateTime":"2021-06-21T00:00:00","Open":26.9100,"High":26.9100,"Low":26.9100,"Close":26.9100,"Volume":0,"AdjustedClose":23.4886}
 {"DateTime":"2021-06-22T00:00:00","Open":26.9600,"High":26.9600,"Low":26.9600,"Close":26.9600,"Volume":0,"AdjustedClose":23.5322}
 {"DateTime":"2021-06-23T00:00:00","Open":26.9700,"High":26.9700,"Low":26.9700,"Close":26.9700,"Volume":0,"AdjustedClose":23.5409}
 {"DateTime":"2021-06-24T00:00:00","Open":27.1400,"High":27.1400,"Low":27.1400,"Close":27.1400,"Volume":0,"AdjustedClose":23.6893}
@@ -5876,7 +5876,7 @@
 {"DateTime":"2021-07-09T00:00:00","Open":27.0000,"High":27.0000,"Low":27.0000,"Close":27.0000,"Volume":0,"AdjustedClose":23.5921}
 {"DateTime":"2021-07-12T00:00:00","Open":27.1800,"High":27.1800,"Low":27.1800,"Close":27.1800,"Volume":0,"AdjustedClose":23.7494}
 {"DateTime":"2021-07-13T00:00:00","Open":27.1200,"High":27.1200,"Low":27.1200,"Close":27.1200,"Volume":0,"AdjustedClose":23.6970}
-{"DateTime":"2021-07-14T00:00:00","Open":27.1900,"High":27.1900,"Low":27.1900,"Close":27.1900,"Volume":0,"AdjustedClose":23.7582}
+{"DateTime":"2021-07-14T00:00:00","Open":27.1900,"High":27.1900,"Low":27.1900,"Close":27.1900,"Volume":0,"AdjustedClose":23.7581}
 {"DateTime":"2021-07-15T00:00:00","Open":27.3100,"High":27.3100,"Low":27.3100,"Close":27.3100,"Volume":0,"AdjustedClose":23.8630}
 {"DateTime":"2021-07-16T00:00:00","Open":27.2300,"High":27.2300,"Low":27.2300,"Close":27.2300,"Volume":0,"AdjustedClose":23.7931}
 {"DateTime":"2021-07-19T00:00:00","Open":27.1500,"High":27.1500,"Low":27.1500,"Close":27.1500,"Volume":0,"AdjustedClose":23.7232}
@@ -5942,7 +5942,7 @@
 {"DateTime":"2021-10-12T00:00:00","Open":25.8300,"High":25.8300,"Low":25.8300,"Close":25.8300,"Volume":0,"AdjustedClose":22.6990}
 {"DateTime":"2021-10-13T00:00:00","Open":26.0000,"High":26.0000,"Low":26.0000,"Close":26.0000,"Volume":0,"AdjustedClose":22.8484}
 {"DateTime":"2021-10-14T00:00:00","Open":26.2400,"High":26.2400,"Low":26.2400,"Close":26.2400,"Volume":0,"AdjustedClose":23.0593}
-{"DateTime":"2021-10-15T00:00:00","Open":26.4400,"High":26.4400,"Low":26.4400,"Close":26.4400,"Volume":0,"AdjustedClose":23.2350}
+{"DateTime":"2021-10-15T00:00:00","Open":26.4400,"High":26.4400,"Low":26.4400,"Close":26.4400,"Volume":0,"AdjustedClose":23.2351}
 {"DateTime":"2021-10-18T00:00:00","Open":26.5100,"High":26.5100,"Low":26.5100,"Close":26.5100,"Volume":0,"AdjustedClose":23.2966}
 {"DateTime":"2021-10-19T00:00:00","Open":26.6100,"High":26.6100,"Low":26.6100,"Close":26.6100,"Volume":0,"AdjustedClose":23.3844}
 {"DateTime":"2021-10-20T00:00:00","Open":26.5900,"High":26.5900,"Low":26.5900,"Close":26.5900,"Volume":0,"AdjustedClose":23.3669}
@@ -5982,7 +5982,7 @@
 {"DateTime":"2021-12-08T00:00:00","Open":26.0800,"High":26.0800,"Low":26.0800,"Close":26.0800,"Volume":0,"AdjustedClose":22.9187}
 {"DateTime":"2021-12-09T00:00:00","Open":26.0800,"High":26.0800,"Low":26.0800,"Close":26.0800,"Volume":0,"AdjustedClose":22.9187}
 {"DateTime":"2021-12-10T00:00:00","Open":26.0700,"High":26.0700,"Low":26.0700,"Close":26.0700,"Volume":0,"AdjustedClose":22.9099}
-{"DateTime":"2021-12-13T00:00:00","Open":25.7800,"High":25.7800,"Low":25.7800,"Close":25.7800,"Volume":0,"AdjustedClose":22.6550}
+{"DateTime":"2021-12-13T00:00:00","Open":25.7800,"High":25.7800,"Low":25.7800,"Close":25.7800,"Volume":0,"AdjustedClose":22.6551}
 {"DateTime":"2021-12-14T00:00:00","Open":25.6400,"High":25.6400,"Low":25.6400,"Close":25.6400,"Volume":0,"AdjustedClose":22.5320}
 {"DateTime":"2021-12-15T00:00:00","Open":24.4200,"High":24.4200,"Low":24.4200,"Close":24.4200,"Volume":0,"AdjustedClose":22.6405}
 {"DateTime":"2021-12-16T00:00:00","Open":24.4000,"High":24.4000,"Low":24.4000,"Close":24.4000,"Volume":0,"AdjustedClose":22.6220}
@@ -6097,7 +6097,7 @@
 {"DateTime":"2022-05-24T00:00:00","Open":21.8700,"High":21.8700,"Low":21.8700,"Close":21.8700,"Volume":0,"AdjustedClose":20.3018}
 {"DateTime":"2022-05-25T00:00:00","Open":21.9300,"High":21.9300,"Low":21.9300,"Close":21.9300,"Volume":0,"AdjustedClose":20.3575}
 {"DateTime":"2022-05-26T00:00:00","Open":22.1800,"High":22.1800,"Low":22.1800,"Close":22.1800,"Volume":0,"AdjustedClose":20.5895}
-{"DateTime":"2022-05-27T00:00:00","Open":22.3500,"High":22.3500,"Low":22.3500,"Close":22.3500,"Volume":0,"AdjustedClose":20.7474}
+{"DateTime":"2022-05-27T00:00:00","Open":22.3500,"High":22.3500,"Low":22.3500,"Close":22.3500,"Volume":0,"AdjustedClose":20.7473}
 {"DateTime":"2022-05-31T00:00:00","Open":22.6900,"High":22.6900,"Low":22.6900,"Close":22.6900,"Volume":0,"AdjustedClose":21.0630}
 {"DateTime":"2022-06-01T00:00:00","Open":22.6500,"High":22.6500,"Low":22.6500,"Close":22.6500,"Volume":0,"AdjustedClose":21.0258}
 {"DateTime":"2022-06-02T00:00:00","Open":22.8300,"High":22.8300,"Low":22.8300,"Close":22.8300,"Volume":0,"AdjustedClose":21.1929}
@@ -6385,7 +6385,7 @@
 {"DateTime":"2023-07-19T00:00:00","Open":22.4600,"High":22.4600,"Low":22.4600,"Close":22.4600,"Volume":0,"AdjustedClose":21.9098}
 {"DateTime":"2023-07-20T00:00:00","Open":22.4400,"High":22.4400,"Low":22.4400,"Close":22.4400,"Volume":0,"AdjustedClose":21.8903}
 {"DateTime":"2023-07-21T00:00:00","Open":22.4100,"High":22.4100,"Low":22.4100,"Close":22.4100,"Volume":0,"AdjustedClose":21.8610}
-{"DateTime":"2023-07-24T00:00:00","Open":22.4500,"High":22.4500,"Low":22.4500,"Close":22.4500,"Volume":0,"AdjustedClose":21.9000}
+{"DateTime":"2023-07-24T00:00:00","Open":22.4500,"High":22.4500,"Low":22.4500,"Close":22.4500,"Volume":0,"AdjustedClose":21.9001}
 {"DateTime":"2023-07-25T00:00:00","Open":22.5900,"High":22.5900,"Low":22.5900,"Close":22.5900,"Volume":0,"AdjustedClose":22.0366}
 {"DateTime":"2023-07-26T00:00:00","Open":22.5100,"High":22.5100,"Low":22.5100,"Close":22.5100,"Volume":0,"AdjustedClose":21.9586}
 {"DateTime":"2023-07-27T00:00:00","Open":22.5400,"High":22.5400,"Low":22.5400,"Close":22.5400,"Volume":0,"AdjustedClose":21.9878}
