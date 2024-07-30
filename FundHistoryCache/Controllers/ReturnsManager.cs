@@ -73,7 +73,13 @@ namespace FundHistoryCache.Controllers
             var monthlyReturns = GetReturns(monthlyCloses, ticker, ReturnPeriod.Monthly);
 
             return monthlyReturns
-                .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, r.PeriodStart.Month, 1), r.ReturnPercentage, r.SourceTicker!, r.ReturnPeriod))
+                .Select(r => new PeriodReturn()
+                {
+                    PeriodStart = new DateTime(r.PeriodStart.Year, r.PeriodStart.Month, 1),
+                    ReturnPercentage = r.ReturnPercentage,
+                    SourceTicker = r.SourceTicker,
+                    ReturnPeriod = r.ReturnPeriod,
+                })
                 .ToList();
         }
 
@@ -88,7 +94,13 @@ namespace FundHistoryCache.Controllers
             var yearlyReturns = GetReturns(yearlyCloses, ticker, ReturnPeriod.Yearly);
 
             return yearlyReturns
-                .Select(r => new PeriodReturn(new DateTime(r.PeriodStart.Year, 1, 1), r.ReturnPercentage, r.SourceTicker!, r.ReturnPeriod))
+                .Select(r => new PeriodReturn()
+                {
+                    PeriodStart = new DateTime(r.PeriodStart.Year, 1, 1),
+                    ReturnPercentage = r.ReturnPercentage,
+                    SourceTicker = r.SourceTicker,
+                    ReturnPeriod = r.ReturnPeriod
+                })
                 .ToList();
         }
 
@@ -100,7 +112,13 @@ namespace FundHistoryCache.Controllers
             List<PeriodReturn> returns = skipFirst
                 ? []
                 : [
-                    new(prices[0].DateTime, calculateChange(prices[0].Open, endingPrice(prices[0])), ticker, returnPeriod)
+                    new PeriodReturn()
+                    {
+                        PeriodStart = prices[0].DateTime,
+                        ReturnPercentage = calculateChange(prices[0].Open, endingPrice(prices[0])),
+                        SourceTicker = ticker,
+                        ReturnPeriod = returnPeriod
+                    }
                 ];
 
             for (int i = 1; i < prices.Count; i++)
@@ -116,7 +134,13 @@ namespace FundHistoryCache.Controllers
                 var currentEndPrice = endingPrice(prices[i]);
                 var currentStartPrice = endingPrice(prices[i - 1]);
 
-                returns.Add(new(currentDate, calculateChange(currentStartPrice, currentEndPrice), ticker, returnPeriod));
+                returns.Add(new PeriodReturn()
+                {
+                    PeriodStart = currentDate,
+                    ReturnPercentage = calculateChange(currentStartPrice, currentEndPrice),
+                    SourceTicker = ticker,
+                    ReturnPeriod = returnPeriod
+                });
             }
 
             return returns;

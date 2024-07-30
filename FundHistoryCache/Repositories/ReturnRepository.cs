@@ -142,7 +142,13 @@ namespace FundHistoryCache.Repositories
                     }
 
                     // decimal.ToString("G29") will trim trailing 0s
-                    tickerReturns.Add(new PeriodReturn(date, decimal.Parse($"{cellValue:G29}"), ticker, ReturnPeriod.Monthly));
+                    tickerReturns.Add(new PeriodReturn()
+                    {
+                        PeriodStart = date,
+                        ReturnPercentage = decimal.Parse($"{cellValue:G29}"),
+                        SourceTicker = ticker,
+                        ReturnPeriod = ReturnPeriod.Monthly
+                    });
                 }
             }
 
