@@ -18,7 +18,14 @@ namespace FundHistoryCache.Controllers
             {
                 Logger.LogInformation("{ticker}: Refreshing history...", ticker);
 
-                await RefreshQuote(ticker);
+                try
+                {
+                    await RefreshQuote(ticker);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError(ex, "{ticker}: Refresh failed.", ticker);
+                }
             }
         }
 

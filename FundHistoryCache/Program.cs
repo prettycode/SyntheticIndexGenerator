@@ -56,9 +56,9 @@ static async Task<List<PerformanceTick>?> GetPerformance(
 }
 class AppSettings
 {
-    public string QuoteRepositoryDataPath { get; set; }
-    public string ReturnRepositoryDataPath { get; set; }
-    public string SyntheticReturnsFilePath { get; set; }
+    public required string QuoteRepositoryDataPath { get; set; }
+    public required string ReturnRepositoryDataPath { get; set; }
+    public required string SyntheticReturnsFilePath { get; set; }
 }
 
 class PerformanceTick(PeriodReturn period, decimal startingBalance)
