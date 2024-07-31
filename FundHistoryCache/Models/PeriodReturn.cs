@@ -1,6 +1,6 @@
 ﻿namespace FundHistoryCache.Models
 {
-    public class PeriodReturn
+    public readonly struct PeriodReturn
     {
         public DateTime PeriodStart { get; init; }
 
@@ -8,7 +8,9 @@
         /// Scale is 0 - 100, not 0 - 1.
         /// </summary>
         public decimal ReturnPercentage { get; init; }
+
         public string? SourceTicker { get; init; }
+
         public ReturnPeriod ReturnPeriod { get; init; }
 
         public string ToCsvLine()
@@ -20,7 +22,7 @@
         {
             var cells = csvLine.Split(',');
 
-            return new PeriodReturn()
+            return new()
             {
                 PeriodStart = DateTime.Parse(cells[0]),
                 ReturnPercentage = decimal.Parse(cells[1]),

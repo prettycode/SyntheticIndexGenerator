@@ -2,10 +2,13 @@
 {
     public class Quote
     {
-        public readonly string Ticker;
-        public List<QuoteDividend> Dividends { get; set; } = [];
-        public List<QuotePrice> Prices { get; set; } = [];
-        public List<QuoteSplit> Splits { get; set; } = [];
+        public string Ticker { get; init; }
+
+        public List<QuoteDividend> Dividends { get; init; } = [];
+
+        public List<QuotePrice> Prices { get; init; } = [];
+
+        public List<QuoteSplit> Splits { get; init; } = [];
 
         public Quote(string ticker)
         {

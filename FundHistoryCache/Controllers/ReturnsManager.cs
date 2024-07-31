@@ -1,61 +1,56 @@
 ﻿using FundHistoryCache.Models;
 using FundHistoryCache.Repositories;
 using Microsoft.Extensions.Logging;
+using static System.Collections.Specialized.BitVector32;
 
 namespace FundHistoryCache.Controllers
 {
     public class ReturnsManager(QuoteRepository quoteRepository, ReturnRepository returnRepository, ILogger<ReturnsManager> logger)
     {
         private QuoteRepository QuoteCache { get; init; } = quoteRepository;
+
         private ReturnRepository ReturnCache { get; init; } = returnRepository;
+
         private ILogger<ReturnsManager> Logger { get; init; } = logger;
 
-        public async Task<Task> RefreshReturn(string ticker)
+        public async Task RefreshReturn(string ticker)
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
             var history = await QuoteCache.Get(ticker)
                 ?? throw new InvalidOperationException($"Cannot calculate return for '{ticker}'; no history data.");
+
             var priceHistory = history.Prices;
 
-            return Task.WhenAll(
+            await Task.WhenAll(
                 ReturnCache.Put(ticker, GetDailyReturns(ticker, priceHistory), ReturnPeriod.Daily),
                 ReturnCache.Put(ticker, GetMonthlyReturns(ticker, priceHistory), ReturnPeriod.Monthly),
                 ReturnCache.Put(ticker, GetYearlyReturns(ticker, priceHistory), ReturnPeriod.Yearly)
             );
         }
 
-        public Task RefreshReturns()
+        public async Task RefreshReturns()
         {
-            async Task<Task> refreshSyntheticReturns()
-            {
-                var synReturnsByTicker = await Task.WhenAll([
-                    ReturnCache.GetSyntheticMonthlyReturns(),
-                    ReturnCache.GetSyntheticYearlyReturns()
-                ]);
+            var tickers = QuoteCache.GetAllTickers();
+            var tickerRefreshTasks = tickers.Select(ticker => RefreshReturn(ticker));
+            var syntheticRefreshTasks = RefreshSyntheticReturns();
 
-                var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r => ReturnCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
-                var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => ReturnCache.Put(r.Key, r.Value, ReturnPeriod.Yearly));
-
-                return Task.WhenAll([
-                    .. synMonthlyReturnsPutTasks,
-                    .. synYearlyReturnsPutTasks
-                ]);
-            }
-
-            IEnumerable<Task> refreshQuoteReturns()
-            {
-                var tickers = QuoteCache.GetAllTickers();
-                var tickerRefreshTasks = tickers.Select(ticker => RefreshReturn(ticker));
-
-                return tickerRefreshTasks;
-            }
-
-            return Task.WhenAll([
-                refreshSyntheticReturns(),
-                .. refreshQuoteReturns()
-            ]);
+            await Task.WhenAll([syntheticRefreshTasks, .. tickerRefreshTasks]);
         }
+
+        private async Task RefreshSyntheticReturns()
+        {
+            var synReturnsByTicker = await Task.WhenAll(
+                ReturnCache.GetSyntheticMonthlyReturns(),
+                ReturnCache.GetSyntheticYearlyReturns()
+            );
+
+            var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r => ReturnCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
+            var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => ReturnCache.Put(r.Key, r.Value, ReturnPeriod.Yearly));
+
+            await Task.WhenAll(synMonthlyReturnsPutTasks.Concat(synYearlyReturnsPutTasks));
+        }
+
 
         private static List<PeriodReturn> GetDailyReturns(string ticker, List<QuotePrice> dailyPrices)
         {

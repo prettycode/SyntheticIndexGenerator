@@ -7,6 +7,7 @@ namespace FundHistoryCache.Controllers
     public class QuotesManager(QuoteRepository quoteRepository, ILogger<QuotesManager> logger)
     {
         private QuoteRepository QuoteCache { get; init; } = quoteRepository;
+
         private ILogger<QuotesManager> Logger { get; init; } = logger;
 
         public async Task RefreshQuotes(HashSet<string> tickers)

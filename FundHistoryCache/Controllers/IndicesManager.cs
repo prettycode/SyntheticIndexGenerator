@@ -8,6 +8,7 @@ namespace FundHistoryCache.Controllers
     public class IndicesManager(ReturnRepository returnRepository, ILogger<IndicesManager> logger)
     {
         private ReturnRepository ReturnCache { get; init; } = returnRepository;
+
         private ILogger<IndicesManager> Logger { get; init; } = logger;
 
         public Task RefreshIndices()

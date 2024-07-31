@@ -1,14 +1,12 @@
 ﻿namespace FundHistoryCache.Models
 {
-    public struct QuoteSplit
+    public readonly struct QuoteSplit
     {
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; init; }
 
-        public decimal BeforeSplit { get; set; }
+        public decimal BeforeSplit { get; init; }
 
-        public decimal AfterSplit { get; set; }
-
-        public QuoteSplit() { }
+        public decimal AfterSplit { get; init; }
 
         public QuoteSplit(YahooQuotesApi.SplitTick split)
         {
