@@ -11,7 +11,7 @@ var settings = new ConfigurationBuilder()
     .Build()
     .Get<AppSettings>() ?? throw new ApplicationException("Settings malformed.");
 
-var quoteCache = new QuoteRepository(settings.QuoteRepositoryDataPath);
+var quoteCache = new QuoteRepository(settings.QuoteRepositoryDataPath, CreateLogger<QuoteRepository>());
 var returnCache = new ReturnRepository(settings.ReturnRepositoryDataPath, settings.SyntheticReturnsFilePath);
 
 var quotesManager = new QuotesManager(quoteCache, CreateLogger<QuotesManager>());
@@ -48,7 +48,12 @@ static async Task<List<PerformanceTick>?> GetPerformance(
 
     foreach (var currentReturnTick in tickerReturns)
     {
-        performanceTicks.Add(new(currentReturnTick, startingBalance));
+        performanceTicks.Add(new()
+        {
+            Period = currentReturnTick,
+            StartingBalance = startingBalance
+        });
+
         startingBalance = performanceTicks[^1].EndingBalance;
     }
 
@@ -61,11 +66,11 @@ class AppSettings
     public required string SyntheticReturnsFilePath { get; set; }
 }
 
-class PerformanceTick(PeriodReturn period, decimal startingBalance)
+readonly struct PerformanceTick
 {
-    public PeriodReturn Period { get; set; } = period;
+    public PeriodReturn Period { get; init; }
 
-    public decimal StartingBalance { get; set; } = startingBalance;
+    public decimal StartingBalance { get; init; }
 
     public decimal EndingBalance { get { return this.StartingBalance + this.BalanceIncrease; } }
 

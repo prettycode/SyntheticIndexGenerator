@@ -2,13 +2,11 @@
 
 namespace FundHistoryCache.Models
 {
-    public struct QuoteDividend
+    public readonly struct QuoteDividend
     {
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; init; }
 
-        public decimal Dividend { get; set; }
-
-        public QuoteDividend() { }
+        public decimal Dividend { get; init; }
 
         public QuoteDividend(YahooQuotesApi.DividendTick dividend)
         {

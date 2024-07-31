@@ -2,23 +2,21 @@
 
 namespace FundHistoryCache.Models
 {
-    public struct QuotePrice
+    public readonly struct QuotePrice
     {
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; init; }
 
-        public decimal Open { get; set; }
+        public decimal Open { get; init; }
 
-        public decimal High { get; set; }
+        public decimal High { get; init; }
 
-        public decimal Low { get; set; }
+        public decimal Low { get; init; }
 
-        public decimal Close { get; set; }
+        public decimal Close { get; init; }
 
-        public long Volume { get; set; }
+        public long Volume { get; init; }
 
-        public decimal AdjustedClose { get; set; }
-
-        public QuotePrice() { }
+        public decimal AdjustedClose { get; init; }
 
         public QuotePrice(YahooQuotesApi.PriceTick price)
         {

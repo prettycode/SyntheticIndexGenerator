@@ -1,11 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.Json;
+using FundHistoryCache.Controllers;
 using FundHistoryCache.Models;
+using Microsoft.Extensions.Logging;
 
 namespace FundHistoryCache.Repositories
 {
     public class QuoteRepository
     {
+        private ILogger<QuoteRepository> Logger { get; init; }
+
         private enum CacheType
         {
             Dividend,
@@ -15,7 +19,7 @@ namespace FundHistoryCache.Repositories
 
         public string CachePath { get; private set; }
 
-        public QuoteRepository(string cachePath)
+        public QuoteRepository(string cachePath, ILogger<QuoteRepository> logger)
         {
             ArgumentNullException.ThrowIfNull(cachePath);
 
@@ -25,6 +29,7 @@ namespace FundHistoryCache.Repositories
             }
 
             CachePath = cachePath;
+            Logger = logger;
         }
 
         public IEnumerable<string> GetAllTickers()
@@ -131,7 +136,7 @@ namespace FundHistoryCache.Repositories
             _ => throw new NotImplementedException(),
         };
 
-        private static List<Exception> Inspect(Quote fundHistory)
+        private List<Exception> Inspect(Quote fundHistory)
         {
             var exceptions = new List<Exception>();
             var previousDateTime = DateTime.MinValue;
@@ -140,17 +145,17 @@ namespace FundHistoryCache.Repositories
             {
                 if (div.Dividend == 0)
                 {
-                    exceptions.Add(new ArgumentException($"Zero-dollar {nameof(div.Dividend)} record in {nameof(fundHistory.Dividends)} on {div.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Zero-dollar {nameof(div.Dividend)} in {nameof(fundHistory.Dividends)} on {div.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (div.DateTime == default)
                 {
-                    exceptions.Add(new ArgumentException($"Invalid {nameof(div.DateTime)} record in {nameof(fundHistory.Dividends)} on {div.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Invalid {nameof(div.DateTime)} in {nameof(fundHistory.Dividends)} on {div.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (div.DateTime <= previousDateTime)
                 {
-                    exceptions.Add(new ArgumentException($"Non-chronological {nameof(div.DateTime)} record in {nameof(fundHistory.Dividends)} on {div.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Non-chronological {nameof(div.DateTime)} in {nameof(fundHistory.Dividends)} on {div.DateTime:yyyy-MM-dd}"));
                 }
 
                 previousDateTime = div.DateTime;
@@ -162,37 +167,37 @@ namespace FundHistoryCache.Repositories
             {
                 if (price.Open == 0)
                 {
-                    exceptions.Add(new ArgumentException($"Zero-dollar {nameof(price.Open)} record in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Zero-dollar {nameof(price.Open)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (price.Close == 0)
                 {
-                    exceptions.Add(new ArgumentException($"Zero-dollar {nameof(price.Close)} record in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Zero-dollar {nameof(price.Close)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (price.AdjustedClose == 0)
                 {
-                    exceptions.Add(new ArgumentException($"Zero-dollar {nameof(price.AdjustedClose)} record in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Zero-dollar {nameof(price.AdjustedClose)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (price.High == 0)
                 {
-                    exceptions.Add(new ArgumentException($"Zero-dollar {nameof(price.High)} record in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Zero-dollar {nameof(price.High)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (price.Low == 0)
                 {
-                    exceptions.Add(new ArgumentException($"Zero-dollar {nameof(price.Low)} record in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Zero-dollar {nameof(price.Low)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (price.DateTime == default)
                 {
-                    exceptions.Add(new ArgumentException($"Invalid {nameof(price.DateTime)} record in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Invalid {nameof(price.DateTime)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (price.DateTime <= previousDateTime)
                 {
-                    exceptions.Add(new ArgumentException($"Non-chronological {nameof(price.DateTime)} record in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Non-chronological {nameof(price.DateTime)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
                 }
 
                 previousDateTime = price.DateTime;
@@ -204,30 +209,30 @@ namespace FundHistoryCache.Repositories
             {
                 if (split.BeforeSplit == 0)
                 {
-                    exceptions.Add(new ArgumentException($"Zero-dollar {nameof(split.BeforeSplit)} record in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Zero-dollar {nameof(split.BeforeSplit)} in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (split.AfterSplit == 0)
                 {
-                    exceptions.Add(new ArgumentException($"Zero-dollar {nameof(split.AfterSplit)} record in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Zero-dollar {nameof(split.AfterSplit)} in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (split.DateTime == default)
                 {
-                    exceptions.Add(new ArgumentException($"Invalid {nameof(split.DateTime)} record in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Invalid {nameof(split.DateTime)} in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
                 }
 
                 if (split.DateTime <= previousDateTime)
                 {
-                    exceptions.Add(new ArgumentException($"Non-chronological {nameof(split.DateTime)} record in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
+                    exceptions.Add(new($"Non-chronological {nameof(split.DateTime)} in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
                 }
 
                 previousDateTime = split.DateTime;
             }
 
-            foreach (var exception in exceptions)
+            foreach (var ex in exceptions)
             {
-                Console.WriteLine($"{fundHistory.Ticker}: {exception.Message}");
+                Logger.LogWarning(ex, "{ticker}", fundHistory.Ticker);
             }
 
             return exceptions;
