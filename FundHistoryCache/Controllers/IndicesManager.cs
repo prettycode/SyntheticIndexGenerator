@@ -57,20 +57,16 @@ namespace FundHistoryCache.Controllers
             new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Value, ["DGS"])
         ];
 
-        private async Task RefreshIndex(Index index)
+        private Task RefreshIndex(Index index)
         {
-            async Task refreshIndex(string indexTicker, List<string> backfillTickers, ReturnPeriod period)
-            {
-                var returns = await CollateReturnsA(backfillTickers, period);
-                await ReturnCache.Put(indexTicker, returns, period);
-            }
-
             var periods = Enum.GetValues<ReturnPeriod>();
-            var ticker = index.Ticker;
-            var backfillTickers = index.BackfillTickers;
-            var tasks = periods.Select(period => refreshIndex(ticker, backfillTickers, period));
+            var tasks = periods.Select(async period =>
+            {
+                var returns = await CollateReturnsA(index.BackfillTickers, period);
+                await ReturnCache.Put(index.Ticker, returns, period);
+            });
 
-            await Task.WhenAll(tasks);
+            return Task.WhenAll(tasks);
         }
 
         private async Task<List<PeriodReturn>> CollateReturnsA(List<string> backfillTickers, ReturnPeriod period)

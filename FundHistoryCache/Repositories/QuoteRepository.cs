@@ -227,7 +227,6 @@ namespace FundHistoryCache.Repositories
 
             foreach (var exception in exceptions)
             {
-                Console.Beep();
                 Console.WriteLine($"{fundHistory.Ticker}: {exception.Message}");
             }
 
