@@ -108,7 +108,6 @@ namespace FundHistoryCache.Controllers
 
             var staleHistoryLastTick = fundHistory.Prices[^1];
             var staleHistoryLastTickDate = staleHistoryLastTick.DateTime;
-            var staleHistoryLastTickOpen = staleHistoryLastTick.Open;
             var freshHistory = await GetQuote(ticker, staleHistoryLastTickDate);
 
             if (freshHistory == null)
@@ -121,7 +120,8 @@ namespace FundHistoryCache.Controllers
                 throw new InvalidOperationException($"{ticker}: Fresh history should start on last date of existing history.");
             }
 
-            if (freshHistory.Prices[0].Open != staleHistoryLastTickOpen)
+            if (freshHistory.Prices[0].Open != staleHistoryLastTick.Open ||
+                freshHistory.Prices[0].AdjustedClose != staleHistoryLastTick.AdjustedClose)
             {
                 Logger.LogInformation("{ticker}: All history has been recomputed.", ticker);
 
@@ -135,12 +135,14 @@ namespace FundHistoryCache.Controllers
                 return (false, null);
             }
 
-            if (freshHistory.Dividends.Count > 0 && freshHistory.Dividends[0].DateTime == fundHistory.Dividends[^1].DateTime)
+            if (freshHistory.Dividends.Count > 0 &&
+                freshHistory.Dividends[0].DateTime == fundHistory.Dividends[^1].DateTime)
             {
                 freshHistory.Dividends.RemoveAt(0);
             }
 
-            if (freshHistory.Splits.Count > 0 && freshHistory.Splits[0].DateTime == fundHistory.Splits[^1].DateTime)
+            if (freshHistory.Splits.Count > 0 &&
+                freshHistory.Splits[0].DateTime == fundHistory.Splits[^1].DateTime)
             {
                 freshHistory.Splits.RemoveAt(0);
             }
@@ -160,9 +162,11 @@ namespace FundHistoryCache.Controllers
             var prices = (await Throttle(() => YahooFinanceApi.Yahoo.GetHistoricalAsync(ticker, startDate, endDate))).ToList();
             var splits = (await Throttle(() => YahooFinanceApi.Yahoo.GetSplitsAsync(ticker, startDate, endDate))).ToList();
 
-            // API returns a record with 0s when record is today and not yet updated after market close
+            // API sometimes returns a record with 0s when record is today and not yet updated after market close.
+            // Other times it returns a candle with data representing the current daily performance. Discard either.
 
-            if (prices[^1].Open == 0)
+            if (prices[^1].Open == 0 ||
+                prices[^1].DateTime == DateTime.Today)
             {
                 var incompleteDate = prices[^1].DateTime;
 
@@ -173,12 +177,14 @@ namespace FundHistoryCache.Controllers
                     return null;
                 }
 
-                if (dividends.Count > 0 && dividends[^1].DateTime == incompleteDate)
+                if (dividends.Count > 0 &&
+                    dividends[^1].DateTime == incompleteDate)
                 {
                     dividends.RemoveAt(dividends.Count - 1);
                 }
 
-                if (splits.Count > 0 && splits[^1].DateTime == incompleteDate)
+                if (splits.Count > 0 &&
+                    splits[^1].DateTime == incompleteDate)
                 {
                     splits.RemoveAt(splits.Count - 1);
                 }
