@@ -34,7 +34,7 @@ namespace Data.Controllers
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
-            var knownHistory = await QuoteCache.Get(ticker);
+            var knownHistory = QuoteCache.Has(ticker) ? await QuoteCache.Get(ticker) : null;
 
             if (knownHistory == null)
             {

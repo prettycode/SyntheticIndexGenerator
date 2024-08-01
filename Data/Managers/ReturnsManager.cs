@@ -17,9 +17,7 @@ namespace Data.Controllers
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
-            var history = await QuoteCache.Get(ticker)
-                ?? throw new InvalidOperationException($"Cannot calculate return for '{ticker}'; no history data.");
-
+            var history = await QuoteCache.Get(ticker);
             var priceHistory = history.Prices;
 
             await Task.WhenAll(

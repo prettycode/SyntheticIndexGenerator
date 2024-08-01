@@ -51,13 +51,13 @@ namespace Data.Repositories
             return File.Exists(cacheFilePaths[CacheType.Price]);
         }
 
-        public async Task<Quote?> Get(string ticker)
+        public async Task<Quote> Get(string ticker)
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
             if (!Has(ticker))
             {
-                return null;
+                throw new KeyNotFoundException($"No record for {nameof(ticker)} \"{ticker}\".");
             }
 
             var rawCacheContent = await Task.WhenAll([
