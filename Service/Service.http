@@ -4,3 +4,8 @@ GET {{Service_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{Service_HostAddress}}/Performance/GetTestPortfolioPerformance
+Accept: application/json
+
+###
