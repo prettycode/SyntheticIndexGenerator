@@ -38,17 +38,17 @@ namespace Data.Repositories
             return File.Exists(cacheFilePath);
         }
 
-        public Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period)
+        public Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period)
         {
             return Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
         }
 
-        public Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period, DateTime start)
+        public Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period, DateTime start)
         {
             return Get(ticker, period, start, DateTime.MaxValue);
         }
 
-        public async Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
+        public async Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(period);
@@ -57,7 +57,7 @@ namespace Data.Repositories
 
             if (!Has(ticker, period, out string csvFilePath))
             {
-                return null;
+                throw new KeyNotFoundException($"No record for {nameof(ticker)} \"{ticker}\".");
             }
 
             var csvLines = await File.ReadAllLinesAsync(csvFilePath);
