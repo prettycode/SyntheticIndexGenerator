@@ -43,6 +43,11 @@ namespace Data.Repositories
             return Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
         }
 
+        public Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period, DateTime start)
+        {
+            return Get(ticker, period, start, DateTime.MaxValue);
+        }
+
         public async Task<List<PeriodReturn>?> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
         {
             ArgumentNullException.ThrowIfNull(ticker);
@@ -60,24 +65,6 @@ namespace Data.Repositories
             var dateFilteredReturns = allReturns.Where(pair => pair.PeriodStart >= start && pair.PeriodStart <= end);
 
             return dateFilteredReturns.ToList();
-        }
-
-        public Task<List<PeriodReturn>?> GetMostGranular(string ticker, out ReturnPeriod period)
-        {
-            ArgumentNullException.ThrowIfNull(ticker);
-
-            var periods = Enum.GetValues<ReturnPeriod>();
-
-            foreach (var p in periods)
-            {
-                if (Has(ticker, p, out string csvFilePath))
-                {
-                    period = p;
-                    return Get(ticker, period);
-                }
-            }
-
-            throw new InvalidOperationException($"Returns for '{ticker}' not for any period.");
         }
 
         public Task Put(string ticker, List<PeriodReturn> returns, ReturnPeriod period)

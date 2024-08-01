@@ -123,7 +123,7 @@ namespace Data.Controllers
             if (freshHistory.Prices[0].Open != staleHistoryLastTick.Open ||
                 freshHistory.Prices[0].AdjustedClose != staleHistoryLastTick.AdjustedClose)
             {
-                Logger.LogInformation("{ticker}: All history has been recomputed.", ticker);
+                Logger.LogWarning("{ticker}: All history has been recomputed.", ticker);
 
                 return (true, await GetAllHistory(ticker));
             }

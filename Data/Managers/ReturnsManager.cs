@@ -51,7 +51,6 @@ namespace Data.Controllers
             await Task.WhenAll(synMonthlyReturnsPutTasks.Concat(synYearlyReturnsPutTasks));
         }
 
-
         private static List<PeriodReturn> GetDailyReturns(string ticker, List<QuotePrice> dailyPrices)
         {
             return GetReturns(dailyPrices, ticker, ReturnPeriod.Daily);
