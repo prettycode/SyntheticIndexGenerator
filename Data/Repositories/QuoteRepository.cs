@@ -200,6 +200,8 @@ namespace Data.Repositories
                     exceptions.Add(new($"Non-chronological {nameof(price.DateTime)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
                 }
 
+                // Don't check volume; it's 0 for mutual funds
+
                 previousDateTime = price.DateTime;
             }
 

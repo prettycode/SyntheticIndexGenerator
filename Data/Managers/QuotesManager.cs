@@ -120,8 +120,11 @@ namespace Data.Controllers
                 throw new InvalidOperationException($"{ticker}: Fresh history should start on last date of existing history.");
             }
 
-            if (freshHistory.Prices[0].Open != staleHistoryLastTick.Open ||
-                freshHistory.Prices[0].AdjustedClose != staleHistoryLastTick.AdjustedClose)
+            var firstFresh = freshHistory.Prices[0];
+
+            if (firstFresh.Open != staleHistoryLastTick.Open ||
+                firstFresh.Close != staleHistoryLastTick.Close ||
+                firstFresh.AdjustedClose != staleHistoryLastTick.AdjustedClose)
             {
                 Logger.LogWarning("{ticker}: All history has been recomputed.", ticker);
 

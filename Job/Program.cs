@@ -4,6 +4,7 @@ using Data.Repositories;
 using Job;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Timer = Job.Utils.Timer;
 
 static ILogger<T> CreateLogger<T>() where T : class => LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<T>();
 
@@ -22,9 +23,9 @@ var indicesManager = new IndicesManager(returnCache, CreateLogger<IndicesManager
 
 var quoteTickersNeeded = IndicesManager.GetBackfillTickers();
 
-//await Timer.Exec("Refresh quotes", quotesManager.RefreshQuotes(quoteTickersNeeded));
-//await Timer.Exec("Refresh returns", returnsManager.RefreshReturns());
-//await Timer.Exec("Refresh indices", indicesManager.RefreshIndices());
+await Timer.Exec("Refresh quotes", quotesManager.RefreshQuotes(quoteTickersNeeded));
+await Timer.Exec("Refresh returns", returnsManager.RefreshReturns());
+await Timer.Exec("Refresh indices", indicesManager.RefreshIndices());
 
 var ticker = "AVUV";
 var result = await GetTickerPerformance(ticker);
