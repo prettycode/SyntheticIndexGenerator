@@ -3,13 +3,12 @@ using System.Text.Json;
 using Data.Controllers;
 using Data.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Data.Repositories
 {
-    public class QuoteRepository
+    public class QuoteRepository : IQuoteRepository
     {
-        private ILogger<QuoteRepository> Logger { get; init; }
-
         private enum CacheType
         {
             Dividend,
@@ -17,19 +16,22 @@ namespace Data.Repositories
             Split
         }
 
-        public string CachePath { get; private set; }
+        private readonly ILogger<QuoteRepository> logger;
 
-        public QuoteRepository(string cachePath, ILogger<QuoteRepository> logger)
+        private readonly string cachePath;
+
+        public QuoteRepository(IOptions<QuoteRepositorySettings> settings, ILogger<QuoteRepository> logger)
         {
-            ArgumentNullException.ThrowIfNull(cachePath);
+            ArgumentNullException.ThrowIfNull(settings);
+
+            cachePath = settings.Value.CacheDirPath;
 
             if (!Directory.Exists(cachePath))
             {
                 Directory.CreateDirectory(cachePath);
             }
 
-            CachePath = cachePath;
-            Logger = logger;
+            this.logger = logger;
         }
 
         public IEnumerable<string> GetAllTickers()
@@ -122,9 +124,9 @@ namespace Data.Repositories
 
         private string GetCacheFilePath(string ticker, CacheType cacheType) => cacheType switch
         {
-            CacheType.Dividend => Path.Combine(CachePath, $"./dividend/{ticker}.txt"),
-            CacheType.Price => Path.Combine(CachePath, $"./price/{ticker}.txt"),
-            CacheType.Split => Path.Combine(CachePath, $"./split/{ticker}.txt"),
+            CacheType.Dividend => Path.Combine(cachePath, $"./dividend/{ticker}.txt"),
+            CacheType.Price => Path.Combine(cachePath, $"./price/{ticker}.txt"),
+            CacheType.Split => Path.Combine(cachePath, $"./split/{ticker}.txt"),
             _ => throw new NotImplementedException(),
         };
 
@@ -234,7 +236,7 @@ namespace Data.Repositories
 
             foreach (var ex in exceptions)
             {
-                Logger.LogWarning(ex, "{ticker}", fundHistory.Ticker);
+                logger.LogWarning(ex, "{ticker}", fundHistory.Ticker);
             }
 
             return exceptions;

@@ -3,19 +3,34 @@ using Data.Models;
 using Data.Repositories;
 using Job;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Timer = Job.Utils.Timer;
 
 static ILogger<T> CreateLogger<T>() where T : class => LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<T>();
 
-var settings = new ConfigurationBuilder()
+var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile("appsettings.json")
-    .Build()
-    .Get<AppSettings>() ?? throw new ApplicationException("Settings malformed.");
+    .AddJsonFile("appsettings.json", optional: false)
+    .Build();
 
-var quoteCache = new QuoteRepository(settings.QuoteRepositoryDataPath, CreateLogger<QuoteRepository>());
-var returnCache = new ReturnRepository(settings.ReturnRepositoryDataPath, settings.SyntheticReturnsFilePath);
+var services = new ServiceCollection();
+
+services.AddLogging(builder =>
+{
+    builder.AddConfiguration(configuration.GetSection("Logging"));
+    builder.AddConsole();
+});
+
+services.Configure<QuoteRepositorySettings>(configuration.GetSection("QuoteRepositorySettings"));
+services.Configure<ReturnRepositorySettings>(configuration.GetSection("ReturnRepositorySettings"));
+services.AddTransient<IQuoteRepository, QuoteRepository>();
+services.AddTransient<IReturnRepository, ReturnRepository>();
+
+using var serviceProvider = services.BuildServiceProvider();
+
+var quoteCache = serviceProvider.GetRequiredService<IQuoteRepository>();
+var returnCache = serviceProvider.GetRequiredService<IReturnRepository>();
 
 var quotesManager = new QuotesManager(quoteCache, CreateLogger<QuotesManager>());
 var returnsManager = new ReturnsManager(quoteCache, returnCache, CreateLogger<ReturnsManager>());

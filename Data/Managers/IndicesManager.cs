@@ -5,9 +5,9 @@ using Index = Data.Models.Index;
 
 namespace Data.Controllers
 {
-    public class IndicesManager(ReturnRepository returnRepository, ILogger<IndicesManager> logger)
+    public class IndicesManager(IReturnRepository returnRepository, ILogger<IndicesManager> logger)
     {
-        private ReturnRepository ReturnCache { get; init; } = returnRepository;
+        private IReturnRepository ReturnCache { get; init; } = returnRepository;
 
         private ILogger<IndicesManager> Logger { get; init; } = logger;
 

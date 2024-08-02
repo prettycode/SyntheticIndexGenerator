@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Controllers
 {
-    public class QuotesManager(QuoteRepository quoteRepository, ILogger<QuotesManager> logger)
+    public class QuotesManager(IQuoteRepository quoteRepository, ILogger<QuotesManager> logger)
     {
-        private QuoteRepository QuoteCache { get; init; } = quoteRepository;
+        private IQuoteRepository QuoteCache { get; init; } = quoteRepository;
 
         private ILogger<QuotesManager> Logger { get; init; } = logger;
 

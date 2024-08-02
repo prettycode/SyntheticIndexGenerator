@@ -1,26 +1,38 @@
 ﻿using System.Globalization;
 using Data.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Data.Repositories
 {
-    public class ReturnRepository
+    public class ReturnRepository : IReturnRepository
     {
         private readonly string cachePath;
 
         private readonly string syntheticReturnsFilePath;
 
-        public ReturnRepository(string cachePath, string syntheticReturnsFilePath)
+        private readonly ILogger<ReturnRepository> logger;
+
+        public ReturnRepository(IOptions<ReturnRepositorySettings> settings, ILogger<ReturnRepository> logger)
         {
-            ArgumentNullException.ThrowIfNull(cachePath);
-            ArgumentNullException.ThrowIfNull(syntheticReturnsFilePath);
+            ArgumentNullException.ThrowIfNull(settings);
+            ArgumentNullException.ThrowIfNull(logger);
+
+            cachePath = settings.Value.CacheDirPath;
 
             if (!Directory.Exists(cachePath))
             {
                 Directory.CreateDirectory(cachePath);
             }
 
-            this.cachePath = cachePath;
-            this.syntheticReturnsFilePath = syntheticReturnsFilePath;
+            syntheticReturnsFilePath = settings.Value.SyntheticReturnsFilePath;
+
+            if (!File.Exists(syntheticReturnsFilePath))
+            {
+                throw new ArgumentException($"{syntheticReturnsFilePath} file does not exist.", nameof(settings));
+            }
+
+            this.logger = logger;
         }
 
         public bool Has(string ticker, ReturnPeriod period)

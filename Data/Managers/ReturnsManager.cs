@@ -5,11 +5,11 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace Data.Controllers
 {
-    public class ReturnsManager(QuoteRepository quoteRepository, ReturnRepository returnRepository, ILogger<ReturnsManager> logger)
+    public class ReturnsManager(IQuoteRepository quoteRepository, IReturnRepository returnRepository, ILogger<ReturnsManager> logger)
     {
-        private QuoteRepository QuoteCache { get; init; } = quoteRepository;
+        private IQuoteRepository QuoteCache { get; init; } = quoteRepository;
 
-        private ReturnRepository ReturnCache { get; init; } = returnRepository;
+        private IReturnRepository ReturnCache { get; init; } = returnRepository;
 
         private ILogger<ReturnsManager> Logger { get; init; } = logger;
 
