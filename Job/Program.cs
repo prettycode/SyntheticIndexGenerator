@@ -21,9 +21,34 @@ class Program
     static async Task Main(string[] args)
     {
         using var serviceProvider = BuildServiceProvider();
+        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 
-        await RefreshData(serviceProvider);
         await SloppyManualTesting(serviceProvider);
+
+        while (true)
+        {
+            await WaitUntilNextUtcMidnight(logger);
+
+            try
+            {
+                await RefreshData(serviceProvider, logger);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred during data refresh.");
+            }
+        }
+
+    }
+    static async Task WaitUntilNextUtcMidnight(ILogger<Program> logger)
+    {
+        var now = DateTime.UtcNow;
+        var nextMidnight = now.Date.AddDays(1);
+        var timeToWait = nextMidnight - now;
+
+        logger.LogInformation("Waiting until next UTC midnight ({span} from now).", timeToWait);
+
+        await Task.Delay(timeToWait);
     }
 
     static ServiceProvider BuildServiceProvider()
@@ -45,14 +70,21 @@ class Program
             .BuildServiceProvider();
     }
 
-    static async Task RefreshData(IServiceProvider provider)
+    static async Task RefreshData(IServiceProvider provider, ILogger<Program> logger)
     {
         var quotesManager = provider.GetRequiredService<QuotesManager>();
         var returnsManager = provider.GetRequiredService<ReturnsManager>();
         var indicesManager = provider.GetRequiredService<IndicesManager>();
         var quoteTickersNeeded = IndicesManager.GetBackfillTickers();
 
-        await quotesManager.RefreshQuotes(quoteTickersNeeded);
+        bool allFailed = await quotesManager.RefreshQuotes(quoteTickersNeeded);
+
+        if (allFailed)
+        {
+            logger.LogError("{message}", "Failed to refresh all data. Aborting downstream refreshes.");
+            return;
+        }
+
         await returnsManager.RefreshReturns();
         await indicesManager.RefreshIndices();
     }

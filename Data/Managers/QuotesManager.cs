@@ -10,9 +10,10 @@ namespace Data.Controllers
 
         private ILogger<QuotesManager> Logger { get; init; } = logger;
 
-        public async Task RefreshQuotes(HashSet<string> tickers)
+        public async Task<bool> RefreshQuotes(HashSet<string> tickers)
         {
             ArgumentNullException.ThrowIfNull(tickers);
+            int failures = 0;
 
             // Do serially vs. all at once; avoid rate-limiting
             foreach (var ticker in tickers)
@@ -25,9 +26,12 @@ namespace Data.Controllers
                 }
                 catch (Exception ex)
                 {
+                    failures++;
                     Logger.LogError(ex, "{ticker}: Refresh failed.", ticker);
                 }
             }
+
+            return failures == tickers.Count;
         }
 
         public async Task RefreshQuote(string ticker)
