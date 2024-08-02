@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.Json;
-using Data.Controllers;
 using Data.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
