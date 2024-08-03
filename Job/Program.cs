@@ -128,14 +128,15 @@ class Program
         string ticker,
         decimal startingBalance = 100,
         ReturnPeriod granularity = ReturnPeriod.Daily,
-        DateTime start = default)
+        DateTime start = default,
+        DateTime? end = null)
     {
         ArgumentNullException.ThrowIfNull(returnCache, nameof(returnCache));
         ArgumentNullException.ThrowIfNullOrEmpty(ticker, nameof(ticker));
         ArgumentOutOfRangeException.ThrowIfLessThan(startingBalance, 1, nameof(startingBalance));
 
         var tickerReturns = await returnCache.Get(ticker, granularity, start);
-        var tickerPerformance = GetPerformance(tickerReturns, startingBalance, granularity, start);
+        var tickerPerformance = GetPerformance(tickerReturns, startingBalance, granularity, start, end);
 
         return tickerPerformance.ToArray();
     }
@@ -144,13 +145,19 @@ class Program
         IEnumerable<PeriodReturn> tickerReturns,
         decimal startingBalance = 100,
         ReturnPeriod granularity = ReturnPeriod.Daily,
-        DateTime start = default)
+        DateTime start = default,
+        DateTime? end = null)
     {
         ArgumentNullException.ThrowIfNull(tickerReturns, nameof(tickerReturns));
         ArgumentOutOfRangeException.ThrowIfLessThan(startingBalance, 1, nameof(startingBalance));
 
+        if (end == null)
+        {
+            end = DateTime.MaxValue;
+        }
+
         var performanceTicks = new List<PerformanceTick>();
-        var dateRangedTickerReturns = tickerReturns.Where(tick => tick.PeriodStart >= start);
+        var dateRangedTickerReturns = tickerReturns.Where(tick => tick.PeriodStart >= start && tick.PeriodStart <= end);
 
         foreach (var currentReturnTick in dateRangedTickerReturns)
         {
@@ -171,7 +178,8 @@ class Program
         IEnumerable<(string ticker, decimal allocationPercentage)> allocations,
         decimal startingBalance = 100,
         ReturnPeriod granularity = ReturnPeriod.Daily,
-        DateTime start = default)
+        DateTime start = default,
+        DateTime? end = null)
     {
         ArgumentNullException.ThrowIfNull(returnCache, nameof(returnCache));
         ArgumentNullException.ThrowIfNull(allocations, nameof(allocations));
@@ -181,10 +189,16 @@ class Program
             throw new ArgumentException("Must add up to 100%.", nameof(allocations));
         }
 
+        if (end == null)
+        {
+            end = DateTime.MaxValue;
+        }
+
         var returns = await Task.WhenAll(allocations.Select(allocation => returnCache.Get(allocation.ticker, granularity)));
         var latestStart = returns.Select(history => history[0].PeriodStart).Append(start).Max();
+        var earliestEnd = returns.Select(history => history[^1].PeriodStart).Append(end.Value).Min();
         var performances = allocations.Select((allocation, i) =>
-            GetPerformance(returns[i], startingBalance * allocation.allocationPercentage / 100, granularity, latestStart));
+            GetPerformance(returns[i], startingBalance * allocation.allocationPercentage / 100, granularity, latestStart, earliestEnd));
 
         return performances.ToArray();
     }
