@@ -19,4 +19,8 @@
     <Folder Include="data\" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <Compile Remove="**\*.Test.cs" />
+  </ItemGroup>
+
 </Project>
