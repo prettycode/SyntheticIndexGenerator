@@ -103,13 +103,14 @@ namespace DataService.Controllers
             bool rebalance = false)
         {
             var decomposed = await GetPortfolioPerformanceDecomposed(allocations, startingBalance, granularity, start, end, rebalance);
+            var firstDecomposed = decomposed.First();
 
-            if (decomposed.Any(d => d.Count() != decomposed.First().Count()))
+            if (decomposed.Skip(1).Any(d => d.Count() != firstDecomposed.Count()))
             {
-                throw new InvalidOperationException("All decomposed series must have the same length.");
+                throw new InvalidOperationException("All decomposed series should (must) have the same length.");
             }
 
-            return decomposed.First().Select((firstTick, index) => new PerformanceTick
+            return firstDecomposed.Select((firstTick, index) => new PerformanceTick
             {
                 BalanceIncrease = decomposed.Sum(series => series.ElementAt(index).BalanceIncrease),
                 PeriodStart = firstTick.Period.PeriodStart,
