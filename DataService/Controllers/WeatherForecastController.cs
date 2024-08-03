@@ -28,9 +28,8 @@ namespace DataService.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public async Task<IEnumerable<IEnumerable<PerformanceTick>>> Get()
+        public async Task<IEnumerable<IEnumerable<PerformanceTick>>> Get([FromServices] IServiceProvider provider)
         {
-            var provider = HttpContext.RequestServices;
             var returnCache = provider.GetRequiredService<IReturnRepository>();
             var ticker = "AVUV";
             var result = await GetTickerPerformance(returnCache, ticker);
