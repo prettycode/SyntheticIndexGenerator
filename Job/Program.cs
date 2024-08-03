@@ -1,14 +1,12 @@
-﻿using Data.Controllers;
+﻿using System.Diagnostics;
+using Data.Controllers;
 using Data.Extensions;
-using Data.Models;
-using Data.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 class Program
 {
-
     static async Task Main(string[] args)
     {
         using var serviceProvider = BuildServiceProvider();
@@ -16,7 +14,10 @@ class Program
 
         while (true)
         {
-            await WaitUntilNextMarketDataUpdate(logger);
+            if (!Debugger.IsAttached)
+            {
+                await WaitUntilNextMarketDataUpdate(logger);
+            }
 
             try
             {
@@ -26,37 +27,13 @@ class Program
             {
                 logger.LogError(ex, "An error occurred during data refresh.");
             }
+
+            if (Debugger.IsAttached)
+            {
+                break;
+            }
         }
 
-    }
-
-    // TODO test
-    static async Task WaitUntilNextMarketDataUpdate(ILogger<Program> logger)
-    {
-        var newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
-        var currentTimeNewYork = TimeZoneInfo.ConvertTime(DateTime.UtcNow, newYorkTimeZone);
-        var nextMarketClosedTime = currentTimeNewYork.Date.AddHours(21);
-
-        if (currentTimeNewYork >= nextMarketClosedTime)
-        {
-            nextMarketClosedTime = nextMarketClosedTime.AddDays(1);
-        }
-
-        nextMarketClosedTime = nextMarketClosedTime.DayOfWeek switch
-        {
-            DayOfWeek.Saturday => nextMarketClosedTime.AddDays(2),
-            DayOfWeek.Sunday => nextMarketClosedTime.AddDays(1),
-            _ => nextMarketClosedTime
-        };
-
-        var timeToWait = nextMarketClosedTime - currentTimeNewYork;
-        var futureDateTime = currentTimeNewYork.Add(timeToWait);
-
-        logger.LogInformation("Waiting until {futureDateTimeDay} {timeZone}",
-            $"{futureDateTime:F}",
-            newYorkTimeZone.DisplayName);
-
-        await Task.Delay(timeToWait);
     }
 
     static ServiceProvider BuildServiceProvider()
@@ -89,5 +66,34 @@ class Program
 
         await returnsManager.RefreshReturns();
         await indicesManager.RefreshIndices();
+    }
+
+    // TODO test
+    static async Task WaitUntilNextMarketDataUpdate(ILogger<Program> logger)
+    {
+        var newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
+        var currentTimeNewYork = TimeZoneInfo.ConvertTime(DateTime.UtcNow, newYorkTimeZone);
+        var nextMarketClosedTime = currentTimeNewYork.Date.AddHours(21);
+
+        if (currentTimeNewYork >= nextMarketClosedTime)
+        {
+            nextMarketClosedTime = nextMarketClosedTime.AddDays(1);
+        }
+
+        nextMarketClosedTime = nextMarketClosedTime.DayOfWeek switch
+        {
+            DayOfWeek.Saturday => nextMarketClosedTime.AddDays(2),
+            DayOfWeek.Sunday => nextMarketClosedTime.AddDays(1),
+            _ => nextMarketClosedTime
+        };
+
+        var timeToWait = nextMarketClosedTime - currentTimeNewYork;
+        var futureDateTime = currentTimeNewYork.Add(timeToWait);
+
+        logger.LogInformation("Waiting until {futureDateTimeDay} {timeZone}",
+            $"{futureDateTime:F}",
+            newYorkTimeZone.DisplayName);
+
+        await Task.Delay(timeToWait);
     }
 }
