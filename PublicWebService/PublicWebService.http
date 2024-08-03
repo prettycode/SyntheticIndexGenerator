@@ -1,0 +1,6 @@
+@PublicWebService_HostAddress = http://localhost:5229
+
+GET {{PublicWebService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

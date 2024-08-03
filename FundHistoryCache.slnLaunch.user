@@ -1,0 +1,22 @@
+[
+    {
+        "Name": "New Profile",
+        "Projects": [
+            {
+                "Path": "InternalDataService\\InternalDataService.csproj",
+                "Action": "Start",
+                "DebugTarget": "https"
+            },
+            {
+                "Path": "PublicWebService\\PublicWebService.csproj",
+                "Action": "Start",
+                "DebugTarget": "https"
+            },
+            {
+                "Path": "Job\\Job.csproj",
+                "Action": "Start",
+                "DebugTarget": "Job"
+            }
+        ]
+    }
+]
