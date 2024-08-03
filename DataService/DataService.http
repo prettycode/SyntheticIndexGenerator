@@ -9,10 +9,18 @@ GET {{DataService_HostAddress}}/performance/GetPortfolioPerformanceTest
 Accept: application/json
 ###
 
+GET {{DataService_HostAddress}}/performance/GetPortfolioPerformanceDecomposedTest
+Accept: application/json
+###
+
 GET {{DataService_HostAddress}}/performance/GetTickerPerformance
 Accept: application/json
 ###
 
 GET {{DataService_HostAddress}}/performance/GetPortfolioPerformance
+Accept: application/json
+###
+
+GET {{DataService_HostAddress}}/performance/GetPortfolioPerformanceDecomposed
 Accept: application/json
 ###
