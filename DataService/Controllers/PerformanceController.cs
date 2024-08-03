@@ -21,19 +21,19 @@ namespace DataService.Controllers
         [HttpGet(Name = "GetTickerPerformanceTest")]
         public async Task<IEnumerable<PerformanceTick>> GetTickerPerformanceTest()
         {
-            return await GetTickerPerformance("AVUV");
+            return await GetTickerPerformance("$^USSCV", granularity: ReturnPeriod.Yearly);
         }
 
         [HttpGet(Name = "GetPortfolioPerformanceTest")]
         public async Task<IEnumerable<IEnumerable<PerformanceTick>>> GetPortfolioPerformanceTest()
         {
-            var portfolio = new List<(string ticker, decimal allocation)>()
+            var portfolio = new List<Allocation>()
             {
-                ("VOO", 50),
-                ("AVUV", 50)
+                new() { Ticker = "$^USLCB", Percentage = 50 },
+                new() { Ticker = "$^USSCV", Percentage = 50 }
             };
 
-            return await GetPortfolioPerformance(portfolio, 100, ReturnPeriod.Daily, new DateTime(2023, 1, 1));
+            return await GetPortfolioPerformance(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1));
         }
 
         [HttpGet(Name = "GetTickerPerformance")]
@@ -53,10 +53,10 @@ namespace DataService.Controllers
             return tickerPerformance.ToArray();
         }
 
-        // TODO test
         [HttpGet(Name = "GetPortfolioPerformance")]
+        // TODO test
         public async Task<IEnumerable<IEnumerable<PerformanceTick>>> GetPortfolioPerformance(
-            IEnumerable<(string ticker, decimal allocationPercentage)> allocations,
+            IEnumerable<Allocation> allocations,
             decimal startingBalance = 100,
             ReturnPeriod granularity = ReturnPeriod.Daily,
             DateTime start = default,
@@ -65,7 +65,7 @@ namespace DataService.Controllers
         {
             ArgumentNullException.ThrowIfNull(allocations, nameof(allocations));
 
-            if (allocations.Sum(allocation => allocation.allocationPercentage) != 100)
+            if (allocations.Sum(allocation => allocation.Percentage) != 100)
             {
                 throw new ArgumentException("Must add up to 100%.", nameof(allocations));
             }
@@ -75,12 +75,12 @@ namespace DataService.Controllers
                 end = DateTime.MaxValue;
             }
 
-            var returns = await Task.WhenAll(allocations.Select(allocation => returnCache.Get(allocation.ticker, granularity)));
+            var returns = await Task.WhenAll(allocations.Select(allocation => returnCache.Get(allocation.Ticker, granularity)));
             var latestStart = returns.Select(history => history[0].PeriodStart).Append(start).Max();
             var earliestEnd = returns.Select(history => history[^1].PeriodStart).Append(end.Value).Min();
 
             return allocations
-                .Select((allocation, i) => GetPerformance(returns[i], startingBalance * allocation.allocationPercentage / 100, granularity, latestStart, earliestEnd))
+                .Select((allocation, i) => GetPerformance(returns[i], startingBalance * allocation.Percentage / 100, granularity, latestStart, earliestEnd))
                 .ToArray();
         }
 
