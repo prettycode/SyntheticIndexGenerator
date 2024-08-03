@@ -1,4 +1,5 @@
 ﻿using Data.Controllers;
+using Data.Extensions;
 using Data.Models;
 using Data.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -79,13 +80,7 @@ class Program
 
         return new ServiceCollection()
             .AddLogging(builder => builder.AddConfiguration(configuration.GetSection("Logging")).AddConsole())
-            .Configure<QuoteRepositorySettings>(configuration.GetSection("QuoteRepositorySettings"))
-            .Configure<ReturnRepositorySettings>(configuration.GetSection("ReturnRepositorySettings"))
-            .AddTransient<IQuoteRepository, QuoteRepository>()
-            .AddTransient<IReturnRepository, ReturnRepository>()
-            .AddTransient<QuotesManager>()
-            .AddTransient<ReturnsManager>()
-            .AddTransient<IndicesManager>()
+            .AddDataLibraryConfiguration(configuration)
             .BuildServiceProvider();
     }
 
