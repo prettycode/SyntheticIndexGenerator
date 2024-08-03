@@ -103,6 +103,7 @@ namespace Data.Repositories
             return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
         }
 
+        // TODO test
         public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticMonthlyReturns()
         {
             var columnIndexToCategory = new Dictionary<int, string>
@@ -154,6 +155,7 @@ namespace Data.Repositories
             return returns;
         }
 
+        // TODO test
         public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticYearlyReturns()
         {
             static List<PeriodReturn> calcYearlyFromMonthly(string ticker, List<PeriodReturn> monthlyReturns)

@@ -40,6 +40,8 @@ class Program
         }
 
     }
+
+    // TODO test
     static async Task WaitUntilNextMarketDataUpdate(ILogger<Program> logger)
     {
         var newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
@@ -141,6 +143,7 @@ class Program
         return tickerPerformance.ToArray();
     }
 
+    // TODO test
     static IEnumerable<PerformanceTick> GetPerformance(
         IEnumerable<PeriodReturn> tickerReturns,
         decimal startingBalance = 100,
@@ -173,6 +176,7 @@ class Program
         return performanceTicks;
     }
 
+    // TODO test
     static async Task<IEnumerable<IEnumerable<PerformanceTick>>> GetPortfolioPerformance(
         IReturnRepository returnCache,
         IEnumerable<(string ticker, decimal allocationPercentage)> allocations,
@@ -200,7 +204,7 @@ class Program
         var earliestEnd = returns.Select(history => history[^1].PeriodStart).Append(end.Value).Min();
 
         if (!rebalance)
-        { 
+        {
             return allocations
                 .Select((allocation, i) => GetPerformance(returns[i], startingBalance * allocation.allocationPercentage / 100, granularity, latestStart, earliestEnd))
                 .ToArray();

@@ -104,6 +104,7 @@ namespace Data.Controllers
             return allHistory;
         }
 
+        // TODO test
         private async Task<(bool, Quote?)> GetNewHistory(Quote fundHistory)
         {
             var ticker = fundHistory.Ticker;
@@ -157,6 +158,7 @@ namespace Data.Controllers
             return (false, freshHistory);
         }
 
+        // TODO test
         private static async Task<Quote?> GetQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
         {
             static async Task<T> Throttle<T>(Func<Task<T>> operation)

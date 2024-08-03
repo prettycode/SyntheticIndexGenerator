@@ -53,6 +53,7 @@ namespace Data.Controllers
             return GetReturns(dailyPrices, ticker, ReturnPeriod.Daily);
         }
 
+        // TODO test
         private static List<PeriodReturn> GetMonthlyReturns(string ticker, List<QuotePrice> dailyPrices)
         {
             var monthlyCloses = dailyPrices
@@ -74,6 +75,7 @@ namespace Data.Controllers
                 .ToList();
         }
 
+        // TODO test
         private static List<PeriodReturn> GetYearlyReturns(string ticker, List<QuotePrice> dailyPrices)
         {
             var yearlyCloses = dailyPrices
@@ -95,6 +97,7 @@ namespace Data.Controllers
                 .ToList();
         }
 
+        // TODO test
         private static List<PeriodReturn> GetReturns(List<QuotePrice> prices, string ticker, ReturnPeriod returnPeriod, bool skipFirst = true)
         {
             static decimal calculateChange(decimal x, decimal y) => (y - x) / x * 100m;

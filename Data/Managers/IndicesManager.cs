@@ -70,6 +70,7 @@ namespace Data.Controllers
             return Task.WhenAll(tasks);
         }
 
+        // TODO test
         private async Task<List<PeriodReturn>> CollateReturnsA(List<string> backfillTickers, ReturnPeriod period)
         {
             var availableBackfillTickers = backfillTickers.Where(ticker => ReturnCache.Has(ticker, period));
@@ -86,6 +87,7 @@ namespace Data.Controllers
             return collatedReturns.ToList();
         }
 
+        // TODO test
         private async Task<List<PeriodReturn>> CollateReturnsB(List<string> backfillTickers, ReturnPeriod period)
         {
             var collatedReturns = new List<PeriodReturn>();
