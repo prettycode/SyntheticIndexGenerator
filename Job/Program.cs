@@ -179,7 +179,8 @@ class Program
         decimal startingBalance = 100,
         ReturnPeriod granularity = ReturnPeriod.Daily,
         DateTime start = default,
-        DateTime? end = null)
+        DateTime? end = null,
+        bool rebalance = false)
     {
         ArgumentNullException.ThrowIfNull(returnCache, nameof(returnCache));
         ArgumentNullException.ThrowIfNull(allocations, nameof(allocations));
@@ -197,9 +198,32 @@ class Program
         var returns = await Task.WhenAll(allocations.Select(allocation => returnCache.Get(allocation.ticker, granularity)));
         var latestStart = returns.Select(history => history[0].PeriodStart).Append(start).Max();
         var earliestEnd = returns.Select(history => history[^1].PeriodStart).Append(end.Value).Min();
-        var performances = allocations.Select((allocation, i) =>
-            GetPerformance(returns[i], startingBalance * allocation.allocationPercentage / 100, granularity, latestStart, earliestEnd));
 
-        return performances.ToArray();
+        if (!rebalance)
+        { 
+            return allocations
+                .Select((allocation, i) => GetPerformance(returns[i], startingBalance * allocation.allocationPercentage / 100, granularity, latestStart, earliestEnd))
+                .ToArray();
+        }
+
+        throw new NotImplementedException();
+
+        /*
+        var rangedReturns = returns.Select(r => r.Where(r => r.PeriodStart >= latestStart && r.PeriodStart <= earliestEnd));
+        var performance = allocations.Select(_ => new List<PerformanceTick>()).ToArray();
+
+        if (!rangedReturns.AllSameLength())
+        {
+            throw new InvalidOperationException();
+        }
+
+        for (var i = 0; i < rangedReturns.First().Count(); i++)
+        {
+            while(true)
+            {
+
+            }
+        }
+        */
     }
 }
