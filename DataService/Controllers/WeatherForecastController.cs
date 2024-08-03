@@ -20,19 +20,20 @@ namespace DataService.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly IReturnRepository returnCache;
         private readonly ILogger<WeatherForecastController> logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IReturnRepository returnCache, ILogger<WeatherForecastController> logger)
         {
+            this.returnCache = returnCache;
             this.logger = logger;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public async Task<IEnumerable<IEnumerable<PerformanceTick>>> Get([FromServices] IServiceProvider provider)
         {
-            var returnCache = provider.GetRequiredService<IReturnRepository>();
             var ticker = "AVUV";
-            var result = await GetTickerPerformance(returnCache, ticker);
+            var result = await GetTickerPerformance(ticker);
             result.ToList().ForEach(tick => Console.WriteLine($"{ticker}: {tick.Period.PeriodStart:yyyy-MM-dd} {tick.EndingBalance:C} ({tick.BalanceIncrease:N2}%)"));
 
             var portfolio = new List<(string ticker, decimal allocation)>()
@@ -46,8 +47,7 @@ namespace DataService.Controllers
             return performance.ToList();
         }
 
-        private static async Task<IEnumerable<PerformanceTick>> GetTickerPerformance(
-            IReturnRepository returnCache,
+        private async Task<IEnumerable<PerformanceTick>> GetTickerPerformance(
             string ticker,
             decimal startingBalance = 100,
             ReturnPeriod granularity = ReturnPeriod.Daily,
