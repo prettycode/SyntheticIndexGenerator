@@ -27,7 +27,7 @@ class Program
 
         while (true)
         {
-            await WaitUntilNextUtcMidnight(logger);
+            await WaitUntilNextMarketDataUpdate(logger);
 
             try
             {
@@ -40,13 +40,30 @@ class Program
         }
 
     }
-    static async Task WaitUntilNextUtcMidnight(ILogger<Program> logger)
+    static async Task WaitUntilNextMarketDataUpdate(ILogger<Program> logger)
     {
-        var now = DateTime.UtcNow;
-        var nextMidnight = now.Date.AddDays(1);
-        var timeToWait = nextMidnight - now;
+        var newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
+        var currentTimeNewYork = TimeZoneInfo.ConvertTime(DateTime.UtcNow, newYorkTimeZone);
+        var nextMarketClosedTime = currentTimeNewYork.Date.AddHours(21);
 
-        logger.LogInformation("Waiting until next UTC midnight ({span} from now).", timeToWait);
+        if (currentTimeNewYork >= nextMarketClosedTime)
+        {
+            nextMarketClosedTime = nextMarketClosedTime.AddDays(1);
+        }
+
+        nextMarketClosedTime = nextMarketClosedTime.DayOfWeek switch
+        {
+            DayOfWeek.Saturday => nextMarketClosedTime.AddDays(2),
+            DayOfWeek.Sunday => nextMarketClosedTime.AddDays(1),
+            _ => nextMarketClosedTime
+        };
+
+        var timeToWait = nextMarketClosedTime - currentTimeNewYork;
+        var futureDateTime = currentTimeNewYork.Add(timeToWait);
+
+        logger.LogInformation("Waiting until {futureDateTimeDay} {timeZone}",
+            $"{futureDateTime:F}",
+            newYorkTimeZone.DisplayName);
 
         await Task.Delay(timeToWait);
     }
