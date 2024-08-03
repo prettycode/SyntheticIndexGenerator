@@ -1,4 +1,4 @@
-namespace PublicWebService
+namespace DataService
 {
     public class WeatherForecast
     {
