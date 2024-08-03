@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DataService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class PerformanceController : ControllerBase
     {
         private readonly IReturnRepository returnCache;
@@ -18,32 +18,32 @@ namespace DataService.Controllers
             this.logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public async Task<IEnumerable<IEnumerable<PerformanceTick>>> Get([FromServices] IServiceProvider provider)
+        [HttpGet(Name = "GetTickerPerformanceTest")]
+        public async Task<IEnumerable<PerformanceTick>> GetTickerPerformanceTest()
         {
-            var ticker = "AVUV";
-            var result = await GetTickerPerformance(ticker);
-            result.ToList().ForEach(tick => Console.WriteLine($"{ticker}: {tick.Period.PeriodStart:yyyy-MM-dd} {tick.EndingBalance:C} ({tick.BalanceIncrease:N2}%)"));
-
-            var portfolio = new List<(string ticker, decimal allocation)>()
-            {
-                ("$^USLCB", 50),
-                ("$^USSCB", 50)
-            };
-
-            var performance = await GetPortfolioPerformance(returnCache, portfolio, 100, ReturnPeriod.Daily, new DateTime(2023, 1, 1));
-
-            return performance.ToList();
+            return await GetTickerPerformance("AVUV");
         }
 
-        private async Task<IEnumerable<PerformanceTick>> GetTickerPerformance(
+        [HttpGet(Name = "GetPortfolioPerformanceTest")]
+        public async Task<IEnumerable<IEnumerable<PerformanceTick>>> GetPortfolioPerformanceTest()
+        {
+            var portfolio = new List<(string ticker, decimal allocation)>()
+            {
+                ("VOO", 50),
+                ("AVUV", 50)
+            };
+
+            return await GetPortfolioPerformance(portfolio, 100, ReturnPeriod.Daily, new DateTime(2023, 1, 1));
+        }
+
+        [HttpGet(Name = "GetTickerPerformance")]
+        public async Task<IEnumerable<PerformanceTick>> GetTickerPerformance(
             string ticker,
             decimal startingBalance = 100,
             ReturnPeriod granularity = ReturnPeriod.Daily,
             DateTime start = default,
             DateTime? end = null)
         {
-            ArgumentNullException.ThrowIfNull(returnCache, nameof(returnCache));
             ArgumentNullException.ThrowIfNullOrEmpty(ticker, nameof(ticker));
             ArgumentOutOfRangeException.ThrowIfLessThan(startingBalance, 1, nameof(startingBalance));
 
@@ -54,7 +54,38 @@ namespace DataService.Controllers
         }
 
         // TODO test
-        private static IEnumerable<PerformanceTick> GetPerformance(
+        [HttpGet(Name = "GetPortfolioPerformance")]
+        public async Task<IEnumerable<IEnumerable<PerformanceTick>>> GetPortfolioPerformance(
+            IEnumerable<(string ticker, decimal allocationPercentage)> allocations,
+            decimal startingBalance = 100,
+            ReturnPeriod granularity = ReturnPeriod.Daily,
+            DateTime start = default,
+            DateTime? end = null,
+            bool rebalance = false)
+        {
+            ArgumentNullException.ThrowIfNull(allocations, nameof(allocations));
+
+            if (allocations.Sum(allocation => allocation.allocationPercentage) != 100)
+            {
+                throw new ArgumentException("Must add up to 100%.", nameof(allocations));
+            }
+
+            if (end == null)
+            {
+                end = DateTime.MaxValue;
+            }
+
+            var returns = await Task.WhenAll(allocations.Select(allocation => returnCache.Get(allocation.ticker, granularity)));
+            var latestStart = returns.Select(history => history[0].PeriodStart).Append(start).Max();
+            var earliestEnd = returns.Select(history => history[^1].PeriodStart).Append(end.Value).Min();
+
+            return allocations
+                .Select((allocation, i) => GetPerformance(returns[i], startingBalance * allocation.allocationPercentage / 100, granularity, latestStart, earliestEnd))
+                .ToArray();
+        }
+
+        // TODO test
+        private IEnumerable<PerformanceTick> GetPerformance(
             IEnumerable<PeriodReturn> tickerReturns,
             decimal startingBalance = 100,
             ReturnPeriod granularity = ReturnPeriod.Daily,
@@ -86,36 +117,5 @@ namespace DataService.Controllers
             return performanceTicks;
         }
 
-        // TODO test
-        private static async Task<IEnumerable<IEnumerable<PerformanceTick>>> GetPortfolioPerformance(
-            IReturnRepository returnCache,
-            IEnumerable<(string ticker, decimal allocationPercentage)> allocations,
-            decimal startingBalance = 100,
-            ReturnPeriod granularity = ReturnPeriod.Daily,
-            DateTime start = default,
-            DateTime? end = null,
-            bool rebalance = false)
-        {
-            ArgumentNullException.ThrowIfNull(returnCache, nameof(returnCache));
-            ArgumentNullException.ThrowIfNull(allocations, nameof(allocations));
-
-            if (allocations.Sum(allocation => allocation.allocationPercentage) != 100)
-            {
-                throw new ArgumentException("Must add up to 100%.", nameof(allocations));
-            }
-
-            if (end == null)
-            {
-                end = DateTime.MaxValue;
-            }
-
-            var returns = await Task.WhenAll(allocations.Select(allocation => returnCache.Get(allocation.ticker, granularity)));
-            var latestStart = returns.Select(history => history[0].PeriodStart).Append(start).Max();
-            var earliestEnd = returns.Select(history => history[^1].PeriodStart).Append(end.Value).Min();
-
-            return allocations
-                .Select((allocation, i) => GetPerformance(returns[i], startingBalance * allocation.allocationPercentage / 100, granularity, latestStart, earliestEnd))
-                .ToArray();
-        }
     }
 }

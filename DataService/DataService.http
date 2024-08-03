@@ -1,6 +1,18 @@
 @DataService_HostAddress = http://localhost:5269
+###
 
-GET {{DataService_HostAddress}}/performance/
+GET {{DataService_HostAddress}}/performance/GetTickerPerformanceTest
 Accept: application/json
+###
 
+GET {{DataService_HostAddress}}/performance/GetPortfolioPerformanceTest
+Accept: application/json
+###
+
+GET {{DataService_HostAddress}}/performance/GetTickerPerformance
+Accept: application/json
+###
+
+GET {{DataService_HostAddress}}/performance/GetPortfolioPerformance
+Accept: application/json
 ###
