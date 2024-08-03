@@ -1,29 +1,18 @@
 using Data.Models;
 using Data.Repositories;
+using DataService.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DataService.Controllers
 {
-    public readonly struct PerformanceTick
-    {
-        public PeriodReturn Period { get; init; }
-
-        public decimal StartingBalance { get; init; }
-
-        public decimal EndingBalance { get { return this.StartingBalance + this.BalanceIncrease; } }
-
-        public decimal BalanceIncrease { get { return this.StartingBalance * (this.Period.ReturnPercentage / 100m); } }
-    }
-
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class PerformanceController : ControllerBase
     {
         private readonly IReturnRepository returnCache;
-        private readonly ILogger<WeatherForecastController> logger;
+        private readonly ILogger<PerformanceController> logger;
 
-        public WeatherForecastController(IReturnRepository returnCache, ILogger<WeatherForecastController> logger)
+        public PerformanceController(IReturnRepository returnCache, ILogger<PerformanceController> logger)
         {
             this.returnCache = returnCache;
             this.logger = logger;

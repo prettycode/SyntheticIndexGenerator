@@ -1,6 +1,6 @@
 @DataService_HostAddress = http://localhost:5269
 
-GET {{DataService_HostAddress}}/weatherforecast/
+GET {{DataService_HostAddress}}/performance/
 Accept: application/json
 
 ###
