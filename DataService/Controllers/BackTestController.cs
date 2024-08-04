@@ -140,7 +140,7 @@ namespace DataService.Controllers
             {
                 return dateFilteredReturnsByTicker.ToDictionary(
                     pair => pair.Key,
-                    pair => GetPeriodReturnsBackTest(pair.Value, startingBalance));
+                    pair => GetPeriodReturnsBackTest(pair.Value, startingBalance * (dedupedPortfolioConstituents[pair.Key] / 100)));
             }
 
             // Get the rebalanced results
@@ -155,7 +155,9 @@ namespace DataService.Controllers
                     var ticker = pair.Key;
                     var returns = pair.Value;
                     var dateFilteredReturns = returns.Where(r => r.PeriodStart < rebalanceDate && r.PeriodStart >= previousRebalanceDate).ToArray();
-                    var latestBalance = backtest[ticker].Count == 0 ? startingBalance : backtest[ticker][^1].EndingBalance;
+                    var latestBalance = backtest[ticker].Count == 0
+                        ? startingBalance * (dedupedPortfolioConstituents[ticker] / 100)
+                        : backtest[ticker][^1].EndingBalance;
 
                     backtest[ticker].AddRange(GetPeriodReturnsBackTest(dateFilteredReturns, latestBalance));
                 }
