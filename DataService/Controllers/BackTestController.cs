@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DataService.Controllers
 {
+    [ApiController]
     [Route("[controller]/[action]")]
     public class BackTestController(IReturnRepository returnCache, ILogger<BackTestController> logger) : ControllerBase
     {

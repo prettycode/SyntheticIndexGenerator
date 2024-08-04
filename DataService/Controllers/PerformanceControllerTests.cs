@@ -7,23 +7,8 @@ using Data.Repositories;
 
 namespace DataService.Controllers
 {
-    public class PerformanceControllerTests
+    public class PerformanceControllerTests : ControllerTestBase
     {
-
-        private static ServiceProvider BuildServiceProvider()
-        {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.Test.json", optional: false)
-                .Build();
-
-            return new ServiceCollection()
-                .AddLogging(builder => builder.AddConfiguration(configuration.GetSection("Logging")).AddConsole())
-                .AddDataLibraryConfiguration(configuration)
-                .AddTransient<PerformanceController>()
-                .BuildServiceProvider();
-        }
-
         [Fact]
         public async Task GetPortfolioPerformance1()
         {
@@ -39,7 +24,7 @@ namespace DataService.Controllers
                 new() { Ticker = "#2X_PER_PERIOD_2023", Percentage = 100 }
             };
 
-            var controller = BuildServiceProvider().GetService<PerformanceController>()!;
+            var controller = base.GetController<PerformanceController>();
 
             var actualOutput1 = await controller.GetPortfolioPerformance(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
             var actualOutput2 = await controller.GetPortfolioPerformance(portfolio2, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
@@ -134,7 +119,7 @@ namespace DataService.Controllers
                 new() { Ticker = "#3X_PER_PERIOD_2023", Percentage = 50 },
             };
 
-            var controller = BuildServiceProvider().GetService<PerformanceController>()!;
+            var controller = base.GetController<PerformanceController>();
 
             var actualOutput1 = await controller.GetPortfolioPerformance(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
 
