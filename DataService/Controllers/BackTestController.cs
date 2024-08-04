@@ -157,18 +157,16 @@ namespace DataService.Controllers
                     var returns = pair.Value;
                     var dateFilteredReturns = returns.Where(r => r.PeriodStart < rebalanceDate && r.PeriodStart >= previousRebalanceDate).ToArray();
                     var isFirstRebalance = backtest[ticker].Count == 0;
-
-                    if (!isFirstRebalance)
-                    {
-                        rebalancedBalances[ticker] = backtest[ticker][^1].EndingBalance;
-                    }
-
                     var latestBalance = rebalancedBalances[ticker];
 
                     backtest[ticker].AddRange(GetPeriodReturnsBackTest(dateFilteredReturns, latestBalance));
                 }
 
                 previousRebalanceDate = rebalanceDate;
+
+                var totalBalance = backtest.Sum(pair => pair.Value.Last().EndingBalance);
+
+                rebalancedBalances = dedupedPortfolioConstituents.ToDictionary(pair => pair.Key, pair => totalBalance * (dedupedPortfolioConstituents[pair.Key] / 100));
             }
 
             return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
