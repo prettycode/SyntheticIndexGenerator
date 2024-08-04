@@ -15,10 +15,6 @@
     <PackageReference Include="YahooQuotesApi" Version="5.5.8" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="data\" />
-  </ItemGroup>
-
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <Compile Remove="**\*.Test.cs" />
   </ItemGroup>
