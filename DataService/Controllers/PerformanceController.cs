@@ -102,7 +102,7 @@ namespace DataService.Controllers
             return strategy switch
             {
                 RebalanceStrategy.None => false,
-                RebalanceStrategy.Yearly => currentDate >= lastRebalanceDate.AddYears(1),
+                RebalanceStrategy.Annually => currentDate >= lastRebalanceDate.AddYears(1),
                 RebalanceStrategy.Quarterly => currentDate >= lastRebalanceDate.AddMonths(3),
                 RebalanceStrategy.Monthly => currentDate >= lastRebalanceDate.AddMonths(1),
                 RebalanceStrategy.Daily => currentDate != lastRebalanceDate,

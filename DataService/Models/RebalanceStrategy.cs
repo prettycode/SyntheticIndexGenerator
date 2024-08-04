@@ -3,7 +3,8 @@
     public enum RebalanceStrategy
     {
         None,
-        Yearly,
+        Annually,
+        SemiAnnually,
         Quarterly,
         Monthly,
         Daily,

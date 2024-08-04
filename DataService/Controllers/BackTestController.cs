@@ -12,8 +12,8 @@ namespace DataService.Controllers
         private readonly IReturnRepository returnCache = returnCache;
         private readonly ILogger<BackTestController> logger = logger;
 
-        [HttpGet(Name = "GetPortfolioBackTestTest1")]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestTest1()
+        [HttpGet(Name = "GetPortfolioBackTest_NoRebalance1")]
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance1()
         {
             var portfolio = new List<Allocation>()
             {
@@ -24,8 +24,8 @@ namespace DataService.Controllers
             return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
         }
 
-        [HttpGet(Name = "GetPortfolioBackTestTest2")]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestTest2()
+        [HttpGet(Name = "GetPortfolioBackTest_NoRebalance2")]
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance2()
         {
             var portfolio = new List<Allocation>()
             {
@@ -35,8 +35,8 @@ namespace DataService.Controllers
             return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
         }
 
-        [HttpGet(Name = "GetPortfolioBackTestTest3")]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestTest3()
+        [HttpGet(Name = "GetPortfolioBackTest_NoRebalance3")]
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance3()
         {
             var portfolio = new List<Allocation>()
             {
@@ -45,6 +45,18 @@ namespace DataService.Controllers
             };
 
             return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
+        }
+
+        [HttpGet(Name = "GetPortfolioBackTest_Rebalance_Monthly1")]
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_Rebalance_Monthly1()
+        {
+            var portfolio = new List<Allocation>()
+            {
+                new() { Ticker = "#1X_PER_PERIOD_2023", Percentage = 50 },
+                new() { Ticker = "#3X_PER_PERIOD_2023", Percentage = 50 },
+            };
+
+            return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly);
         }
 
         [HttpGet(Name = "GetPortfolioBackTest")]
@@ -119,39 +131,40 @@ namespace DataService.Controllers
 
             // Get dates that require rebalancing and return if results if there's no rebalancing
 
-            var rebalanceDates = GetRebalanceDates(firstConstituentReturns.Select(r => r.PeriodStart), rebalanceStrategy, rebalanceBandThreshold);
+            var rebalanceDates = GetRebalanceDates(
+                firstConstituentReturns.Select(r => r.PeriodStart),
+                rebalanceStrategy,
+                rebalanceBandThreshold);
 
             if (rebalanceDates.Length == 0)
             {
-                var backtest = new Dictionary<string, NominalPeriodReturn[]>();
+                return dateFilteredReturnsByTicker.ToDictionary(
+                    pair => pair.Key,
+                    pair => GetPeriodReturnsBackTest(pair.Value, startingBalance));
+            }
 
-                foreach(var pair in dateFilteredReturnsByTicker)
+            // Get the rebalanced results
+
+            var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair => new List<NominalPeriodReturn>());
+            var previousRebalanceDate = latestStart;
+
+            foreach (var rebalanceDate in rebalanceDates)
+            {
+                foreach (var pair in dateFilteredReturnsByTicker)
                 {
                     var ticker = pair.Key;
                     var returns = pair.Value;
+                    var dateFilteredReturns = returns.Where(r => r.PeriodStart < rebalanceDate && r.PeriodStart >= previousRebalanceDate).ToArray();
+                    var latestBalance = backtest[ticker].Count == 0 ? startingBalance : backtest[ticker][^1].EndingBalance;
 
-                    backtest[ticker] = GetPeriodReturnsBackTest(returns, startingBalance);
+                    backtest[ticker].AddRange(GetPeriodReturnsBackTest(dateFilteredReturns, latestBalance));
                 }
 
-                return backtest;
+                previousRebalanceDate = rebalanceDate;
             }
 
-            throw new NotImplementedException();
+            return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
         }
-
-        static bool IsRebalanceRequired(DateTime currentDate, DateTime lastRebalanceDate, RebalanceStrategy strategy, decimal? bandThreshold)
-            => strategy switch
-            {
-                RebalanceStrategy.None => false,
-                RebalanceStrategy.Yearly => currentDate >= lastRebalanceDate.AddYears(1),
-                RebalanceStrategy.Quarterly => currentDate >= lastRebalanceDate.AddMonths(3),
-                RebalanceStrategy.Monthly => currentDate >= lastRebalanceDate.AddMonths(1),
-                RebalanceStrategy.Daily => currentDate != lastRebalanceDate,
-                RebalanceStrategy.BandsRelative => throw new NotImplementedException(),
-                RebalanceStrategy.BandsAbsolute => throw new NotImplementedException(),
-                _ => throw new ArgumentOutOfRangeException(nameof(strategy))
-            };
-
 
         static DateTime[] GetRebalanceDates(IEnumerable<DateTime> returnPeriodDates, RebalanceStrategy strategy, decimal? bandThreshold)
         {
@@ -169,7 +182,8 @@ namespace DataService.Controllers
                 var isRebalanceNeeded = strategy switch
                 {
                     RebalanceStrategy.None => false,
-                    RebalanceStrategy.Yearly => currentDate >= lastRebalanceDate.AddYears(1),
+                    RebalanceStrategy.Annually => currentDate >= lastRebalanceDate.AddYears(1),
+                    RebalanceStrategy.SemiAnnually => currentDate >= lastRebalanceDate.AddMonths(6),
                     RebalanceStrategy.Quarterly => currentDate >= lastRebalanceDate.AddMonths(3),
                     RebalanceStrategy.Monthly => currentDate >= lastRebalanceDate.AddMonths(1),
                     RebalanceStrategy.Daily => currentDate != lastRebalanceDate,
