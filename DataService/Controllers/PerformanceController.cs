@@ -91,16 +91,35 @@ namespace DataService.Controllers
             return performances;
         }
 
-        [HttpGet(Name = "GetPortfolioPerformance")]
+        static bool IsRebalanceRequired(
+            DateTime currentDate,
+            DateTime lastRebalanceDate,
+            RebalanceStrategy strategy,
+            IEnumerable<Allocation> targetAllocations,
+            IEnumerable<Allocation> currentAllocations,
+            decimal? bandThreshold)
+        {
+            return strategy switch
+            {
+                RebalanceStrategy.None => false,
+                RebalanceStrategy.Yearly => currentDate >= lastRebalanceDate.AddYears(1),
+                RebalanceStrategy.Quarterly => currentDate >= lastRebalanceDate.AddMonths(3),
+                RebalanceStrategy.Monthly => currentDate >= lastRebalanceDate.AddMonths(1),
+                RebalanceStrategy.Daily => currentDate != lastRebalanceDate,
+                RebalanceStrategy.BandsRelative => throw new NotImplementedException(),
+                RebalanceStrategy.BandsAbsolute => throw new NotImplementedException(),
+                _ => throw new ArgumentOutOfRangeException(nameof(strategy))
+            };
+        }
+
+        [HttpGet(Name = "GetPortfolioPerformanceWithoutRebalance")]
         // TODO test
-        public async Task<IEnumerable<PerformanceTick>> GetPortfolioPerformance(
+        public async Task<IEnumerable<PerformanceTick>> GetPortfolioPerformanceWithoutRebalance(
             IEnumerable<Allocation> allocations,
             decimal startingBalance = 100,
             ReturnPeriod granularity = ReturnPeriod.Daily,
             DateTime start = default,
-            DateTime? end = null,
-            RebalanceStrategy rebalanceStrategy = RebalanceStrategy.None,
-            decimal? rebalanceBandThreshold = null)
+            DateTime? end = null)
         {
             var decomposed = await GetPortfolioPerformanceDecomposed(allocations, startingBalance, granularity, start, end);
             var firstDecomposed = decomposed.First();
@@ -117,6 +136,62 @@ namespace DataService.Controllers
                 ReturnPeriod = firstTick.Period.ReturnPeriod,
                 StartingBalance = decomposed.Sum(series => series.ElementAt(index).StartingBalance)
             });
+        }
+
+        [HttpGet(Name = "GetPortfolioPerformance")]
+        // TODO test
+        public async Task<IEnumerable<PerformanceTick>> GetPortfolioPerformance(
+            IEnumerable<Allocation> allocations,
+            decimal startingBalance = 100,
+            ReturnPeriod granularity = ReturnPeriod.Daily,
+            DateTime start = default,
+            DateTime? end = null,
+            RebalanceStrategy rebalanceStrategy = RebalanceStrategy.None,
+            decimal? rebalanceBandThreshold = null)
+        {
+            ArgumentNullException.ThrowIfNull(allocations, nameof(allocations));
+
+            if (rebalanceBandThreshold != null && rebalanceStrategy != 0 && !(rebalanceStrategy == RebalanceStrategy.BandsAbsolute || rebalanceStrategy == RebalanceStrategy.BandsRelative))
+            {
+                throw new ArgumentOutOfRangeException(nameof(rebalanceBandThreshold), $"Should be `null` or `0` when `{rebalanceStrategy}` is not `${nameof(RebalanceStrategy.None)}.{nameof(RebalanceStrategy.None)}`");
+            }
+
+            var allConstituentPerformances = await GetPortfolioPerformanceDecomposed(allocations, startingBalance, granularity, start, end);
+            var firstConstituentPerformance = allConstituentPerformances.First();
+
+            if (allConstituentPerformances.Skip(1).Any(d => d.Count() != firstConstituentPerformance.Count()))
+            {
+                throw new InvalidOperationException("All decomposed series should (must) have the same length.");
+            }
+
+            var portfolioPerformance = new List<PerformanceTick>();
+            int periodCount = firstConstituentPerformance.Count();
+            DateTime lastRebalancePeriodStartDate = firstConstituentPerformance.ElementAt(0).Period.PeriodStart;
+
+            for (int currentPeriod = 0; currentPeriod < periodCount; currentPeriod++)
+            {
+                var firstConstituentCurrentPeriodPerformanceTick = firstConstituentPerformance.ElementAt(currentPeriod);
+                var currentPeriodStartDate = firstConstituentCurrentPeriodPerformanceTick.Period.PeriodStart;
+
+                if (!IsRebalanceRequired(currentPeriodStartDate, lastRebalancePeriodStartDate, rebalanceStrategy, allocations, allocations, rebalanceBandThreshold))
+                {
+                    portfolioPerformance.Add(new PerformanceTick
+                    {
+                        BalanceIncrease = allConstituentPerformances.Sum(series => series.ElementAt(currentPeriod).BalanceIncrease),
+                        PeriodStart = currentPeriodStartDate,
+                        ReturnPeriod = firstConstituentCurrentPeriodPerformanceTick.Period.ReturnPeriod,
+                        StartingBalance = allConstituentPerformances.Sum(series => series.ElementAt(currentPeriod).StartingBalance)
+                    });
+
+                    continue;
+                }
+
+                lastRebalancePeriodStartDate = currentPeriodStartDate;
+
+                throw new NotImplementedException();
+            }
+
+            return portfolioPerformance;
         }
 
         // TODO test

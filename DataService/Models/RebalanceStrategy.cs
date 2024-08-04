@@ -6,7 +6,6 @@
         Yearly,
         Quarterly,
         Monthly,
-        Weekly,
         Daily,
         BandsRelative,
         BandsAbsolute
