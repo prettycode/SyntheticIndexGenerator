@@ -147,6 +147,7 @@ namespace DataService.Controllers
 
             var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair => new List<NominalPeriodReturn>());
             var previousRebalanceDate = latestStart;
+            var rebalancedBalances = dedupedPortfolioConstituents.ToDictionary(pair => pair.Key, pair => startingBalance * (dedupedPortfolioConstituents[pair.Key] / 100));
 
             foreach (var rebalanceDate in rebalanceDates)
             {
@@ -155,9 +156,14 @@ namespace DataService.Controllers
                     var ticker = pair.Key;
                     var returns = pair.Value;
                     var dateFilteredReturns = returns.Where(r => r.PeriodStart < rebalanceDate && r.PeriodStart >= previousRebalanceDate).ToArray();
-                    var latestBalance = backtest[ticker].Count == 0
-                        ? startingBalance * (dedupedPortfolioConstituents[ticker] / 100)
-                        : backtest[ticker][^1].EndingBalance;
+                    var isFirstRebalance = backtest[ticker].Count == 0;
+
+                    if (!isFirstRebalance)
+                    {
+                        rebalancedBalances[ticker] = backtest[ticker][^1].EndingBalance;
+                    }
+
+                    var latestBalance = rebalancedBalances[ticker];
 
                     backtest[ticker].AddRange(GetPeriodReturnsBackTest(dateFilteredReturns, latestBalance));
                 }
