@@ -72,8 +72,7 @@ namespace DataService.Controllers
             decimal startingBalance = 100,
             ReturnPeriod granularity = ReturnPeriod.Daily,
             DateTime start = default,
-            DateTime? end = null,
-            bool rebalance = false)
+            DateTime? end = null)
         {
             ArgumentNullException.ThrowIfNull(allocations, nameof(allocations));
 
@@ -100,9 +99,10 @@ namespace DataService.Controllers
             ReturnPeriod granularity = ReturnPeriod.Daily,
             DateTime start = default,
             DateTime? end = null,
-            bool rebalance = false)
+            RebalanceStrategy rebalanceStrategy = RebalanceStrategy.None,
+            decimal? rebalanceBandThreshold = null)
         {
-            var decomposed = await GetPortfolioPerformanceDecomposed(allocations, startingBalance, granularity, start, end, rebalance);
+            var decomposed = await GetPortfolioPerformanceDecomposed(allocations, startingBalance, granularity, start, end);
             var firstDecomposed = decomposed.First();
 
             if (decomposed.Skip(1).Any(d => d.Count() != firstDecomposed.Count()))
@@ -130,10 +130,7 @@ namespace DataService.Controllers
             ArgumentNullException.ThrowIfNull(tickerReturns, nameof(tickerReturns));
             ArgumentOutOfRangeException.ThrowIfLessThan(startingBalance, 1, nameof(startingBalance));
 
-            if (end == null)
-            {
-                end = DateTime.MaxValue;
-            }
+            end ??= DateTime.MaxValue;
 
             var performanceTicks = new List<PeriodDerivedPerformanceTick>();
             var dateRangedTickerReturns = tickerReturns.Where(tick => tick.PeriodStart >= start && tick.PeriodStart <= end);
