@@ -55,17 +55,17 @@ namespace Data.Repositories
             return Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
         }
 
-        public Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period, DateTime start)
+        public Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period, DateTime startDate)
         {
-            return Get(ticker, period, start, DateTime.MaxValue);
+            return Get(ticker, period, startDate, DateTime.MaxValue);
         }
 
-        public async Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period, DateTime start, DateTime end)
+        public async Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period, DateTime startDate, DateTime endDate)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(period);
-            ArgumentNullException.ThrowIfNull(start);
-            ArgumentNullException.ThrowIfNull(end);
+            ArgumentNullException.ThrowIfNull(startDate);
+            ArgumentNullException.ThrowIfNull(endDate);
 
             if (!Has(ticker, period, out string csvFilePath))
             {
@@ -74,7 +74,7 @@ namespace Data.Repositories
 
             var csvLines = await File.ReadAllLinesAsync(csvFilePath);
             var allReturns = csvLines.Select(line => PeriodReturn.ParseCsvLine(line));
-            var dateFilteredReturns = allReturns.Where(pair => pair.PeriodStart >= start && pair.PeriodStart <= end);
+            var dateFilteredReturns = allReturns.Where(pair => pair.PeriodStart >= startDate && pair.PeriodStart <= endDate);
 
             return dateFilteredReturns.ToList();
         }

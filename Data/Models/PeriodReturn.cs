@@ -9,7 +9,7 @@
         /// </summary>
         public decimal ReturnPercentage { get; init; }
 
-        public string? SourceTicker { get; init; }
+        public string SourceTicker { get; init; }
 
         public ReturnPeriod ReturnPeriod { get; init; }
 
