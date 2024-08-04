@@ -12,8 +12,19 @@ namespace DataService.Controllers
         private readonly IReturnRepository returnCache = returnCache;
         private readonly ILogger<BackTestController> logger = logger;
 
-        [HttpGet(Name = "GetPortfolioBackTest_NoRebalance1")]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance1()
+        [HttpGet]
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance1_SingleConstituent1()
+        {
+            var portfolio = new List<Allocation>()
+            {
+                new() { Ticker = "#2X_PER_PERIOD_2023", Percentage = 100 }
+            };
+
+            return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
+        }
+
+        [HttpGet]
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance1_DuplicateConstituent2()
         {
             var portfolio = new List<Allocation>()
             {
@@ -24,19 +35,8 @@ namespace DataService.Controllers
             return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
         }
 
-        [HttpGet(Name = "GetPortfolioBackTest_NoRebalance2")]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance2()
-        {
-            var portfolio = new List<Allocation>()
-            {
-                new() { Ticker = "#2X_PER_PERIOD_2023", Percentage = 100 }
-            };
-
-            return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
-        }
-
-        [HttpGet(Name = "GetPortfolioBackTest_NoRebalance3")]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance3()
+        [HttpGet]
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents1()
         {
             var portfolio = new List<Allocation>()
             {
@@ -47,7 +47,7 @@ namespace DataService.Controllers
             return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
         }
 
-        [HttpGet(Name = "GetPortfolioBackTest_Rebalance_Monthly1")]
+        [HttpGet]
         public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_Rebalance_Monthly1()
         {
             var portfolio = new List<Allocation>()
@@ -59,7 +59,7 @@ namespace DataService.Controllers
             return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly);
         }
 
-        [HttpGet(Name = "GetPortfolioBackTest")]
+        [HttpGet]
         public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest(
             IEnumerable<Allocation> portfolioConstituents,
             decimal startingBalance = 100,
@@ -207,17 +207,6 @@ namespace DataService.Controllers
             }
 
             return rebalanceDates.ToArray();
-        }
-
-        private async Task<NominalPeriodReturn[]> GetTickerBackTest(
-            string ticker,
-            decimal startingBalance,
-            ReturnPeriod granularity,
-            DateTime startDate,
-            DateTime endDate)
-        {
-            var tickerReturns = await returnCache.Get(ticker, granularity, startDate, endDate);
-            return GetPeriodReturnsBackTest([.. tickerReturns], startingBalance);
         }
 
         private static NominalPeriodReturn[] GetPeriodReturnsBackTest(PeriodReturn[] tickerReturns, decimal startingBalance)

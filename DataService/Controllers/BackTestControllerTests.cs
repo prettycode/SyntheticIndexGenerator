@@ -12,7 +12,7 @@ namespace DataService.Controllers
     public class BackTestControllerTests : ControllerTestBase
     {
         [Fact]
-        public async Task GetPortfolioPerformance1()
+        public async Task GetPortfolioBackTest_NoRebalance1_SingleConstituent1()
         {
 
             var portfolio1 = new List<Allocation>()
@@ -57,7 +57,7 @@ namespace DataService.Controllers
         }
 
         [Fact]
-        public async Task GetPortfolioPerformance2()
+        public async Task GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents1()
         {
             var portfolio1 = new List<Allocation>()
             {
@@ -110,7 +110,7 @@ namespace DataService.Controllers
         }
 
         [Fact]
-        public async Task GetPortfolioPerformance3()
+        public async Task GetPortfolioBackTest_Rebalance_Monthly1()
         {
             var portfolio1 = new List<Allocation>()
             {
