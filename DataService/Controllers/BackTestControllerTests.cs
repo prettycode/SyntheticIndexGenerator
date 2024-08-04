@@ -1,11 +1,6 @@
-﻿using Data.Models;
+﻿using System.Text.Json;
+using Data.Models;
 using DataService.Models;
-using Xunit;
-using Data.Extensions;
-using Data.Controllers;
-using Data.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace DataService.Controllers
 {

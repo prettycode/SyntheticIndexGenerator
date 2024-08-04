@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Data.Extensions;
+﻿using Data.Extensions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DataService.Controllers
 {

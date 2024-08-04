@@ -1,9 +1,5 @@
 ﻿using Data.Models;
 using DataService.Models;
-using Xunit;
-using Data.Extensions;
-using Data.Controllers;
-using Data.Repositories;
 
 namespace DataService.Controllers
 {

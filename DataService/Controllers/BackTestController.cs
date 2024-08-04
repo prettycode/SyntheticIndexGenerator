@@ -20,13 +20,16 @@ namespace DataService.Controllers
                 new() { Ticker = "#2X_PER_PERIOD_2023", Percentage = 100 }
             };
 
-            return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1),
+            return await GetPortfolioBackTest(
+                portfolio,
+                100,
+                ReturnPeriod.Monthly,
+                new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1));
         }
 
         [HttpGet]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>>
-            GetPortfolioBackTest_NoRebalance1_DuplicateConstituent2()
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance1_DuplicateConstituent2()
         {
             var portfolio = new List<Allocation>
             {
@@ -34,13 +37,16 @@ namespace DataService.Controllers
                 new() { Ticker = "#2X_PER_PERIOD_2023", Percentage = 50 }
             };
 
-            return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1),
+            return await GetPortfolioBackTest(
+                portfolio,
+                100,
+                ReturnPeriod.Monthly,
+                new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1));
         }
 
         [HttpGet]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>>
-            GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents1()
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents1()
         {
             var portfolio = new List<Allocation>
             {
@@ -48,7 +54,11 @@ namespace DataService.Controllers
                 new() { Ticker = "#3X_PER_PERIOD_2023", Percentage = 50 },
             };
 
-            return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1),
+            return await GetPortfolioBackTest(
+                portfolio,
+                100,
+                ReturnPeriod.Monthly,
+                new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1));
         }
 
@@ -61,8 +71,13 @@ namespace DataService.Controllers
                 new() { Ticker = "#3X_PER_PERIOD_2023", Percentage = 50 },
             };
 
-            return await GetPortfolioBackTest(portfolio, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1),
-                new DateTime(2023, 12, 1), RebalanceStrategy.Monthly);
+            return await GetPortfolioBackTest(
+                portfolio,
+                100,
+                ReturnPeriod.Monthly,
+                new DateTime(2023, 1, 1),
+                new DateTime(2023, 12, 1),
+                RebalanceStrategy.Monthly);
         }
 
         [HttpGet]
@@ -75,10 +90,16 @@ namespace DataService.Controllers
             RebalanceStrategy rebalanceStrategy = RebalanceStrategy.None,
             decimal? rebalanceBandThreshold = null)
         {
-            ValidateArguments(portfolioConstituents, startingBalance, startDate, endDate, rebalanceStrategy,
+            ValidateArguments(
+                portfolioConstituents,
+                startingBalance,
+                startDate,
+                endDate,
+                rebalanceStrategy,
                 rebalanceBandThreshold);
 
             var endDateValue = endDate ?? DateTime.MaxValue;
+
             var dedupedPortfolioConstituents = portfolioConstituents
                 .GroupBy(alloc => alloc.Ticker)
                 .ToDictionary(
@@ -87,17 +108,26 @@ namespace DataService.Controllers
                 );
 
             var constituentTickers = dedupedPortfolioConstituents.Keys.ToArray();
-            var constituentReturns = await Task.WhenAll(constituentTickers.Select(ticker =>
-                returnCache.Get(ticker, granularity, startDate, endDateValue)));
 
-            var latestStart = constituentReturns.Select(history => history.First().PeriodStart).Append(startDate).Max();
-            var earliestEnd = constituentReturns.Select(history => history.Last().PeriodStart).Append(endDateValue).Min();
+            var constituentReturns = await Task.WhenAll(
+                constituentTickers.Select(ticker => returnCache.Get(ticker, granularity, startDate, endDateValue)));
+
+            var latestStart = constituentReturns
+                .Select(history => history.First().PeriodStart)
+                .Append(startDate)
+                .Max();
+
+            var earliestEnd = constituentReturns
+                .Select(history => history.Last().PeriodStart)
+                .Append(endDateValue)
+                .Min();
 
             var dateFilteredReturnsByTicker = constituentTickers
                 .Zip(constituentReturns, (ticker, returns) => new { ticker, returns })
                 .ToDictionary(
                     x => x.ticker,
-                    x => x.returns.Where(period => period.PeriodStart >= latestStart && period.PeriodStart <= earliestEnd)
+                    x => x.returns
+                        .Where(period => period.PeriodStart >= latestStart && period.PeriodStart <= earliestEnd)
                         .ToArray()
                 );
 
@@ -108,7 +138,7 @@ namespace DataService.Controllers
                 rebalanceStrategy,
                 rebalanceBandThreshold);
 
-            if (!rebalanceDates.Any())
+            if (rebalanceDates.Length == 0)
             {
                 return dateFilteredReturnsByTicker.ToDictionary(
                     pair => pair.Key,
@@ -117,11 +147,15 @@ namespace DataService.Controllers
                 );
             }
 
-            return PerformBacktestWithRebalancing(dateFilteredReturnsByTicker, dedupedPortfolioConstituents,
-                startingBalance, rebalanceDates, latestStart);
+            return PerformBacktestWithRebalancing(
+                dateFilteredReturnsByTicker,
+                dedupedPortfolioConstituents,
+                startingBalance,
+                rebalanceDates,
+                latestStart);
         }
 
-        private void ValidateArguments(
+        private static void ValidateArguments(
             IEnumerable<Allocation> portfolioConstituents,
             decimal startingBalance,
             DateTime startDate,
@@ -153,7 +187,7 @@ namespace DataService.Controllers
             }
         }
 
-        private void ValidateFilteredReturns(IEnumerable<PeriodReturn[]> dateFilteredConstituentReturns)
+        private static void ValidateFilteredReturns(IEnumerable<PeriodReturn[]> dateFilteredConstituentReturns)
         {
             if (!dateFilteredConstituentReturns.Any())
             {
@@ -182,43 +216,51 @@ namespace DataService.Controllers
             }
         }
 
-        private Dictionary<string, NominalPeriodReturn[]> PerformBacktestWithRebalancing(
+        private static Dictionary<string, NominalPeriodReturn[]> PerformBacktestWithRebalancing(
             Dictionary<string, PeriodReturn[]> dateFilteredReturnsByTicker,
             Dictionary<string, decimal> dedupedPortfolioConstituents,
             decimal startingBalance,
             IEnumerable<DateTime> rebalanceDates,
             DateTime latestStart)
         {
-            var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair => new List<NominalPeriodReturn>());
-            var rebalancedBalances = dedupedPortfolioConstituents.ToDictionary(pair => pair.Key,
-                pair => startingBalance * (pair.Value / 100));
+            var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair
+                => new List<NominalPeriodReturn>());
+
+            var rebalancedBalances = dedupedPortfolioConstituents.ToDictionary(pair
+                => pair.Key, pair => startingBalance * (pair.Value / 100));
 
             var previousRebalanceDate = latestStart;
+
             foreach (var rebalanceDate in rebalanceDates)
             {
                 foreach (var (ticker, returns) in dateFilteredReturnsByTicker)
                 {
-                    var dateFilteredReturns = returns.Where(r =>
-                        r.PeriodStart < rebalanceDate && r.PeriodStart >= previousRebalanceDate).ToArray();
+                    var dateFilteredReturns = returns
+                        .Where(r => r.PeriodStart < rebalanceDate && r.PeriodStart >= previousRebalanceDate)
+                        .ToArray();
+
                     backtest[ticker].AddRange(GetPeriodReturnsBackTest(dateFilteredReturns, rebalancedBalances[ticker]));
                 }
 
-                previousRebalanceDate = rebalanceDate;
-
                 var totalBalance = backtest.Sum(pair => pair.Value.Last().EndingBalance);
-                rebalancedBalances = dedupedPortfolioConstituents.ToDictionary(pair => pair.Key,
-                    pair => totalBalance * (pair.Value / 100));
+
+                rebalancedBalances = dedupedPortfolioConstituents.ToDictionary(pair => pair.Key, pair
+                    => totalBalance * (pair.Value / 100));
+
+                previousRebalanceDate = rebalanceDate;
             }
 
             return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
         }
 
-        static DateTime[] GetRebalanceDates(IEnumerable<DateTime> returnPeriodDates, RebalanceStrategy strategy,
+        static DateTime[] GetRebalanceDates(
+            IEnumerable<DateTime> returnPeriodDates,
+            RebalanceStrategy strategy,
             decimal? bandThreshold)
         {
             if (strategy == RebalanceStrategy.None)
             {
-                return Array.Empty<DateTime>();
+                return [];
             }
 
             var rebalanceDates = new List<DateTime>();
@@ -248,10 +290,12 @@ namespace DataService.Controllers
                 rebalanceDates.Add(currentDate);
             }
 
-            return rebalanceDates.ToArray();
+            return [.. rebalanceDates];
         }
 
-        private static NominalPeriodReturn[] GetPeriodReturnsBackTest(PeriodReturn[] tickerReturns, decimal startingBalance)
+        private static NominalPeriodReturn[] GetPeriodReturnsBackTest(
+            PeriodReturn[] tickerReturns,
+            decimal startingBalance)
         {
             var performanceTicks = new List<NominalPeriodReturn>();
             var currentBalance = startingBalance;
@@ -262,7 +306,7 @@ namespace DataService.Controllers
                 currentBalance = performanceTicks[^1].EndingBalance;
             }
 
-            return performanceTicks.ToArray();
+            return [.. performanceTicks];
         }
     }
 }
