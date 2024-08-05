@@ -47,8 +47,8 @@ namespace DataService.Controllers
                 }
             };
 
-            Assert.Equivalent(actualOutput1, expected);
-            Assert.Equivalent(actualOutput2, expected);
+            Assert.Equal(actualOutput1, expected);
+            Assert.Equal(actualOutput2, expected);
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace DataService.Controllers
             var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, new JsonSerializerOptions() { WriteIndented = true });
             var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
 
-            Assert.Equivalent(actualOutput1, expected);
+            Assert.Equal(actualOutput1, expected);
         }
 
         [Fact]
@@ -121,38 +121,40 @@ namespace DataService.Controllers
             {
                 ["#1X_PER_PERIOD_2023"] =
                 [
-                    new("#1X_PER_PERIOD_2023",    50m, new() { PeriodStart = new(2023,  1, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",   100m, new() { PeriodStart = new(2023,  2, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",   200m, new() { PeriodStart = new(2023,  3, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",   400m, new() { PeriodStart = new(2023,  4, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",   800m, new() { PeriodStart = new(2023,  5, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",  1600m, new() { PeriodStart = new(2023,  6, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",  3200m, new() { PeriodStart = new(2023,  7, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",  6400m, new() { PeriodStart = new(2023,  8, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023", 12800m, new() { PeriodStart = new(2023,  9, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023", 25600m, new() { PeriodStart = new(2023, 10, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023", 51200m, new() { PeriodStart = new(2023, 11, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
+                    new("#1X_PER_PERIOD_2023",     50m, new() { PeriodStart = new(2023,  1, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",    100m, new() { PeriodStart = new(2023,  2, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",    200m, new() { PeriodStart = new(2023,  3, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",    400m, new() { PeriodStart = new(2023,  4, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",    800m, new() { PeriodStart = new(2023,  5, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",   1600m, new() { PeriodStart = new(2023,  6, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",   3200m, new() { PeriodStart = new(2023,  7, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",   6400m, new() { PeriodStart = new(2023,  8, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",  12800m, new() { PeriodStart = new(2023,  9, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",  25600m, new() { PeriodStart = new(2023, 10, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",  51200m, new() { PeriodStart = new(2023, 11, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023", 102400m, new() { PeriodStart = new(2023, 12, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
                 ],
                 ["#3X_PER_PERIOD_2023"] =
                 [
-                    new("#3X_PER_PERIOD_2023",    50m, new() { PeriodStart = new(2023,  1, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",   100m, new() { PeriodStart = new(2023,  2, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",   200m, new() { PeriodStart = new(2023,  3, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",   400m, new() { PeriodStart = new(2023,  4, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",   800m, new() { PeriodStart = new(2023,  5, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",  1600m, new() { PeriodStart = new(2023,  6, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",  3200m, new() { PeriodStart = new(2023,  7, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",  6400m, new() { PeriodStart = new(2023,  8, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023", 12800m, new() { PeriodStart = new(2023,  9, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023", 25600m, new() { PeriodStart = new(2023, 10, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023", 51200m, new() { PeriodStart = new(2023, 11, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
+                    new("#3X_PER_PERIOD_2023",     50m, new() { PeriodStart = new(2023,  1, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",    100m, new() { PeriodStart = new(2023,  2, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",    200m, new() { PeriodStart = new(2023,  3, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",    400m, new() { PeriodStart = new(2023,  4, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",    800m, new() { PeriodStart = new(2023,  5, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",   1600m, new() { PeriodStart = new(2023,  6, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",   3200m, new() { PeriodStart = new(2023,  7, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",   6400m, new() { PeriodStart = new(2023,  8, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",  12800m, new() { PeriodStart = new(2023,  9, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",  25600m, new() { PeriodStart = new(2023, 10, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",  51200m, new() { PeriodStart = new(2023, 11, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023", 102400m, new() { PeriodStart = new(2023, 12, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
                 ]
             };
 
             var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, new JsonSerializerOptions() { WriteIndented = true });
             var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
 
-            Assert.Equivalent(actualOutput1, expected);
+            Assert.Equal(actualOutput1, expected);
         }
 
         [Fact]
@@ -196,8 +198,8 @@ namespace DataService.Controllers
                 }
             };
 
-            Assert.Equivalent(actualOutput1, expected);
-            Assert.Equivalent(actualOutput2, expected);
+            Assert.Equal(actualOutput1, expected);
+            Assert.Equal(actualOutput2, expected);
         }
 
         [Fact]
@@ -217,38 +219,40 @@ namespace DataService.Controllers
             {
                 ["#1X_PER_PERIOD_2023"] =
                 [
-                    new("#1X_PER_PERIOD_2023",    50m, new() { PeriodStart = new(2023,  1, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",   100m, new() { PeriodStart = new(2023,  2, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",   200m, new() { PeriodStart = new(2023,  3, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",   400m, new() { PeriodStart = new(2023,  4, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",   800m, new() { PeriodStart = new(2023,  5, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",  1600m, new() { PeriodStart = new(2023,  6, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",  3200m, new() { PeriodStart = new(2023,  7, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023",  6400m, new() { PeriodStart = new(2023,  8, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023", 12800m, new() { PeriodStart = new(2023,  9, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023", 25600m, new() { PeriodStart = new(2023, 10, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X_PER_PERIOD_2023", 51200m, new() { PeriodStart = new(2023, 11, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
+                    new("#1X_PER_PERIOD_2023",     50m, new() { PeriodStart = new(2023,  1, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",    100m, new() { PeriodStart = new(2023,  2, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",    200m, new() { PeriodStart = new(2023,  3, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",    400m, new() { PeriodStart = new(2023,  4, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",    800m, new() { PeriodStart = new(2023,  5, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",   1600m, new() { PeriodStart = new(2023,  6, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",   3200m, new() { PeriodStart = new(2023,  7, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",   6400m, new() { PeriodStart = new(2023,  8, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",  12800m, new() { PeriodStart = new(2023,  9, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",  25600m, new() { PeriodStart = new(2023, 10, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023",  51200m, new() { PeriodStart = new(2023, 11, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023", 102400m, new() { PeriodStart = new(2023, 12, 1), ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
                 ],
                 ["#3X_PER_PERIOD_2023"] =
                 [
-                    new("#3X_PER_PERIOD_2023",    50m, new() { PeriodStart = new(2023,  1, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",   100m, new() { PeriodStart = new(2023,  2, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",   200m, new() { PeriodStart = new(2023,  3, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",   400m, new() { PeriodStart = new(2023,  4, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",   800m, new() { PeriodStart = new(2023,  5, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",  1600m, new() { PeriodStart = new(2023,  6, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",  3200m, new() { PeriodStart = new(2023,  7, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023",  6400m, new() { PeriodStart = new(2023,  8, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023", 12800m, new() { PeriodStart = new(2023,  9, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023", 25600m, new() { PeriodStart = new(2023, 10, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X_PER_PERIOD_2023", 51200m, new() { PeriodStart = new(2023, 11, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
+                    new("#3X_PER_PERIOD_2023",     50m, new() { PeriodStart = new(2023,  1, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",    100m, new() { PeriodStart = new(2023,  2, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",    200m, new() { PeriodStart = new(2023,  3, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",    400m, new() { PeriodStart = new(2023,  4, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",    800m, new() { PeriodStart = new(2023,  5, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",   1600m, new() { PeriodStart = new(2023,  6, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",   3200m, new() { PeriodStart = new(2023,  7, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",   6400m, new() { PeriodStart = new(2023,  8, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",  12800m, new() { PeriodStart = new(2023,  9, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",  25600m, new() { PeriodStart = new(2023, 10, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023",  51200m, new() { PeriodStart = new(2023, 11, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023", 102400m, new() { PeriodStart = new(2023, 12, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
                 ]
             };
 
             var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, new JsonSerializerOptions() { WriteIndented = true });
             var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
 
-            Assert.Equivalent(actualOutput1, expected);
+            Assert.Equal(actualOutput1, expected);
         }
     }
 }
