@@ -145,8 +145,15 @@ namespace DataService.Controllers
             if (rebalanceStrategy == RebalanceStrategy.BandsAbsolute ||
                 rebalanceStrategy == RebalanceStrategy.BandsRelative)
             {
-                // TODO PerformBandedRebalanceBackTest()
-                throw new NotImplementedException();
+                var performanceBandedRebalance = PerformBandedRebalanceBackTest(
+                    dateFilteredReturnsByTicker,
+                    dedupedPortfolioConstituents,
+                    startingBalance,
+                    rebalanceStrategy,
+                    rebalanceBandThreshold.Value
+                );
+
+                return performanceBandedRebalance;
             }
 
             var performancePeriodRebalanced = PerformPeriodicRebalanceBackTest(
@@ -224,7 +231,7 @@ namespace DataService.Controllers
             Dictionary<string, decimal> targetAllocationsByTicker,
             decimal startingBalance,
             RebalanceStrategy strategy,
-            bool potentiallyApplyEndingRebalance = false)
+            bool potentiallyApplyEndingRebalance = false) // TODO test
         {
             var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair
                 => new List<NominalPeriodReturn>());
@@ -271,6 +278,74 @@ namespace DataService.Controllers
                     => totalBalance * (pair.Value / 100));
 
                 lastRebalanceDate = rebalanceDate;
+            }
+
+            return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
+        }
+
+        private static Dictionary<string, NominalPeriodReturn[]> PerformBandedRebalanceBackTest(
+            Dictionary<string, PeriodReturn[]> dateFilteredReturnsByTicker,
+            Dictionary<string, decimal> targetAllocationsByTicker,
+            decimal startingBalance,
+            RebalanceStrategy strategy,
+            decimal rebalanceBandThreshold)
+        {
+            static bool IsOutsideRelativeBands(
+                Dictionary<string, decimal> targetAllocations,
+                Dictionary<string, decimal> currentAllocations,
+                decimal threshold)
+            {
+                return targetAllocations.Any(kvp =>
+                    Math.Abs(currentAllocations[kvp.Key] - kvp.Value) / kvp.Value > threshold);
+            }
+
+            static bool IsOutsideAbsoluteBands(
+                Dictionary<string, decimal> targetAllocations,
+                Dictionary<string, decimal> currentAllocations,
+                decimal threshold)
+            {
+                return targetAllocations.Any(kvp =>
+                    Math.Abs(currentAllocations[kvp.Key] - kvp.Value) > threshold);
+            }
+
+            var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair
+                => new List<NominalPeriodReturn>());
+
+            for (var i = 0; i < dateFilteredReturnsByTicker.First().Value.Count(); i++)
+            {
+                /*var currentBalancesByTicker = backtest.ToDictionary(
+                    pair => pair.Key,
+                    pair => pair.Value[^1].EndingBalance
+                );
+
+                var currentTotalBalance = currentBalancesByTicker.Sum(pair => pair.Value);
+
+                var currentAllocationsByTicker = currentBalancesByTicker.ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => (kvp.Value / currentTotalBalance) * 100
+                );
+
+                var isRebalanceNeeded = strategy switch
+                {
+                    RebalanceStrategy.BandsRelative => IsOutsideRelativeBands(
+                        targetAllocationsByTicker,
+                        currentAllocationsByTicker,
+                        rebalanceBandThreshold),
+                    RebalanceStrategy.BandsAbsolute => IsOutsideAbsoluteBands(
+                        targetAllocationsByTicker,
+                        currentAllocationsByTicker,
+                        rebalanceBandThreshold),
+                    _ => throw new ArgumentOutOfRangeException(nameof(strategy))
+                };*/
+
+                foreach (var (ticker, returns) in dateFilteredReturnsByTicker)
+                {
+                    var lastEndingBalance = !backtest[ticker].Any()
+                        ? startingBalance * (targetAllocationsByTicker[ticker] / 100)
+                        : backtest[ticker][^1].EndingBalance;
+
+                    backtest[ticker].AddRange(GetPeriodReturnsBackTest([returns[i]], lastEndingBalance));
+                }
             }
 
             return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
