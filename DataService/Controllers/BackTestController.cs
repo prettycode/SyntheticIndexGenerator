@@ -84,21 +84,21 @@ namespace DataService.Controllers
         public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest(
             IEnumerable<Allocation> portfolioConstituents,
             decimal startingBalance = 100,
-            ReturnPeriod granularity = ReturnPeriod.Daily,
-            DateTime startDate = default,
-            DateTime? endDate = null,
+            ReturnPeriod periodType = ReturnPeriod.Daily,
+            DateTime firstPeriod = default,
+            DateTime? lastPeriod = null,
             RebalanceStrategy rebalanceStrategy = RebalanceStrategy.None,
             decimal? rebalanceBandThreshold = null)
         {
             ValidateArguments(
                 portfolioConstituents,
                 startingBalance,
-                startDate,
-                endDate,
+                firstPeriod,
+                lastPeriod,
                 rebalanceStrategy,
                 rebalanceBandThreshold);
 
-            var endDateValue = endDate ?? DateTime.MaxValue;
+            var endDateValue = lastPeriod ?? DateTime.MaxValue;
 
             var dedupedPortfolioConstituents = portfolioConstituents
                 .GroupBy(alloc => alloc.Ticker)
@@ -110,14 +110,14 @@ namespace DataService.Controllers
             var constituentTickers = dedupedPortfolioConstituents.Keys.ToArray();
 
             var constituentReturns = await Task.WhenAll(
-                constituentTickers.Select(ticker => returnCache.Get(ticker, granularity, startDate, endDateValue)));
+                constituentTickers.Select(ticker => returnCache.Get(ticker, periodType, firstPeriod, endDateValue)));
 
-            var latestStart = constituentReturns
+            var firstSharedFirstPeriod = constituentReturns
                 .Select(history => history.First().PeriodStart)
-                .Append(startDate)
+                .Append(firstPeriod)
                 .Max();
 
-            var earliestEnd = constituentReturns
+            var lastSharedLastPeriod = constituentReturns
                 .Select(history => history.Last().PeriodStart)
                 .Append(endDateValue)
                 .Min();
@@ -127,7 +127,7 @@ namespace DataService.Controllers
                 .ToDictionary(
                     x => x.ticker,
                     x => x.returns
-                        .Where(period => period.PeriodStart >= latestStart && period.PeriodStart <= earliestEnd)
+                        .Where(period => period.PeriodStart >= firstSharedFirstPeriod && period.PeriodStart <= lastSharedLastPeriod)
                         .ToArray()
                 );
 
@@ -168,8 +168,8 @@ namespace DataService.Controllers
         private static void ValidateArguments(
             IEnumerable<Allocation> portfolioConstituents,
             decimal startingBalance,
-            DateTime startDate,
-            DateTime? endDate,
+            DateTime firstPeriod,
+            DateTime? lastPeriod,
             RebalanceStrategy rebalanceStrategy,
             decimal? rebalanceBandThreshold)
         {
@@ -182,9 +182,9 @@ namespace DataService.Controllers
 
             ArgumentOutOfRangeException.ThrowIfLessThan(startingBalance, 1, nameof(startingBalance));
 
-            if (endDate.HasValue && endDate.Value < startDate)
+            if (lastPeriod.HasValue && lastPeriod.Value < firstPeriod)
             {
-                throw new ArgumentOutOfRangeException(nameof(endDate), "End date must be after start date");
+                throw new ArgumentOutOfRangeException(nameof(lastPeriod), "Last period cannot be before first period.");
             }
 
             if ((rebalanceStrategy == RebalanceStrategy.BandsAbsolute ||
@@ -210,7 +210,7 @@ namespace DataService.Controllers
 
             if (dateFilteredConstituentReturns.Any(d => d.Length != firstLength))
             {
-                throw new InvalidOperationException("All decomposed series should have the same length.");
+                throw new InvalidOperationException("All constituent histories should have the same length.");
             }
 
             var firstDates = firstReturns.Select(period => period.PeriodStart).ToArray();
@@ -221,7 +221,7 @@ namespace DataService.Controllers
 
                 if (!firstDates.SequenceEqual(currentDates))
                 {
-                    throw new InvalidOperationException("All decomposed series should have identical DateTime arrays.");
+                    throw new InvalidOperationException("All constituent histories should have identical dates.");
                 }
             }
         }

@@ -52,7 +52,7 @@ namespace DataService.Controllers
         }
 
         [Fact]
-        public async Task GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents1()
+        public async Task GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents_ManyPeriods()
         {
             var portfolio1 = new List<Allocation>()
             {
@@ -95,6 +95,70 @@ namespace DataService.Controllers
                     new("#3X_PER_PERIOD_2023", 984150m,  new PeriodReturn { PeriodStart = new DateTime(2023, 10, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
                     new("#3X_PER_PERIOD_2023", 2952450m, new PeriodReturn { PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
                     new("#3X_PER_PERIOD_2023", 8857350m, new PeriodReturn { PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
+                ]
+            };
+
+            var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, new JsonSerializerOptions() { WriteIndented = true });
+            var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
+
+            Assert.Equal(actualOutput1, expected);
+        }
+
+        [Fact]
+        public async Task GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents_OnePeriod()
+        {
+            var portfolio1 = new List<Allocation>()
+            {
+                new() { Ticker = "#1X_PER_PERIOD_2023", Percentage = 50 },
+                new() { Ticker = "#3X_PER_PERIOD_2023", Percentage = 50 },
+            };
+
+            var controller = base.GetController<BackTestController>();
+
+            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 1, 1));
+
+            var expected = new Dictionary<string, NominalPeriodReturn[]>()
+            {
+                ["#1X_PER_PERIOD_2023"] =
+                [
+                    new("#1X_PER_PERIOD_2023", 50m, new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1),  ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
+                ],
+                ["#3X_PER_PERIOD_2023"] =
+                [
+                    new("#3X_PER_PERIOD_2023", 50m, new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1),  ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
+                ]
+            };
+
+            var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, new JsonSerializerOptions() { WriteIndented = true });
+            var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
+
+            Assert.Equal(actualOutput1, expected);
+        }
+
+        [Fact]
+        public async Task GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents_TwoPeriods()
+        {
+            var portfolio1 = new List<Allocation>()
+            {
+                new() { Ticker = "#1X_PER_PERIOD_2023", Percentage = 50 },
+                new() { Ticker = "#3X_PER_PERIOD_2023", Percentage = 50 },
+            };
+
+            var controller = base.GetController<BackTestController>();
+
+            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1));
+
+            var expected = new Dictionary<string, NominalPeriodReturn[]>()
+            {
+                ["#1X_PER_PERIOD_2023"] =
+                [
+                    new("#1X_PER_PERIOD_2023", 50m, new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1),  ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X_PER_PERIOD_2023", 50m, new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1),  ReturnPercentage = 0m, SourceTicker = "#1X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
+                ],
+                ["#3X_PER_PERIOD_2023"] =
+                [
+                    new("#3X_PER_PERIOD_2023", 50m,  new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1),  ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#3X_PER_PERIOD_2023", 150m, new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1),  ReturnPercentage = 200m, SourceTicker = "#3X_PER_PERIOD_2023", ReturnPeriod = ReturnPeriod.Monthly })
                 ]
             };
 
