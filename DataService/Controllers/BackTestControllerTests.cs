@@ -34,8 +34,8 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
-            var actualOutput2 = await controller.GetPortfolioBackTestDecomposed(portfolio2, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
+            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1))).DecomposedPerformanceByTicker;
+            var actualOutput2 = (await controller.GetPortfolioBackTest(portfolio2, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1))).DecomposedPerformanceByTicker;
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>
             {
@@ -73,7 +73,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
+            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1))).DecomposedPerformanceByTicker;
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>()
             {
@@ -126,7 +126,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 1, 1));
+            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 1, 1))).DecomposedPerformanceByTicker;
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>()
             {
@@ -157,7 +157,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1));
+            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1))).DecomposedPerformanceByTicker;
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>()
             {
@@ -190,7 +190,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly);
+            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly)).DecomposedPerformanceByTicker;
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>
             {
@@ -249,8 +249,8 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m);
-            var actualOutput2 = await controller.GetPortfolioBackTestDecomposed(portfolio2, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m);
+            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m)).DecomposedPerformanceByTicker;
+            var actualOutput2 = (await controller.GetPortfolioBackTest(portfolio2, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m)).DecomposedPerformanceByTicker;
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>
             {
@@ -288,7 +288,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m);
+            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m)).DecomposedPerformanceByTicker;
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>
             {

@@ -20,12 +20,14 @@ namespace DataService.Controllers
                 new() { Ticker = "#2X_PER_PERIOD_2023", Percentage = 100 }
             };
 
-            return await GetPortfolioBackTestDecomposed(
+            var backtest = await GetPortfolioBackTest(
                 portfolio,
                 100,
                 ReturnPeriod.Monthly,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1));
+
+            return backtest.DecomposedPerformanceByTicker;
         }
 
         [HttpGet]
@@ -37,12 +39,14 @@ namespace DataService.Controllers
                 new() { Ticker = "#2X_PER_PERIOD_2023", Percentage = 50 }
             };
 
-            return await GetPortfolioBackTestDecomposed(
+            var backtest = await GetPortfolioBackTest(
                 portfolio,
                 100,
                 ReturnPeriod.Monthly,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1));
+
+            return backtest.DecomposedPerformanceByTicker;
         }
 
         [HttpGet]
@@ -54,12 +58,14 @@ namespace DataService.Controllers
                 new() { Ticker = "#3X_PER_PERIOD_2023", Percentage = 50 },
             };
 
-            return await GetPortfolioBackTestDecomposed(
+            var backtest = await GetPortfolioBackTest(
                 portfolio,
                 100,
                 ReturnPeriod.Monthly,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1));
+
+            return backtest.DecomposedPerformanceByTicker;
         }
 
         [HttpGet]
@@ -71,13 +77,15 @@ namespace DataService.Controllers
                 new() { Ticker = "#3X_PER_PERIOD_2023", Percentage = 50 },
             };
 
-            return await GetPortfolioBackTestDecomposed(
+            var backtest = await GetPortfolioBackTest(
                 portfolio,
                 100,
                 ReturnPeriod.Monthly,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1),
                 RebalanceStrategy.Monthly);
+
+            return backtest.DecomposedPerformanceByTicker;
         }
 
         [HttpGet]
@@ -88,8 +96,48 @@ namespace DataService.Controllers
             return GetPortfolioBackTestDecomposedRollup(decomposed);
         }
 
+        [HttpGet]
+        public async Task<PortfolioBackTest> GetPortfolioBackTest(
+            IEnumerable<Allocation> portfolioConstituents,
+            decimal startingBalance = 100,
+            ReturnPeriod periodType = ReturnPeriod.Daily,
+            DateTime firstPeriod = default,
+            DateTime? lastPeriod = null,
+            RebalanceStrategy rebalanceStrategy = RebalanceStrategy.None,
+            decimal? rebalanceBandThreshold = null)
+        {
+            ValidateArguments(
+                portfolioConstituents,
+                startingBalance,
+                firstPeriod,
+                lastPeriod,
+                rebalanceStrategy,
+                rebalanceBandThreshold);
 
-        // TODO test
+            lastPeriod ??= DateTime.MaxValue;
+
+            var decomposed = await GetPortfolioBackTestDecomposed(
+                portfolioConstituents,
+                startingBalance,
+                periodType,
+                firstPeriod,
+                lastPeriod.Value,
+                rebalanceStrategy,
+                rebalanceBandThreshold);
+
+            var aggregated = GetPortfolioBackTestDecomposedRollup(decomposed);
+            var backtest = new PortfolioBackTest()
+            {
+                AggregatePerformance = aggregated,
+                DecomposedPerformanceByTicker = decomposed,
+                Rebalanaces = [], // TODO
+                RebalanceStrategy = rebalanceStrategy,
+                RebalanceThreshold = rebalanceBandThreshold
+            };
+
+            return backtest;
+        }
+
         private static NominalPeriodReturn[] GetPortfolioBackTestDecomposedRollup(
             Dictionary<string, NominalPeriodReturn[]> decomposedBackTest)
         {
@@ -117,26 +165,15 @@ namespace DataService.Controllers
                 .ToArray();
         }
 
-        [HttpGet]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestDecomposed(
+        private async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestDecomposed(
             IEnumerable<Allocation> portfolioConstituents,
-            decimal startingBalance = 100,
-            ReturnPeriod periodType = ReturnPeriod.Daily,
-            DateTime firstPeriod = default,
-            DateTime? lastPeriod = null,
-            RebalanceStrategy rebalanceStrategy = RebalanceStrategy.None,
-            decimal? rebalanceBandThreshold = null)
+            decimal startingBalance,
+            ReturnPeriod periodType,
+            DateTime firstPeriod,
+            DateTime lastPeriod,
+            RebalanceStrategy rebalanceStrategy,
+            decimal? rebalanceBandThreshold)
         {
-            ValidateArguments(
-                portfolioConstituents,
-                startingBalance,
-                firstPeriod,
-                lastPeriod,
-                rebalanceStrategy,
-                rebalanceBandThreshold);
-
-            var endDateValue = lastPeriod ?? DateTime.MaxValue;
-
             var dedupedPortfolioConstituents = portfolioConstituents
                 .GroupBy(alloc => alloc.Ticker)
                 .ToDictionary(
@@ -147,7 +184,7 @@ namespace DataService.Controllers
             var constituentTickers = dedupedPortfolioConstituents.Keys.ToArray();
 
             var constituentReturns = await Task.WhenAll(
-                constituentTickers.Select(ticker => returnCache.Get(ticker, periodType, firstPeriod, endDateValue)));
+                constituentTickers.Select(ticker => returnCache.Get(ticker, periodType, firstPeriod, lastPeriod)));
 
             var firstSharedFirstPeriod = constituentReturns
                 .Select(history => history.First().PeriodStart)
@@ -156,7 +193,7 @@ namespace DataService.Controllers
 
             var lastSharedLastPeriod = constituentReturns
                 .Select(history => history.Last().PeriodStart)
-                .Append(endDateValue)
+                .Append(lastPeriod)
                 .Min();
 
             var dateFilteredReturnsByTicker = constituentTickers
@@ -187,7 +224,7 @@ namespace DataService.Controllers
                     dedupedPortfolioConstituents,
                     startingBalance,
                     rebalanceStrategy,
-                    rebalanceBandThreshold.Value
+                    rebalanceBandThreshold.Value // TODO
                 );
 
                 return performanceBandedRebalance;
