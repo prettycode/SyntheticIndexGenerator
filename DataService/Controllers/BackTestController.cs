@@ -230,38 +230,22 @@ namespace DataService.Controllers
             Dictionary<string, PeriodReturn[]> dateFilteredReturnsByTicker,
             Dictionary<string, decimal> targetAllocationsByTicker,
             decimal startingBalance,
-            RebalanceStrategy strategy,
-            bool potentiallyApplyEndingRebalance = false) // TODO test
+            RebalanceStrategy strategy)
         {
             var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair
                 => new List<NominalPeriodReturn>());
 
-            var rebalanceDates = GetPeriodicRebalanceDates(
-                dateFilteredReturnsByTicker.Values.First().Select(r => r.PeriodStart),
-                strategy).ToList();
-
             var currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair
                 => pair.Key, pair => startingBalance * (pair.Value / 100));
 
+            var newSegmentStarts = GetPeriodStartsToRebalanceAtStartOf(
+                dateFilteredReturnsByTicker.Values.First().Select(r => r.PeriodStart),
+                strategy)
+                .Append(dateFilteredReturnsByTicker.First().Value[^1].PeriodStart.AddTicks(1));
+
             var lastRebalanceDate = dateFilteredReturnsByTicker.First().Value[0].PeriodStart;
 
-            if (potentiallyApplyEndingRebalance)
-            {
-                var currentLastDate = rebalanceDates[^1];
-                var nextPeriodStart = strategy switch
-                {
-                    RebalanceStrategy.Annually => currentLastDate.AddYears(1),
-                    RebalanceStrategy.SemiAnnually => currentLastDate.AddMonths(6),
-                    RebalanceStrategy.Quarterly => currentLastDate.AddMonths(3),
-                    RebalanceStrategy.Monthly => currentLastDate.AddMonths(1),
-                    RebalanceStrategy.Daily => currentLastDate.AddDays(2),
-                    _ => throw new ArgumentOutOfRangeException(nameof(strategy))
-                };
-
-                rebalanceDates.Add(nextPeriodStart.AddDays(-1));
-            }
-
-            foreach (var rebalanceDate in rebalanceDates)
+            foreach (var rebalanceDate in newSegmentStarts)
             {
                 foreach (var (ticker, returns) in dateFilteredReturnsByTicker)
                 {
@@ -315,7 +299,7 @@ namespace DataService.Controllers
             var currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair
                 => pair.Key, pair => startingBalance * (pair.Value / 100));
 
-            for (var i = 0; i < dateFilteredReturnsByTicker.First().Value.Count(); i++)
+            for (var i = 0; i < dateFilteredReturnsByTicker.First().Value.Length; i++)
             {
                 foreach (var (ticker, returns) in dateFilteredReturnsByTicker)
                 {
@@ -367,7 +351,7 @@ namespace DataService.Controllers
             return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
         }
 
-        static DateTime[] GetPeriodicRebalanceDates(IEnumerable<DateTime> returnPeriodDates, RebalanceStrategy strategy)
+        internal static DateTime[] GetPeriodStartsToRebalanceAtStartOf(IEnumerable<DateTime> returnPeriodDates, RebalanceStrategy strategy)
         {
             var rebalanceDates = new List<DateTime>();
             DateTime lastRebalanceDate = returnPeriodDates.First();
