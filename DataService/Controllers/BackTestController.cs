@@ -13,14 +13,14 @@ namespace DataService.Controllers
         private readonly ILogger<BackTestController> logger = logger;
 
         [HttpGet]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance1_SingleConstituent1()
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestDecomposed_NoRebalance_SingleConstituent()
         {
             var portfolio = new List<Allocation>
             {
                 new() { Ticker = "#2X_PER_PERIOD_2023", Percentage = 100 }
             };
 
-            return await GetPortfolioBackTest(
+            return await GetPortfolioBackTestDecomposed(
                 portfolio,
                 100,
                 ReturnPeriod.Monthly,
@@ -29,7 +29,7 @@ namespace DataService.Controllers
         }
 
         [HttpGet]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance1_DuplicateConstituent2()
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestDecomposed_NoRebalance_DuplicateConstituent()
         {
             var portfolio = new List<Allocation>
             {
@@ -37,7 +37,7 @@ namespace DataService.Controllers
                 new() { Ticker = "#2X_PER_PERIOD_2023", Percentage = 50 }
             };
 
-            return await GetPortfolioBackTest(
+            return await GetPortfolioBackTestDecomposed(
                 portfolio,
                 100,
                 ReturnPeriod.Monthly,
@@ -46,7 +46,7 @@ namespace DataService.Controllers
         }
 
         [HttpGet]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents1()
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestDecomposed_NoRebalance_MultipleDifferentConstituents()
         {
             var portfolio = new List<Allocation>
             {
@@ -54,7 +54,7 @@ namespace DataService.Controllers
                 new() { Ticker = "#3X_PER_PERIOD_2023", Percentage = 50 },
             };
 
-            return await GetPortfolioBackTest(
+            return await GetPortfolioBackTestDecomposed(
                 portfolio,
                 100,
                 ReturnPeriod.Monthly,
@@ -63,7 +63,7 @@ namespace DataService.Controllers
         }
 
         [HttpGet]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest_Rebalance_Monthly1()
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestDecomposed_RebalanceMonthly_MultipleDifferentConstituents()
         {
             var portfolio = new List<Allocation>
             {
@@ -71,7 +71,7 @@ namespace DataService.Controllers
                 new() { Ticker = "#3X_PER_PERIOD_2023", Percentage = 50 },
             };
 
-            return await GetPortfolioBackTest(
+            return await GetPortfolioBackTestDecomposed(
                 portfolio,
                 100,
                 ReturnPeriod.Monthly,
@@ -81,7 +81,44 @@ namespace DataService.Controllers
         }
 
         [HttpGet]
-        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTest(
+        public async Task<NominalPeriodReturn[]> GetPortfolioBackTestDecomposedRollup_RebalanceMonthly_MultipleDifferentConstituents()
+        {
+            var decomposed = await GetPortfolioBackTestDecomposed_RebalanceMonthly_MultipleDifferentConstituents();
+
+            return GetPortfolioBackTestDecomposedRollup(decomposed);
+        }
+
+
+        // TODO test
+        private static NominalPeriodReturn[] GetPortfolioBackTestDecomposedRollup(
+            Dictionary<string, NominalPeriodReturn[]> decomposedBackTest)
+        {
+            static decimal CalculateReturnPercentage(
+                Dictionary<string, NominalPeriodReturn[]> decomposedBackTest,
+                int currentPeriod)
+            {
+                var rollupStartingBalance = decomposedBackTest.Sum(pair => pair.Value[currentPeriod].StartingBalance);
+                var rollupEndingBalance = decomposedBackTest.Sum(pair => pair.Value[currentPeriod].EndingBalance);
+
+                return ((rollupEndingBalance / rollupStartingBalance) - 1) * 100;
+            }
+
+            var firstTickerBackTest = decomposedBackTest.Values.First();
+
+            return firstTickerBackTest
+                .Select((_, currentPeriod) => new NominalPeriodReturn
+                {
+                    PeriodStart = firstTickerBackTest[currentPeriod].PeriodStart,
+                    ReturnPeriod = firstTickerBackTest[currentPeriod].ReturnPeriod,
+                    Ticker = null!,
+                    StartingBalance = decomposedBackTest.Sum(pair => pair.Value[currentPeriod].StartingBalance),
+                    ReturnPercentage = CalculateReturnPercentage(decomposedBackTest, currentPeriod)
+                })
+                .ToArray();
+        }
+
+        [HttpGet]
+        public async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestDecomposed(
             IEnumerable<Allocation> portfolioConstituents,
             decimal startingBalance = 100,
             ReturnPeriod periodType = ReturnPeriod.Daily,
@@ -131,7 +168,7 @@ namespace DataService.Controllers
                         .ToArray()
                 );
 
-            ValidateFilteredReturns(dateFilteredReturnsByTicker.Values);
+            ValidateReturnCollectionHomogeneity(dateFilteredReturnsByTicker.Values);
 
             if (rebalanceStrategy == RebalanceStrategy.None)
             {
@@ -197,7 +234,7 @@ namespace DataService.Controllers
             }
         }
 
-        private static void ValidateFilteredReturns(IEnumerable<PeriodReturn[]> dateFilteredConstituentReturns)
+        private static void ValidateReturnCollectionHomogeneity(IEnumerable<PeriodReturn[]> dateFilteredConstituentReturns)
         {
             if (!dateFilteredConstituentReturns.Any())
             {

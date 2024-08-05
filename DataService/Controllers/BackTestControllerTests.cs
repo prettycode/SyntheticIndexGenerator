@@ -18,7 +18,7 @@ namespace DataService.Controllers
         }
 
         [Fact]
-        public async Task GetPortfolioBackTest_NoRebalance_SingleConstituent1()
+        public async Task GetPortfolioBackTestDecomposed_NoRebalance_SingleConstituent1()
         {
 
             var portfolio1 = new List<Allocation>()
@@ -34,8 +34,8 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
-            var actualOutput2 = await controller.GetPortfolioBackTest(portfolio2, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
+            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
+            var actualOutput2 = await controller.GetPortfolioBackTestDecomposed(portfolio2, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>
             {
@@ -63,7 +63,7 @@ namespace DataService.Controllers
         }
 
         [Fact]
-        public async Task GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents_ManyPeriods()
+        public async Task GetPortfolioBackTestDecomposed_NoRebalance_MultipleDifferentConstituents_ManyPeriods()
         {
             var portfolio1 = new List<Allocation>()
             {
@@ -73,7 +73,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
+            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1));
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>()
             {
@@ -116,7 +116,7 @@ namespace DataService.Controllers
         }
 
         [Fact]
-        public async Task GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents_OnePeriod()
+        public async Task GetPortfolioBackTestDecomposed_NoRebalance_MultipleDifferentConstituents_OnePeriod()
         {
             var portfolio1 = new List<Allocation>()
             {
@@ -126,7 +126,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 1, 1));
+            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 1, 1));
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>()
             {
@@ -147,7 +147,7 @@ namespace DataService.Controllers
         }
 
         [Fact]
-        public async Task GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents_TwoPeriods()
+        public async Task GetPortfolioBackTestDecomposed_NoRebalance_MultipleDifferentConstituents_TwoPeriods()
         {
             var portfolio1 = new List<Allocation>()
             {
@@ -157,7 +157,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1));
+            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1));
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>()
             {
@@ -180,7 +180,7 @@ namespace DataService.Controllers
         }
 
         [Fact]
-        public async Task GetPortfolioBackTest_Rebalance_Monthly1()
+        public async Task GetPortfolioBackTestDecomposed_Rebalance_Monthly1()
         {
             var portfolio1 = new List<Allocation>()
             {
@@ -190,7 +190,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly);
+            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly);
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>
             {
@@ -233,7 +233,7 @@ namespace DataService.Controllers
         }
 
         [Fact]
-        public async Task GetPortfolioBackTest_RebalanceBands_Absolute_SingleConstituent1()
+        public async Task GetPortfolioBackTestDecomposed_RebalanceBands_Absolute_SingleConstituent1()
         {
 
             var portfolio1 = new List<Allocation>()
@@ -249,8 +249,8 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m);
-            var actualOutput2 = await controller.GetPortfolioBackTest(portfolio2, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m);
+            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m);
+            var actualOutput2 = await controller.GetPortfolioBackTestDecomposed(portfolio2, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m);
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>
             {
@@ -278,7 +278,7 @@ namespace DataService.Controllers
         }
 
         [Fact]
-        public async Task GetPortfolioBackTest_RebalanceBands_Absolute_MultipleDifferentConstituents1()
+        public async Task GetPortfolioBackTestDecomposed_RebalanceBands_Absolute_MultipleDifferentConstituents1()
         {
             var portfolio1 = new List<Allocation>()
             {
@@ -288,7 +288,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m);
+            var actualOutput1 = await controller.GetPortfolioBackTestDecomposed(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m);
 
             var expected = new Dictionary<string, NominalPeriodReturn[]>
             {
