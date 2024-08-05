@@ -5,9 +5,9 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{DE323798-1528-4A4C-983C-EE5315FE5BF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Job", "Job\Job.csproj", "{BB58D816-4BE8-42EF-9AC8-75889A7A6260}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRefreshJob", "DataRefreshJob\DataRefreshJob.csproj", "{BB58D816-4BE8-42EF-9AC8-75889A7A6260}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataService", "DataService\DataService.csproj", "{ACB66D6C-12BF-469B-9A2C-B194FF7400B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataService", "DataService\DataService.csproj", "{ACB66D6C-12BF-469B-9A2C-B194FF7400B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -108,11 +108,13 @@ namespace Data.Controllers
         private async Task<(bool, Quote?)> GetNewHistory(Quote fundHistory)
         {
             var ticker = fundHistory.Ticker;
-
-            Logger.LogInformation("{ticker}: Downloading new history...", ticker);
-
             var staleHistoryLastTick = fundHistory.Prices[^1];
             var staleHistoryLastTickDate = staleHistoryLastTick.DateTime;
+
+            Logger.LogInformation("{ticker}: Downloading history starting at {staleHistoryLastTickDate}...",
+                ticker,
+                $"{staleHistoryLastTickDate:yyyy-MM-dd}");
+
             var freshHistory = await GetQuote(ticker, staleHistoryLastTickDate);
 
             if (freshHistory == null)
