@@ -133,12 +133,7 @@ namespace DataService.Controllers
 
             ValidateFilteredReturns(dateFilteredReturnsByTicker.Values);
 
-            var rebalanceDates = GetRebalanceDates(
-                dateFilteredReturnsByTicker.Values.First().Select(r => r.PeriodStart),
-                rebalanceStrategy,
-                rebalanceBandThreshold);
-
-            if (rebalanceDates.Length == 0)
+            if (rebalanceStrategy == RebalanceStrategy.None)
             {
                 return dateFilteredReturnsByTicker.ToDictionary(
                     pair => pair.Key,
@@ -147,12 +142,20 @@ namespace DataService.Controllers
                 );
             }
 
-            return PerformBacktestWithRebalancing(
+            if (rebalanceStrategy == RebalanceStrategy.BandsAbsolute ||
+                rebalanceStrategy == RebalanceStrategy.BandsRelative)
+            {
+                // TODO PerformBandedRebalanceBackTest()
+                throw new NotImplementedException();
+            }
+
+            var performancePeriodRebalanced = PerformPeriodicRebalanceBackTest(
                 dateFilteredReturnsByTicker,
                 dedupedPortfolioConstituents,
                 startingBalance,
-                rebalanceDates,
-                latestStart);
+                rebalanceStrategy);
+
+            return performancePeriodRebalanced;
         }
 
         private static void ValidateArguments(
@@ -216,27 +219,47 @@ namespace DataService.Controllers
             }
         }
 
-        private static Dictionary<string, NominalPeriodReturn[]> PerformBacktestWithRebalancing(
+        private static Dictionary<string, NominalPeriodReturn[]> PerformPeriodicRebalanceBackTest(
             Dictionary<string, PeriodReturn[]> dateFilteredReturnsByTicker,
-            Dictionary<string, decimal> dedupedPortfolioConstituents,
+            Dictionary<string, decimal> targetAllocationsByTicker,
             decimal startingBalance,
-            IEnumerable<DateTime> rebalanceDates,
-            DateTime latestStart)
+            RebalanceStrategy strategy,
+            bool potentiallyApplyEndingRebalance = false)
         {
             var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair
                 => new List<NominalPeriodReturn>());
 
-            var rebalancedBalances = dedupedPortfolioConstituents.ToDictionary(pair
+            var rebalanceDates = GetPeriodicRebalanceDates(
+                dateFilteredReturnsByTicker.Values.First().Select(r => r.PeriodStart),
+                strategy).ToList();
+
+            var rebalancedBalances = targetAllocationsByTicker.ToDictionary(pair
                 => pair.Key, pair => startingBalance * (pair.Value / 100));
 
-            var previousRebalanceDate = latestStart;
+            var lastRebalanceDate = dateFilteredReturnsByTicker.First().Value[0].PeriodStart;
+
+            if (potentiallyApplyEndingRebalance)
+            {
+                var currentLastDate = rebalanceDates[^1];
+                var nextPeriodStart = strategy switch
+                {
+                    RebalanceStrategy.Annually => currentLastDate.AddYears(1),
+                    RebalanceStrategy.SemiAnnually => currentLastDate.AddMonths(6),
+                    RebalanceStrategy.Quarterly => currentLastDate.AddMonths(3),
+                    RebalanceStrategy.Monthly => currentLastDate.AddMonths(1),
+                    RebalanceStrategy.Daily => currentLastDate.AddDays(2),
+                    _ => throw new ArgumentOutOfRangeException(nameof(strategy))
+                };
+
+                rebalanceDates.Add(nextPeriodStart.AddDays(-1));
+            }
 
             foreach (var rebalanceDate in rebalanceDates)
             {
                 foreach (var (ticker, returns) in dateFilteredReturnsByTicker)
                 {
                     var dateFilteredReturns = returns
-                        .Where(r => r.PeriodStart < rebalanceDate && r.PeriodStart >= previousRebalanceDate)
+                        .Where(r => r.PeriodStart < rebalanceDate && r.PeriodStart >= lastRebalanceDate)
                         .ToArray();
 
                     backtest[ticker].AddRange(GetPeriodReturnsBackTest(dateFilteredReturns, rebalancedBalances[ticker]));
@@ -244,25 +267,17 @@ namespace DataService.Controllers
 
                 var totalBalance = backtest.Sum(pair => pair.Value.Last().EndingBalance);
 
-                rebalancedBalances = dedupedPortfolioConstituents.ToDictionary(pair => pair.Key, pair
+                rebalancedBalances = targetAllocationsByTicker.ToDictionary(pair => pair.Key, pair
                     => totalBalance * (pair.Value / 100));
 
-                previousRebalanceDate = rebalanceDate;
+                lastRebalanceDate = rebalanceDate;
             }
 
             return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
         }
 
-        static DateTime[] GetRebalanceDates(
-            IEnumerable<DateTime> returnPeriodDates,
-            RebalanceStrategy strategy,
-            decimal? bandThreshold)
+        static DateTime[] GetPeriodicRebalanceDates(IEnumerable<DateTime> returnPeriodDates, RebalanceStrategy strategy)
         {
-            if (strategy == RebalanceStrategy.None)
-            {
-                return [];
-            }
-
             var rebalanceDates = new List<DateTime>();
             DateTime lastRebalanceDate = returnPeriodDates.First();
 
@@ -271,14 +286,11 @@ namespace DataService.Controllers
                 var currentDate = returnPeriodDates.ElementAt(i);
                 var isRebalanceNeeded = strategy switch
                 {
-                    RebalanceStrategy.None => false,
                     RebalanceStrategy.Annually => currentDate >= lastRebalanceDate.AddYears(1),
                     RebalanceStrategy.SemiAnnually => currentDate >= lastRebalanceDate.AddMonths(6),
                     RebalanceStrategy.Quarterly => currentDate >= lastRebalanceDate.AddMonths(3),
                     RebalanceStrategy.Monthly => currentDate >= lastRebalanceDate.AddMonths(1),
                     RebalanceStrategy.Daily => currentDate != lastRebalanceDate,
-                    RebalanceStrategy.BandsRelative => throw new NotImplementedException(),
-                    RebalanceStrategy.BandsAbsolute => throw new NotImplementedException(),
                     _ => throw new ArgumentOutOfRangeException(nameof(strategy))
                 };
 
