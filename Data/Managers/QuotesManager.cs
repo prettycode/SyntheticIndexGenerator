@@ -1,12 +1,15 @@
 ﻿using Data.Models;
+using Data.QuoteProvider;
 using Data.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace Data.Controllers
 {
-    public class QuotesManager(IQuoteRepository quoteRepository, ILogger<QuotesManager> logger)
+    public class QuotesManager(IQuoteRepository quoteRepository, IQuoteProvider quoteProvider, ILogger<QuotesManager> logger)
     {
         private IQuoteRepository QuoteCache { get; init; } = quoteRepository;
+
+        private IQuoteProvider QuoteProvider { get; init; } = quoteProvider;
 
         private ILogger<QuotesManager> Logger { get; init; } = logger;
 
@@ -160,53 +163,9 @@ namespace Data.Controllers
             return (false, freshHistory);
         }
 
-        // TODO test
-        private static async Task<Quote?> GetQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
+        private async Task<Quote?> GetQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
         {
-            static async Task<T> Throttle<T>(Func<Task<T>> operation)
-            {
-                await Task.Delay(2500);
-                return await operation();
-            }
-
-            var dividends = (await Throttle(() => YahooFinanceApi.Yahoo.GetDividendsAsync(ticker, startDate, endDate))).ToList();
-            var prices = (await Throttle(() => YahooFinanceApi.Yahoo.GetHistoricalAsync(ticker, startDate, endDate))).ToList();
-            var splits = (await Throttle(() => YahooFinanceApi.Yahoo.GetSplitsAsync(ticker, startDate, endDate))).ToList();
-
-            // API sometimes returns a record with 0s when record is today and not yet updated after market close.
-            // Other times it returns a candle with data representing the current daily performance. Discard either.
-
-            if (prices[^1].Open == 0 ||
-                prices[^1].DateTime == DateTime.Today)
-            {
-                var incompleteDate = prices[^1].DateTime;
-
-                prices.RemoveAt(prices.Count - 1);
-
-                if (prices.Count == 0)
-                {
-                    return null;
-                }
-
-                if (dividends.Count > 0 &&
-                    dividends[^1].DateTime == incompleteDate)
-                {
-                    dividends.RemoveAt(dividends.Count - 1);
-                }
-
-                if (splits.Count > 0 &&
-                    splits[^1].DateTime == incompleteDate)
-                {
-                    splits.RemoveAt(splits.Count - 1);
-                }
-            }
-
-            return new Quote(ticker)
-            {
-                Dividends = dividends.Select(div => new QuoteDividend(div)).ToList(),
-                Prices = prices.Select(price => new QuotePrice(price)).ToList(),
-                Splits = splits.Select(split => new QuoteSplit(split)).ToList()
-            };
+            return await quoteProvider.GetQuote(ticker, startDate, endDate);
         }
     }
 }

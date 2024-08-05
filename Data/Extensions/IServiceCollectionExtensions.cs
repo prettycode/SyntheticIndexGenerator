@@ -1,4 +1,5 @@
 ﻿using Data.Controllers;
+using Data.QuoteProvider;
 using Data.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ namespace Data.Extensions
             .Configure<ReturnRepositorySettings>(configuration.GetSection("ReturnRepositorySettings"))
             .AddTransient<IQuoteRepository, QuoteRepository>()
             .AddTransient<IReturnRepository, ReturnRepository>()
+            .AddTransient<IQuoteProvider, YahooQuotesApiQuoteProvider>()
             .AddTransient<QuotesManager>()
             .AddTransient<ReturnsManager>()
             .AddTransient<IndicesManager>();
