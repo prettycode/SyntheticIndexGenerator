@@ -1,22 +1,26 @@
 @DataService_HostAddress = http://localhost:5269
 ###
 
-GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTestDecomposed_NoRebalance_SingleConstituent
+GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_NoRebalance_SingleConstituent
 Accept: application/json
 ###
 
-GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTestDecomposed_NoRebalance_DuplicateConstituent
+GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_NoRebalance_DuplicateConstituent
 Accept: application/json
 ###
 
-GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTestDecomposed_NoRebalance_MultipleDifferentConstituents
-Accept: application/json
-###
-
-GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTestDecomposed_RebalanceMonthly_MultipleDifferentConstituents
+GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_NoRebalance_MultipleDifferentConstituents
 Accept: application/json
 ###
 
 GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_RebalanceMonthly_MultipleDifferentConstituents
+Accept: application/json
+###
+
+GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_RebalanceBands_Absolute_MultipleDifferentConstituents
+Accept: application/json
+###
+
+GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_RebalanceBands_Relative_MultipleDifferentConstituents
 Accept: application/json
 ###

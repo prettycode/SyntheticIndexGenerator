@@ -32,7 +32,7 @@ namespace DataService.Controllers
 
             lastPeriod ??= DateTime.MaxValue;
 
-            var decomposed = await GetPortfolioBackTestDecomposed(
+            var (decomposed, rebalances) = await GetPortfolioBackTestDecomposed(
                 portfolioConstituents,
                 startingBalance,
                 periodType,
@@ -46,7 +46,7 @@ namespace DataService.Controllers
             {
                 AggregatePerformance = aggregated,
                 DecomposedPerformanceByTicker = decomposed,
-                Rebalanaces = [], // TODO
+                CompletedPeriodsBeforeRebalances = rebalances,
                 RebalanceStrategy = rebalanceStrategy,
                 RebalanceThreshold = rebalanceBandThreshold
             };
@@ -81,7 +81,7 @@ namespace DataService.Controllers
                 .ToArray();
         }
 
-        private async Task<Dictionary<string, NominalPeriodReturn[]>> GetPortfolioBackTestDecomposed(
+        private async Task<(Dictionary<string, NominalPeriodReturn[]>, DateTime[] rebalance)> GetPortfolioBackTestDecomposed(
             IEnumerable<Allocation> portfolioConstituents,
             decimal startingBalance,
             ReturnPeriod periodType,
@@ -125,11 +125,13 @@ namespace DataService.Controllers
 
             if (rebalanceStrategy == RebalanceStrategy.None)
             {
-                return dateFilteredReturnsByTicker.ToDictionary(
+                var unbalancedPerformance = dateFilteredReturnsByTicker.ToDictionary(
                     pair => pair.Key,
                     pair => GetPeriodReturnsBackTest(pair.Value,
                         startingBalance * (dedupedPortfolioConstituents[pair.Key] / 100))
                 );
+
+                return (unbalancedPerformance, []);
             }
 
             if (rebalanceStrategy == RebalanceStrategy.BandsAbsolute ||
@@ -216,12 +218,13 @@ namespace DataService.Controllers
             }
         }
 
-        private static Dictionary<string, NominalPeriodReturn[]> PerformPeriodicRebalanceBackTest(
+        private static (Dictionary<string, NominalPeriodReturn[]>, DateTime[]) PerformPeriodicRebalanceBackTest(
             Dictionary<string, PeriodReturn[]> dateFilteredReturnsByTicker,
             Dictionary<string, decimal> targetAllocationsByTicker,
             decimal startingBalance,
             RebalanceStrategy strategy)
         {
+            var rebalances = new List<DateTime>();
             var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair
                 => new List<NominalPeriodReturn>());
 
@@ -253,12 +256,13 @@ namespace DataService.Controllers
                     => totalPortfolioBalance * (pair.Value / 100));
 
                 lastRebalanceDate = rebalanceDate;
+                rebalances.Add(backtest.First().Value[^1].PeriodStart);
             }
 
-            return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
+            return (backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray()), [.. rebalances]);
         }
 
-        private static Dictionary<string, NominalPeriodReturn[]> PerformBandedRebalanceBackTest(
+        private static (Dictionary<string, NominalPeriodReturn[]>, DateTime[]) PerformBandedRebalanceBackTest(
             Dictionary<string, PeriodReturn[]> dateFilteredReturnsByTicker,
             Dictionary<string, decimal> targetAllocationsByTicker,
             decimal startingBalance,
@@ -283,6 +287,7 @@ namespace DataService.Controllers
                     Math.Abs(currentAllocations[kvp.Key] - kvp.Value) > threshold);
             }
 
+            var rebalances = new List<DateTime>();
             var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair
                 => new List<NominalPeriodReturn>());
 
@@ -336,9 +341,11 @@ namespace DataService.Controllers
 
                 currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair => pair.Key, pair
                     => totalPortfolioBalance * (pair.Value / 100));
+
+                rebalances.Add(backtest.First().Value[^1].PeriodStart);
             }
 
-            return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
+            return (backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray()), [.. rebalances]);
         }
 
         internal static DateTime[] GetPeriodStartsToRebalanceAtStartOf(

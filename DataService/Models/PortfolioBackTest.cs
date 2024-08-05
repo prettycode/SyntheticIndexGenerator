@@ -8,9 +8,9 @@
         public Dictionary<string, NominalPeriodReturn[]> DecomposedPerformanceByTicker { get; set; }
 
         /// <summary>
-        /// Rebalances happen at the start of these.
+        /// List of of the periods, after completing, that triggered rebalances.
         /// </summary>
-        public DateTime[] Rebalanaces { get; set; }
+        public DateTime[] CompletedPeriodsBeforeRebalances { get; set; }
 
         public RebalanceStrategy RebalanceStrategy { get; set; }
 
