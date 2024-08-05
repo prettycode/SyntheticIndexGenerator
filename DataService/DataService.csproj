@@ -8,14 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Controllers\BackTestController.cs.original" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Controllers\BackTestController.cs.original" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.2">

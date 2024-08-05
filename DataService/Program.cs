@@ -1,4 +1,5 @@
 using Data.Extensions;
+using DataService.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDataLibraryConfiguration(builder.Configuration);
+builder.Services.AddTransient<BackTestController>();
 
 var app = builder.Build();
 
