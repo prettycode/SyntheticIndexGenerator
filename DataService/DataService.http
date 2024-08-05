@@ -1,26 +1,18 @@
 @DataService_HostAddress = http://localhost:5269
 ###
 
-GET {{DataService_HostAddress}}/performance/GetTickerPerformanceTest
+GET {{DataService_HostAddress}}/backtest/GetPortfolioBackTestDecomposed_NoRebalance_SingleConstituent
 Accept: application/json
 ###
 
-GET {{DataService_HostAddress}}/performance/GetPortfolioPerformanceTest
+GET {{DataService_HostAddress}}/backtest/GetPortfolioBackTestDecomposed_NoRebalance_DuplicateConstituent
 Accept: application/json
 ###
 
-GET {{DataService_HostAddress}}/performance/GetPortfolioPerformanceDecomposedTest
+GET {{DataService_HostAddress}}/backtest/GetPortfolioBackTestDecomposed_NoRebalance_MultipleDifferentConstituents
 Accept: application/json
 ###
 
-GET {{DataService_HostAddress}}/performance/GetTickerPerformance
-Accept: application/json
-###
-
-GET {{DataService_HostAddress}}/performance/GetPortfolioPerformance
-Accept: application/json
-###
-
-GET {{DataService_HostAddress}}/performance/GetPortfolioPerformanceDecomposed
+GET {{DataService_HostAddress}}/backtest/GetPortfolioBackTestDecomposed_RebalanceMonthly_MultipleDifferentConstituents
 Accept: application/json
 ###
