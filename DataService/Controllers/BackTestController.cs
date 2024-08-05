@@ -240,7 +240,7 @@ namespace DataService.Controllers
                 dateFilteredReturnsByTicker.Values.First().Select(r => r.PeriodStart),
                 strategy).ToList();
 
-            var rebalancedBalances = targetAllocationsByTicker.ToDictionary(pair
+            var currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair
                 => pair.Key, pair => startingBalance * (pair.Value / 100));
 
             var lastRebalanceDate = dateFilteredReturnsByTicker.First().Value[0].PeriodStart;
@@ -265,17 +265,18 @@ namespace DataService.Controllers
             {
                 foreach (var (ticker, returns) in dateFilteredReturnsByTicker)
                 {
+                    var tickerCurrentTotalBalance = currentTotalBalanceByTicker[ticker];
                     var dateFilteredReturns = returns
                         .Where(r => r.PeriodStart < rebalanceDate && r.PeriodStart >= lastRebalanceDate)
                         .ToArray();
 
-                    backtest[ticker].AddRange(GetPeriodReturnsBackTest(dateFilteredReturns, rebalancedBalances[ticker]));
+                    backtest[ticker].AddRange(GetPeriodReturnsBackTest(dateFilteredReturns, tickerCurrentTotalBalance));
                 }
 
-                var totalBalance = backtest.Sum(pair => pair.Value.Last().EndingBalance);
+                var totalPortfolioBalance = backtest.Sum(pair => pair.Value.Last().EndingBalance);
 
-                rebalancedBalances = targetAllocationsByTicker.ToDictionary(pair => pair.Key, pair
-                    => totalBalance * (pair.Value / 100));
+                currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair => pair.Key, pair
+                    => totalPortfolioBalance * (pair.Value / 100));
 
                 lastRebalanceDate = rebalanceDate;
             }
@@ -311,9 +312,23 @@ namespace DataService.Controllers
             var backtest = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair
                 => new List<NominalPeriodReturn>());
 
+            var currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair
+                => pair.Key, pair => startingBalance * (pair.Value / 100));
+
             for (var i = 0; i < dateFilteredReturnsByTicker.First().Value.Count(); i++)
             {
-                /*var currentBalancesByTicker = backtest.ToDictionary(
+                foreach (var (ticker, returns) in dateFilteredReturnsByTicker)
+                {
+                    var tickerCurrentTotalBalance = currentTotalBalanceByTicker[ticker];
+                    var periodReturn = returns[i];
+
+                    backtest[ticker].AddRange(GetPeriodReturnsBackTest([periodReturn], tickerCurrentTotalBalance));
+
+                    currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair => pair.Key, pair
+                        => backtest[ticker][^1].EndingBalance);
+                }
+
+                var currentBalancesByTicker = backtest.ToDictionary(
                     pair => pair.Key,
                     pair => pair.Value[^1].EndingBalance
                 );
@@ -336,16 +351,17 @@ namespace DataService.Controllers
                         currentAllocationsByTicker,
                         rebalanceBandThreshold),
                     _ => throw new ArgumentOutOfRangeException(nameof(strategy))
-                };*/
+                };
 
-                foreach (var (ticker, returns) in dateFilteredReturnsByTicker)
+                if (!isRebalanceNeeded)
                 {
-                    var lastEndingBalance = !backtest[ticker].Any()
-                        ? startingBalance * (targetAllocationsByTicker[ticker] / 100)
-                        : backtest[ticker][^1].EndingBalance;
-
-                    backtest[ticker].AddRange(GetPeriodReturnsBackTest([returns[i]], lastEndingBalance));
+                    continue;
                 }
+
+                var totalPortfolioBalance = backtest.Sum(pair => pair.Value.Last().EndingBalance);
+
+                currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair => pair.Key, pair
+                    => totalPortfolioBalance * (pair.Value / 100));
             }
 
             return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
