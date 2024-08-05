@@ -8,16 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Controllers\BackTestController.cs.claude.1" />
-    <None Remove="Controllers\BackTestController.cs.original.0" />
+    <None Remove="Controllers\BackTestController.cs.original" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Controllers\BackTestController.cs.claude.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Controllers\BackTestController.cs.original.0" />
+    <Content Include="Controllers\BackTestController.cs.original" />
   </ItemGroup>
 
   <ItemGroup>
