@@ -238,12 +238,12 @@ namespace DataService.Controllers
             var currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair
                 => pair.Key, pair => startingBalance * (pair.Value / 100));
 
-            var newSegmentStarts = GetPeriodStartsToRebalanceAtStartOf(
-                dateFilteredReturnsByTicker.Values.First().Select(r => r.PeriodStart),
-                strategy)
-                .Append(dateFilteredReturnsByTicker.First().Value[^1].PeriodStart.AddTicks(1));
+            var firstTickerReturns = dateFilteredReturnsByTicker.Values.First();
 
-            var lastRebalanceDate = dateFilteredReturnsByTicker.First().Value[0].PeriodStart;
+            var newSegmentStarts = GetPeriodStartsToRebalanceAtStartOf(firstTickerReturns.Select(r => r.PeriodStart), strategy)
+                .Append(firstTickerReturns[^1].PeriodStart.AddTicks(1));
+
+            var lastRebalanceDate = firstTickerReturns[0].PeriodStart;
 
             foreach (var rebalanceDate in newSegmentStarts)
             {
@@ -351,7 +351,9 @@ namespace DataService.Controllers
             return backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray());
         }
 
-        internal static DateTime[] GetPeriodStartsToRebalanceAtStartOf(IEnumerable<DateTime> returnPeriodDates, RebalanceStrategy strategy)
+        internal static DateTime[] GetPeriodStartsToRebalanceAtStartOf(
+            IEnumerable<DateTime> returnPeriodDates,
+            RebalanceStrategy strategy)
         {
             var rebalanceDates = new List<DateTime>();
             DateTime lastRebalanceDate = returnPeriodDates.First();
