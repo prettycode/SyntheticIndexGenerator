@@ -253,16 +253,16 @@ namespace DataService.Controllers
                 Dictionary<string, decimal> targetAllocationsByTicker,
                 Dictionary<string, decimal> currentAllocationsByTicker,
                 RebalanceStrategy strategy,
-                decimal rebalanceBandThreshold) => strategy switch
+                decimal? threshold) => strategy switch
                 {
                     RebalanceStrategy.BandsRelative => IsOutsideRelativeBands(
                         targetAllocationsByTicker,
                         currentAllocationsByTicker,
-                        rebalanceBandThreshold),
+                        threshold ?? throw new ArgumentNullException(nameof(threshold))),
                     RebalanceStrategy.BandsAbsolute => IsOutsideAbsoluteBands(
                         targetAllocationsByTicker,
                         currentAllocationsByTicker,
-                        rebalanceBandThreshold),
+                        threshold ?? throw new ArgumentNullException(nameof(threshold))),
                     _ => throw new ArgumentOutOfRangeException(nameof(strategy))
                 };
 
@@ -324,7 +324,7 @@ namespace DataService.Controllers
                         targetAllocationsByTicker,
                         currentAllocationsByTicker,
                         strategy,
-                        threshold.Value))
+                        threshold))
                     {
                         continue;
                     }
