@@ -364,6 +364,7 @@ namespace DataService.Controllers
                     RebalanceStrategy.SemiAnnually => currentDate >= lastRebalanceDate.AddMonths(6),
                     RebalanceStrategy.Quarterly => currentDate >= lastRebalanceDate.AddMonths(3),
                     RebalanceStrategy.Monthly => currentDate >= lastRebalanceDate.AddMonths(1),
+                    RebalanceStrategy.Weekly => currentDate >= lastRebalanceDate.AddDays(7),
                     RebalanceStrategy.Daily => currentDate != lastRebalanceDate,
                     _ => throw new ArgumentOutOfRangeException(nameof(strategy))
                 };

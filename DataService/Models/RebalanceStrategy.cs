@@ -7,6 +7,7 @@
         SemiAnnually,
         Quarterly,
         Monthly,
+        Weekly,
         Daily,
         BandsRelative,
         BandsAbsolute
