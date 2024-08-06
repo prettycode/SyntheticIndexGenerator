@@ -12,15 +12,13 @@ namespace DataService.TestEndpointControllers
         [HttpGet]
         public async Task TestAll([FromServices] BackTestController controller)
         {
-            var endpointTests = this
-                .GetType()
-                .GetMethods()
+            var httpGetMethods = this.GetType().GetMethods()
                 .Where(m => m.GetCustomAttributes(typeof(HttpGetAttribute), false).Length > 0)
-                .Where(m => m.ReturnType == typeof(Task))
+                .Where(m => m.ReturnType == typeof(Task<PortfolioBackTest>))
                 .Where(m => m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType == typeof(BackTestController))
-                .Select(m => (Task)m.Invoke(this, [controller])!);
+                .Select(m => (Task<PortfolioBackTest>)m.Invoke(this, [controller])!);
 
-            await Task.WhenAll(endpointTests);
+            await Task.WhenAll(httpGetMethods);
         }
 
         [HttpGet]
