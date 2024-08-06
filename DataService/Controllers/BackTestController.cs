@@ -23,13 +23,28 @@ namespace DataService.Controllers
             RebalanceStrategy rebalanceStrategy = RebalanceStrategy.None,
             decimal? rebalanceBandThreshold = null)
         {
-            ValidateArguments(
-                portfolioConstituents,
-                startingBalance,
-                firstPeriod,
-                lastPeriod,
-                rebalanceStrategy,
-                rebalanceBandThreshold);
+            ArgumentNullException.ThrowIfNull(portfolioConstituents);
+
+            if (!portfolioConstituents.Any())
+            {
+                throw new ArgumentException("Portfolio constituents cannot be empty", nameof(portfolioConstituents));
+            }
+
+            ArgumentOutOfRangeException.ThrowIfLessThan(startingBalance, 1, nameof(startingBalance));
+
+            if (lastPeriod.HasValue && lastPeriod.Value < firstPeriod)
+            {
+                throw new ArgumentOutOfRangeException(nameof(lastPeriod), "Last period cannot be before first period.");
+            }
+
+            if ((rebalanceStrategy == RebalanceStrategy.BandsAbsolute ||
+                 rebalanceStrategy == RebalanceStrategy.BandsRelative)
+                && (!rebalanceBandThreshold.HasValue || rebalanceBandThreshold <= 0))
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(rebalanceBandThreshold),
+                    $"Should be greater than 0 when rebalance strategy is {rebalanceStrategy}");
+            }
 
             lastPeriod ??= DateTime.MaxValue;
 
@@ -42,7 +57,7 @@ namespace DataService.Controllers
                 rebalanceStrategy,
                 rebalanceBandThreshold);
 
-            var aggregated = GetPortfolioBackTestDecomposedRollup(decomposed);
+            var aggregated = AggregateDecomposedPortfolioBackTest(decomposed);
             var backtest = new PortfolioBackTest()
             {
                 AggregatePerformance = aggregated,
@@ -55,7 +70,7 @@ namespace DataService.Controllers
             return backtest;
         }
 
-        private static NominalPeriodReturn[] GetPortfolioBackTestDecomposedRollup(
+        private static NominalPeriodReturn[] AggregateDecomposedPortfolioBackTest(
             Dictionary<string, NominalPeriodReturn[]> decomposedBackTest)
         {
             static decimal CalculateReturnPercentage(
@@ -144,38 +159,6 @@ namespace DataService.Controllers
             );
 
             return rebalancedPerformance;
-        }
-
-        private static void ValidateArguments(
-            IEnumerable<Allocation> portfolioConstituents,
-            decimal startingBalance,
-            DateTime firstPeriod,
-            DateTime? lastPeriod,
-            RebalanceStrategy rebalanceStrategy,
-            decimal? rebalanceBandThreshold)
-        {
-            ArgumentNullException.ThrowIfNull(portfolioConstituents);
-
-            if (!portfolioConstituents.Any())
-            {
-                throw new ArgumentException("Portfolio constituents cannot be empty", nameof(portfolioConstituents));
-            }
-
-            ArgumentOutOfRangeException.ThrowIfLessThan(startingBalance, 1, nameof(startingBalance));
-
-            if (lastPeriod.HasValue && lastPeriod.Value < firstPeriod)
-            {
-                throw new ArgumentOutOfRangeException(nameof(lastPeriod), "Last period cannot be before first period.");
-            }
-
-            if ((rebalanceStrategy == RebalanceStrategy.BandsAbsolute ||
-                 rebalanceStrategy == RebalanceStrategy.BandsRelative)
-                && (!rebalanceBandThreshold.HasValue || rebalanceBandThreshold <= 0))
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(rebalanceBandThreshold),
-                    $"Should be greater than 0 when rebalance strategy is {rebalanceStrategy}");
-            }
         }
 
         private static void ValidateReturnCollectionHomogeneity(IEnumerable<PeriodReturn[]> dateFilteredConstituentReturns)
