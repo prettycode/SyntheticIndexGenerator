@@ -365,7 +365,9 @@ namespace DataService.Controllers
                         => backtest[ticker][^1].EndingBalance);
                 }
 
-                if (!IsRebalanceNeeded(targetAllocationsByTicker, GetEndingAllocationsByTicker(backtest), strategy, rebalanceBandThreshold))
+                var currentAllocationsByTicker = GetEndingAllocationsByTicker(backtest);
+
+                if (!IsRebalanceNeeded(targetAllocationsByTicker, currentAllocationsByTicker, strategy, rebalanceBandThreshold))
                 {
                     continue;
                 }
