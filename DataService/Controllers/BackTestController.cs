@@ -270,17 +270,17 @@ namespace DataService.Controllers
                 Dictionary<string, decimal> targetAllocationsByTicker,
                 Dictionary<string, decimal> currentAllocationsByTicker,
                 DateTime nextPeriodStartDate,
-                DateTime lastRebalanceStartDate,
+                DateTime lastRebalancedStartDate,
                 RebalanceStrategy strategy)
             {
                 return strategy switch
                 {
-                    RebalanceStrategy.Annually => nextPeriodStartDate >= lastRebalanceStartDate.AddYears(1),
-                    RebalanceStrategy.SemiAnnually => nextPeriodStartDate >= lastRebalanceStartDate.AddMonths(6),
-                    RebalanceStrategy.Quarterly => nextPeriodStartDate >= lastRebalanceStartDate.AddMonths(3),
-                    RebalanceStrategy.Monthly => nextPeriodStartDate >= lastRebalanceStartDate.AddMonths(1),
-                    RebalanceStrategy.Weekly => nextPeriodStartDate >= lastRebalanceStartDate.AddDays(7),
-                    RebalanceStrategy.Daily => nextPeriodStartDate >= lastRebalanceStartDate.AddDays(1),
+                    RebalanceStrategy.Annually => nextPeriodStartDate >= lastRebalancedStartDate.AddYears(1),
+                    RebalanceStrategy.SemiAnnually => nextPeriodStartDate >= lastRebalancedStartDate.AddMonths(6),
+                    RebalanceStrategy.Quarterly => nextPeriodStartDate >= lastRebalancedStartDate.AddMonths(3),
+                    RebalanceStrategy.Monthly => nextPeriodStartDate >= lastRebalancedStartDate.AddMonths(1),
+                    RebalanceStrategy.Weekly => nextPeriodStartDate >= lastRebalancedStartDate.AddDays(7),
+                    RebalanceStrategy.Daily => nextPeriodStartDate >= lastRebalancedStartDate.AddDays(1),
                     _ => throw new ArgumentOutOfRangeException(nameof(strategy))
                 };
             }
@@ -294,10 +294,11 @@ namespace DataService.Controllers
             var currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair
                 => pair.Key, pair => startingBalance * (pair.Value / 100));
 
-            var historyPeriodsCount = dateFilteredReturnsByTicker.First().Value.Length;
-            var lastRebalanceStartDate = dateFilteredReturnsByTicker.First().Value[0].PeriodStart;
+            var firstTickerReturns = dateFilteredReturnsByTicker.First();
+            var returnsCount = firstTickerReturns.Value.Length;
+            var lastRebalancedStartDate = firstTickerReturns.Value[0].PeriodStart;
 
-            for (var i = 0; i < historyPeriodsCount; i++)
+            for (var i = 0; i < returnsCount; i++)
             {
                 foreach (var (ticker, returns) in dateFilteredReturnsByTicker)
                 {
@@ -310,24 +311,39 @@ namespace DataService.Controllers
                         => backtest[ticker][^1].EndingBalance);
                 }
 
-                if (i == historyPeriodsCount - 1)
+                if (i == returnsCount - 1)
                 {
                     break;
                 }
 
-                var nextPeriodStartDate = dateFilteredReturnsByTicker.First().Value.ElementAt(i + 1).PeriodStart;
                 var currentAllocationsByTicker = GetEndingAllocationsByTicker(backtest);
 
-                if ((strategy == RebalanceStrategy.BandsAbsolute || strategy == RebalanceStrategy.BandsRelative) &&
-                    !IsBandedRebalanceNeeded(targetAllocationsByTicker, currentAllocationsByTicker, strategy, threshold.Value))
+                if (strategy == RebalanceStrategy.BandsAbsolute || strategy == RebalanceStrategy.BandsRelative)
                 {
-                    continue;
+                    if (!IsBandedRebalanceNeeded(
+                        targetAllocationsByTicker,
+                        currentAllocationsByTicker,
+                        strategy,
+                        threshold.Value))
+                    {
+                        continue;
+                    }
                 }
-
-                if (!(strategy == RebalanceStrategy.BandsAbsolute || strategy == RebalanceStrategy.BandsRelative) &&
-                    !IsPeriodicRebalanceNeeded(targetAllocationsByTicker, currentAllocationsByTicker, nextPeriodStartDate, lastRebalanceStartDate, strategy))
+                else
                 {
-                    continue;
+                    var nextPeriodStartDate = firstTickerReturns.Value.ElementAt(i + 1).PeriodStart;
+
+                    if (!IsPeriodicRebalanceNeeded(
+                        targetAllocationsByTicker,
+                        currentAllocationsByTicker,
+                        nextPeriodStartDate,
+                        lastRebalancedStartDate,
+                        strategy))
+                    {
+                        continue;
+                    }
+
+                    lastRebalancedStartDate = nextPeriodStartDate;
                 }
 
                 var totalPortfolioBalance = backtest.Sum(pair => pair.Value.Last().EndingBalance);
@@ -349,8 +365,6 @@ namespace DataService.Controllers
 
                     currentTotalBalanceByTicker[ticker] = balanceAfterRebalance;
                 }
-
-                lastRebalanceStartDate = nextPeriodStartDate;
             }
 
             return (
