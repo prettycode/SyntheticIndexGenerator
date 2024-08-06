@@ -7,17 +7,6 @@ namespace DataService.Controllers
     public class BackTestControllerTests : ControllerTestBase
     {
         [Fact]
-        public void GetPeriodStartsToRebalanceAtStartOf_Monthly()
-        {
-            Assert.Empty(BackTestController.GetPeriodStartsToRebalanceBefore([new(2023, 1, 1)], RebalanceStrategy.Monthly));
-            Assert.Empty(BackTestController.GetPeriodStartsToRebalanceBefore([new(2023, 1, 31)], RebalanceStrategy.Monthly));
-            Assert.Empty(BackTestController.GetPeriodStartsToRebalanceBefore([new(2023, 1, 1), new(2023, 1, 31)], RebalanceStrategy.Monthly));
-
-            Assert.Equal(BackTestController.GetPeriodStartsToRebalanceBefore([new(2023, 1, 1), new(2023, 2, 1)], RebalanceStrategy.Monthly), [new(2023, 2, 1)]);
-            Assert.Equal(BackTestController.GetPeriodStartsToRebalanceBefore([new(2023, 1, 1), new(2023, 1, 31), new(2023, 2, 1)], RebalanceStrategy.Monthly), [new(2023, 2, 1)]);
-        }
-
-        [Fact]
         public async Task GetPortfolioBackTestDecomposed_NoRebalance_SingleConstituent1()
         {
 
@@ -328,6 +317,82 @@ namespace DataService.Controllers
             var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
 
             Assert.Equal(actualOutput1, expected);
+        }
+
+        [Fact]
+        public async Task GetPortfolioBackTest_RebalanceMonthly_MultipleDifferentMonthlyConstituents()
+        {
+            var portfolio1 = new List<Allocation>()
+            {
+                new() { Ticker = "#1X", Percentage = 50 },
+                new() { Ticker = "#3X", Percentage = 50 },
+            };
+
+            var controller = base.GetController<BackTestController>();
+
+            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly);
+
+            var rebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
+            var expectedRebalanceDates = new List<DateTime>() {
+                new DateTime(2023, 1, 1),
+                new DateTime(2023, 2, 1),
+                new DateTime(2023, 3, 1),
+                new DateTime(2023, 4, 1),
+                new DateTime(2023, 5, 1),
+                new DateTime(2023, 6, 1),
+                new DateTime(2023, 7, 1),
+                new DateTime(2023, 8, 1),
+                new DateTime(2023, 9, 1),
+                new DateTime(2023, 10, 1),
+                new DateTime(2023, 11, 1)
+            };
+
+            Assert.Equal(rebalanceDates, expectedRebalanceDates);
+        }
+
+        [Fact]
+        public async Task GetPortfolioBackTest_RebalanceWeekly_MultipleDifferentDailyConstituents()
+        {
+            var portfolio1 = new List<Allocation>()
+            {
+                new() { Ticker = "#1X", Percentage = 50 },
+                new() { Ticker = "#3X", Percentage = 50 },
+            };
+
+            var controller = base.GetController<BackTestController>();
+
+            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Daily, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Weekly);
+
+            var rebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
+            var expectedRebalanceDates = new List<DateTime>() {
+                new DateTime(2023, 1, 6),
+                new DateTime(2023, 1, 13),
+                new DateTime(2023, 1, 20),
+                new DateTime(2023, 1, 27)
+            };
+
+            Assert.Equal(rebalanceDates, expectedRebalanceDates);
+        }
+
+        [Fact]
+        public async Task GetPortfolioBackTest_RebalanceMonthly_MultipleDifferentDailyConstituents()
+        {
+            var portfolio1 = new List<Allocation>()
+            {
+                new() { Ticker = "#1X", Percentage = 50 },
+                new() { Ticker = "#3X", Percentage = 50 },
+            };
+
+            var controller = base.GetController<BackTestController>();
+
+            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Daily, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly);
+
+            var rebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
+            var expectedRebalanceDates = new List<DateTime>() {
+                new DateTime(2023, 2, 1)
+            };
+
+            Assert.Equal(rebalanceDates, expectedRebalanceDates);
         }
     }
 }
