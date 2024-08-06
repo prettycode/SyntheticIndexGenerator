@@ -13,7 +13,7 @@ namespace Data.Extensions
             .Configure<ReturnRepositorySettings>(configuration.GetSection("ReturnRepositorySettings"))
             .AddTransient<IQuoteRepository, QuoteRepository>()
             .AddTransient<IReturnRepository, ReturnRepository>()
-            .AddTransient<IQuoteProvider, YahooQuotesApiQuoteProvider>()
+            .AddTransient<IQuoteProvider, YahooFinanceApiQuoteProvider>()
             .AddTransient<QuotesManager>()
             .AddTransient<ReturnsManager>()
             .AddTransient<IndicesManager>();

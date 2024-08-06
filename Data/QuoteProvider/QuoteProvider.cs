@@ -6,7 +6,7 @@ namespace Data.QuoteProvider
     {
         protected static async Task<T> Throttle<T>(Func<Task<T>> operation)
         {
-            await Task.Delay(2500);
+            await Task.Delay(1000);
             return await operation();
         }
 
