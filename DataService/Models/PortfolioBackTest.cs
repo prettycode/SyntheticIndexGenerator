@@ -9,7 +9,7 @@
         /// <summary>
         /// List of of the periods, after completing, that triggered rebalances.
         /// </summary>
-        public required DateTime[] CompletedPeriodsBeforeRebalances { get; set; }
+        public required Dictionary<string, Rebalance[]> RebalancesByTicker { get; set; }
 
         public required RebalanceStrategy RebalanceStrategy { get; set; }
 

@@ -21,4 +21,19 @@ namespace DataService.Models
 
         public decimal BalanceIncrease { get { return StartingBalance * (this.ReturnPercentage / 100m); } }
     }
+
+    public struct Rebalance
+    {
+        public string Ticker { get; init; }
+        public DateTime PrecedingCompletedPeriodStart { get; init; }
+
+        public ReturnPeriod PrecedingCompletedPeriodType { get; init; }
+
+        public decimal BalanceBeforeRebalance { get; init; }
+
+        public decimal BalanceAfterRebalance { get; init; }
+
+        public decimal PercentageChange { get { return ((BalanceAfterRebalance / BalanceBeforeRebalance) - 1) * 100; } }
+
+    }
 }
