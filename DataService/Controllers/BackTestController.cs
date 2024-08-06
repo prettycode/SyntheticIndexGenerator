@@ -139,17 +139,6 @@ namespace DataService.Controllers
 
             ValidateReturnCollectionHomogeneity(dateFilteredReturnsByTicker.Values);
 
-            if (rebalanceStrategy == RebalanceStrategy.None)
-            {
-                var unbalancedPerformance = dateFilteredReturnsByTicker.ToDictionary(
-                    pair => pair.Key,
-                    pair => GetPeriodReturnsBackTest(pair.Value,
-                        startingBalance * (dedupedPortfolioConstituents[pair.Key] / 100))
-                );
-
-                return (unbalancedPerformance, []);
-            }
-
             var rebalancedPerformance = GetRebalancedPortfolioBacktest(
                 dateFilteredReturnsByTicker,
                 dedupedPortfolioConstituents,
@@ -289,6 +278,7 @@ namespace DataService.Controllers
 
                 bool needsRebalancing = strategy switch
                 {
+                    RebalanceStrategy.None => false,
                     RebalanceStrategy.BandsAbsolute or RebalanceStrategy.BandsRelative =>
                         IsBandedRebalanceNeeded(targetAllocationsByTicker, currentAllocationsByTicker, strategy, threshold),
                     _ => IsPeriodicRebalanceNeeded(firstTickerReturns[i + 1].PeriodStart, lastRebalancedStartDate, strategy)
