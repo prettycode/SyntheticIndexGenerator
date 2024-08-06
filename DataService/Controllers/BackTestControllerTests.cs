@@ -9,12 +9,12 @@ namespace DataService.Controllers
         [Fact]
         public void GetPeriodStartsToRebalanceAtStartOf_Monthly()
         {
-            Assert.Empty(BackTestController.GetPeriodStartsToRebalanceAtStartOf([new(2023, 1, 1)], RebalanceStrategy.Monthly));
-            Assert.Empty(BackTestController.GetPeriodStartsToRebalanceAtStartOf([new(2023, 1, 31)], RebalanceStrategy.Monthly));
-            Assert.Empty(BackTestController.GetPeriodStartsToRebalanceAtStartOf([new(2023, 1, 1), new(2023, 1, 31)], RebalanceStrategy.Monthly));
+            Assert.Empty(BackTestController.GetPeriodStartsToRebalanceBefore([new(2023, 1, 1)], RebalanceStrategy.Monthly));
+            Assert.Empty(BackTestController.GetPeriodStartsToRebalanceBefore([new(2023, 1, 31)], RebalanceStrategy.Monthly));
+            Assert.Empty(BackTestController.GetPeriodStartsToRebalanceBefore([new(2023, 1, 1), new(2023, 1, 31)], RebalanceStrategy.Monthly));
 
-            Assert.Equal(BackTestController.GetPeriodStartsToRebalanceAtStartOf([new(2023, 1, 1), new(2023, 2, 1)], RebalanceStrategy.Monthly), [new(2023, 2, 1)]);
-            Assert.Equal(BackTestController.GetPeriodStartsToRebalanceAtStartOf([new(2023, 1, 1), new(2023, 1, 31), new(2023, 2, 1)], RebalanceStrategy.Monthly), [new(2023, 2, 1)]);
+            Assert.Equal(BackTestController.GetPeriodStartsToRebalanceBefore([new(2023, 1, 1), new(2023, 2, 1)], RebalanceStrategy.Monthly), [new(2023, 2, 1)]);
+            Assert.Equal(BackTestController.GetPeriodStartsToRebalanceBefore([new(2023, 1, 1), new(2023, 1, 31), new(2023, 2, 1)], RebalanceStrategy.Monthly), [new(2023, 2, 1)]);
         }
 
         [Fact]

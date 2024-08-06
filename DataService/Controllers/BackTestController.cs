@@ -236,7 +236,7 @@ namespace DataService.Controllers
 
             var firstTickerReturns = dateFilteredReturnsByTicker.Values.First();
 
-            var newSegmentStarts = GetPeriodStartsToRebalanceAtStartOf(firstTickerReturns.Select(r => r.PeriodStart), strategy)
+            var newSegmentStarts = GetPeriodStartsToRebalanceBefore(firstTickerReturns.Select(r => r.PeriodStart), strategy)
                 .Append(firstTickerReturns[^1].PeriodStart.AddTicks(1));
 
             var lastRebalanceDate = firstTickerReturns[0].PeriodStart;
@@ -386,16 +386,16 @@ namespace DataService.Controllers
             );
         }
 
-        internal static DateTime[] GetPeriodStartsToRebalanceAtStartOf(
+        internal static DateTime[] GetPeriodStartsToRebalanceBefore(
             IEnumerable<DateTime> returnPeriodDates,
             RebalanceStrategy strategy)
         {
             var rebalanceDates = new List<DateTime>();
-            DateTime lastRebalanceDate = returnPeriodDates.First();
 
             for (var i = 1; i < returnPeriodDates.Count(); i++)
             {
                 var currentDate = returnPeriodDates.ElementAt(i);
+                var lastRebalanceDate = !rebalanceDates.Any() ? returnPeriodDates.First() : rebalanceDates[^1];
                 var isRebalanceNeeded = strategy switch
                 {
                     RebalanceStrategy.Annually => currentDate >= lastRebalanceDate.AddYears(1),
