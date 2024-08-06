@@ -324,7 +324,7 @@ namespace DataService.Controllers
                 return currentAllocationsByTicker;
             }
 
-            static bool IsRebalanceNeeded(
+            static bool IsBandedRebalanceNeeded(
                 Dictionary<string, decimal> targetAllocationsByTicker,
                 Dictionary<string, decimal> currentAllocationsByTicker,
                 RebalanceStrategy strategy,
@@ -367,7 +367,7 @@ namespace DataService.Controllers
 
                 var currentAllocationsByTicker = GetEndingAllocationsByTicker(backtest);
 
-                if (!IsRebalanceNeeded(targetAllocationsByTicker, currentAllocationsByTicker, strategy, rebalanceBandThreshold))
+                if (!IsBandedRebalanceNeeded(targetAllocationsByTicker, currentAllocationsByTicker, strategy, rebalanceBandThreshold))
                 {
                     continue;
                 }
