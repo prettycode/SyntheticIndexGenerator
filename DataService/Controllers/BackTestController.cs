@@ -82,7 +82,7 @@ namespace DataService.Controllers
                 .ToArray();
         }
 
-        private async Task<(Dictionary<string, NominalPeriodReturn[]>, Dictionary<string, Rebalance[]>)> GetPortfolioBackTestDecomposed(
+        private async Task<(Dictionary<string, NominalPeriodReturn[]>, Dictionary<string, RebalanceEvent[]>)> GetPortfolioBackTestDecomposed(
             IEnumerable<Allocation> portfolioConstituents,
             decimal startingBalance,
             ReturnPeriod periodType,
@@ -219,7 +219,7 @@ namespace DataService.Controllers
             }
         }
 
-        private static (Dictionary<string, NominalPeriodReturn[]>, Dictionary<string, Rebalance[]>) PerformPeriodicRebalanceBackTest(
+        private static (Dictionary<string, NominalPeriodReturn[]>, Dictionary<string, RebalanceEvent[]>) PerformPeriodicRebalanceBackTest(
             Dictionary<string, PeriodReturn[]> dateFilteredReturnsByTicker,
             Dictionary<string, decimal> targetAllocationsByTicker,
             decimal startingBalance,
@@ -229,7 +229,7 @@ namespace DataService.Controllers
                 => new List<NominalPeriodReturn>());
 
             var rebalances = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair
-                => new List<Rebalance>());
+                => new List<RebalanceEvent>());
 
             var currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair
                 => pair.Key, pair => startingBalance * (pair.Value / 100));
@@ -263,7 +263,7 @@ namespace DataService.Controllers
                     var lastTickEndingBalance = lastTick.EndingBalance;
                     var balanceAfterRebalance = totalPortfolioBalance * (targetAllocationsByTicker[ticker] / 100);
 
-                    rebalances[ticker].Add(new Rebalance()
+                    rebalances[ticker].Add(new RebalanceEvent()
                     {
                         Ticker = ticker,
                         PrecedingCompletedPeriodStart = lastTick.PeriodStart,
@@ -282,7 +282,7 @@ namespace DataService.Controllers
             );
         }
 
-        private static (Dictionary<string, NominalPeriodReturn[]>, Dictionary<string, Rebalance[]>) PerformBandedRebalanceBackTest(
+        private static (Dictionary<string, NominalPeriodReturn[]>, Dictionary<string, RebalanceEvent[]>) PerformBandedRebalanceBackTest(
             Dictionary<string, PeriodReturn[]> dateFilteredReturnsByTicker,
             Dictionary<string, decimal> targetAllocationsByTicker,
             decimal startingBalance,
@@ -311,7 +311,7 @@ namespace DataService.Controllers
                 => new List<NominalPeriodReturn>());
 
             var rebalances = dateFilteredReturnsByTicker.ToDictionary(pair => pair.Key, pair
-                => new List<Rebalance>());
+                => new List<RebalanceEvent>());
 
             var currentTotalBalanceByTicker = targetAllocationsByTicker.ToDictionary(pair
                 => pair.Key, pair => startingBalance * (pair.Value / 100));
@@ -367,7 +367,7 @@ namespace DataService.Controllers
                     var lastTickEndingBalance = lastTick.EndingBalance;
                     var balanceAfterRebalance = totalPortfolioBalance * (targetAllocationsByTicker[ticker] / 100);
 
-                    rebalances[ticker].Add(new Rebalance()
+                    rebalances[ticker].Add(new RebalanceEvent()
                     {
                         Ticker = ticker,
                         PrecedingCompletedPeriodStart = lastTick.PeriodStart,

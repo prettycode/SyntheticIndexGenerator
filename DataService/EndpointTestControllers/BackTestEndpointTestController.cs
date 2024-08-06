@@ -19,7 +19,7 @@ namespace DataService.TestEndpointControllers
 
             foreach (var method in httpGetMethods)
             {
-                await ((Task<PortfolioBackTest>)method.Invoke(this, new object[] { controller }));
+                await ((Task<PortfolioBackTest>)method.Invoke(this, [controller]));
             }
         }
 
