@@ -103,7 +103,7 @@ namespace DataService.TestEndpointControllers
             return backtest;
         }
 
-        /*[HttpGet]
+        [HttpGet]
         public async Task<PortfolioBackTest>
             GetPortfolioBackTest_RebalanceMonthly_MultipleDifferentDailyConstituents([FromServices] BackTestController controller)
         {
@@ -143,7 +143,7 @@ namespace DataService.TestEndpointControllers
                 RebalanceStrategy.Weekly);
 
             return backtest;
-        }*/
+        }
 
         [HttpGet]
         public async Task<PortfolioBackTest>
