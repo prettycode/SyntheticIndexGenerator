@@ -13,7 +13,15 @@ GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_NoReba
 Accept: application/json
 ###
 
-GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_RebalanceMonthly_MultipleDifferentConstituents
+GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_RebalanceMonthly_MultipleDifferentMonthlyConstituents
+Accept: application/json
+###
+
+GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_RebalanceMonthly_MultipleDifferentDailyConstituents
+Accept: application/json
+###
+
+GET {{DataService_HostAddress}}/BackTestEndpointTest/GetPortfolioBackTest_RebalanceWeekly_MultipleDifferentDailyConstituents
 Accept: application/json
 ###
 
