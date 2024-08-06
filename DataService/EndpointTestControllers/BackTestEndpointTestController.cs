@@ -10,6 +10,20 @@ namespace DataService.TestEndpointControllers
     public class BackTestEndpointTestController : ControllerBase
     {
         [HttpGet]
+        public async Task TestAll([FromServices] BackTestController controller)
+        {
+            var httpGetMethods = this.GetType().GetMethods()
+                .Where(m => m.GetCustomAttributes(typeof(HttpGetAttribute), false).Length > 0)
+                .Where(m => m.ReturnType == typeof(Task<PortfolioBackTest>))
+                .Where(m => m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType == typeof(BackTestController));
+
+            foreach (var method in httpGetMethods)
+            {
+                await ((Task<PortfolioBackTest>)method.Invoke(this, new object[] { controller }));
+            }
+        }
+
+        [HttpGet]
         public async Task<PortfolioBackTest>
             GetPortfolioBackTest_NoRebalance_SingleConstituent([FromServices] BackTestController controller)
         {
