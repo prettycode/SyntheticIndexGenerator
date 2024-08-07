@@ -1,4 +1,6 @@
-﻿namespace DataService.Models
+﻿using Data.Models;
+
+namespace DataService.Models
 {
     public struct PortfolioBackTest
     {
@@ -17,5 +19,29 @@
         /// Scale is 0 - 100, not 0 - 1.
         /// </summary>
         public required decimal? RebalanceThreshold { get; set; }
+
+        public double Cagr
+        {
+            get
+            {
+                var firstTick = this.AggregatePerformance[0];
+                var lastTick = this.AggregatePerformance[^1];
+                var lastTickStart = lastTick.PeriodStart;
+                var returnPeriod = firstTick.ReturnPeriod;
+
+                var startDate = firstTick.PeriodStart;
+                var endDate = returnPeriod switch
+                {
+                    ReturnPeriod.Daily => lastTickStart.AddDays(1),
+                    ReturnPeriod.Monthly => lastTickStart.AddMonths(1),
+                    ReturnPeriod.Yearly => lastTickStart.AddYears(1),
+                    _ => throw new InvalidOperationException()
+                };
+
+                double years = (endDate - startDate).TotalDays / 365.25;
+
+                return Math.Pow(Convert.ToDouble(lastTick.EndingBalance) / Convert.ToDouble(firstTick.StartingBalance), 1 / years) - 1;
+            }
+        }
     }
 }
