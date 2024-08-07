@@ -26,11 +26,12 @@ namespace DataService.Models
             {
                 var firstTick = AggregatePerformance[0];
                 var lastTick = AggregatePerformance[^1];
+
                 var lastTickStart = lastTick.PeriodStart;
-                var returnPeriod = firstTick.ReturnPeriod;
+                var lastTickReturnPeriod = lastTick.ReturnPeriod;
 
                 var startDate = firstTick.PeriodStart;
-                var endDate = returnPeriod switch
+                var endDate = lastTickReturnPeriod switch
                 {
                     ReturnPeriod.Daily => lastTickStart.AddDays(1),
                     ReturnPeriod.Monthly => lastTickStart.AddMonths(1),
