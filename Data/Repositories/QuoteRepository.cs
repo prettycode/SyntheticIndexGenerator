@@ -201,9 +201,22 @@ namespace Data.Repositories
                     exceptions.Add(new($"Non-chronological {nameof(price.DateTime)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
                 }
 
-                // Don't check volume; it's 0 for mutual funds
+                // Check volume later
 
                 previousDateTime = price.DateTime;
+            }
+
+            // Check volume of non-mutual funds
+
+            if (fundHistory.Prices.Any(tick => tick.Volume != 0))
+            {
+                foreach (var price in fundHistory.Prices)
+                {
+                    if (price.Volume == 0)
+                    {
+                        exceptions.Add(new($"Zero {nameof(price.Volume)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    }
+                }
             }
 
             previousDateTime = DateTime.MinValue;
