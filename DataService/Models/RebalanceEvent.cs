@@ -5,6 +5,7 @@ namespace DataService.Models
     public readonly struct RebalanceEvent
     {
         public string Ticker { get; init; }
+
         public DateTime PrecedingCompletedPeriodStart { get; init; }
 
         public ReturnPeriod PrecedingCompletedPeriodType { get; init; }

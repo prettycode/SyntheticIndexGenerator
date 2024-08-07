@@ -272,51 +272,73 @@ namespace DataService.Controllers
             var portfolio1 = new List<Allocation>()
             {
                 new() { Ticker = "#1X", Percentage = 50 },
-                new() { Ticker = "#3X", Percentage = 50 },
+                new() { Ticker = "#2X", Percentage = 50 },
             };
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m)).DecomposedPerformanceByTicker;
+            var backtest = (await controller.GetPortfolioBackTest(portfolio1, 100, ReturnPeriod.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 25));
+            var decomposed = backtest.DecomposedPerformanceByTicker;
 
-            var expected = new Dictionary<string, NominalPeriodReturn[]>
+            var expectedDecomposed = new Dictionary<string, NominalPeriodReturn[]>
             {
-                ["#1X"] =
-                [
-                    new("#1X",     50m, new() { PeriodStart = new(2023,  1, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X",    100m, new() { PeriodStart = new(2023,  2, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X",    200m, new() { PeriodStart = new(2023,  3, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X",    400m, new() { PeriodStart = new(2023,  4, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X",    800m, new() { PeriodStart = new(2023,  5, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X",   1600m, new() { PeriodStart = new(2023,  6, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X",   3200m, new() { PeriodStart = new(2023,  7, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X",   6400m, new() { PeriodStart = new(2023,  8, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X",  12800m, new() { PeriodStart = new(2023,  9, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X",  25600m, new() { PeriodStart = new(2023, 10, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X",  51200m, new() { PeriodStart = new(2023, 11, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#1X", 102400m, new() { PeriodStart = new(2023, 12, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly })
-                ],
-                ["#3X"] =
-                [
-                    new("#3X",     50m, new() { PeriodStart = new(2023,  1, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X",    100m, new() { PeriodStart = new(2023,  2, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X",    200m, new() { PeriodStart = new(2023,  3, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X",    400m, new() { PeriodStart = new(2023,  4, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X",    800m, new() { PeriodStart = new(2023,  5, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X",   1600m, new() { PeriodStart = new(2023,  6, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X",   3200m, new() { PeriodStart = new(2023,  7, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X",   6400m, new() { PeriodStart = new(2023,  8, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X",  12800m, new() { PeriodStart = new(2023,  9, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X",  25600m, new() { PeriodStart = new(2023, 10, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X",  51200m, new() { PeriodStart = new(2023, 11, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly }),
-                    new("#3X", 102400m, new() { PeriodStart = new(2023, 12, 1), ReturnPercentage = 200m, SourceTicker = "#3X", ReturnPeriod = ReturnPeriod.Monthly })
-                ]
+                ["#1X"] = new NominalPeriodReturn[]
+                {
+                    new("#1X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 125m,        new PeriodReturn { PeriodStart = new DateTime(2023, 3, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 125m,        new PeriodReturn { PeriodStart = new DateTime(2023, 4, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 312.5m,      new PeriodReturn { PeriodStart = new DateTime(2023, 5, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 312.5m,      new PeriodReturn { PeriodStart = new DateTime(2023, 6, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 781.25m,     new PeriodReturn { PeriodStart = new DateTime(2023, 7, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 781.25m,     new PeriodReturn { PeriodStart = new DateTime(2023, 8, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 1953.125m,   new PeriodReturn { PeriodStart = new DateTime(2023, 9, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 1953.125m,   new PeriodReturn { PeriodStart = new DateTime(2023, 10, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#1X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 0m, SourceTicker = "#1X", ReturnPeriod = ReturnPeriod.Monthly })
+                },
+                ["#2X"] = new NominalPeriodReturn[]
+                {
+                    new("#2X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 100m,        new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 125m,        new PeriodReturn { PeriodStart = new DateTime(2023, 3, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 250m,        new PeriodReturn { PeriodStart = new DateTime(2023, 4, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 312.5m,      new PeriodReturn { PeriodStart = new DateTime(2023, 5, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 625m,        new PeriodReturn { PeriodStart = new DateTime(2023, 6, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 781.25m,     new PeriodReturn { PeriodStart = new DateTime(2023, 7, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 1562.5m,     new PeriodReturn { PeriodStart = new DateTime(2023, 8, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 1953.125m,   new PeriodReturn { PeriodStart = new DateTime(2023, 9, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 3906.25m,    new PeriodReturn { PeriodStart = new DateTime(2023, 10, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly }),
+                    new("#2X", 9765.625m,   new PeriodReturn { PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 100m, SourceTicker = "#2X", ReturnPeriod = ReturnPeriod.Monthly })
+                }
             };
 
-            var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, new JsonSerializerOptions() { WriteIndented = true });
-            var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
+            var expectedRebalances = new Dictionary<string, RebalanceEvent[]>
+            {
+                ["#1X"] = new RebalanceEvent[]
+                {
+                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = ReturnPeriod.Monthly, BalanceBeforeRebalance = 50m,      BalanceAfterRebalance = 125m,        },
+                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = ReturnPeriod.Monthly, BalanceBeforeRebalance = 125m,     BalanceAfterRebalance = 312.5m,      },
+                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = ReturnPeriod.Monthly, BalanceBeforeRebalance = 312.5m,   BalanceAfterRebalance = 781.25m,     },
+                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = ReturnPeriod.Monthly, BalanceBeforeRebalance = 781.25m,  BalanceAfterRebalance = 1953.125m,   },
+                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = ReturnPeriod.Monthly, BalanceBeforeRebalance = 1953.125m, BalanceAfterRebalance = 4882.8125m }
+                },
+                ["#2X"] = new RebalanceEvent[]
+                {
+                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = ReturnPeriod.Monthly, BalanceBeforeRebalance = 200m,      BalanceAfterRebalance = 125m,       },
+                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = ReturnPeriod.Monthly, BalanceBeforeRebalance = 500m,      BalanceAfterRebalance = 312.5m,     },
+                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = ReturnPeriod.Monthly, BalanceBeforeRebalance = 1250m,     BalanceAfterRebalance = 781.25m,    },
+                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = ReturnPeriod.Monthly, BalanceBeforeRebalance = 3125m,     BalanceAfterRebalance = 1953.125m,  },
+                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = ReturnPeriod.Monthly, BalanceBeforeRebalance = 7812.5m,   BalanceAfterRebalance = 4882.8125m }
+                }
+            };
 
-            Assert.Equal(actualOutput1, expected);
+            var actualOutput1Json = JsonSerializer.Serialize(decomposed, new JsonSerializerOptions() { WriteIndented = true });
+            var expectedJson = JsonSerializer.Serialize(expectedDecomposed, new JsonSerializerOptions() { WriteIndented = true });
+
+            Assert.Equal(decomposed, expectedDecomposed);
+            Assert.Equal(backtest.RebalancesByTicker, expectedRebalances);
         }
 
         [Fact]

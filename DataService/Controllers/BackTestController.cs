@@ -1,4 +1,3 @@
-using System.Linq;
 using Data.Models;
 using Data.Repositories;
 using DataService.Models;
@@ -113,7 +112,7 @@ namespace DataService.Controllers
                     group => group.Sum(alloc => alloc.Percentage)
                 );
 
-            var constituentTickers = dedupedPortfolioConstituents.Keys.ToArray();
+            var constituentTickers = dedupedPortfolioConstituents.Keys;
 
             var constituentReturns = await Task.WhenAll(
                 constituentTickers.Select(ticker => returnCache.Get(ticker, periodType, firstPeriod, lastPeriod)));
@@ -191,7 +190,7 @@ namespace DataService.Controllers
                 Dictionary<string, decimal> currentAllocations,
                 decimal threshold)
                 => targetAllocations.Any(kvp =>
-                    Math.Abs(currentAllocations[kvp.Key] - kvp.Value) / kvp.Value > threshold);
+                    Math.Abs((currentAllocations[kvp.Key] - kvp.Value) / kvp.Value) * 100 >= threshold);
 
             static bool IsOutsideAbsoluteBands(
                 Dictionary<string, decimal> targetAllocations,
@@ -275,13 +274,14 @@ namespace DataService.Controllers
                 }
 
                 var currentAllocationsByTicker = GetEndingAllocationsByTicker(backtest);
+                var nextPeriodStartDate = firstTickerReturns[i + 1].PeriodStart;
 
                 bool needsRebalancing = strategy switch
                 {
                     RebalanceStrategy.None => false,
                     RebalanceStrategy.BandsAbsolute or RebalanceStrategy.BandsRelative =>
                         IsBandedRebalanceNeeded(targetAllocationsByTicker, currentAllocationsByTicker, strategy, threshold),
-                    _ => IsPeriodicRebalanceNeeded(firstTickerReturns[i + 1].PeriodStart, lastRebalancedStartDate, strategy)
+                    _ => IsPeriodicRebalanceNeeded(nextPeriodStartDate, lastRebalancedStartDate, strategy)
                 };
 
                 if (!needsRebalancing)
@@ -289,7 +289,7 @@ namespace DataService.Controllers
                     continue;
                 }
 
-                lastRebalancedStartDate = firstTickerReturns[i + 1].PeriodStart;
+                lastRebalancedStartDate = nextPeriodStartDate;
 
                 var totalPortfolioBalance = backtest.Sum(pair => pair.Value[^1].EndingBalance);
 

@@ -1,0 +1,119 @@
+﻿I'm going to give you some JSON and I need you to reverse-engineer a hardcoded C# variable that would serialize to the JSON.
+
+The JSON is a representation of a `Dictionary<string, RebalanceEvent[]>`.
+
+A `RebalanceEvent` looks like this:
+
+    public readonly struct RebalanceEvent
+    {
+        public string Ticker { get; init; }
+
+        public DateTime PrecedingCompletedPeriodStart { get; init; }
+
+        public ReturnPeriod PrecedingCompletedPeriodType { get; init; }
+
+        public decimal BalanceBeforeRebalance { get; init; }
+
+        public decimal BalanceAfterRebalance { get; init; }
+
+        public decimal PercentageChange { get { return ((BalanceAfterRebalance / BalanceBeforeRebalance) - 1) * 100; } }
+
+    }
+
+Here is ReturnPeriod:
+
+    public enum ReturnPeriod
+    {
+        Daily,
+        Monthly,
+        Yearly
+    }
+
+Here is the JSON, below. Look at it and give me the hardcoded C# variable. Each RebalanceEvent should be written on exactly one line. Remove trailing zeros on decimals but add 'm' suffix, and align the element object parameters columnarly.
+
+{
+  "#1X": [
+    {
+      "Ticker": "#1X",
+      "PrecedingCompletedPeriodStart": "2023-02-01T00:00:00",
+      "PrecedingCompletedPeriodType": 1,
+      "BalanceBeforeRebalance": 50.0,
+      "BalanceAfterRebalance": 125.00,
+      "PercentageChange": 150.0
+    },
+    {
+      "Ticker": "#1X",
+      "PrecedingCompletedPeriodStart": "2023-04-01T00:00:00",
+      "PrecedingCompletedPeriodType": 1,
+      "BalanceBeforeRebalance": 125.00,
+      "BalanceAfterRebalance": 312.500,
+      "PercentageChange": 150.0
+    },
+    {
+      "Ticker": "#1X",
+      "PrecedingCompletedPeriodStart": "2023-06-01T00:00:00",
+      "PrecedingCompletedPeriodType": 1,
+      "BalanceBeforeRebalance": 312.500,
+      "BalanceAfterRebalance": 781.2500,
+      "PercentageChange": 150.0
+    },
+    {
+      "Ticker": "#1X",
+      "PrecedingCompletedPeriodStart": "2023-08-01T00:00:00",
+      "PrecedingCompletedPeriodType": 1,
+      "BalanceBeforeRebalance": 781.2500,
+      "BalanceAfterRebalance": 1953.12500,
+      "PercentageChange": 150.0
+    },
+    {
+      "Ticker": "#1X",
+      "PrecedingCompletedPeriodStart": "2023-10-01T00:00:00",
+      "PrecedingCompletedPeriodType": 1,
+      "BalanceBeforeRebalance": 1953.12500,
+      "BalanceAfterRebalance": 4882.812500,
+      "PercentageChange": 150.0
+    }
+  ],
+  "#2X": [
+    {
+      "Ticker": "#2X",
+      "PrecedingCompletedPeriodStart": "2023-02-01T00:00:00",
+      "PrecedingCompletedPeriodType": 1,
+      "BalanceBeforeRebalance": 200.0,
+      "BalanceAfterRebalance": 125.00,
+      "PercentageChange": -37.500
+    },
+    {
+      "Ticker": "#2X",
+      "PrecedingCompletedPeriodStart": "2023-04-01T00:00:00",
+      "PrecedingCompletedPeriodType": 1,
+      "BalanceBeforeRebalance": 500.00,
+      "BalanceAfterRebalance": 312.500,
+      "PercentageChange": -37.500
+    },
+    {
+      "Ticker": "#2X",
+      "PrecedingCompletedPeriodStart": "2023-06-01T00:00:00",
+      "PrecedingCompletedPeriodType": 1,
+      "BalanceBeforeRebalance": 1250.000,
+      "BalanceAfterRebalance": 781.2500,
+      "PercentageChange": -37.500
+    },
+    {
+      "Ticker": "#2X",
+      "PrecedingCompletedPeriodStart": "2023-08-01T00:00:00",
+      "PrecedingCompletedPeriodType": 1,
+      "BalanceBeforeRebalance": 3125.0000,
+      "BalanceAfterRebalance": 1953.12500,
+      "PercentageChange": -37.500
+    },
+    {
+      "Ticker": "#2X",
+      "PrecedingCompletedPeriodStart": "2023-10-01T00:00:00",
+      "PrecedingCompletedPeriodType": 1,
+      "BalanceBeforeRebalance": 7812.50000,
+      "BalanceAfterRebalance": 4882.812500,
+      "PercentageChange": -37.500
+    }
+  ]
+}
