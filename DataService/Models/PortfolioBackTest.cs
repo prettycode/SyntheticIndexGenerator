@@ -24,8 +24,8 @@ namespace DataService.Models
         {
             get
             {
-                var firstTick = this.AggregatePerformance[0];
-                var lastTick = this.AggregatePerformance[^1];
+                var firstTick = AggregatePerformance[0];
+                var lastTick = AggregatePerformance[^1];
                 var lastTickStart = lastTick.PeriodStart;
                 var returnPeriod = firstTick.ReturnPeriod;
 
@@ -43,5 +43,7 @@ namespace DataService.Models
                 return Math.Pow(Convert.ToDouble(lastTick.EndingBalance) / Convert.ToDouble(firstTick.StartingBalance), 1 / years) - 1;
             }
         }
+
+        public double YearsBeforeDoubling => Math.Log(2) / Math.Log(1 + Cagr);
     }
 }
