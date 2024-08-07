@@ -52,7 +52,7 @@ namespace Data.Repositories
             return File.Exists(cacheFilePaths[CacheType.Price]);
         }
 
-        public async Task<Quote> Get(string ticker)
+        private async Task<Quote> Get(string ticker)
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
@@ -77,6 +77,33 @@ namespace Data.Repositories
             Inspect(history);
 
             return history;
+        }
+
+        public async Task<Quote> Get(string ticker, bool skipPastZeroVolume = false)
+        {
+            var unfilteredQuote = await Get(ticker);
+
+            if (!skipPastZeroVolume)
+            {
+                return unfilteredQuote;
+            }
+
+            var lastZeroVolumeIndex = unfilteredQuote.Prices.FindLastIndex(item => item.Volume == 0);
+
+            if (lastZeroVolumeIndex == -1)
+            {
+                return unfilteredQuote;
+            }
+
+            var lastZeroVolumeDate = unfilteredQuote.Prices[lastZeroVolumeIndex].DateTime;
+            var filteredQuote = new Quote(ticker)
+            {
+                Dividends = unfilteredQuote.Dividends.Where(div => div.DateTime > lastZeroVolumeDate).ToList(),
+                Prices = unfilteredQuote.Prices.Skip(lastZeroVolumeIndex + 1).ToList(),
+                Splits = unfilteredQuote.Splits.Where(split => split.DateTime > lastZeroVolumeDate).ToList()
+            };
+
+            return filteredQuote;
         }
 
         public async Task Append(Quote fundHistory) =>
