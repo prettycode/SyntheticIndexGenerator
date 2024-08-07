@@ -17,8 +17,8 @@ namespace DataService.Models
 
         public decimal StartingBalance { get; init; } = startingBalance;
 
-        public decimal EndingBalance { get { return StartingBalance + BalanceIncrease; } }
+        public decimal EndingBalance => StartingBalance + BalanceIncrease;
 
-        public decimal BalanceIncrease { get { return StartingBalance * (this.ReturnPercentage / 100m); } }
+        public decimal BalanceIncrease => StartingBalance * (ReturnPercentage / 100m);
     }
 }

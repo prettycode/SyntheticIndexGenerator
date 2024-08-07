@@ -14,7 +14,7 @@ namespace DataService.Models
 
         public decimal BalanceAfterRebalance { get; init; }
 
-        public decimal PercentageChange { get { return ((BalanceAfterRebalance / BalanceBeforeRebalance) - 1) * 100; } }
+        public decimal PercentageChange => ((BalanceAfterRebalance / BalanceBeforeRebalance) - 1) * 100;
 
     }
 }
