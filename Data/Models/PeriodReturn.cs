@@ -11,11 +11,11 @@
 
         public string SourceTicker { get; init; }
 
-        public ReturnPeriod ReturnPeriod { get; init; }
+        public PeriodType PeriodType { get; init; }
 
         public string ToCsvLine()
         {
-            return $"{PeriodStart:yyyy-MM-dd},{ReturnPercentage},{SourceTicker},{ReturnPeriod}";
+            return $"{PeriodStart:yyyy-MM-dd},{ReturnPercentage},{SourceTicker},{PeriodType}";
         }
 
         public static PeriodReturn ParseCsvLine(string csvLine)
@@ -27,7 +27,7 @@
                 PeriodStart = DateTime.Parse(cells[0]),
                 ReturnPercentage = decimal.Parse(cells[1]),
                 SourceTicker = cells[2],
-                ReturnPeriod = Enum.Parse<ReturnPeriod>(cells[3])
+                PeriodType = Enum.Parse<PeriodType>(cells[3])
             };
         }
     }

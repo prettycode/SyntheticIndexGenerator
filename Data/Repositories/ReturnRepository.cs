@@ -35,7 +35,7 @@ namespace Data.Repositories
             this.logger = logger;
         }
 
-        public bool Has(string ticker, ReturnPeriod period)
+        public bool Has(string ticker, PeriodType period)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(period);
@@ -43,24 +43,24 @@ namespace Data.Repositories
             return Has(ticker, period, out string _);
         }
 
-        private bool Has(string ticker, ReturnPeriod period, out string cacheFilePath)
+        private bool Has(string ticker, PeriodType period, out string cacheFilePath)
         {
             cacheFilePath = GetCsvFilePath(ticker, period);
 
             return File.Exists(cacheFilePath);
         }
 
-        public Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period)
+        public Task<List<PeriodReturn>> Get(string ticker, PeriodType period)
         {
             return Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
         }
 
-        public Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period, DateTime startDate)
+        public Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate)
         {
             return Get(ticker, period, startDate, DateTime.MaxValue);
         }
 
-        public async Task<List<PeriodReturn>> Get(string ticker, ReturnPeriod period, DateTime startDate, DateTime endDate)
+        public async Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(period);
@@ -79,7 +79,7 @@ namespace Data.Repositories
             return dateFilteredReturns.ToList();
         }
 
-        public Task Put(string ticker, List<PeriodReturn> returns, ReturnPeriod period)
+        public Task Put(string ticker, List<PeriodReturn> returns, PeriodType period)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(returns);
@@ -147,7 +147,7 @@ namespace Data.Repositories
                         PeriodStart = date,
                         ReturnPercentage = decimal.Parse($"{cellValue:G29}"),
                         SourceTicker = ticker,
-                        ReturnPeriod = ReturnPeriod.Monthly
+                        PeriodType = PeriodType.Monthly
                     });
                 }
             }
@@ -180,7 +180,7 @@ namespace Data.Repositories
                         PeriodStart = new DateTime(currentYear, 1, 1),
                         ReturnPercentage = currentYearAggregateReturn,
                         SourceTicker = ticker,
-                        ReturnPeriod = ReturnPeriod.Yearly
+                        PeriodType = PeriodType.Yearly
                     };
 
                     result.Add(periodReturn);
@@ -195,7 +195,7 @@ namespace Data.Repositories
             return yearlyReturns;
         }
 
-        private string GetCsvFilePath(string ticker, ReturnPeriod period)
+        private string GetCsvFilePath(string ticker, PeriodType period)
         {
             return Path.Combine(cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
         }

@@ -1,6 +1,6 @@
 ﻿namespace Data.Models
 {
-    public enum ReturnPeriod
+    public enum PeriodType
     {
         Daily,
         Monthly,

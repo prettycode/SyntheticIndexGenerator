@@ -33,7 +33,7 @@ namespace DataService.TestEndpointControllers
             var backtest = await controller.GetPortfolioBackTest(
                 portfolio,
                 100,
-                ReturnPeriod.Monthly,
+                PeriodType.Monthly,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1));
 
@@ -53,7 +53,7 @@ namespace DataService.TestEndpointControllers
             var backtest = await controller.GetPortfolioBackTest(
                 portfolio,
                 100,
-                ReturnPeriod.Monthly,
+                PeriodType.Monthly,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1));
 
@@ -73,7 +73,7 @@ namespace DataService.TestEndpointControllers
             var backtest = await controller.GetPortfolioBackTest(
                 portfolio,
                 100,
-                ReturnPeriod.Monthly,
+                PeriodType.Monthly,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1));
 
@@ -93,7 +93,7 @@ namespace DataService.TestEndpointControllers
             var backtest = await controller.GetPortfolioBackTest(
                 portfolio,
                 100,
-                ReturnPeriod.Monthly,
+                PeriodType.Monthly,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1),
                 RebalanceStrategy.Monthly);
@@ -114,7 +114,7 @@ namespace DataService.TestEndpointControllers
             var backtest = await controller.GetPortfolioBackTest(
                 portfolio,
                 100,
-                ReturnPeriod.Daily,
+                PeriodType.Daily,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1),
                 RebalanceStrategy.Monthly);
@@ -135,7 +135,7 @@ namespace DataService.TestEndpointControllers
             var backtest = await controller.GetPortfolioBackTest(
                 portfolio,
                 100,
-                ReturnPeriod.Daily,
+                PeriodType.Daily,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1),
                 RebalanceStrategy.Weekly);
@@ -156,7 +156,7 @@ namespace DataService.TestEndpointControllers
             var backtest = await controller.GetPortfolioBackTest(
                 portfolio,
                 100,
-                ReturnPeriod.Monthly,
+                PeriodType.Monthly,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1),
                 RebalanceStrategy.BandsAbsolute,
@@ -178,7 +178,7 @@ namespace DataService.TestEndpointControllers
             var backtest = await controller.GetPortfolioBackTest(
                 portfolio,
                 100,
-                ReturnPeriod.Monthly,
+                PeriodType.Monthly,
                 new DateTime(2023, 1, 1),
                 new DateTime(2023, 12, 1),
                 RebalanceStrategy.BandsRelative,

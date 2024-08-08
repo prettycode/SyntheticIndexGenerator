@@ -16,7 +16,7 @@ namespace DataService.Controllers
         public async Task<PortfolioBackTest> GetPortfolioBackTest(
             IEnumerable<Allocation> portfolioConstituents,
             decimal startingBalance = 100,
-            ReturnPeriod periodType = ReturnPeriod.Daily,
+            PeriodType periodType = PeriodType.Daily,
             DateTime firstPeriod = default,
             DateTime? lastPeriod = null,
             RebalanceStrategy rebalanceStrategy = RebalanceStrategy.None,
@@ -88,7 +88,7 @@ namespace DataService.Controllers
                 .Select((_, currentPeriod) => new NominalPeriodReturn
                 {
                     PeriodStart = firstTickerBackTest[currentPeriod].PeriodStart,
-                    ReturnPeriod = firstTickerBackTest[currentPeriod].ReturnPeriod,
+                    PeriodType = firstTickerBackTest[currentPeriod].PeriodType,
                     Ticker = null!,
                     StartingBalance = decomposedBackTest.Sum(pair => pair.Value[currentPeriod].StartingBalance),
                     ReturnPercentage = CalculateReturnPercentage(decomposedBackTest, currentPeriod)
@@ -99,7 +99,7 @@ namespace DataService.Controllers
         private async Task<(Dictionary<string, NominalPeriodReturn[]>, Dictionary<string, RebalanceEvent[]>)> GetPortfolioBackTestDecomposed(
             IEnumerable<Allocation> portfolioConstituents,
             decimal startingBalance,
-            ReturnPeriod periodType,
+            PeriodType periodType,
             DateTime firstPeriod,
             DateTime lastPeriod,
             RebalanceStrategy rebalanceStrategy,
@@ -302,7 +302,7 @@ namespace DataService.Controllers
                     {
                         Ticker = ticker,
                         PrecedingCompletedPeriodStart = lastTick.PeriodStart,
-                        PrecedingCompletedPeriodType = lastTick.ReturnPeriod,
+                        PrecedingCompletedPeriodType = lastTick.PeriodType,
                         BalanceBeforeRebalance = lastTick.EndingBalance,
                         BalanceAfterRebalance = balanceAfterRebalance
                     });

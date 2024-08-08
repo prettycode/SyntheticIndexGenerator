@@ -28,14 +28,14 @@ namespace DataService.Models
                 var lastTick = AggregatePerformance[^1];
 
                 var lastTickStart = lastTick.PeriodStart;
-                var lastTickReturnPeriod = lastTick.ReturnPeriod;
+                var lastTickPeriodType = lastTick.PeriodType;
 
                 var startDate = firstTick.PeriodStart;
-                var endDate = lastTickReturnPeriod switch
+                var endDate = lastTickPeriodType switch
                 {
-                    ReturnPeriod.Daily => lastTickStart.AddDays(1),
-                    ReturnPeriod.Monthly => lastTickStart.AddMonths(1),
-                    ReturnPeriod.Yearly => lastTickStart.AddYears(1),
+                    PeriodType.Daily => lastTickStart.AddDays(1),
+                    PeriodType.Monthly => lastTickStart.AddMonths(1),
+                    PeriodType.Yearly => lastTickStart.AddYears(1),
                     _ => throw new InvalidOperationException()
                 };
 

@@ -60,7 +60,7 @@ namespace Data.Controllers
 
         private Task RefreshIndex(Index index)
         {
-            var periods = Enum.GetValues<ReturnPeriod>();
+            var periods = Enum.GetValues<PeriodType>();
             var tasks = periods.Select(async period =>
             {
                 var returns = await CollateReturnsA(index.BackfillTickers, period);
@@ -71,7 +71,7 @@ namespace Data.Controllers
         }
 
         // TODO test
-        private async Task<List<PeriodReturn>> CollateReturnsA(List<string> backfillTickers, ReturnPeriod period)
+        private async Task<List<PeriodReturn>> CollateReturnsA(List<string> backfillTickers, PeriodType period)
         {
             var availableBackfillTickers = backfillTickers.Where(ticker => ReturnCache.Has(ticker, period));
             var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => ReturnCache.Get(ticker, period)));
@@ -88,7 +88,7 @@ namespace Data.Controllers
         }
 
         // TODO test
-        private async Task<List<PeriodReturn>> CollateReturnsB(List<string> backfillTickers, ReturnPeriod period)
+        private async Task<List<PeriodReturn>> CollateReturnsB(List<string> backfillTickers, PeriodType period)
         {
             var collatedReturns = new List<PeriodReturn>();
             var availableBackfillTickers = backfillTickers.Where(ticker => ReturnCache.Has(ticker, period));

@@ -8,7 +8,7 @@ namespace DataService.Models
 
         public DateTime PrecedingCompletedPeriodStart { get; init; }
 
-        public ReturnPeriod PrecedingCompletedPeriodType { get; init; }
+        public PeriodType PrecedingCompletedPeriodType { get; init; }
 
         public decimal BalanceBeforeRebalance { get; init; }
 

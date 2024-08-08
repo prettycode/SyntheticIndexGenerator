@@ -8,7 +8,7 @@ A `NominalPeriodReturn` looks like this:
     {
         public string Ticker { get; init; } = ticker ?? periodReturn.SourceTicker;
 
-        public ReturnPeriod ReturnPeriod { get; init; } = periodReturn.ReturnPeriod;
+        public PeriodType PeriodType { get; init; } = periodReturn.PeriodType;
 
         public DateTime PeriodStart { get; init; } = periodReturn.PeriodStart;
 
@@ -37,11 +37,11 @@ Here is PeriodReturn:
 
         public string SourceTicker { get; init; }
 
-        public ReturnPeriod ReturnPeriod { get; init; }
+        public PeriodType PeriodType { get; init; }
 
         public string ToCsvLine()
         {
-            return $"{PeriodStart:yyyy-MM-dd},{ReturnPercentage},{SourceTicker},{ReturnPeriod}";
+            return $"{PeriodStart:yyyy-MM-dd},{ReturnPercentage},{SourceTicker},{PeriodType}";
         }
 
         public static PeriodReturn ParseCsvLine(string csvLine)
@@ -53,14 +53,14 @@ Here is PeriodReturn:
                 PeriodStart = DateTime.Parse(cells[0]),
                 ReturnPercentage = decimal.Parse(cells[1]),
                 SourceTicker = cells[2],
-                ReturnPeriod = Enum.Parse<ReturnPeriod>(cells[3])
+                PeriodType = Enum.Parse<PeriodType>(cells[3])
             };
         }
     }
 
-And here is ReturnPeriod:
+And here is PeriodType:
 
-    public enum ReturnPeriod
+    public enum PeriodType
     {
         Daily,
         Monthly,
@@ -73,7 +73,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
   "#1X": [
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-01-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 50.0,
@@ -82,7 +82,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-02-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 100.00,
@@ -91,7 +91,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-03-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 200.000,
@@ -100,7 +100,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-04-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 400.0000,
@@ -109,7 +109,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-05-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 800.00000,
@@ -118,7 +118,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-06-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 1600.000000,
@@ -127,7 +127,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-07-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 3200.0000000,
@@ -136,7 +136,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-08-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 6400.00000000,
@@ -145,7 +145,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-09-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 12800.000000000,
@@ -154,7 +154,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-10-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 25600.0000000000,
@@ -163,7 +163,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#1X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-11-01T00:00:00",
       "ReturnPercentage": 0,
       "StartingBalance": 51200.00000000000,
@@ -174,7 +174,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
   "#3X": [
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-01-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 50.0,
@@ -183,7 +183,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-02-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 100.00,
@@ -192,7 +192,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-03-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 200.000,
@@ -201,7 +201,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-04-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 400.0000,
@@ -210,7 +210,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-05-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 800.00000,
@@ -219,7 +219,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-06-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 1600.000000,
@@ -228,7 +228,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-07-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 3200.0000000,
@@ -237,7 +237,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-08-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 6400.00000000,
@@ -246,7 +246,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-09-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 12800.000000000,
@@ -255,7 +255,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-10-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 25600.0000000000,
@@ -264,7 +264,7 @@ Here is the JSON, below. Look at it and give me the hardcoded C# variable. Remov
     },
     {
       "Ticker": "#3X",
-      "ReturnPeriod": 1,
+      "PeriodType": 1,
       "PeriodStart": "2023-11-01T00:00:00",
       "ReturnPercentage": 200,
       "StartingBalance": 51200.00000000000,

@@ -10,7 +10,7 @@ A `RebalanceEvent` looks like this:
 
         public DateTime PrecedingCompletedPeriodStart { get; init; }
 
-        public ReturnPeriod PrecedingCompletedPeriodType { get; init; }
+        public PeriodType PrecedingCompletedPeriodType { get; init; }
 
         public decimal BalanceBeforeRebalance { get; init; }
 
@@ -20,9 +20,9 @@ A `RebalanceEvent` looks like this:
 
     }
 
-Here is ReturnPeriod:
+Here is PeriodType:
 
-    public enum ReturnPeriod
+    public enum PeriodType
     {
         Daily,
         Monthly,

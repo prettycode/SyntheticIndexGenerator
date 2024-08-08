@@ -6,7 +6,7 @@ namespace DataService.Models
     {
         public string Ticker { get; init; } = ticker ?? periodReturn.SourceTicker;
 
-        public ReturnPeriod ReturnPeriod { get; init; } = periodReturn.ReturnPeriod;
+        public PeriodType PeriodType { get; init; } = periodReturn.PeriodType;
 
         public DateTime PeriodStart { get; init; } = periodReturn.PeriodStart;
 

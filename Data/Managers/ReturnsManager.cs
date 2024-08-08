@@ -20,9 +20,9 @@ namespace Data.Controllers
             var priceHistory = history.Prices;
 
             await Task.WhenAll(
-                ReturnCache.Put(ticker, GetDailyReturns(ticker, priceHistory), ReturnPeriod.Daily),
-                ReturnCache.Put(ticker, GetMonthlyReturns(ticker, priceHistory), ReturnPeriod.Monthly),
-                ReturnCache.Put(ticker, GetYearlyReturns(ticker, priceHistory), ReturnPeriod.Yearly)
+                ReturnCache.Put(ticker, GetDailyReturns(ticker, priceHistory), PeriodType.Daily),
+                ReturnCache.Put(ticker, GetMonthlyReturns(ticker, priceHistory), PeriodType.Monthly),
+                ReturnCache.Put(ticker, GetYearlyReturns(ticker, priceHistory), PeriodType.Yearly)
             );
         }
 
@@ -42,15 +42,15 @@ namespace Data.Controllers
                 ReturnCache.GetSyntheticYearlyReturns()
             );
 
-            var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r => ReturnCache.Put(r.Key, r.Value, ReturnPeriod.Monthly));
-            var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => ReturnCache.Put(r.Key, r.Value, ReturnPeriod.Yearly));
+            var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r => ReturnCache.Put(r.Key, r.Value, PeriodType.Monthly));
+            var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => ReturnCache.Put(r.Key, r.Value, PeriodType.Yearly));
 
             await Task.WhenAll(synMonthlyReturnsPutTasks.Concat(synYearlyReturnsPutTasks));
         }
 
         private static List<PeriodReturn> GetDailyReturns(string ticker, List<QuotePrice> dailyPrices)
         {
-            return GetReturns(dailyPrices, ticker, ReturnPeriod.Daily);
+            return GetReturns(dailyPrices, ticker, PeriodType.Daily);
         }
 
         // TODO test
@@ -62,7 +62,7 @@ namespace Data.Controllers
                 .OrderBy(r => r.DateTime)
                 .ToList();
 
-            var monthlyReturns = GetReturns(monthlyCloses, ticker, ReturnPeriod.Monthly);
+            var monthlyReturns = GetReturns(monthlyCloses, ticker, PeriodType.Monthly);
 
             return monthlyReturns
                 .Select(r => new PeriodReturn()
@@ -70,7 +70,7 @@ namespace Data.Controllers
                     PeriodStart = new DateTime(r.PeriodStart.Year, r.PeriodStart.Month, 1),
                     ReturnPercentage = r.ReturnPercentage,
                     SourceTicker = r.SourceTicker,
-                    ReturnPeriod = r.ReturnPeriod,
+                    PeriodType = r.PeriodType,
                 })
                 .ToList();
         }
@@ -84,7 +84,7 @@ namespace Data.Controllers
                 .OrderBy(r => r.DateTime)
                 .ToList();
 
-            var yearlyReturns = GetReturns(yearlyCloses, ticker, ReturnPeriod.Yearly);
+            var yearlyReturns = GetReturns(yearlyCloses, ticker, PeriodType.Yearly);
 
             return yearlyReturns
                 .Select(r => new PeriodReturn()
@@ -92,13 +92,13 @@ namespace Data.Controllers
                     PeriodStart = new DateTime(r.PeriodStart.Year, 1, 1),
                     ReturnPercentage = r.ReturnPercentage,
                     SourceTicker = r.SourceTicker,
-                    ReturnPeriod = r.ReturnPeriod
+                    PeriodType = r.PeriodType
                 })
                 .ToList();
         }
 
         // TODO test
-        private static List<PeriodReturn> GetReturns(List<QuotePrice> prices, string ticker, ReturnPeriod returnPeriod, bool skipFirst = true)
+        private static List<PeriodReturn> GetReturns(List<QuotePrice> prices, string ticker, PeriodType returnPeriod, bool skipFirst = true)
         {
             static decimal calculateChange(decimal x, decimal y) => (y - x) / x * 100m;
             static decimal endingPrice(QuotePrice record) => record.AdjustedClose;
@@ -111,7 +111,7 @@ namespace Data.Controllers
                         PeriodStart = prices[0].DateTime,
                         ReturnPercentage = calculateChange(prices[0].Open, endingPrice(prices[0])),
                         SourceTicker = ticker,
-                        ReturnPeriod = returnPeriod
+                        PeriodType = returnPeriod
                     }
                 ];
 
@@ -133,7 +133,7 @@ namespace Data.Controllers
                     PeriodStart = currentDate,
                     ReturnPercentage = calculateChange(currentStartPrice, currentEndPrice),
                     SourceTicker = ticker,
-                    ReturnPeriod = returnPeriod
+                    PeriodType = returnPeriod
                 });
             }
 
