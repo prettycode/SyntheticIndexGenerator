@@ -19,4 +19,9 @@
     <Compile Remove="**\*.Test.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="data\quotes\" />
+    <Folder Include="data\returns\" />
+  </ItemGroup>
+
 </Project>

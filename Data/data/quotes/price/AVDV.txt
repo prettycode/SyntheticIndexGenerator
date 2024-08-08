@@ -53,7 +53,7 @@
 {"DateTime":"2019-12-10T00:00:00","Open":53.7400,"High":53.9700,"Low":53.7400,"Close":53.8800,"Volume":5800,"AdjustedClose":47.2796}
 {"DateTime":"2019-12-11T00:00:00","Open":53.8800,"High":54.0990,"Low":53.8800,"Close":54.0670,"Volume":71900,"AdjustedClose":47.4437}
 {"DateTime":"2019-12-12T00:00:00","Open":54.3470,"High":54.3550,"Low":54.1000,"Close":54.3550,"Volume":4600,"AdjustedClose":47.6965}
-{"DateTime":"2019-12-13T00:00:00","Open":55.0070,"High":55.0200,"Low":54.9560,"Close":54.9950,"Volume":1000,"AdjustedClose":48.2581}
+{"DateTime":"2019-12-13T00:00:00","Open":55.0070,"High":55.0200,"Low":54.9560,"Close":54.9950,"Volume":1000,"AdjustedClose":48.2580}
 {"DateTime":"2019-12-16T00:00:00","Open":55.4300,"High":55.5000,"Low":55.4000,"Close":55.4700,"Volume":2700,"AdjustedClose":48.6749}
 {"DateTime":"2019-12-17T00:00:00","Open":55.0700,"High":55.2300,"Low":55.0700,"Close":55.1300,"Volume":6800,"AdjustedClose":48.3765}
 {"DateTime":"2019-12-18T00:00:00","Open":54.9000,"High":54.9200,"Low":54.8000,"Close":54.8850,"Volume":4000,"AdjustedClose":48.1615}
@@ -63,7 +63,7 @@
 {"DateTime":"2019-12-24T00:00:00","Open":55.0300,"High":55.1500,"Low":54.9500,"Close":54.9940,"Volume":16100,"AdjustedClose":48.4355}
 {"DateTime":"2019-12-26T00:00:00","Open":55.1100,"High":55.2200,"Low":55.1100,"Close":55.2200,"Volume":5000,"AdjustedClose":48.6346}
 {"DateTime":"2019-12-27T00:00:00","Open":55.6600,"High":55.6600,"Low":55.4550,"Close":55.4700,"Volume":6900,"AdjustedClose":48.8548}
-{"DateTime":"2019-12-30T00:00:00","Open":55.4900,"High":55.4950,"Low":55.2730,"Close":55.2730,"Volume":8300,"AdjustedClose":48.6813}
+{"DateTime":"2019-12-30T00:00:00","Open":55.4900,"High":55.4950,"Low":55.2730,"Close":55.2730,"Volume":8300,"AdjustedClose":48.6812}
 {"DateTime":"2019-12-31T00:00:00","Open":55.3240,"High":55.3900,"Low":55.2500,"Close":55.3850,"Volume":2400,"AdjustedClose":48.7799}
 {"DateTime":"2020-01-02T00:00:00","Open":56.0700,"High":56.0700,"Low":55.9100,"Close":55.9200,"Volume":5200,"AdjustedClose":49.2511}
 {"DateTime":"2020-01-03T00:00:00","Open":55.4200,"High":55.5600,"Low":55.3130,"Close":55.3130,"Volume":3500,"AdjustedClose":48.7165}
@@ -90,7 +90,7 @@
 {"DateTime":"2020-02-04T00:00:00","Open":53.0400,"High":53.0900,"Low":52.9850,"Close":53.0700,"Volume":4100,"AdjustedClose":46.7410}
 {"DateTime":"2020-02-05T00:00:00","Open":53.3600,"High":53.6500,"Low":53.3600,"Close":53.6400,"Volume":9400,"AdjustedClose":47.2430}
 {"DateTime":"2020-02-06T00:00:00","Open":53.6900,"High":53.6900,"Low":53.5500,"Close":53.5600,"Volume":4200,"AdjustedClose":47.1725}
-{"DateTime":"2020-02-07T00:00:00","Open":53.0300,"High":53.1000,"Low":52.8800,"Close":52.9000,"Volume":15100,"AdjustedClose":46.5913}
+{"DateTime":"2020-02-07T00:00:00","Open":53.0300,"High":53.1000,"Low":52.8800,"Close":52.9000,"Volume":15100,"AdjustedClose":46.5912}
 {"DateTime":"2020-02-10T00:00:00","Open":52.6200,"High":52.8800,"Low":52.6200,"Close":52.8700,"Volume":12600,"AdjustedClose":46.5648}
 {"DateTime":"2020-02-11T00:00:00","Open":53.2800,"High":53.4200,"Low":53.2330,"Close":53.3400,"Volume":8600,"AdjustedClose":46.9788}
 {"DateTime":"2020-02-12T00:00:00","Open":53.5810,"High":53.7400,"Low":53.5300,"Close":53.7400,"Volume":16100,"AdjustedClose":47.3311}
@@ -167,7 +167,7 @@
 {"DateTime":"2020-05-26T00:00:00","Open":42.9700,"High":43.2900,"Low":42.8000,"Close":43.0100,"Volume":14400,"AdjustedClose":37.8807}
 {"DateTime":"2020-05-27T00:00:00","Open":43.6500,"High":43.7500,"Low":43.2000,"Close":43.7040,"Volume":814800,"AdjustedClose":38.4919}
 {"DateTime":"2020-05-28T00:00:00","Open":44.2400,"High":44.4500,"Low":43.9900,"Close":43.9900,"Volume":113900,"AdjustedClose":38.7438}
-{"DateTime":"2020-05-29T00:00:00","Open":43.7600,"High":44.2100,"Low":43.4900,"Close":43.8700,"Volume":59500,"AdjustedClose":38.6381}
+{"DateTime":"2020-05-29T00:00:00","Open":43.7600,"High":44.2100,"Low":43.4900,"Close":43.8700,"Volume":59500,"AdjustedClose":38.6382}
 {"DateTime":"2020-06-01T00:00:00","Open":44.1350,"High":44.7520,"Low":44.1350,"Close":44.7520,"Volume":26500,"AdjustedClose":39.4150}
 {"DateTime":"2020-06-02T00:00:00","Open":45.2500,"High":45.4400,"Low":45.1600,"Close":45.3030,"Volume":17100,"AdjustedClose":39.9003}
 {"DateTime":"2020-06-03T00:00:00","Open":46.0000,"High":46.4100,"Low":46.0000,"Close":46.3100,"Volume":58800,"AdjustedClose":40.7872}
@@ -179,7 +179,7 @@
 {"DateTime":"2020-06-11T00:00:00","Open":46.1000,"High":46.1000,"Low":43.9700,"Close":43.9760,"Volume":15900,"AdjustedClose":38.7315}
 {"DateTime":"2020-06-12T00:00:00","Open":45.0530,"High":45.0530,"Low":44.2900,"Close":44.8200,"Volume":17700,"AdjustedClose":39.4749}
 {"DateTime":"2020-06-15T00:00:00","Open":44.1690,"High":45.0500,"Low":44.1690,"Close":44.8800,"Volume":4900,"AdjustedClose":39.5277}
-{"DateTime":"2020-06-16T00:00:00","Open":46.0700,"High":46.1200,"Low":45.3900,"Close":45.4490,"Volume":24900,"AdjustedClose":40.0289}
+{"DateTime":"2020-06-16T00:00:00","Open":46.0700,"High":46.1200,"Low":45.3900,"Close":45.4490,"Volume":24900,"AdjustedClose":40.0288}
 {"DateTime":"2020-06-17T00:00:00","Open":45.7000,"High":45.7300,"Low":45.3600,"Close":45.3800,"Volume":53500,"AdjustedClose":39.9681}
 {"DateTime":"2020-06-18T00:00:00","Open":45.2000,"High":45.3490,"Low":45.0350,"Close":45.1200,"Volume":9900,"AdjustedClose":39.7391}
 {"DateTime":"2020-06-19T00:00:00","Open":45.3100,"High":45.3200,"Low":44.7300,"Close":44.8420,"Volume":54900,"AdjustedClose":39.4942}
@@ -189,7 +189,7 @@
 {"DateTime":"2020-06-25T00:00:00","Open":44.0000,"High":44.4900,"Low":44.0000,"Close":44.4570,"Volume":6100,"AdjustedClose":39.4138}
 {"DateTime":"2020-06-26T00:00:00","Open":44.3790,"High":44.3790,"Low":43.7500,"Close":43.9070,"Volume":16700,"AdjustedClose":38.9262}
 {"DateTime":"2020-06-29T00:00:00","Open":44.0450,"High":44.2200,"Low":44.0450,"Close":44.1500,"Volume":19600,"AdjustedClose":39.1417}
-{"DateTime":"2020-06-30T00:00:00","Open":44.0000,"High":44.4400,"Low":43.9800,"Close":44.4400,"Volume":11100,"AdjustedClose":39.3987}
+{"DateTime":"2020-06-30T00:00:00","Open":44.0000,"High":44.4400,"Low":43.9800,"Close":44.4400,"Volume":11100,"AdjustedClose":39.3988}
 {"DateTime":"2020-07-01T00:00:00","Open":44.2700,"High":44.5300,"Low":44.2400,"Close":44.4180,"Volume":21700,"AdjustedClose":39.3792}
 {"DateTime":"2020-07-02T00:00:00","Open":44.7700,"High":44.9900,"Low":44.6000,"Close":44.6000,"Volume":23500,"AdjustedClose":39.5406}
 {"DateTime":"2020-07-06T00:00:00","Open":45.8800,"High":45.8800,"Low":45.1020,"Close":45.2990,"Volume":18000,"AdjustedClose":40.1603}
@@ -202,8 +202,8 @@
 {"DateTime":"2020-07-15T00:00:00","Open":45.7800,"High":45.9900,"Low":45.6900,"Close":45.7840,"Volume":4300,"AdjustedClose":40.5903}
 {"DateTime":"2020-07-16T00:00:00","Open":45.6980,"High":45.8700,"Low":45.5340,"Close":45.6490,"Volume":25900,"AdjustedClose":40.4706}
 {"DateTime":"2020-07-17T00:00:00","Open":45.5800,"High":45.7900,"Low":45.4990,"Close":45.7800,"Volume":15400,"AdjustedClose":40.5867}
-{"DateTime":"2020-07-20T00:00:00","Open":45.8500,"High":46.0850,"Low":45.8500,"Close":46.0400,"Volume":47300,"AdjustedClose":40.8172}
-{"DateTime":"2020-07-21T00:00:00","Open":46.4200,"High":46.6200,"Low":46.3600,"Close":46.3600,"Volume":24800,"AdjustedClose":41.1010}
+{"DateTime":"2020-07-20T00:00:00","Open":45.8500,"High":46.0850,"Low":45.8500,"Close":46.0400,"Volume":47300,"AdjustedClose":40.8173}
+{"DateTime":"2020-07-21T00:00:00","Open":46.4200,"High":46.6200,"Low":46.3600,"Close":46.3600,"Volume":24800,"AdjustedClose":41.1009}
 {"DateTime":"2020-07-22T00:00:00","Open":46.4900,"High":46.7800,"Low":46.4900,"Close":46.6400,"Volume":5800,"AdjustedClose":41.3492}
 {"DateTime":"2020-07-23T00:00:00","Open":46.5000,"High":46.6700,"Low":46.0600,"Close":46.1840,"Volume":16700,"AdjustedClose":40.9449}
 {"DateTime":"2020-07-24T00:00:00","Open":46.2410,"High":46.2490,"Low":46.1160,"Close":46.1800,"Volume":10600,"AdjustedClose":40.9414}
@@ -211,12 +211,12 @@
 {"DateTime":"2020-07-28T00:00:00","Open":46.5900,"High":46.8000,"Low":46.5600,"Close":46.5600,"Volume":6600,"AdjustedClose":41.2783}
 {"DateTime":"2020-07-29T00:00:00","Open":46.5500,"High":46.9180,"Low":46.4600,"Close":46.7300,"Volume":4000,"AdjustedClose":41.4290}
 {"DateTime":"2020-07-30T00:00:00","Open":45.7500,"High":46.1700,"Low":45.3390,"Close":46.0950,"Volume":53000,"AdjustedClose":40.8660}
-{"DateTime":"2020-07-31T00:00:00","Open":45.5100,"High":45.5100,"Low":44.8900,"Close":45.1100,"Volume":19000,"AdjustedClose":39.9927}
+{"DateTime":"2020-07-31T00:00:00","Open":45.5100,"High":45.5100,"Low":44.8900,"Close":45.1100,"Volume":19000,"AdjustedClose":39.9928}
 {"DateTime":"2020-08-03T00:00:00","Open":45.3800,"High":45.8300,"Low":45.3550,"Close":45.8200,"Volume":9800,"AdjustedClose":40.6222}
 {"DateTime":"2020-08-04T00:00:00","Open":45.8500,"High":46.4600,"Low":45.8500,"Close":46.4600,"Volume":13700,"AdjustedClose":41.1896}
 {"DateTime":"2020-08-05T00:00:00","Open":47.3500,"High":47.5090,"Low":47.0900,"Close":47.1570,"Volume":9600,"AdjustedClose":41.8075}
 {"DateTime":"2020-08-06T00:00:00","Open":47.1000,"High":47.2700,"Low":47.0500,"Close":47.2500,"Volume":6200,"AdjustedClose":41.8900}
-{"DateTime":"2020-08-07T00:00:00","Open":46.7800,"High":46.9480,"Low":46.7800,"Close":46.9480,"Volume":7500,"AdjustedClose":41.6222}
+{"DateTime":"2020-08-07T00:00:00","Open":46.7800,"High":46.9480,"Low":46.7800,"Close":46.9480,"Volume":7500,"AdjustedClose":41.6223}
 {"DateTime":"2020-08-10T00:00:00","Open":47.1700,"High":47.2300,"Low":47.1130,"Close":47.1920,"Volume":4200,"AdjustedClose":41.8386}
 {"DateTime":"2020-08-11T00:00:00","Open":47.9600,"High":48.0000,"Low":47.4580,"Close":47.4580,"Volume":22200,"AdjustedClose":42.0744}
 {"DateTime":"2020-08-12T00:00:00","Open":48.2250,"High":48.4950,"Low":48.2250,"Close":48.4900,"Volume":1894300,"AdjustedClose":42.9893}
@@ -310,7 +310,7 @@
 {"DateTime":"2020-12-16T00:00:00","Open":56.8930,"High":56.9800,"Low":56.6200,"Close":56.9200,"Volume":53100,"AdjustedClose":50.4630}
 {"DateTime":"2020-12-17T00:00:00","Open":56.7400,"High":57.5920,"Low":56.7100,"Close":56.7100,"Volume":266400,"AdjustedClose":50.8630}
 {"DateTime":"2020-12-18T00:00:00","Open":56.6050,"High":56.6700,"Low":56.4500,"Close":56.5100,"Volume":100500,"AdjustedClose":50.6837}
-{"DateTime":"2020-12-21T00:00:00","Open":55.3800,"High":55.9400,"Low":55.0400,"Close":55.8400,"Volume":95000,"AdjustedClose":50.0828}
+{"DateTime":"2020-12-21T00:00:00","Open":55.3800,"High":55.9400,"Low":55.0400,"Close":55.8400,"Volume":95000,"AdjustedClose":50.0827}
 {"DateTime":"2020-12-22T00:00:00","Open":55.5800,"High":55.5900,"Low":55.2500,"Close":55.4700,"Volume":57700,"AdjustedClose":49.7509}
 {"DateTime":"2020-12-23T00:00:00","Open":55.9100,"High":56.2200,"Low":55.9100,"Close":56.1900,"Volume":44600,"AdjustedClose":50.3967}
 {"DateTime":"2020-12-24T00:00:00","Open":56.4400,"High":56.4800,"Low":56.3300,"Close":56.4800,"Volume":29900,"AdjustedClose":50.6568}
@@ -322,7 +322,7 @@
 {"DateTime":"2021-01-05T00:00:00","Open":57.5000,"High":58.2100,"Low":57.5000,"Close":58.1000,"Volume":23800,"AdjustedClose":52.1097}
 {"DateTime":"2021-01-06T00:00:00","Open":58.4300,"High":59.2690,"Low":58.4300,"Close":59.0500,"Volume":41500,"AdjustedClose":52.9618}
 {"DateTime":"2021-01-07T00:00:00","Open":59.1100,"High":59.3700,"Low":59.0610,"Close":59.3200,"Volume":28600,"AdjustedClose":53.2039}
-{"DateTime":"2021-01-08T00:00:00","Open":59.6800,"High":59.6800,"Low":58.9300,"Close":59.4800,"Volume":33500,"AdjustedClose":53.3475}
+{"DateTime":"2021-01-08T00:00:00","Open":59.6800,"High":59.6800,"Low":58.9300,"Close":59.4800,"Volume":33500,"AdjustedClose":53.3474}
 {"DateTime":"2021-01-11T00:00:00","Open":58.3900,"High":58.7500,"Low":58.3800,"Close":58.6500,"Volume":116200,"AdjustedClose":52.6030}
 {"DateTime":"2021-01-12T00:00:00","Open":58.8400,"High":59.3000,"Low":58.7700,"Close":59.2700,"Volume":27500,"AdjustedClose":53.1591}
 {"DateTime":"2021-01-13T00:00:00","Open":59.2500,"High":59.3390,"Low":59.0900,"Close":59.1440,"Volume":70100,"AdjustedClose":53.0461}
@@ -391,14 +391,14 @@
 {"DateTime":"2021-04-15T00:00:00","Open":64.9900,"High":65.0900,"Low":64.8700,"Close":65.0100,"Volume":52100,"AdjustedClose":58.3073}
 {"DateTime":"2021-04-16T00:00:00","Open":65.2800,"High":65.5100,"Low":65.2650,"Close":65.5100,"Volume":43600,"AdjustedClose":58.7557}
 {"DateTime":"2021-04-19T00:00:00","Open":65.7500,"High":65.8200,"Low":65.4000,"Close":65.4700,"Volume":405600,"AdjustedClose":58.7199}
-{"DateTime":"2021-04-20T00:00:00","Open":65.1400,"High":65.1400,"Low":64.1300,"Close":64.2500,"Volume":161300,"AdjustedClose":57.6256}
+{"DateTime":"2021-04-20T00:00:00","Open":65.1400,"High":65.1400,"Low":64.1300,"Close":64.2500,"Volume":161300,"AdjustedClose":57.6257}
 {"DateTime":"2021-04-21T00:00:00","Open":63.8600,"High":64.6600,"Low":63.7500,"Close":64.6600,"Volume":206500,"AdjustedClose":57.9934}
 {"DateTime":"2021-04-22T00:00:00","Open":64.7900,"High":64.8760,"Low":64.3370,"Close":64.4600,"Volume":45600,"AdjustedClose":57.8140}
 {"DateTime":"2021-04-23T00:00:00","Open":64.7100,"High":65.3200,"Low":64.7100,"Close":65.1100,"Volume":39500,"AdjustedClose":58.3970}
 {"DateTime":"2021-04-26T00:00:00","Open":65.3300,"High":65.5790,"Low":65.3300,"Close":65.4700,"Volume":43000,"AdjustedClose":58.7199}
 {"DateTime":"2021-04-27T00:00:00","Open":65.2200,"High":65.4700,"Low":65.1650,"Close":65.4500,"Volume":51800,"AdjustedClose":58.7019}
 {"DateTime":"2021-04-28T00:00:00","Open":65.1300,"High":65.6250,"Low":65.1300,"Close":65.4700,"Volume":44100,"AdjustedClose":58.7199}
-{"DateTime":"2021-04-29T00:00:00","Open":65.6800,"High":65.7680,"Low":65.1550,"Close":65.5400,"Volume":44500,"AdjustedClose":58.7826}
+{"DateTime":"2021-04-29T00:00:00","Open":65.6800,"High":65.7680,"Low":65.1550,"Close":65.5400,"Volume":44500,"AdjustedClose":58.7827}
 {"DateTime":"2021-04-30T00:00:00","Open":65.1900,"High":65.3600,"Low":64.6400,"Close":64.6900,"Volume":84200,"AdjustedClose":58.0203}
 {"DateTime":"2021-05-03T00:00:00","Open":65.2200,"High":65.6700,"Low":65.1600,"Close":65.6400,"Volume":58000,"AdjustedClose":58.8723}
 {"DateTime":"2021-05-04T00:00:00","Open":65.0000,"High":65.1980,"Low":64.4750,"Close":64.8600,"Volume":106300,"AdjustedClose":58.1728}
@@ -412,7 +412,7 @@
 {"DateTime":"2021-05-14T00:00:00","Open":65.9500,"High":66.0400,"Low":65.6300,"Close":66.0400,"Volume":338000,"AdjustedClose":59.2311}
 {"DateTime":"2021-05-17T00:00:00","Open":66.5200,"High":66.6000,"Low":65.6540,"Close":66.0400,"Volume":169500,"AdjustedClose":59.2311}
 {"DateTime":"2021-05-18T00:00:00","Open":66.6300,"High":66.6700,"Low":66.3300,"Close":66.3300,"Volume":51400,"AdjustedClose":59.4912}
-{"DateTime":"2021-05-19T00:00:00","Open":65.4700,"High":65.7900,"Low":65.0600,"Close":65.5400,"Volume":149400,"AdjustedClose":58.7826}
+{"DateTime":"2021-05-19T00:00:00","Open":65.4700,"High":65.7900,"Low":65.0600,"Close":65.5400,"Volume":149400,"AdjustedClose":58.7827}
 {"DateTime":"2021-05-20T00:00:00","Open":65.9300,"High":66.3500,"Low":65.9200,"Close":66.2600,"Volume":47800,"AdjustedClose":59.4284}
 {"DateTime":"2021-05-21T00:00:00","Open":66.3600,"High":66.4100,"Low":66.0000,"Close":66.2450,"Volume":73600,"AdjustedClose":59.4150}
 {"DateTime":"2021-05-24T00:00:00","Open":66.4600,"High":66.7300,"Low":66.3400,"Close":66.6700,"Volume":58800,"AdjustedClose":59.7961}
@@ -470,8 +470,8 @@
 {"DateTime":"2021-08-06T00:00:00","Open":65.7600,"High":65.8200,"Low":65.5000,"Close":65.6300,"Volume":55800,"AdjustedClose":59.4268}
 {"DateTime":"2021-08-09T00:00:00","Open":65.3900,"High":65.3900,"Low":65.2100,"Close":65.2700,"Volume":52400,"AdjustedClose":59.1008}
 {"DateTime":"2021-08-10T00:00:00","Open":65.2100,"High":65.5550,"Low":65.2070,"Close":65.5200,"Volume":52300,"AdjustedClose":59.3272}
-{"DateTime":"2021-08-11T00:00:00","Open":65.9000,"High":66.2300,"Low":65.9000,"Close":66.1700,"Volume":48800,"AdjustedClose":59.9158}
-{"DateTime":"2021-08-12T00:00:00","Open":66.1900,"High":66.2200,"Low":66.0500,"Close":66.1700,"Volume":54900,"AdjustedClose":59.9158}
+{"DateTime":"2021-08-11T00:00:00","Open":65.9000,"High":66.2300,"Low":65.9000,"Close":66.1700,"Volume":48800,"AdjustedClose":59.9157}
+{"DateTime":"2021-08-12T00:00:00","Open":66.1900,"High":66.2200,"Low":66.0500,"Close":66.1700,"Volume":54900,"AdjustedClose":59.9157}
 {"DateTime":"2021-08-13T00:00:00","Open":66.2400,"High":66.4500,"Low":66.2350,"Close":66.3200,"Volume":37900,"AdjustedClose":60.0516}
 {"DateTime":"2021-08-16T00:00:00","Open":65.9700,"High":65.9700,"Low":65.5080,"Close":65.9100,"Volume":94200,"AdjustedClose":59.6803}
 {"DateTime":"2021-08-17T00:00:00","Open":65.1200,"High":65.1700,"Low":64.6350,"Close":64.9300,"Volume":77600,"AdjustedClose":58.7930}
@@ -550,7 +550,7 @@
 {"DateTime":"2021-11-30T00:00:00","Open":62.6200,"High":62.6360,"Low":61.4600,"Close":62.0600,"Volume":109700,"AdjustedClose":56.1942}
 {"DateTime":"2021-12-01T00:00:00","Open":63.1000,"High":63.3100,"Low":61.6650,"Close":61.6800,"Volume":581700,"AdjustedClose":55.8501}
 {"DateTime":"2021-12-02T00:00:00","Open":62.0500,"High":62.7200,"Low":61.9250,"Close":62.4900,"Volume":138900,"AdjustedClose":56.5836}
-{"DateTime":"2021-12-03T00:00:00","Open":62.8400,"High":62.9600,"Low":62.0430,"Close":62.4300,"Volume":129500,"AdjustedClose":56.5293}
+{"DateTime":"2021-12-03T00:00:00","Open":62.8400,"High":62.9600,"Low":62.0430,"Close":62.4300,"Volume":129500,"AdjustedClose":56.5292}
 {"DateTime":"2021-12-06T00:00:00","Open":62.7000,"High":63.1100,"Low":62.4200,"Close":62.9300,"Volume":120900,"AdjustedClose":56.9820}
 {"DateTime":"2021-12-07T00:00:00","Open":63.8500,"High":64.4090,"Low":63.8500,"Close":64.3100,"Volume":199300,"AdjustedClose":58.2316}
 {"DateTime":"2021-12-08T00:00:00","Open":64.2600,"High":64.4900,"Low":64.1890,"Close":64.3500,"Volume":164900,"AdjustedClose":58.2678}
@@ -577,7 +577,7 @@
 {"DateTime":"2022-01-07T00:00:00","Open":64.7200,"High":65.0900,"Low":64.5200,"Close":65.0100,"Volume":158000,"AdjustedClose":59.7370}
 {"DateTime":"2022-01-10T00:00:00","Open":64.2900,"High":64.3600,"Low":63.7700,"Close":64.3600,"Volume":194000,"AdjustedClose":59.1397}
 {"DateTime":"2022-01-11T00:00:00","Open":64.5200,"High":65.2800,"Low":64.3800,"Close":65.2800,"Volume":124000,"AdjustedClose":59.9851}
-{"DateTime":"2022-01-12T00:00:00","Open":65.8600,"High":66.2600,"Low":65.8420,"Close":66.2100,"Volume":627900,"AdjustedClose":60.8397}
+{"DateTime":"2022-01-12T00:00:00","Open":65.8600,"High":66.2600,"Low":65.8420,"Close":66.2100,"Volume":627900,"AdjustedClose":60.8396}
 {"DateTime":"2022-01-13T00:00:00","Open":66.5500,"High":66.6400,"Low":65.9000,"Close":65.9900,"Volume":188000,"AdjustedClose":60.6375}
 {"DateTime":"2022-01-14T00:00:00","Open":65.6800,"High":65.8700,"Low":65.4000,"Close":65.8200,"Volume":154900,"AdjustedClose":60.4813}
 {"DateTime":"2022-01-18T00:00:00","Open":64.9100,"High":65.0500,"Low":64.5100,"Close":64.7600,"Volume":173000,"AdjustedClose":59.5073}
@@ -717,7 +717,7 @@
 {"DateTime":"2022-08-01T00:00:00","Open":55.9900,"High":56.2800,"Low":55.7900,"Close":55.9800,"Volume":145600,"AdjustedClose":52.3997}
 {"DateTime":"2022-08-02T00:00:00","Open":55.5900,"High":55.6800,"Low":55.0400,"Close":55.1300,"Volume":166000,"AdjustedClose":51.6041}
 {"DateTime":"2022-08-03T00:00:00","Open":55.3200,"High":55.4200,"Low":54.9400,"Close":55.3000,"Volume":167000,"AdjustedClose":51.7632}
-{"DateTime":"2022-08-04T00:00:00","Open":55.2300,"High":55.4300,"Low":55.0730,"Close":55.3600,"Volume":365200,"AdjustedClose":51.8194}
+{"DateTime":"2022-08-04T00:00:00","Open":55.2300,"High":55.4300,"Low":55.0730,"Close":55.3600,"Volume":365200,"AdjustedClose":51.8193}
 {"DateTime":"2022-08-05T00:00:00","Open":54.5500,"High":55.1000,"Low":54.4500,"Close":55.0200,"Volume":177900,"AdjustedClose":51.5011}
 {"DateTime":"2022-08-08T00:00:00","Open":55.4900,"High":55.7910,"Low":55.3240,"Close":55.3800,"Volume":174700,"AdjustedClose":51.8381}
 {"DateTime":"2022-08-09T00:00:00","Open":55.3800,"High":55.4440,"Low":55.0200,"Close":55.0500,"Volume":167100,"AdjustedClose":51.5292}
@@ -732,7 +732,7 @@
 {"DateTime":"2022-08-22T00:00:00","Open":54.4200,"High":54.4200,"Low":53.9600,"Close":54.0800,"Volume":236300,"AdjustedClose":50.6212}
 {"DateTime":"2022-08-23T00:00:00","Open":54.2600,"High":55.0800,"Low":54.2600,"Close":54.6200,"Volume":224700,"AdjustedClose":51.1267}
 {"DateTime":"2022-08-24T00:00:00","Open":54.5500,"High":55.0490,"Low":54.5500,"Close":54.9000,"Volume":119400,"AdjustedClose":51.3888}
-{"DateTime":"2022-08-25T00:00:00","Open":55.1000,"High":55.4700,"Low":55.0450,"Close":55.4100,"Volume":158200,"AdjustedClose":51.8661}
+{"DateTime":"2022-08-25T00:00:00","Open":55.1000,"High":55.4700,"Low":55.0450,"Close":55.4100,"Volume":158200,"AdjustedClose":51.8662}
 {"DateTime":"2022-08-26T00:00:00","Open":55.4800,"High":55.4800,"Low":54.0100,"Close":54.0100,"Volume":155400,"AdjustedClose":50.5557}
 {"DateTime":"2022-08-29T00:00:00","Open":53.8000,"High":54.2400,"Low":53.7000,"Close":53.9700,"Volume":689800,"AdjustedClose":50.5182}
 {"DateTime":"2022-08-30T00:00:00","Open":54.2300,"High":54.2790,"Low":53.2900,"Close":53.4000,"Volume":236800,"AdjustedClose":49.9847}
@@ -805,7 +805,7 @@
 {"DateTime":"2022-12-05T00:00:00","Open":56.9400,"High":57.0600,"Low":55.8200,"Close":56.0400,"Volume":227100,"AdjustedClose":52.4559}
 {"DateTime":"2022-12-06T00:00:00","Open":56.1900,"High":56.4100,"Low":55.4750,"Close":55.6300,"Volume":200700,"AdjustedClose":52.0721}
 {"DateTime":"2022-12-07T00:00:00","Open":55.7000,"High":56.0000,"Low":55.5250,"Close":55.7100,"Volume":199200,"AdjustedClose":52.1470}
-{"DateTime":"2022-12-08T00:00:00","Open":55.8000,"High":56.0500,"Low":55.7100,"Close":55.8400,"Volume":321400,"AdjustedClose":52.2687}
+{"DateTime":"2022-12-08T00:00:00","Open":55.8000,"High":56.0500,"Low":55.7100,"Close":55.8400,"Volume":321400,"AdjustedClose":52.2686}
 {"DateTime":"2022-12-09T00:00:00","Open":55.9300,"High":56.3570,"Low":55.9100,"Close":55.9300,"Volume":241800,"AdjustedClose":52.3529}
 {"DateTime":"2022-12-12T00:00:00","Open":55.7900,"High":55.9300,"Low":55.5200,"Close":55.8700,"Volume":265100,"AdjustedClose":52.2967}
 {"DateTime":"2022-12-13T00:00:00","Open":57.4600,"High":57.7100,"Low":56.5900,"Close":56.7000,"Volume":242000,"AdjustedClose":53.0736}
@@ -835,7 +835,7 @@
 {"DateTime":"2023-01-19T00:00:00","Open":58.3800,"High":58.6900,"Low":58.1500,"Close":58.6400,"Volume":194200,"AdjustedClose":55.6349}
 {"DateTime":"2023-01-20T00:00:00","Open":58.6300,"High":59.3010,"Low":58.4700,"Close":59.3000,"Volume":242500,"AdjustedClose":56.2611}
 {"DateTime":"2023-01-23T00:00:00","Open":59.0000,"High":59.5100,"Low":58.9450,"Close":59.4500,"Volume":228300,"AdjustedClose":56.4034}
-{"DateTime":"2023-01-24T00:00:00","Open":59.3700,"High":59.5600,"Low":58.9600,"Close":59.4800,"Volume":198900,"AdjustedClose":56.4319}
+{"DateTime":"2023-01-24T00:00:00","Open":59.3700,"High":59.5600,"Low":58.9600,"Close":59.4800,"Volume":198900,"AdjustedClose":56.4318}
 {"DateTime":"2023-01-25T00:00:00","Open":59.2300,"High":59.6400,"Low":59.0700,"Close":59.6000,"Volume":175200,"AdjustedClose":56.5457}
 {"DateTime":"2023-01-26T00:00:00","Open":59.8000,"High":59.9400,"Low":59.3800,"Close":59.8900,"Volume":185200,"AdjustedClose":56.8208}
 {"DateTime":"2023-01-27T00:00:00","Open":59.6600,"High":60.0700,"Low":59.5900,"Close":59.9300,"Volume":137600,"AdjustedClose":56.8588}
@@ -852,7 +852,7 @@
 {"DateTime":"2023-02-13T00:00:00","Open":59.2600,"High":59.6300,"Low":59.0600,"Close":59.6300,"Volume":183700,"AdjustedClose":56.5742}
 {"DateTime":"2023-02-14T00:00:00","Open":59.3800,"High":60.0400,"Low":59.1600,"Close":59.7900,"Volume":189600,"AdjustedClose":56.7260}
 {"DateTime":"2023-02-15T00:00:00","Open":59.0700,"High":59.3700,"Low":58.9800,"Close":59.3500,"Volume":196900,"AdjustedClose":56.3085}
-{"DateTime":"2023-02-16T00:00:00","Open":58.8900,"High":59.4200,"Low":58.7700,"Close":59.0800,"Volume":377500,"AdjustedClose":56.0524}
+{"DateTime":"2023-02-16T00:00:00","Open":58.8900,"High":59.4200,"Low":58.7700,"Close":59.0800,"Volume":377500,"AdjustedClose":56.0523}
 {"DateTime":"2023-02-17T00:00:00","Open":58.9800,"High":59.1900,"Low":58.5800,"Close":59.1300,"Volume":338700,"AdjustedClose":56.0998}
 {"DateTime":"2023-02-21T00:00:00","Open":59.0600,"High":59.1390,"Low":58.5400,"Close":58.6100,"Volume":167600,"AdjustedClose":55.6064}
 {"DateTime":"2023-02-22T00:00:00","Open":58.5500,"High":58.5500,"Low":58.0000,"Close":58.0300,"Volume":205700,"AdjustedClose":55.0562}
@@ -909,7 +909,7 @@
 {"DateTime":"2023-05-05T00:00:00","Open":59.1800,"High":59.8700,"Low":59.1000,"Close":59.7900,"Volume":2120900,"AdjustedClose":56.7260}
 {"DateTime":"2023-05-08T00:00:00","Open":59.9700,"High":60.0690,"Low":59.7950,"Close":59.9000,"Volume":150600,"AdjustedClose":56.8303}
 {"DateTime":"2023-05-09T00:00:00","Open":59.4500,"High":59.7900,"Low":59.2700,"Close":59.7000,"Volume":107700,"AdjustedClose":56.6406}
-{"DateTime":"2023-05-10T00:00:00","Open":59.7600,"High":59.7600,"Low":59.1450,"Close":59.4800,"Volume":96700,"AdjustedClose":56.4319}
+{"DateTime":"2023-05-10T00:00:00","Open":59.7600,"High":59.7600,"Low":59.1450,"Close":59.4800,"Volume":96700,"AdjustedClose":56.4318}
 {"DateTime":"2023-05-11T00:00:00","Open":59.0800,"High":59.0800,"Low":58.6200,"Close":58.8900,"Volume":144500,"AdjustedClose":55.8721}
 {"DateTime":"2023-05-12T00:00:00","Open":58.9900,"High":59.0200,"Low":58.4730,"Close":58.7300,"Volume":114000,"AdjustedClose":55.7203}
 {"DateTime":"2023-05-15T00:00:00","Open":58.8800,"High":59.3500,"Low":58.7100,"Close":59.2400,"Volume":122300,"AdjustedClose":56.2042}

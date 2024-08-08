@@ -123,3 +123,4 @@
 {"DateTime":"2023-09-28T00:00:00","Dividend":0.2250}
 {"DateTime":"2023-12-13T00:00:00","Dividend":0.1970}
 {"DateTime":"2024-03-27T00:00:00","Dividend":0.2310}
+{"DateTime":"2024-06-27T00:00:00","Dividend":0.2400}
