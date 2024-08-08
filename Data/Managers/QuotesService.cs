@@ -153,7 +153,7 @@ namespace Data.Controllers
 
         private async Task<Quote?> DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
         {
-            return await quoteProvider.GetQuote(ticker, startDate, endDate);
+            return await QuoteProvider.GetQuote(ticker, startDate, endDate);
         }
     }
 }
