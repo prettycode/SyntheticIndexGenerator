@@ -12,30 +12,51 @@ namespace Data.Controllers
 
         private ILogger<ReturnsManager> Logger { get; init; } = logger;
 
-        public async Task RefreshReturn(string ticker)
+        public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(HashSet<string> tickers)
+        {
+            var returnTasks = tickers.Select(ticker => GetReturns(ticker));
+            var returnResults = await Task.WhenAll(returnTasks);
+            var returnsByTicker = tickers
+                .Zip(returnResults, (ticker, returns) => (ticker, returns))
+                .ToDictionary(pair => pair.ticker, pair => pair.returns);
+
+            return returnsByTicker;
+        }
+
+        public async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker)
+        {
+            ArgumentNullException.ThrowIfNull(ticker);
+
+            var periodTypes = Enum.GetValues<PeriodType>().ToList();
+            var returnTasks = periodTypes.Select(periodType => GetReturns(ticker, periodType));
+            var returnResults = await Task.WhenAll(returnTasks);
+            var returnsByPeriodType = periodTypes
+                .Zip(returnResults, (periodType, returns) => (periodType, returns))
+                .ToDictionary(pair => pair.periodType, pair => pair.returns);
+
+            return returnsByPeriodType;
+        }
+
+        public async Task<PeriodReturn[]> GetReturns(string ticker, PeriodType periodType)
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
             var history = await QuoteCache.Get(ticker);
             var priceHistory = history.Prices;
+            var returns = periodType switch
+            {
+                PeriodType.Daily => GetDailyReturns(ticker, priceHistory),
+                PeriodType.Monthly => GetMonthlyReturns(ticker, priceHistory),
+                PeriodType.Yearly => GetYearlyReturns(ticker, priceHistory),
+                _ => throw new NotImplementedException()
+            };
 
-            await Task.WhenAll(
-                ReturnCache.Put(ticker, GetDailyReturns(ticker, priceHistory), PeriodType.Daily),
-                ReturnCache.Put(ticker, GetMonthlyReturns(ticker, priceHistory), PeriodType.Monthly),
-                ReturnCache.Put(ticker, GetYearlyReturns(ticker, priceHistory), PeriodType.Yearly)
-            );
+            await ReturnCache.Put(ticker, returns, periodType);
+
+            return [.. returns];
         }
 
-        public async Task RefreshReturns()
-        {
-            var tickers = QuoteCache.GetAllTickers();
-            var tickerRefreshTasks = tickers.Select(ticker => RefreshReturn(ticker));
-            var syntheticRefreshTasks = RefreshSyntheticReturns();
-
-            await Task.WhenAll([syntheticRefreshTasks, .. tickerRefreshTasks]);
-        }
-
-        private async Task RefreshSyntheticReturns()
+        public async Task RefreshSyntheticReturns()
         {
             var synReturnsByTicker = await Task.WhenAll(
                 ReturnCache.GetSyntheticMonthlyReturns(),

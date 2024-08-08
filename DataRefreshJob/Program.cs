@@ -56,15 +56,16 @@ class Program
         var indicesManager = provider.GetRequiredService<IndicesManager>();
         var quoteTickersNeeded = IndicesManager.GetBackfillTickers();
 
-        bool allFailed = await quotesManager.RefreshQuotes(quoteTickersNeeded);
+        var quotes = await quotesManager.GetQuotes(quoteTickersNeeded);
 
-        if (allFailed)
+        if (quotes.Values.All(v => v == null))
         {
             logger.LogError("{message}", "Failed to refresh all data. Aborting downstream refreshes.");
             return;
         }
 
-        await returnsManager.RefreshReturns();
+        await returnsManager.RefreshSyntheticReturns();
+        await returnsManager.GetReturns(quoteTickersNeeded);
         await indicesManager.RefreshIndices();
     }
 

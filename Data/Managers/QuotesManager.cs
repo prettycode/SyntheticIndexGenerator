@@ -13,31 +13,16 @@ namespace Data.Controllers
 
         private ILogger<QuotesManager> Logger { get; init; } = logger;
 
-        public async Task<bool> RefreshQuotes(HashSet<string> tickers)
+        public async Task<Dictionary<string, Quote?>> GetQuotes(HashSet<string> tickers)
         {
             ArgumentNullException.ThrowIfNull(tickers);
-            int failures = 0;
 
-            // Do serially vs. all at once; avoid rate-limiting
-            foreach (var ticker in tickers)
-            {
-                Logger.LogInformation("{ticker}: Refreshing history...", ticker);
-
-                try
-                {
-                    await RefreshQuote(ticker);
-                }
-                catch (Exception ex)
-                {
-                    failures++;
-                    Logger.LogError(ex, "{ticker}: Refresh failed.", ticker);
-                }
-            }
-
-            return failures == tickers.Count;
+            return await tickers.ToAsyncEnumerable()
+                .SelectAwait(async ticker => new { ticker, quote = await GetQuote(ticker) })
+                .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
         }
 
-        public async Task RefreshQuote(string ticker)
+        public async Task<Quote?> GetQuote(string ticker)
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
@@ -57,7 +42,7 @@ namespace Data.Controllers
 
                 await QuoteCache.Append(allHistory);
 
-                return;
+                return allHistory;
             }
             else
             {
@@ -73,7 +58,8 @@ namespace Data.Controllers
             if (newHistory == null)
             {
                 Logger.LogInformation("{ticker}: No new history found.", ticker);
-                return;
+
+                return null;
             }
 
             if (!isAllHistory)
@@ -95,13 +81,15 @@ namespace Data.Controllers
                 : QuoteCache.Append(newHistory);
 
             await updateTask;
+
+            return newHistory;
         }
 
         private async Task<Quote> GetAllHistory(string ticker)
         {
             Logger.LogInformation("{ticker}: Downloading all history...", ticker);
 
-            var allHistory = await GetQuote(ticker)
+            var allHistory = await DownloadQuote(ticker)
                 ?? throw new InvalidOperationException($"{ticker}: No history found."); ;
 
             return allHistory;
@@ -118,7 +106,7 @@ namespace Data.Controllers
                 ticker,
                 $"{staleHistoryLastTickDate:yyyy-MM-dd}");
 
-            var freshHistory = await GetQuote(ticker, staleHistoryLastTickDate);
+            var freshHistory = await DownloadQuote(ticker, staleHistoryLastTickDate);
 
             if (freshHistory == null)
             {
@@ -163,7 +151,7 @@ namespace Data.Controllers
             return (false, freshHistory);
         }
 
-        private async Task<Quote?> GetQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
+        private async Task<Quote?> DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
         {
             return await quoteProvider.GetQuote(ticker, startDate, endDate);
         }
