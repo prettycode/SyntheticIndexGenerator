@@ -5,13 +5,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Controllers
 {
-    public class QuotesManager(IQuoteRepository quoteRepository, IQuoteProvider quoteProvider, ILogger<QuotesManager> logger)
+    public class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider quoteProvider, ILogger<QuotesService> logger)
     {
         private IQuoteRepository QuoteCache { get; init; } = quoteRepository;
 
         private IQuoteProvider QuoteProvider { get; init; } = quoteProvider;
 
-        private ILogger<QuotesManager> Logger { get; init; } = logger;
+        private ILogger<QuotesService> Logger { get; init; } = logger;
 
         public async Task<Dictionary<string, Quote?>> GetQuotes(HashSet<string> tickers)
         {

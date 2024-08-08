@@ -5,11 +5,11 @@ using Index = Data.Models.Index;
 
 namespace Data.Controllers
 {
-    public class IndicesManager(IReturnRepository returnRepository, ILogger<IndicesManager> logger)
+    public class IndicesService(IReturnRepository returnRepository, ILogger<IndicesService> logger)
     {
         private IReturnRepository ReturnCache { get; init; } = returnRepository;
 
-        private ILogger<IndicesManager> Logger { get; init; } = logger;
+        private ILogger<IndicesService> Logger { get; init; } = logger;
 
         public Task RefreshIndices()
         {

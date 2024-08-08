@@ -4,13 +4,13 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Controllers
 {
-    public class ReturnsManager(IQuoteRepository quoteRepository, IReturnRepository returnRepository, ILogger<ReturnsManager> logger)
+    public class ReturnsService(IQuoteRepository quoteRepository, IReturnRepository returnRepository, ILogger<ReturnsService> logger)
     {
         private IQuoteRepository QuoteCache { get; init; } = quoteRepository;
 
         private IReturnRepository ReturnCache { get; init; } = returnRepository;
 
-        private ILogger<ReturnsManager> Logger { get; init; } = logger;
+        private ILogger<ReturnsService> Logger { get; init; } = logger;
 
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(HashSet<string> tickers)
         {
@@ -21,20 +21,6 @@ namespace Data.Controllers
                 .ToDictionary(pair => pair.ticker, pair => pair.returns);
 
             return returnsByTicker;
-        }
-
-        public async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker)
-        {
-            ArgumentNullException.ThrowIfNull(ticker);
-
-            var periodTypes = Enum.GetValues<PeriodType>().ToList();
-            var returnTasks = periodTypes.Select(periodType => GetReturns(ticker, periodType));
-            var returnResults = await Task.WhenAll(returnTasks);
-            var returnsByPeriodType = periodTypes
-                .Zip(returnResults, (periodType, returns) => (periodType, returns))
-                .ToDictionary(pair => pair.periodType, pair => pair.returns);
-
-            return returnsByPeriodType;
         }
 
         public async Task<PeriodReturn[]> GetReturns(string ticker, PeriodType periodType)
@@ -67,6 +53,20 @@ namespace Data.Controllers
             var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => ReturnCache.Put(r.Key, r.Value, PeriodType.Yearly));
 
             await Task.WhenAll(synMonthlyReturnsPutTasks.Concat(synYearlyReturnsPutTasks));
+        }
+
+        private async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker)
+        {
+            ArgumentNullException.ThrowIfNull(ticker);
+
+            var periodTypes = Enum.GetValues<PeriodType>().ToList();
+            var returnTasks = periodTypes.Select(periodType => GetReturns(ticker, periodType));
+            var returnResults = await Task.WhenAll(returnTasks);
+            var returnsByPeriodType = periodTypes
+                .Zip(returnResults, (periodType, returns) => (periodType, returns))
+                .ToDictionary(pair => pair.periodType, pair => pair.returns);
+
+            return returnsByPeriodType;
         }
 
         private static List<PeriodReturn> GetDailyReturns(string ticker, List<QuotePrice> dailyPrices)

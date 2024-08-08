@@ -51,10 +51,10 @@ class Program
 
     static async Task RefreshData(IServiceProvider provider, ILogger<Program> logger)
     {
-        var quotesManager = provider.GetRequiredService<QuotesManager>();
-        var returnsManager = provider.GetRequiredService<ReturnsManager>();
-        var indicesManager = provider.GetRequiredService<IndicesManager>();
-        var quoteTickersNeeded = IndicesManager.GetBackfillTickers();
+        var quotesManager = provider.GetRequiredService<QuotesService>();
+        var returnsManager = provider.GetRequiredService<ReturnsService>();
+        var indicesManager = provider.GetRequiredService<IndicesService>();
+        var quoteTickersNeeded = IndicesService.GetBackfillTickers();
 
         var quotes = await quotesManager.GetQuotes(quoteTickersNeeded);
 
