@@ -124,8 +124,6 @@ namespace DataService.Controllers
                         .ToArray()
                 );
 
-            ValidateReturnCollectionHomogeneity(dateFilteredReturnsByTicker.Values);
-
             return dateFilteredReturnsByTicker;
         }
 
@@ -138,6 +136,35 @@ namespace DataService.Controllers
             RebalanceStrategy rebalanceStrategy,
             decimal? rebalanceBandThreshold)
         {
+            static void ConfirmAlignment(IEnumerable<PeriodReturn[]> dateFilteredConstituentReturns)
+            {
+                if (!dateFilteredConstituentReturns.Any())
+                {
+                    throw new ArgumentException("The collection of filtered returns is empty.",
+                        nameof(dateFilteredConstituentReturns));
+                }
+
+                var firstReturns = dateFilteredConstituentReturns.First();
+                var firstLength = firstReturns.Length;
+
+                if (dateFilteredConstituentReturns.Any(d => d.Length != firstLength))
+                {
+                    throw new InvalidOperationException("All constituent histories should have the same length.");
+                }
+
+                var firstDates = firstReturns.Select(period => period.PeriodStart).ToArray();
+
+                foreach (var returns in dateFilteredConstituentReturns.Skip(1))
+                {
+                    var currentDates = returns.Select(period => period.PeriodStart).ToArray();
+
+                    if (!firstDates.SequenceEqual(currentDates))
+                    {
+                        throw new InvalidOperationException("All constituent histories should have identical dates.");
+                    }
+                }
+            }
+
             var dedupedPortfolioConstituents = portfolioConstituents
                 .GroupBy(alloc => alloc.Ticker)
                 .ToDictionary(
@@ -159,36 +186,9 @@ namespace DataService.Controllers
                 rebalanceBandThreshold
             );
 
+            ConfirmAlignment(dateFilteredReturnsByTicker.Values);
+
             return rebalancedPerformance;
-        }
-
-        private static void ValidateReturnCollectionHomogeneity(IEnumerable<PeriodReturn[]> dateFilteredConstituentReturns)
-        {
-            if (!dateFilteredConstituentReturns.Any())
-            {
-                throw new ArgumentException("The collection of filtered returns is empty.",
-                    nameof(dateFilteredConstituentReturns));
-            }
-
-            var firstReturns = dateFilteredConstituentReturns.First();
-            var firstLength = firstReturns.Length;
-
-            if (dateFilteredConstituentReturns.Any(d => d.Length != firstLength))
-            {
-                throw new InvalidOperationException("All constituent histories should have the same length.");
-            }
-
-            var firstDates = firstReturns.Select(period => period.PeriodStart).ToArray();
-
-            foreach (var returns in dateFilteredConstituentReturns.Skip(1))
-            {
-                var currentDates = returns.Select(period => period.PeriodStart).ToArray();
-
-                if (!firstDates.SequenceEqual(currentDates))
-                {
-                    throw new InvalidOperationException("All constituent histories should have identical dates.");
-                }
-            }
         }
 
         private static (Dictionary<string, NominalPeriodReturn[]>, Dictionary<string, RebalanceEvent[]>) GetRebalancedPortfolioBacktest(
