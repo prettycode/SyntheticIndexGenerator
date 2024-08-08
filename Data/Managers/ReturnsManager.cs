@@ -16,7 +16,7 @@ namespace Data.Controllers
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
-            var history = await QuoteCache.Get(ticker);
+            var history = await QuoteCache.Get(ticker, true);
             var priceHistory = history.Prices;
 
             await Task.WhenAll(
