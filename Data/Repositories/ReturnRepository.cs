@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Data.Repositories
 {
-    public class ReturnRepository : IReturnRepository
+    internal class ReturnRepository : IReturnRepository
     {
         private readonly string cachePath;
 
@@ -158,7 +158,7 @@ namespace Data.Repositories
         // TODO test
         public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticYearlyReturns()
         {
-            static List<PeriodReturn> calcYearlyFromMonthly(string ticker, List<PeriodReturn> monthlyReturns)
+            static List<PeriodReturn> CalculateYearlyFromMonthly(string ticker, List<PeriodReturn> monthlyReturns)
             {
                 var result = new List<PeriodReturn>();
 
@@ -190,7 +190,7 @@ namespace Data.Repositories
             }
 
             var monthlyReturns = await GetSyntheticMonthlyReturns();
-            var yearlyReturns = monthlyReturns.ToDictionary(pair => pair.Key, pair => calcYearlyFromMonthly(pair.Key, pair.Value));
+            var yearlyReturns = monthlyReturns.ToDictionary(pair => pair.Key, pair => CalculateYearlyFromMonthly(pair.Key, pair.Value));
 
             return yearlyReturns;
         }

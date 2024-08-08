@@ -5,7 +5,7 @@ using Index = Data.Models.Index;
 
 namespace Data.Controllers
 {
-    public class IndicesService(IReturnRepository returnRepository, ILogger<IndicesService> logger)
+    internal class IndicesService(IReturnRepository returnRepository, ILogger<IndicesService> logger) : IIndicesService
     {
         private IReturnRepository ReturnCache { get; init; } = returnRepository;
 
@@ -20,7 +20,7 @@ namespace Data.Controllers
             return Task.WhenAll(refreshTasks);
         }
 
-        public static HashSet<string> GetBackfillTickers(bool filterSynthetic = true)
+        public HashSet<string> GetRequiredTickers(bool filterSynthetic = true)
         {
             var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []);
 

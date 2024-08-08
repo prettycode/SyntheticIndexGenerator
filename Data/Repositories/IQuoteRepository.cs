@@ -2,7 +2,7 @@
 
 namespace Data.Repositories
 {
-    public interface IQuoteRepository
+    internal interface IQuoteRepository
     {
         Task Append(Quote fundHistory);
 

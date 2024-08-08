@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Controllers
 {
-    public class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider quoteProvider, ILogger<QuotesService> logger)
+    internal class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider quoteProvider, ILogger<QuotesService> logger) : IQuotesService
     {
         private IQuoteRepository QuoteCache { get; init; } = quoteRepository;
 

@@ -2,7 +2,7 @@
 
 namespace Data.Repositories
 {
-    public interface IReturnRepository
+    internal interface IReturnRepository
     {
         Task<List<PeriodReturn>> Get(string ticker, PeriodType period);
 

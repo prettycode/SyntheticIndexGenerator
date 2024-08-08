@@ -51,12 +51,12 @@ class Program
 
     static async Task RefreshData(IServiceProvider provider, ILogger<Program> logger)
     {
-        var quotesManager = provider.GetRequiredService<QuotesService>();
-        var returnsManager = provider.GetRequiredService<ReturnsService>();
-        var indicesManager = provider.GetRequiredService<IndicesService>();
-        var quoteTickersNeeded = IndicesService.GetBackfillTickers();
+        var quotesService = provider.GetRequiredService<IQuotesService>();
+        var returnsService = provider.GetRequiredService<IReturnsService>();
+        var indicesService = provider.GetRequiredService<IIndicesService>();
+        var quoteTickersNeeded = indicesService.GetRequiredTickers();
 
-        var quotes = await quotesManager.GetQuotes(quoteTickersNeeded);
+        var quotes = await quotesService.GetQuotes(quoteTickersNeeded);
 
         if (quotes.Values.All(v => v == null))
         {
@@ -64,9 +64,9 @@ class Program
             return;
         }
 
-        await returnsManager.RefreshSyntheticReturns();
-        await returnsManager.GetReturns(quoteTickersNeeded);
-        await indicesManager.RefreshIndices();
+        await returnsService.RefreshSyntheticReturns();
+        await returnsService.GetReturns(quoteTickersNeeded);
+        await indicesService.RefreshIndices();
     }
 
     // TODO test

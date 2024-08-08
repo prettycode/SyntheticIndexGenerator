@@ -1,3 +1,4 @@
+using Data.Controllers;
 using Data.Models;
 using Data.Repositories;
 using DataService.Models;
@@ -7,9 +8,9 @@ namespace DataService.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class BackTestController(IReturnRepository returnCache, ILogger<BackTestController> logger) : ControllerBase
+    public class BackTestController(IReturnsService returnsService, ILogger<BackTestController> logger) : ControllerBase
     {
-        private readonly IReturnRepository returnCache = returnCache;
+        private readonly IReturnsService returnsService = returnsService;
         private readonly ILogger<BackTestController> logger = logger;
 
         [HttpGet]
@@ -103,7 +104,7 @@ namespace DataService.Controllers
             DateTime lastPeriod)
         {
             var constituentReturns = await Task.WhenAll(
-                tickers.Select(ticker => returnCache.Get(ticker, periodType, firstPeriod, lastPeriod)));
+                tickers.Select(ticker => returnsService.Get(ticker, periodType, firstPeriod, lastPeriod)));
 
             var firstSharedFirstPeriod = constituentReturns
                 .Select(history => history.First().PeriodStart)

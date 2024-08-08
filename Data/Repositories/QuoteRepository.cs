@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace Data.Repositories
 {
-    public class QuoteRepository : IQuoteRepository
+    internal class QuoteRepository : IQuoteRepository
     {
         private enum CacheType
         {

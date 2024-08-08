@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Controllers
 {
-    public class ReturnsService(IQuoteRepository quoteRepository, IReturnRepository returnRepository, ILogger<ReturnsService> logger)
+    internal class ReturnsService(IQuoteRepository quoteRepository, IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
     {
         private IQuoteRepository QuoteCache { get; init; } = quoteRepository;
 
@@ -53,6 +53,11 @@ namespace Data.Controllers
             var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => ReturnCache.Put(r.Key, r.Value, PeriodType.Yearly));
 
             await Task.WhenAll(synMonthlyReturnsPutTasks.Concat(synYearlyReturnsPutTasks));
+        }
+
+        public Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate)
+        {
+            return ReturnCache.Get(ticker, period, startDate, endDate);
         }
 
         private async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker)
