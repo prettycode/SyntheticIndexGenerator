@@ -28,8 +28,8 @@
                 var lastTickStart = lastTick.PeriodStart;
                 var lastTickPeriodType = lastTick.PeriodType;
 
-                var startDate = firstTick.PeriodStart;
-                var endDate = lastTickPeriodType switch
+                var firstPeriodStartDate = firstTick.PeriodStart;
+                var lastPeriodStartDate = lastTickPeriodType switch
                 {
                     PeriodType.Daily => lastTickStart.AddDays(1),
                     PeriodType.Monthly => lastTickStart.AddMonths(1),
@@ -37,7 +37,7 @@
                     _ => throw new InvalidOperationException()
                 };
 
-                double years = (endDate - startDate).TotalDays / 365.25;
+                double years = (lastPeriodStartDate - firstPeriodStartDate).TotalDays / 365.25;
 
                 return Math.Pow(Convert.ToDouble(lastTick.EndingBalance) / Convert.ToDouble(firstTick.StartingBalance), 1 / years) - 1;
             }

@@ -53,8 +53,8 @@ namespace Data.Repositories
         public async Task<List<PeriodReturn>> Get(
             string ticker,
             PeriodType periodType,
-            DateTime? startDate = null,
-            DateTime? endDate = null)
+            DateTime? firstPeriod = null,
+            DateTime? lastPeriod = null)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(periodType);
@@ -69,23 +69,23 @@ namespace Data.Repositories
             return csvLines
                 .Select(PeriodReturn.ParseCsvLine)
                 .Where(pair =>
-                    (startDate == null || pair.PeriodStart >= startDate) &&
-                    (endDate == null || pair.PeriodStart <= endDate))
+                    (firstPeriod == null || pair.PeriodStart >= firstPeriod) &&
+                    (lastPeriod == null || pair.PeriodStart <= lastPeriod))
                 .ToList();
         }
 
-        public Task Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType period)
+        public Task Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType periodType)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(returns);
-            ArgumentNullException.ThrowIfNull(period);
+            ArgumentNullException.ThrowIfNull(periodType);
 
             if (!returns.Any())
             {
                 throw new ArgumentException("Cannot be empty.", nameof(returns));
             }
 
-            var csvFilePath = GetCsvFilePath(ticker, period);
+            var csvFilePath = GetCsvFilePath(ticker, periodType);
             var csvDirPath = Path.GetDirectoryName(csvFilePath);
 
             if (!Directory.Exists(csvDirPath))

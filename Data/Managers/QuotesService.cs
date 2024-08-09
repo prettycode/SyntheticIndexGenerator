@@ -42,7 +42,7 @@ namespace Data.Services
 
                 var allHistory = await GetAllHistory(ticker);
 
-                logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {startDate} to {endDate}.",
+                logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {firstPeriod} to {lastPeriod}.",
                     ticker,
                     allHistory.Prices.Count,
                     $"{allHistory.Prices[0].DateTime:yyyy-MM-dd}",
@@ -52,7 +52,7 @@ namespace Data.Services
             }
             else
             {
-                logger.LogInformation("{ticker}: {recordCount} record(s) in cache, {startDate} to {endDate}.",
+                logger.LogInformation("{ticker}: {recordCount} record(s) in cache, {firstPeriod} to {lastPeriod}.",
                     ticker,
                     knownHistory.Prices.Count,
                     $"{knownHistory.Prices[0].DateTime:yyyy-MM-dd}",
@@ -76,13 +76,13 @@ namespace Data.Services
 
             if (!replaceExistingHistory)
             {
-                logger.LogInformation("{ticker}: Missing history identified as {startDate} to {endDate}",
+                logger.LogInformation("{ticker}: Missing history identified as {firstPeriod} to {lastPeriod}",
                     ticker,
                     $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
                     $"{newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
             }
 
-            logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {startDate} to {endDate}",
+            logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {firstPeriod} to {lastPeriod}",
                     ticker,
                     newHistory.Prices.Count,
                     $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
