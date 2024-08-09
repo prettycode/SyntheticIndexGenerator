@@ -11,13 +11,12 @@ namespace Data.Services
         {
             ArgumentNullException.ThrowIfNull(dailyPricesByTicker);
 
-            var returnTasks = dailyPricesByTicker.Select(pair => GetReturns(pair.Key, pair.Value));
-            var returnResults = await Task.WhenAll(returnTasks);
-            var returnsByTicker = dailyPricesByTicker.Keys
-                .Zip(returnResults, (ticker, returns) => (ticker, returns))
-                .ToDictionary(pair => pair.ticker, pair => pair.returns);
-
-            return returnsByTicker;
+            return await dailyPricesByTicker
+                .ToAsyncEnumerable()
+                .ToDictionaryAwaitAsync(
+                    keySelector: pair => ValueTask.FromResult(pair.Key),
+                    elementSelector: async pair => await GetReturns(pair.Key, pair.Value)
+                );
         }
 
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetSyntheticReturns(
@@ -25,19 +24,19 @@ namespace Data.Services
         {
             ArgumentNullException.ThrowIfNull(syntheticTickers);
 
-            var syntheticReturns = await syntheticTickers.ToAsyncEnumerable()
+            return await syntheticTickers
+                .ToAsyncEnumerable()
                 .ToDictionaryAwaitAsync(
-                    async ticker => ticker,
-                    async ticker => await Enum.GetValues<PeriodType>().ToAsyncEnumerable()
+                    keySelector: ticker => ValueTask.FromResult(ticker),
+                    elementSelector: async ticker => await Enum.GetValues<PeriodType>()
+                        .ToAsyncEnumerable()
                         .ToDictionaryAwaitAsync(
-                            async periodType => periodType,
-                            async periodType => !returnRepository.Has(ticker, periodType)
-                                ? null
-                                : (await returnRepository.Get(ticker, periodType)).ToArray()
+                            keySelector: periodType => ValueTask.FromResult(periodType),
+                            elementSelector: async periodType => returnRepository.Has(ticker, periodType)
+                                ? (await returnRepository.Get(ticker, periodType)).ToArray()
+                                : null
                         )
                 );
-
-            return syntheticReturns;
         }
 
         public async Task RefreshSyntheticReturns()
@@ -47,13 +46,11 @@ namespace Data.Services
                 returnRepository.GetSyntheticYearlyReturns()
             );
 
-            var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r
-                => returnRepository.Put(r.Key, r.Value, PeriodType.Monthly));
+            var (putMonthlyTask, putYearlyTask) = (
+                synReturnsByTicker[0].Select(r => returnRepository.Put(r.Key, r.Value, PeriodType.Monthly)),
+                synReturnsByTicker[1].Select(r => returnRepository.Put(r.Key, r.Value, PeriodType.Yearly)));
 
-            var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r
-                => returnRepository.Put(r.Key, r.Value, PeriodType.Yearly));
-
-            await Task.WhenAll(synMonthlyReturnsPutTasks.Concat(synYearlyReturnsPutTasks));
+            await Task.WhenAll([.. putMonthlyTask, .. putYearlyTask]);
         }
 
         public async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker, IEnumerable<QuotePrice> dailyPriceHistory)
