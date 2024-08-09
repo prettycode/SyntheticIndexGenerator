@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using Data.Services;
 using Data.Extensions;
+using Data.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

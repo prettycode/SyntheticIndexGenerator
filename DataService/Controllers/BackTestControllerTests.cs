@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using Data.Models;
-using DataService.Models;
 
 namespace DataService.Controllers
 {

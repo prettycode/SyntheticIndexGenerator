@@ -1,6 +1,4 @@
-﻿using Data.Models;
-
-namespace DataService.Models
+﻿namespace Data.Models
 {
     public readonly struct BackTestPeriodReturn(string ticker, decimal startingBalance, PeriodReturn periodReturn)
     {

@@ -1,6 +1,6 @@
-﻿using Data.Services;
-using Data.QuoteProvider;
+﻿using Data.QuoteProvider;
 using Data.Repositories;
+using Data.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

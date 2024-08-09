@@ -1,6 +1,4 @@
-﻿using Data.Models;
-
-namespace DataService.Models
+﻿namespace Data.Models
 {
     public struct BackTest
     {

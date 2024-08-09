@@ -1,7 +1,6 @@
-using Data.Services;
 using Data.Models;
+using Data.Services;
 using Microsoft.AspNetCore.Mvc;
-using DataService.Models;
 
 namespace DataService.Controllers
 {

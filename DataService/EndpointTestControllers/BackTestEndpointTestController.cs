@@ -1,6 +1,5 @@
 using Data.Models;
 using DataService.Controllers;
-using DataService.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataService.TestEndpointControllers

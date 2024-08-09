@@ -1,5 +1,4 @@
 ﻿using Data.Models;
-using DataService.Models;
 
 namespace Data.Services
 {

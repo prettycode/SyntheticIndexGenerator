@@ -1,4 +1,4 @@
-﻿namespace DataService.Models
+﻿namespace Data.Models
 {
     public enum BackTestRebalanceStrategy
     {
