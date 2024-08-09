@@ -13,7 +13,9 @@ namespace Data.Controllers
 
         private ILogger<QuotesService> Logger { get; init; } = logger;
 
-        public async Task<Dictionary<string, Quote?>> GetQuotes(HashSet<string> tickers)
+        public async Task<IEnumerable<QuotePrice>> GetPriceHistory(string ticker) => (await GetQuote(ticker)).Prices;
+
+        public async Task<Dictionary<string, Quote>> GetQuotes(HashSet<string> tickers)
         {
             ArgumentNullException.ThrowIfNull(tickers);
 
@@ -22,7 +24,7 @@ namespace Data.Controllers
                 .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
         }
 
-        public async Task<Quote?> GetQuote(string ticker)
+        private async Task<Quote> GetQuote(string ticker)
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
@@ -84,13 +86,9 @@ namespace Data.Controllers
                     $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
                     $"{newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-            if (replaceExistingHistory)
-            {
-                return await QuoteCache.Replace(newHistory);
-
-            }
-
-            return await QuoteCache.Append(newHistory);
+            return replaceExistingHistory
+                ? await QuoteCache.Replace(newHistory)
+                : await QuoteCache.Append(newHistory);
         }
 
         private async Task<Quote> GetAllHistory(string ticker)
