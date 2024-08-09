@@ -51,16 +51,30 @@ class Program
 
     static async Task RefreshData(IServiceProvider provider, ILogger<Program> logger)
     {
+        static async Task UpdateReturnsCacheWithIndexBackTestTickers(
+            IIndicesService indicesService,
+            IQuotesService quotesService,
+            IReturnsService returnsService)
+        {
+            var tickersNeeded = indicesService.GetRequiredTickers();
+            var pricesByTicker = await quotesService.GetPrices(tickersNeeded);
+            var returnsByTicker = await returnsService.GetReturns(pricesByTicker);
+        }
+
+        static async Task UpdateReturnsCacheWithSyntheticTickers(
+            IIndicesService indicesService,
+            IReturnsService returnsService)
+        {
+            await returnsService.RefreshSyntheticReturns();
+            await indicesService.RefreshIndices();
+        }
+
         var quotesService = provider.GetRequiredService<IQuotesService>();
         var returnsService = provider.GetRequiredService<IReturnsService>();
         var indicesService = provider.GetRequiredService<IIndicesService>();
-        var quoteTickersNeeded = indicesService.GetRequiredTickers();
 
-        var pricesByTicker = await quotesService.GetPrices(quoteTickersNeeded);
-
-        await returnsService.GetReturns(pricesByTicker);
-        await returnsService.RefreshSyntheticReturns();
-        await indicesService.RefreshIndices();
+        await UpdateReturnsCacheWithIndexBackTestTickers(indicesService, quotesService, returnsService);
+        await UpdateReturnsCacheWithSyntheticTickers(indicesService, returnsService);
     }
 
     // TODO test
