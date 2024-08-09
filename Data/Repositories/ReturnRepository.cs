@@ -74,15 +74,15 @@ namespace Data.Repositories
                 .ToList();
         }
 
-        public Task Put(string ticker, List<PeriodReturn> returns, PeriodType period)
+        public Task Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType period)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(returns);
             ArgumentNullException.ThrowIfNull(period);
 
-            if (returns.Count == 0)
+            if (!returns.Any())
             {
-                return Task.FromResult(Task.CompletedTask);
+                throw new ArgumentException("Cannot be empty.", nameof(returns));
             }
 
             var csvFilePath = GetCsvFilePath(ticker, period);

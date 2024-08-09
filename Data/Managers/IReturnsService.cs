@@ -5,7 +5,7 @@ namespace Data.Controllers
     public interface IReturnsService
     {
         Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
-            Dictionary<string, IEnumerable<QuotePrice>> quotesByTicker);
+            Dictionary<string, IEnumerable<QuotePrice>> dailyPricesByTicker);
 
         Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetSyntheticReturns(
             HashSet<string> syntheticTickers);

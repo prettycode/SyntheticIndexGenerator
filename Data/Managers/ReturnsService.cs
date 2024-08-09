@@ -6,18 +6,14 @@ namespace Data.Controllers
 {
     internal class ReturnsService(IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
     {
-        private IReturnRepository ReturnCache { get; init; } = returnRepository;
-
-        private ILogger<ReturnsService> Logger { get; init; } = logger;
-
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
-            Dictionary<string, IEnumerable<QuotePrice>> pricesByTicker)
+            Dictionary<string, IEnumerable<QuotePrice>> dailyPricesByTicker)
         {
-            ArgumentNullException.ThrowIfNull(pricesByTicker);
+            ArgumentNullException.ThrowIfNull(dailyPricesByTicker);
 
-            var returnTasks = pricesByTicker.Select(pair => GetReturns(pair.Key, pair.Value));
+            var returnTasks = dailyPricesByTicker.Select(pair => GetReturns(pair.Key, pair.Value));
             var returnResults = await Task.WhenAll(returnTasks);
-            var returnsByTicker = pricesByTicker.Keys
+            var returnsByTicker = dailyPricesByTicker.Keys
                 .Zip(returnResults, (ticker, returns) => (ticker, returns))
                 .ToDictionary(pair => pair.ticker, pair => pair.returns);
 
@@ -35,9 +31,9 @@ namespace Data.Controllers
                     async ticker => await Enum.GetValues<PeriodType>().ToAsyncEnumerable()
                         .ToDictionaryAwaitAsync(
                             async periodType => periodType,
-                            async periodType => !ReturnCache.Has(ticker, periodType)
+                            async periodType => !returnRepository.Has(ticker, periodType)
                                 ? null
-                                : (await ReturnCache.Get(ticker, periodType)).ToArray()
+                                : (await returnRepository.Get(ticker, periodType)).ToArray()
                         )
                 );
 
@@ -47,22 +43,25 @@ namespace Data.Controllers
         public async Task RefreshSyntheticReturns()
         {
             var synReturnsByTicker = await Task.WhenAll(
-                ReturnCache.GetSyntheticMonthlyReturns(),
-                ReturnCache.GetSyntheticYearlyReturns()
+                returnRepository.GetSyntheticMonthlyReturns(),
+                returnRepository.GetSyntheticYearlyReturns()
             );
 
-            var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r => ReturnCache.Put(r.Key, r.Value, PeriodType.Monthly));
-            var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => ReturnCache.Put(r.Key, r.Value, PeriodType.Yearly));
+            var synMonthlyReturnsPutTasks = synReturnsByTicker[0].Select(r
+                => returnRepository.Put(r.Key, r.Value, PeriodType.Monthly));
+
+            var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r
+                => returnRepository.Put(r.Key, r.Value, PeriodType.Yearly));
 
             await Task.WhenAll(synMonthlyReturnsPutTasks.Concat(synYearlyReturnsPutTasks));
         }
 
         private async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(
             string ticker,
-            IEnumerable<QuotePrice> priceHistory)
+            IEnumerable<QuotePrice> dailyPriceHistory)
         {
             var periodTypes = Enum.GetValues<PeriodType>().ToList();
-            var returnTasks = periodTypes.Select(periodType => GetReturns(ticker, priceHistory, periodType));
+            var returnTasks = periodTypes.Select(periodType => GetReturnsForPeriod(ticker, dailyPriceHistory, periodType));
             var returnResults = await Task.WhenAll(returnTasks);
             var returnsByPeriodType = periodTypes
                 .Zip(returnResults, (periodType, returns) => (periodType, returns))
@@ -71,114 +70,61 @@ namespace Data.Controllers
             return returnsByPeriodType;
         }
 
-        private async Task<PeriodReturn[]> GetReturns(
+        private async Task<PeriodReturn[]> GetReturnsForPeriod(
             string ticker,
-            IEnumerable<QuotePrice> priceHistory,
+            IEnumerable<QuotePrice> dailyPriceHistory,
             PeriodType periodType)
         {
             var returns = periodType switch
             {
-                PeriodType.Daily => GetDailyReturns(ticker, priceHistory),
-                PeriodType.Monthly => GetMonthlyReturns(ticker, priceHistory),
-                PeriodType.Yearly => GetYearlyReturns(ticker, priceHistory),
+                PeriodType.Daily => GetPeriodReturns(dailyPriceHistory, ticker, periodType, p => p),
+                PeriodType.Monthly => GetPeriodReturns(dailyPriceHistory, ticker, periodType, GroupByMonth),
+                PeriodType.Yearly => GetPeriodReturns(dailyPriceHistory, ticker, periodType, GroupByYear),
                 _ => throw new NotImplementedException()
             };
 
-            await ReturnCache.Put(ticker, returns, periodType);
+            await returnRepository.Put(ticker, returns, periodType);
 
             return [.. returns];
         }
 
-        private static List<PeriodReturn> GetDailyReturns(string ticker, IEnumerable<QuotePrice> dailyPrices)
+        private static IEnumerable<QuotePrice> GroupByMonth(IEnumerable<QuotePrice> prices)
+            => GroupByPeriod(prices, p => new { p.DateTime.Year, p.DateTime.Month });
+
+        private static IEnumerable<QuotePrice> GroupByYear(IEnumerable<QuotePrice> prices)
+            => GroupByPeriod(prices, p => p.DateTime.Year);
+
+        private static IEnumerable<QuotePrice> GroupByPeriod<TKey>(
+            IEnumerable<QuotePrice> prices,
+            Func<QuotePrice, TKey> keySelector)
+            => prices.GroupBy(keySelector)
+                .Select(g => g.OrderByDescending(p => p.DateTime).First())
+                .OrderBy(p => p.DateTime);
+
+        private static PeriodReturn[] GetPeriodReturns(
+            IEnumerable<QuotePrice> prices,
+            string ticker,
+            PeriodType periodType,
+            Func<IEnumerable<QuotePrice>, IEnumerable<QuotePrice>> groupingFunction)
         {
-            return GetReturns(dailyPrices.ToArray(), ticker, PeriodType.Daily);
+            var groupedPrices = groupingFunction(prices).ToArray();
+            return CalculateReturns(groupedPrices, ticker, periodType);
         }
 
-        // TODO test
-        private static List<PeriodReturn> GetMonthlyReturns(string ticker, IEnumerable<QuotePrice> dailyPrices)
+        private static PeriodReturn[] CalculateReturns(QuotePrice[] prices, string ticker, PeriodType periodType)
         {
-            var monthlyCloses = dailyPrices
-                .GroupBy(r => new { r.DateTime.Year, r.DateTime.Month })
-                .Select(g => g.OrderByDescending(r => r.DateTime).First())
-                .OrderBy(r => r.DateTime)
-                .ToArray();
+            static decimal CalculateChange(decimal x, decimal y) => (y - x) / x * 100m;
 
-            var monthlyReturns = GetReturns(monthlyCloses, ticker, PeriodType.Monthly);
-
-            return monthlyReturns
-                .Select(r => new PeriodReturn()
-                {
-                    PeriodStart = new DateTime(r.PeriodStart.Year, r.PeriodStart.Month, 1),
-                    ReturnPercentage = r.ReturnPercentage,
-                    SourceTicker = r.SourceTicker,
-                    PeriodType = r.PeriodType,
-                })
-                .ToList();
-        }
-
-        // TODO test
-        private static List<PeriodReturn> GetYearlyReturns(string ticker, IEnumerable<QuotePrice> dailyPrices)
-        {
-            var yearlyCloses = dailyPrices
-                .GroupBy(r => r.DateTime.Year)
-                .Select(g => g.OrderByDescending(r => r.DateTime).First())
-                .OrderBy(r => r.DateTime)
-                .ToArray();
-
-            var yearlyReturns = GetReturns(yearlyCloses, ticker, PeriodType.Yearly);
-
-            return yearlyReturns
-                .Select(r => new PeriodReturn()
-                {
-                    PeriodStart = new DateTime(r.PeriodStart.Year, 1, 1),
-                    ReturnPercentage = r.ReturnPercentage,
-                    SourceTicker = r.SourceTicker,
-                    PeriodType = r.PeriodType
-                })
-                .ToList();
-        }
-
-        // TODO test
-        private static List<PeriodReturn> GetReturns(QuotePrice[] prices, string ticker, PeriodType returnPeriod, bool skipFirst = true)
-        {
-            static decimal calculateChange(decimal x, decimal y) => (y - x) / x * 100m;
-            static decimal endingPrice(QuotePrice record) => record.AdjustedClose;
-
-            List<PeriodReturn> returns = skipFirst
-                ? []
-                : [
-                    new PeriodReturn()
-                    {
-                        PeriodStart = prices[0].DateTime,
-                        ReturnPercentage = calculateChange(prices[0].Open, endingPrice(prices[0])),
-                        SourceTicker = ticker,
-                        PeriodType = returnPeriod
-                    }
-                ];
-
-            for (int i = 1; i < prices.Length; i++)
+            // Skip the first before it's not relative to the (adjusted) close of the date-before-it's close
+            var periodReturns = prices.Zip(prices.Skip(1), (prev, current) => new PeriodReturn
             {
-                var currentDate = prices[i].DateTime;
-                var previousDate = prices[i - 1].DateTime;
+                PeriodStart = current.DateTime,
+                ReturnPercentage = CalculateChange(prev.AdjustedClose, current.AdjustedClose),
+                SourceTicker = ticker,
+                PeriodType = periodType
+            });
 
-                if (currentDate <= previousDate)
-                {
-                    throw new ArgumentException("Collection is out-of-order.", nameof(prices));
-                }
-
-                var currentEndPrice = endingPrice(prices[i]);
-                var currentStartPrice = endingPrice(prices[i - 1]);
-
-                returns.Add(new PeriodReturn()
-                {
-                    PeriodStart = currentDate,
-                    ReturnPercentage = calculateChange(currentStartPrice, currentEndPrice),
-                    SourceTicker = ticker,
-                    PeriodType = returnPeriod
-                });
-            }
-
-            return returns;
+            return [.. periodReturns];
         }
     }
 }

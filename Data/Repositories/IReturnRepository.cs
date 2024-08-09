@@ -12,6 +12,6 @@ namespace Data.Repositories
 
         bool Has(string ticker, PeriodType period);
 
-        Task Put(string ticker, List<PeriodReturn> returns, PeriodType period);
+        Task Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType period);
     }
 }

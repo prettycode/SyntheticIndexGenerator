@@ -57,8 +57,8 @@ class Program
             IReturnsService returnsService)
         {
             var tickersNeeded = indicesService.GetRequiredTickers();
-            var pricesByTicker = await quotesService.GetPrices(tickersNeeded);
-            var returnsByTicker = await returnsService.GetReturns(pricesByTicker);
+            var dailyPricesByTicker = await quotesService.GetPrices(tickersNeeded);
+            var returnsByTicker = await returnsService.GetReturns(dailyPricesByTicker);
         }
 
         static async Task UpdateReturnsCacheWithSyntheticTickers(
