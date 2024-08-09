@@ -83,7 +83,14 @@ namespace Data.Services
                 _ => throw new NotImplementedException()
             };
 
-            await returnRepository.Put(ticker, returns, periodType);
+            if (returns.Length == 0)
+            {
+                logger.LogWarning("{ticker} has no computable return history for {periodType}", ticker, periodType);
+            }
+            else
+            {
+                await returnRepository.Put(ticker, returns, periodType);
+            }
 
             return [.. returns];
         }
