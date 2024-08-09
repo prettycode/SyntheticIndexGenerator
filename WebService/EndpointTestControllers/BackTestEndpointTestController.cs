@@ -1,8 +1,8 @@
 using Data.Models;
-using DataService.Controllers;
+using WebService.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DataService.TestEndpointControllers
+namespace WebService.TestEndpointControllers
 {
     [ApiController]
     [Route("[controller]/[action]")]

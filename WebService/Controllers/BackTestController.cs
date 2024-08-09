@@ -2,7 +2,7 @@ using Data.Models;
 using Data.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DataService.Controllers
+namespace WebService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

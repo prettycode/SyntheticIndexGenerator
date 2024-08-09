@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "DataRefreshJob\\DataRefreshJob.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "WebService\\WebService.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

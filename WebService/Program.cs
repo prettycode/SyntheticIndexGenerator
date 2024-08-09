@@ -1,5 +1,5 @@
 using Data.Extensions;
-using DataService.Controllers;
+using WebService.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 

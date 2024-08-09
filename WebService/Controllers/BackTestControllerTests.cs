@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using Data.Models;
 
-namespace DataService.Controllers
+namespace WebService.Controllers
 {
     public class BackTestControllerTests : ControllerTestBase
     {
