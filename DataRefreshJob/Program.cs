@@ -21,7 +21,7 @@ class Program
 
             try
             {
-                await RefreshData(serviceProvider);
+                await PrimeReturnsCache(serviceProvider);
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ class Program
             .BuildServiceProvider();
     }
 
-    static async Task RefreshData(IServiceProvider provider)
+    static async Task PrimeReturnsCache(IServiceProvider provider)
     {
         static async Task UpdateReturnsCacheWithIndexBackTestTickers(
             IIndicesService indicesService,
