@@ -7,12 +7,6 @@ namespace Data.Controllers
 {
     internal class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider quoteProvider, ILogger<QuotesService> logger) : IQuotesService
     {
-        private IQuoteRepository QuoteCache { get; init; } = quoteRepository;
-
-        private IQuoteProvider QuoteProvider { get; init; } = quoteProvider;
-
-        private ILogger<QuotesService> Logger { get; init; } = logger;
-
         public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetPrices(HashSet<string> tickers)
         {
             ArgumentNullException.ThrowIfNull(tickers);
@@ -38,27 +32,27 @@ namespace Data.Controllers
 
             // Check the cache for an entry
 
-            var knownHistory = QuoteCache.Has(ticker) ? await QuoteCache.Get(ticker) : null;
+            var knownHistory = quoteRepository.Has(ticker) ? await quoteRepository.Get(ticker) : null;
 
             if (knownHistory == null)
             {
                 // Not in cache, so download the entire history and cache it
 
-                Logger.LogInformation("{ticker}: No history found in cache.", ticker);
+                logger.LogInformation("{ticker}: No history found in cache.", ticker);
 
                 var allHistory = await GetAllHistory(ticker);
 
-                Logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {startDate} to {endDate}.",
+                logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {startDate} to {endDate}.",
                     ticker,
                     allHistory.Prices.Count,
                     $"{allHistory.Prices[0].DateTime:yyyy-MM-dd}",
                     $"{allHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-                return await QuoteCache.Replace(allHistory);
+                return await quoteRepository.Replace(allHistory);
             }
             else
             {
-                Logger.LogInformation("{ticker}: {recordCount} record(s) in cache, {startDate} to {endDate}.",
+                logger.LogInformation("{ticker}: {recordCount} record(s) in cache, {startDate} to {endDate}.",
                     ticker,
                     knownHistory.Prices.Count,
                     $"{knownHistory.Prices[0].DateTime:yyyy-MM-dd}",
@@ -73,7 +67,7 @@ namespace Data.Controllers
 
             if (newHistory == null)
             {
-                Logger.LogInformation("{ticker}: No new history found.", ticker);
+                logger.LogInformation("{ticker}: No new history found.", ticker);
 
                 return knownHistory;
             }
@@ -82,26 +76,26 @@ namespace Data.Controllers
 
             if (!replaceExistingHistory)
             {
-                Logger.LogInformation("{ticker}: Missing history identified as {startDate} to {endDate}",
+                logger.LogInformation("{ticker}: Missing history identified as {startDate} to {endDate}",
                     ticker,
                     $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
                     $"{newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
             }
 
-            Logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {startDate} to {endDate}",
+            logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {startDate} to {endDate}",
                     ticker,
                     newHistory.Prices.Count,
                     $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
                     $"{newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
             return replaceExistingHistory
-                ? await QuoteCache.Replace(newHistory)
-                : await QuoteCache.Append(newHistory);
+                ? await quoteRepository.Replace(newHistory)
+                : await quoteRepository.Append(newHistory);
         }
 
         private async Task<Quote> GetAllHistory(string ticker)
         {
-            Logger.LogInformation("{ticker}: Downloading all history...", ticker);
+            logger.LogInformation("{ticker}: Downloading all history...", ticker);
 
             var allHistory = await DownloadQuote(ticker)
                 ?? throw new InvalidOperationException($"{ticker}: No history found."); ;
@@ -120,7 +114,7 @@ namespace Data.Controllers
             var staleHistoryLastTick = fundHistory.Prices[^1];
             var staleHistoryLastTickDate = staleHistoryLastTick.DateTime;
 
-            Logger.LogInformation("{ticker}: Downloading history starting at {staleHistoryLastTickDate}...",
+            logger.LogInformation("{ticker}: Downloading history starting at {staleHistoryLastTickDate}...",
                 ticker,
                 $"{staleHistoryLastTickDate:yyyy-MM-dd}");
 
@@ -142,7 +136,7 @@ namespace Data.Controllers
                 firstFresh.Close != staleHistoryLastTick.Close ||
                 firstFresh.AdjustedClose != staleHistoryLastTick.AdjustedClose)
             {
-                Logger.LogWarning("{ticker}: All history has been recomputed.", ticker);
+                logger.LogWarning("{ticker}: All history has been recomputed.", ticker);
 
                 return (true, await GetAllHistory(ticker));
             }
@@ -171,7 +165,7 @@ namespace Data.Controllers
 
         private async Task<Quote?> DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
         {
-            return await QuoteProvider.GetQuote(ticker, startDate, endDate);
+            return await quoteProvider.GetQuote(ticker, startDate, endDate);
         }
     }
 }

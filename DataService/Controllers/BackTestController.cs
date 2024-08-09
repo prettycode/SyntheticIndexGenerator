@@ -9,12 +9,6 @@ namespace DataService.Controllers
     [Route("api/[controller]")]
     public class BackTestController(IQuotesService quotesService, IReturnsService returnsService, ILogger<BackTestController> logger) : ControllerBase
     {
-        private readonly IQuotesService quotesService = quotesService;
-
-        private readonly IReturnsService returnsService = returnsService;
-
-        private readonly ILogger<BackTestController> logger = logger;
-
         [HttpGet]
         public async Task<PortfolioBackTest> GetPortfolioBackTest(
             IEnumerable<Allocation> portfolioConstituents,
