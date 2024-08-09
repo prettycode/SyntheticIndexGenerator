@@ -1,16 +1,16 @@
 using Data.Controllers;
 using Data.Models;
-using Data.Repositories;
 using DataService.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataService.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]")]
     public class BackTestController(IReturnsService returnsService, ILogger<BackTestController> logger) : ControllerBase
     {
         private readonly IReturnsService returnsService = returnsService;
+
         private readonly ILogger<BackTestController> logger = logger;
 
         [HttpGet]
