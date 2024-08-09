@@ -4,11 +4,7 @@ namespace Data.Repositories
 {
     internal interface IReturnRepository
     {
-        Task<List<PeriodReturn>> Get(string ticker, PeriodType period);
-
-        Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime start);
-
-        Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime start, DateTime end);
+        Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime? start = null, DateTime? end = null);
 
         Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticMonthlyReturns();
 

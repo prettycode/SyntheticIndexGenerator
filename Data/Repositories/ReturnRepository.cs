@@ -50,33 +50,28 @@ namespace Data.Repositories
             return File.Exists(cacheFilePath);
         }
 
-        public Task<List<PeriodReturn>> Get(string ticker, PeriodType period)
-        {
-            return Get(ticker, period, DateTime.MinValue, DateTime.MaxValue);
-        }
-
-        public Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate)
-        {
-            return Get(ticker, period, startDate, DateTime.MaxValue);
-        }
-
-        public async Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate)
+        public async Task<List<PeriodReturn>> Get(
+            string ticker,
+            PeriodType periodType,
+            DateTime? startDate = null,
+            DateTime? endDate = null)
         {
             ArgumentNullException.ThrowIfNull(ticker);
-            ArgumentNullException.ThrowIfNull(period);
-            ArgumentNullException.ThrowIfNull(startDate);
-            ArgumentNullException.ThrowIfNull(endDate);
+            ArgumentNullException.ThrowIfNull(periodType);
 
-            if (!Has(ticker, period, out string csvFilePath))
+            if (!Has(ticker, periodType, out string csvFilePath))
             {
                 throw new KeyNotFoundException($"No record for {nameof(ticker)} \"{ticker}\".");
             }
 
             var csvLines = await File.ReadAllLinesAsync(csvFilePath);
-            var allReturns = csvLines.Select(line => PeriodReturn.ParseCsvLine(line));
-            var dateFilteredReturns = allReturns.Where(pair => pair.PeriodStart >= startDate && pair.PeriodStart <= endDate);
 
-            return dateFilteredReturns.ToList();
+            return csvLines
+                .Select(PeriodReturn.ParseCsvLine)
+                .Where(pair =>
+                    (startDate == null || pair.PeriodStart >= startDate) &&
+                    (endDate == null || pair.PeriodStart <= endDate))
+                .ToList();
         }
 
         public Task Put(string ticker, List<PeriodReturn> returns, PeriodType period)
