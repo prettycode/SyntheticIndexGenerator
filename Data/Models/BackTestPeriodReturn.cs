@@ -2,7 +2,7 @@
 
 namespace DataService.Models
 {
-    public readonly struct NominalPeriodReturn(string ticker, decimal startingBalance, PeriodReturn periodReturn)
+    public readonly struct BackTestPeriodReturn(string ticker, decimal startingBalance, PeriodReturn periodReturn)
     {
         public string Ticker { get; init; } = ticker ?? periodReturn.SourceTicker;
 

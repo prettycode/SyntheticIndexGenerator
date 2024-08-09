@@ -1,6 +1,6 @@
 ﻿namespace DataService.Models
 {
-    public readonly struct Allocation
+    public readonly struct BackTestAllocation
     {
         public string Ticker { get; init; }
 

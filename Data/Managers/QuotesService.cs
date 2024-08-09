@@ -3,7 +3,7 @@ using Data.QuoteProvider;
 using Data.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace Data.Controllers
+namespace Data.Services
 {
     internal class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider quoteProvider, ILogger<QuotesService> logger) : IQuotesService
     {

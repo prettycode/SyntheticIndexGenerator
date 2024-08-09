@@ -1,6 +1,6 @@
 ﻿using Data.Models;
 
-namespace Data.Controllers
+namespace Data.Services
 {
     public interface IQuotesService
     {

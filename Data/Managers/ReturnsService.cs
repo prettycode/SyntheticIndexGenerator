@@ -2,7 +2,7 @@
 using Data.Repositories;
 using Microsoft.Extensions.Logging;
 
-namespace Data.Controllers
+namespace Data.Services
 {
     internal class ReturnsService(IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
     {

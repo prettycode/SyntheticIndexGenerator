@@ -1,4 +1,4 @@
-﻿using Data.Controllers;
+﻿using Data.Services;
 using Data.QuoteProvider;
 using Data.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +17,7 @@ namespace Data.Extensions
             .AddTransient<IQuotesService, QuotesService>()
             .AddTransient<IReturnsService, ReturnsService>()
             .AddTransient<IIndicesService, IndicesService>()
+            .AddTransient<IBackTestService, BackTestService>()
             .AddTransient<QuotesService>()
             .AddTransient<ReturnsService>()
             .AddTransient<IndicesService>();

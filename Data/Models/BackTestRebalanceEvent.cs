@@ -2,7 +2,7 @@
 
 namespace DataService.Models
 {
-    public readonly struct RebalanceEvent
+    public readonly struct BackTestRebalanceEvent
     {
         public string Ticker { get; init; }
 

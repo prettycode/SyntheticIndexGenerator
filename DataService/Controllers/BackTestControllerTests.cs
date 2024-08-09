@@ -10,13 +10,13 @@ namespace DataService.Controllers
         public async Task GetPortfolioBackTestDecomposed_NoRebalance_SingleConstituent1()
         {
 
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#2X", Percentage = 50 },
                 new() { Ticker = "#2X", Percentage = 50 }
             };
 
-            var portfolio2 = new List<Allocation>()
+            var portfolio2 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#2X", Percentage = 100 }
             };
@@ -26,10 +26,10 @@ namespace DataService.Controllers
             var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1))).DecomposedPerformanceByTicker;
             var actualOutput2 = (await controller.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1))).DecomposedPerformanceByTicker;
 
-            var expected = new Dictionary<string, NominalPeriodReturn[]>
+            var expected = new Dictionary<string, BackTestPeriodReturn[]>
             {
                 {
-                    "#2X", new NominalPeriodReturn[]
+                    "#2X", new BackTestPeriodReturn[]
                     {
                         new("#2X", 100m,    new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1),  ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                         new("#2X", 200m,    new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1),  ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
@@ -54,7 +54,7 @@ namespace DataService.Controllers
         [Fact]
         public async Task GetPortfolioBackTestDecomposed_NoRebalance_MultipleDifferentConstituents_ManyPeriods()
         {
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#1X", Percentage = 50 },
                 new() { Ticker = "#3X", Percentage = 50 },
@@ -64,7 +64,7 @@ namespace DataService.Controllers
 
             var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1))).DecomposedPerformanceByTicker;
 
-            var expected = new Dictionary<string, NominalPeriodReturn[]>()
+            var expected = new Dictionary<string, BackTestPeriodReturn[]>()
             {
                 ["#1X"] =
                 [
@@ -107,7 +107,7 @@ namespace DataService.Controllers
         [Fact]
         public async Task GetPortfolioBackTestDecomposed_NoRebalance_MultipleDifferentConstituents_OnePeriod()
         {
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#1X", Percentage = 50 },
                 new() { Ticker = "#3X", Percentage = 50 },
@@ -117,7 +117,7 @@ namespace DataService.Controllers
 
             var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 1, 1))).DecomposedPerformanceByTicker;
 
-            var expected = new Dictionary<string, NominalPeriodReturn[]>()
+            var expected = new Dictionary<string, BackTestPeriodReturn[]>()
             {
                 ["#1X"] =
                 [
@@ -138,7 +138,7 @@ namespace DataService.Controllers
         [Fact]
         public async Task GetPortfolioBackTestDecomposed_NoRebalance_MultipleDifferentConstituents_TwoPeriods()
         {
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#1X", Percentage = 50 },
                 new() { Ticker = "#3X", Percentage = 50 },
@@ -148,7 +148,7 @@ namespace DataService.Controllers
 
             var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1))).DecomposedPerformanceByTicker;
 
-            var expected = new Dictionary<string, NominalPeriodReturn[]>()
+            var expected = new Dictionary<string, BackTestPeriodReturn[]>()
             {
                 ["#1X"] =
                 [
@@ -171,7 +171,7 @@ namespace DataService.Controllers
         [Fact]
         public async Task GetPortfolioBackTestDecomposed_Rebalance_Monthly1()
         {
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#1X", Percentage = 50 },
                 new() { Ticker = "#3X", Percentage = 50 },
@@ -179,9 +179,9 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly)).DecomposedPerformanceByTicker;
+            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.Monthly)).DecomposedPerformanceByTicker;
 
-            var expected = new Dictionary<string, NominalPeriodReturn[]>
+            var expected = new Dictionary<string, BackTestPeriodReturn[]>
             {
                 ["#1X"] =
                 [
@@ -225,26 +225,26 @@ namespace DataService.Controllers
         public async Task GetPortfolioBackTestDecomposed_RebalanceBands_Absolute_SingleConstituent1()
         {
 
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#2X", Percentage = 50 },
                 new() { Ticker = "#2X", Percentage = 50 }
             };
 
-            var portfolio2 = new List<Allocation>()
+            var portfolio2 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#2X", Percentage = 100 }
             };
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m)).DecomposedPerformanceByTicker;
-            var actualOutput2 = (await controller.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 0.0000001m)).DecomposedPerformanceByTicker;
+            var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.BandsAbsolute, 0.0000001m)).DecomposedPerformanceByTicker;
+            var actualOutput2 = (await controller.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.BandsAbsolute, 0.0000001m)).DecomposedPerformanceByTicker;
 
-            var expected = new Dictionary<string, NominalPeriodReturn[]>
+            var expected = new Dictionary<string, BackTestPeriodReturn[]>
             {
                 {
-                    "#2X", new NominalPeriodReturn[]
+                    "#2X", new BackTestPeriodReturn[]
                     {
                         new("#2X", 100m,    new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1),  ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                         new("#2X", 200m,    new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1),  ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
@@ -269,7 +269,7 @@ namespace DataService.Controllers
         [Fact]
         public async Task GetPortfolioBackTestDecomposed_RebalanceBands_Absolute_MultipleDifferentConstituents1()
         {
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#1X", Percentage = 50 },
                 new() { Ticker = "#2X", Percentage = 50 },
@@ -277,12 +277,12 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var backtest = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsAbsolute, 25));
+            var backtest = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.BandsAbsolute, 25));
             var decomposed = backtest.DecomposedPerformanceByTicker;
 
-            var expectedDecomposed = new Dictionary<string, NominalPeriodReturn[]>
+            var expectedDecomposed = new Dictionary<string, BackTestPeriodReturn[]>
             {
-                ["#1X"] = new NominalPeriodReturn[]
+                ["#1X"] = new BackTestPeriodReturn[]
                 {
                     new("#1X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
@@ -297,7 +297,7 @@ namespace DataService.Controllers
                     new("#1X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly })
                 },
-                ["#2X"] = new NominalPeriodReturn[]
+                ["#2X"] = new BackTestPeriodReturn[]
                 {
                     new("#2X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                     new("#2X", 100m,        new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
@@ -314,23 +314,23 @@ namespace DataService.Controllers
                 }
             };
 
-            var expectedRebalances = new Dictionary<string, RebalanceEvent[]>
+            var expectedRebalances = new Dictionary<string, BackTestRebalanceEvent[]>
             {
-                ["#1X"] = new RebalanceEvent[]
+                ["#1X"] = new BackTestRebalanceEvent[]
                 {
-                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 50m,      BalanceAfterRebalance = 125m,        },
-                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 125m,     BalanceAfterRebalance = 312.5m,      },
-                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 312.5m,   BalanceAfterRebalance = 781.25m,     },
-                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 781.25m,  BalanceAfterRebalance = 1953.125m,   },
-                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1953.125m, BalanceAfterRebalance = 4882.8125m }
+                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 50m,      BalanceAfterRebalance = 125m,        },
+                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 125m,     BalanceAfterRebalance = 312.5m,      },
+                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 312.5m,   BalanceAfterRebalance = 781.25m,     },
+                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 781.25m,  BalanceAfterRebalance = 1953.125m,   },
+                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1953.125m, BalanceAfterRebalance = 4882.8125m }
                 },
-                ["#2X"] = new RebalanceEvent[]
+                ["#2X"] = new BackTestRebalanceEvent[]
                 {
-                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 200m,      BalanceAfterRebalance = 125m,       },
-                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 500m,      BalanceAfterRebalance = 312.5m,     },
-                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1250m,     BalanceAfterRebalance = 781.25m,    },
-                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 3125m,     BalanceAfterRebalance = 1953.125m,  },
-                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 7812.5m,   BalanceAfterRebalance = 4882.8125m }
+                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 200m,      BalanceAfterRebalance = 125m,       },
+                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 500m,      BalanceAfterRebalance = 312.5m,     },
+                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1250m,     BalanceAfterRebalance = 781.25m,    },
+                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 3125m,     BalanceAfterRebalance = 1953.125m,  },
+                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 7812.5m,   BalanceAfterRebalance = 4882.8125m }
                 }
             };
 
@@ -344,7 +344,7 @@ namespace DataService.Controllers
         [Fact]
         public async Task GetPortfolioBackTestDecomposed_RebalanceBands_Relative_MultipleDifferentConstituents1()
         {
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#1X", Percentage = 50 },
                 new() { Ticker = "#2X", Percentage = 50 },
@@ -352,12 +352,12 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var backtest = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.BandsRelative, 50));
+            var backtest = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.BandsRelative, 50));
             var decomposed = backtest.DecomposedPerformanceByTicker;
 
-            var expectedDecomposed = new Dictionary<string, NominalPeriodReturn[]>
+            var expectedDecomposed = new Dictionary<string, BackTestPeriodReturn[]>
             {
-                ["#1X"] = new NominalPeriodReturn[]
+                ["#1X"] = new BackTestPeriodReturn[]
                 {
                     new("#1X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
@@ -372,7 +372,7 @@ namespace DataService.Controllers
                     new("#1X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly })
                 },
-                ["#2X"] = new NominalPeriodReturn[]
+                ["#2X"] = new BackTestPeriodReturn[]
                 {
                     new("#2X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                     new("#2X", 100m,        new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
@@ -389,23 +389,23 @@ namespace DataService.Controllers
                 }
             };
 
-            var expectedRebalances = new Dictionary<string, RebalanceEvent[]>
+            var expectedRebalances = new Dictionary<string, BackTestRebalanceEvent[]>
             {
-                ["#1X"] = new RebalanceEvent[]
+                ["#1X"] = new BackTestRebalanceEvent[]
                 {
-                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 50m,      BalanceAfterRebalance = 125m,        },
-                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 125m,     BalanceAfterRebalance = 312.5m,      },
-                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 312.5m,   BalanceAfterRebalance = 781.25m,     },
-                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 781.25m,  BalanceAfterRebalance = 1953.125m,   },
-                    new RebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1953.125m, BalanceAfterRebalance = 4882.8125m }
+                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 50m,      BalanceAfterRebalance = 125m,        },
+                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 125m,     BalanceAfterRebalance = 312.5m,      },
+                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 312.5m,   BalanceAfterRebalance = 781.25m,     },
+                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 781.25m,  BalanceAfterRebalance = 1953.125m,   },
+                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1953.125m, BalanceAfterRebalance = 4882.8125m }
                 },
-                ["#2X"] = new RebalanceEvent[]
+                ["#2X"] = new BackTestRebalanceEvent[]
                 {
-                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 200m,      BalanceAfterRebalance = 125m,       },
-                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 500m,      BalanceAfterRebalance = 312.5m,     },
-                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1250m,     BalanceAfterRebalance = 781.25m,    },
-                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 3125m,     BalanceAfterRebalance = 1953.125m,  },
-                    new RebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 7812.5m,   BalanceAfterRebalance = 4882.8125m }
+                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 200m,      BalanceAfterRebalance = 125m,       },
+                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 500m,      BalanceAfterRebalance = 312.5m,     },
+                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1250m,     BalanceAfterRebalance = 781.25m,    },
+                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 3125m,     BalanceAfterRebalance = 1953.125m,  },
+                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 7812.5m,   BalanceAfterRebalance = 4882.8125m }
                 }
             };
 
@@ -419,7 +419,7 @@ namespace DataService.Controllers
         [Fact]
         public async Task GetPortfolioBackTest_RebalanceMonthly_MultipleDifferentMonthlyConstituents()
         {
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#1X", Percentage = 50 },
                 new() { Ticker = "#3X", Percentage = 50 },
@@ -427,7 +427,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly);
+            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.Monthly);
 
             var rebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
             var expectedRebalanceDates = new List<DateTime>() {
@@ -450,7 +450,7 @@ namespace DataService.Controllers
         [Fact]
         public async Task GetPortfolioBackTest_RebalanceWeekly_MultipleDifferentDailyConstituents()
         {
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#1X", Percentage = 50 },
                 new() { Ticker = "#3X", Percentage = 50 },
@@ -458,7 +458,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Weekly);
+            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.Weekly);
 
             var rebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
             var expectedRebalanceDates = new List<DateTime>() {
@@ -474,7 +474,7 @@ namespace DataService.Controllers
         [Fact]
         public async Task GetPortfolioBackTest_RebalanceMonthly_MultipleDifferentDailyConstituents()
         {
-            var portfolio1 = new List<Allocation>()
+            var portfolio1 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#1X", Percentage = 50 },
                 new() { Ticker = "#3X", Percentage = 50 },
@@ -482,7 +482,7 @@ namespace DataService.Controllers
 
             var controller = base.GetController<BackTestController>();
 
-            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), RebalanceStrategy.Monthly);
+            var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.Monthly);
 
             var rebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
             var expectedRebalanceDates = new List<DateTime>() {

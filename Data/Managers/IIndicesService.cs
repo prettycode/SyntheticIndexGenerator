@@ -1,5 +1,5 @@
 ﻿
-namespace Data.Controllers
+namespace Data.Services
 {
     public interface IIndicesService
     {

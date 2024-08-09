@@ -1,6 +1,6 @@
 ﻿namespace DataService.Models
 {
-    public enum RebalanceStrategy
+    public enum BackTestRebalanceStrategy
     {
         /// Do not perform any rebalance strategy.
         None,
