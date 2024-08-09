@@ -56,33 +56,20 @@ namespace Data.Services
             await Task.WhenAll(synMonthlyReturnsPutTasks.Concat(synYearlyReturnsPutTasks));
         }
 
-        private async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(
-            string ticker,
-            IEnumerable<QuotePrice> dailyPriceHistory)
+        public async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker, IEnumerable<QuotePrice> dailyPriceHistory)
         {
             ArgumentNullException.ThrowIfNull(ticker);
+            var periodTypes = Enum.GetValues<PeriodType>();
 
-            var periodTypes = Enum.GetValues<PeriodType>().ToList();
-            var returnTasks = periodTypes.Select(periodType => GetReturns(ticker, dailyPriceHistory, periodType));
-            var returnResults = await Task.WhenAll(returnTasks);
-            var returnsByPeriodType = periodTypes
-                .Zip(returnResults, (periodType, returns) => (periodType, returns))
-                .ToDictionary(pair => pair.periodType, pair => pair.returns);
-
-            return returnsByPeriodType;
+            return await periodTypes
+                .ToAsyncEnumerable()
+                .SelectAwait(async periodType => (periodType, returns: await GetReturns(ticker, dailyPriceHistory, periodType)))
+                .ToDictionaryAsync(pair => pair.periodType, pair => pair.returns);
         }
-        private async Task<PeriodReturn[]> GetReturns(
-            string ticker,
-            IEnumerable<QuotePrice> dailyPriceHistory,
-            PeriodType periodType)
+
+        private async Task<PeriodReturn[]> GetReturns(string ticker, IEnumerable<QuotePrice> dailyPriceHistory, PeriodType periodType)
         {
-            var returns = periodType switch
-            {
-                PeriodType.Daily => GetDailyReturns(ticker, dailyPriceHistory.ToList()),
-                PeriodType.Monthly => GetMonthlyReturns(ticker, dailyPriceHistory.ToList()),
-                PeriodType.Yearly => GetYearlyReturns(ticker, dailyPriceHistory.ToList()),
-                _ => throw new NotImplementedException()
-            };
+            var returns = GetPeriodReturns(ticker, dailyPriceHistory.ToList(), periodType);
 
             if (returns.Count == 0)
             {
@@ -96,69 +83,50 @@ namespace Data.Services
             return [.. returns];
         }
 
-        private static List<PeriodReturn> GetDailyReturns(string ticker, List<QuotePrice> dailyPrices)
+        private static List<PeriodReturn> GetPeriodReturns(string ticker, IEnumerable<QuotePrice> dailyPrices, PeriodType periodType)
         {
-            return CalculateReturns(ticker, dailyPrices, PeriodType.Daily);
+            var groupedPrices = periodType switch
+            {
+                PeriodType.Daily => dailyPrices,
+                PeriodType.Monthly => GroupPricesByPeriod(dailyPrices, d => new { d.Year, d.Month }),
+                PeriodType.Yearly => GroupPricesByPeriod(dailyPrices, d => d.Year),
+                _ => throw new NotImplementedException()
+            };
+
+            var periodReturns = CalculateReturns(ticker, groupedPrices, periodType);
+
+            return periodType switch
+            {
+                PeriodType.Daily => periodReturns,
+                PeriodType.Monthly => GetPeriodOnlyReturns(periodReturns, d => new DateTime(d.Year, d.Month, 1)),
+                PeriodType.Yearly => GetPeriodOnlyReturns(periodReturns, d => new DateTime(d.Year, 1, 1)),
+                _ => throw new NotImplementedException()
+            };
         }
 
-        // TODO test
-        private static List<PeriodReturn> GetMonthlyReturns(string ticker, List<QuotePrice> dailyPrices)
-        {
-            var monthlyCloses = dailyPrices
-                .GroupBy(r => new { r.DateTime.Year, r.DateTime.Month })
+        private static List<PeriodReturn> GetPeriodOnlyReturns(List<PeriodReturn> returns, Func<DateTime, DateTime> adjustDate)
+            => returns.Select(r => r with { PeriodStart = adjustDate(r.PeriodStart) }).ToList();
+
+        private static List<QuotePrice> GroupPricesByPeriod<TKey>(IEnumerable<QuotePrice> prices, Func<DateTime, TKey> keySelector)
+            => prices
+                .GroupBy(r => keySelector(r.DateTime))
                 .Select(g => g.OrderByDescending(r => r.DateTime).First())
                 .OrderBy(r => r.DateTime)
                 .ToList();
 
-            var monthlyReturns = CalculateReturns(ticker, monthlyCloses, PeriodType.Monthly);
-
-            return monthlyReturns
-                .Select(r => new PeriodReturn()
-                {
-                    PeriodStart = new DateTime(r.PeriodStart.Year, r.PeriodStart.Month, 1),
-                    ReturnPercentage = r.ReturnPercentage,
-                    SourceTicker = r.SourceTicker,
-                    PeriodType = r.PeriodType,
-                })
-                .ToList();
-        }
-
-        // TODO test
-        private static List<PeriodReturn> GetYearlyReturns(string ticker, List<QuotePrice> dailyPrices)
-        {
-            var yearlyCloses = dailyPrices
-                .GroupBy(r => r.DateTime.Year)
-                .Select(g => g.OrderByDescending(r => r.DateTime).First())
-                .OrderBy(r => r.DateTime)
-                .ToList();
-
-            var yearlyReturns = CalculateReturns(ticker, yearlyCloses, PeriodType.Yearly);
-
-            return yearlyReturns
-                .Select(r => new PeriodReturn()
-                {
-                    PeriodStart = new DateTime(r.PeriodStart.Year, 1, 1),
-                    ReturnPercentage = r.ReturnPercentage,
-                    SourceTicker = r.SourceTicker,
-                    PeriodType = r.PeriodType
-                })
-                .ToList();
-        }
-
-        private static List<PeriodReturn> CalculateReturns(string ticker, List<QuotePrice> prices, PeriodType periodType)
+        private static List<PeriodReturn> CalculateReturns(string ticker, IEnumerable<QuotePrice> prices, PeriodType periodType)
         {
             static decimal CalculateChange(decimal x, decimal y) => (y - x) / x * 100m;
 
-            // Skip the first before it's not relative to the (adjusted) close of the date-before-it's close
-            var periodReturns = prices.Zip(prices.Skip(1), (prev, current) => new PeriodReturn
-            {
-                PeriodStart = current.DateTime,
-                ReturnPercentage = CalculateChange(prev.AdjustedClose, current.AdjustedClose),
-                SourceTicker = ticker,
-                PeriodType = periodType
-            });
-
-            return [.. periodReturns];
+            return prices
+                .Zip(prices.Skip(1), (prev, current) => new PeriodReturn
+                {
+                    PeriodStart = current.DateTime,
+                    ReturnPercentage = CalculateChange(prev.AdjustedClose, current.AdjustedClose),
+                    SourceTicker = ticker,
+                    PeriodType = periodType
+                })
+                .ToList();
         }
     }
 }
