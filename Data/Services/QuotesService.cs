@@ -7,32 +7,51 @@ namespace Data.Services
 {
     internal class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider quoteProvider, ILogger<QuotesService> logger) : IQuotesService
     {
-        public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetPrices(HashSet<string> tickers)
+        public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetPrices(
+            HashSet<string> tickers,
+            bool skipRefresh = false)
         {
             ArgumentNullException.ThrowIfNull(tickers);
 
             return await tickers.ToAsyncEnumerable()
-                .SelectAwait(async ticker => new { ticker, quote = await GetQuotePrices(ticker) })
+                .SelectAwait(async ticker => new { ticker, quote = await GetQuotePrices(ticker, skipRefresh) })
                 .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
         }
-        private async Task<IEnumerable<QuotePrice>> GetQuotePrices(string ticker) => (await GetQuote(ticker)).Prices;
+        private async Task<IEnumerable<QuotePrice>> GetQuotePrices(string ticker, bool skipRefresh)
+            => (await GetQuote(ticker, skipRefresh)).Prices;
 
         private async Task<Dictionary<string, Quote>> GetQuotes(HashSet<string> tickers)
         {
             ArgumentNullException.ThrowIfNull(tickers);
 
             return await tickers.ToAsyncEnumerable()
-                .SelectAwait(async ticker => new { ticker, quote = await GetQuote(ticker) })
+                .SelectAwait(async ticker => new { ticker, quote = await GetQuote(ticker, false) })
                 .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
         }
 
-        private async Task<Quote> GetQuote(string ticker)
+        private async Task<Quote> GetQuote(string ticker, bool skipRefresh)
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
             // Check the cache for an entry
 
             var knownHistory = quoteRepository.Has(ticker) ? await quoteRepository.Get(ticker) : null;
+
+            if (skipRefresh)
+            {
+                if (knownHistory == null)
+                {
+                    throw new InvalidOperationException($"{ticker} quote not found in cache.");
+                }
+
+                logger.LogInformation("{ticker}: {recordCount} record(s) in cache, {firstPeriod} to {lastPeriod}.",
+                    ticker,
+                    knownHistory.Prices.Count,
+                    $"{knownHistory.Prices[0].DateTime:yyyy-MM-dd}",
+                    $"{knownHistory.Prices[^1].DateTime:yyyy-MM-dd}");
+
+                return knownHistory;
+            }
 
             if (knownHistory == null)
             {

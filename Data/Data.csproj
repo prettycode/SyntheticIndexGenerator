@@ -22,11 +22,7 @@
 
   <ItemGroup>
     <Folder Include="data\quotes\" />
-    <Folder Include="data\quotes\dividend\" />
-    <Folder Include="data\quotes\price\" />
-    <Folder Include="data\quotes\split\" />
     <Folder Include="data\returns\" />
-    <Folder Include="data\returns\yearly\" />
   </ItemGroup>
 
 </Project>
