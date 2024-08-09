@@ -106,11 +106,13 @@ namespace Data.Repositories
             return filteredQuote;
         }
 
-        public async Task Append(Quote fundHistory) =>
-            await Put(fundHistory, (path, lines) => File.AppendAllLinesAsync(path, lines));
+        public Task<Quote> Append(Quote fundHistory) =>
+            Put(fundHistory, (path, lines) => File.AppendAllLinesAsync(path, lines))
+                .ContinueWith(_ => Get(fundHistory.Ticker))
+                .Unwrap();
 
-        public async Task Replace(Quote fundHistory) =>
-            await Put(fundHistory, (path, lines) => File.WriteAllLinesAsync(path, lines));
+        public Task<Quote> Replace(Quote fundHistory) =>
+            Put(fundHistory, (path, lines) => File.WriteAllLinesAsync(path, lines)).ContinueWith(_ => fundHistory);
 
         private async Task Put(Quote fundHistory, Func<string, IEnumerable<string>, Task> fileOperation)
         {

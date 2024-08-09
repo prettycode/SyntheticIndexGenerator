@@ -4,7 +4,7 @@ namespace Data.Repositories
 {
     internal interface IQuoteRepository
     {
-        Task Append(Quote fundHistory);
+        Task<Quote> Append(Quote fundHistory);
 
         Task<Quote> Get(string ticker, bool skipPastZeroVolume = false);
 
@@ -12,6 +12,6 @@ namespace Data.Repositories
 
         bool Has(string ticker);
 
-        Task Replace(Quote fundHistory);
+        Task<Quote> Replace(Quote fundHistory);
     }
 }

@@ -26,10 +26,14 @@ namespace Data.Controllers
         {
             ArgumentNullException.ThrowIfNull(ticker);
 
+            // Check the cache for an entry
+
             var knownHistory = QuoteCache.Has(ticker) ? await QuoteCache.Get(ticker) : null;
 
             if (knownHistory == null)
             {
+                // Not in cache, so download the entire history and cache it
+
                 Logger.LogInformation("{ticker}: No history found in cache.", ticker);
 
                 var allHistory = await GetAllHistory(ticker);
@@ -40,9 +44,7 @@ namespace Data.Controllers
                     $"{allHistory.Prices[0].DateTime:yyyy-MM-dd}",
                     $"{allHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-                await QuoteCache.Append(allHistory);
-
-                return allHistory;
+                return await QuoteCache.Replace(allHistory);
             }
             else
             {
@@ -53,16 +55,22 @@ namespace Data.Controllers
                     $"{knownHistory.Prices[^1].DateTime:yyyy-MM-dd}");
             }
 
-            var (isAllHistory, newHistory) = await GetNewHistory(knownHistory);
+            // It's in the cache, but may be outdated, so check for new data
+
+            var (replaceExistingHistory, newHistory) = await GetNewQuote(knownHistory);
+
+            // It's not outdated
 
             if (newHistory == null)
             {
                 Logger.LogInformation("{ticker}: No new history found.", ticker);
 
-                return null;
+                return knownHistory;
             }
 
-            if (!isAllHistory)
+            // It's outdated; there's either new records to append, or the entire history has changed and needs replacing
+
+            if (!replaceExistingHistory)
             {
                 Logger.LogInformation("{ticker}: Missing history identified as {startDate} to {endDate}",
                     ticker,
@@ -76,13 +84,13 @@ namespace Data.Controllers
                     $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
                     $"{newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-            var updateTask = isAllHistory
-                ? QuoteCache.Replace(newHistory)
-                : QuoteCache.Append(newHistory);
+            if (replaceExistingHistory)
+            {
+                return await QuoteCache.Replace(newHistory);
 
-            await updateTask;
+            }
 
-            return newHistory;
+            return await QuoteCache.Append(newHistory);
         }
 
         private async Task<Quote> GetAllHistory(string ticker)
@@ -95,8 +103,12 @@ namespace Data.Controllers
             return allHistory;
         }
 
+        /// <summary>
+        /// Check for new records to add to the history and return that if there are any, or get the entire history
+        /// because historical records have changed (e.g. adjusted close has been recalculated).
+        /// <exception cref="InvalidOperationException"></exception>
         // TODO test
-        private async Task<(bool, Quote?)> GetNewHistory(Quote fundHistory)
+        private async Task<(bool ReplaceExistingData, Quote? NewHistory)> GetNewQuote(Quote fundHistory)
         {
             var ticker = fundHistory.Ticker;
             var staleHistoryLastTick = fundHistory.Prices[^1];
