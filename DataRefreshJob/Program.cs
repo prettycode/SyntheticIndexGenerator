@@ -56,16 +56,10 @@ class Program
         var indicesService = provider.GetRequiredService<IIndicesService>();
         var quoteTickersNeeded = indicesService.GetRequiredTickers();
 
-        var quotes = await quotesService.GetQuotes(quoteTickersNeeded);
+        var pricesByTicker = await quotesService.GetPrices(quoteTickersNeeded);
 
-        if (quotes.Values.All(v => v == null))
-        {
-            logger.LogError("{message}", "Failed to refresh all data. Aborting downstream refreshes.");
-            return;
-        }
-
+        await returnsService.GetReturns(pricesByTicker);
         await returnsService.RefreshSyntheticReturns();
-        await returnsService.GetReturns(quoteTickersNeeded);
         await indicesService.RefreshIndices();
     }
 

@@ -4,9 +4,6 @@ namespace Data.Controllers
 {
     public interface IQuotesService
     {
-        Task<IEnumerable<QuotePrice>> GetPriceHistory(string ticker);
-
-
-        Task<Dictionary<string, Quote>> GetQuotes(HashSet<string> tickers);
+        Task<Dictionary<string, IEnumerable<QuotePrice>>> GetPrices(HashSet<string> tickers);
     }
 }

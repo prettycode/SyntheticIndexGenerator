@@ -4,12 +4,11 @@ namespace Data.Controllers
 {
     public interface IReturnsService
     {
-        Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(HashSet<string> tickers);
+        Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate);
 
-        Task<PeriodReturn[]> GetReturns(string ticker, PeriodType periodType);
+        Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
+            Dictionary<string, IEnumerable<QuotePrice>> quotesByTicker);
 
         Task RefreshSyntheticReturns();
-
-        Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate);
     }
 }

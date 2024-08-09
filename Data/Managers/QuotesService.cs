@@ -13,9 +13,17 @@ namespace Data.Controllers
 
         private ILogger<QuotesService> Logger { get; init; } = logger;
 
-        public async Task<IEnumerable<QuotePrice>> GetPriceHistory(string ticker) => (await GetQuote(ticker)).Prices;
+        public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetPrices(HashSet<string> tickers)
+        {
+            ArgumentNullException.ThrowIfNull(tickers);
 
-        public async Task<Dictionary<string, Quote>> GetQuotes(HashSet<string> tickers)
+            return await tickers.ToAsyncEnumerable()
+                .SelectAwait(async ticker => new { ticker, quote = await GetQuotePrices(ticker) })
+                .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
+        }
+        private async Task<IEnumerable<QuotePrice>> GetQuotePrices(string ticker) => (await GetQuote(ticker)).Prices;
+
+        private async Task<Dictionary<string, Quote>> GetQuotes(HashSet<string> tickers)
         {
             ArgumentNullException.ThrowIfNull(tickers);
 

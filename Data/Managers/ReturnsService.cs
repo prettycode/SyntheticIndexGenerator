@@ -12,34 +12,18 @@ namespace Data.Controllers
 
         private ILogger<ReturnsService> Logger { get; init; } = logger;
 
-        public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(HashSet<string> tickers)
+        public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
+            Dictionary<string, IEnumerable<QuotePrice>> quotesByTicker)
         {
-            var returnTasks = tickers.Select(ticker => GetReturns(ticker));
+            ArgumentNullException.ThrowIfNull(quotesByTicker);
+
+            var returnTasks = quotesByTicker.Select(pair => GetReturns(pair.Key, pair.Value));
             var returnResults = await Task.WhenAll(returnTasks);
-            var returnsByTicker = tickers
+            var returnsByTicker = quotesByTicker.Keys
                 .Zip(returnResults, (ticker, returns) => (ticker, returns))
                 .ToDictionary(pair => pair.ticker, pair => pair.returns);
 
             return returnsByTicker;
-        }
-
-        public async Task<PeriodReturn[]> GetReturns(string ticker, PeriodType periodType)
-        {
-            ArgumentNullException.ThrowIfNull(ticker);
-
-            var history = await QuoteCache.Get(ticker);
-            var priceHistory = history.Prices;
-            var returns = periodType switch
-            {
-                PeriodType.Daily => GetDailyReturns(ticker, priceHistory),
-                PeriodType.Monthly => GetMonthlyReturns(ticker, priceHistory),
-                PeriodType.Yearly => GetYearlyReturns(ticker, priceHistory),
-                _ => throw new NotImplementedException()
-            };
-
-            await ReturnCache.Put(ticker, returns, periodType);
-
-            return [.. returns];
         }
 
         public async Task RefreshSyntheticReturns()
@@ -55,17 +39,18 @@ namespace Data.Controllers
             await Task.WhenAll(synMonthlyReturnsPutTasks.Concat(synYearlyReturnsPutTasks));
         }
 
+        // TODO needs to take in prices and put in cache before returning date-filtered cache results.
         public Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate)
         {
             return ReturnCache.Get(ticker, period, startDate, endDate);
         }
 
-        private async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker)
+        private async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(
+            string ticker,
+            IEnumerable<QuotePrice> priceHistory)
         {
-            ArgumentNullException.ThrowIfNull(ticker);
-
             var periodTypes = Enum.GetValues<PeriodType>().ToList();
-            var returnTasks = periodTypes.Select(periodType => GetReturns(ticker, periodType));
+            var returnTasks = periodTypes.Select(periodType => GetReturns(ticker, priceHistory, periodType));
             var returnResults = await Task.WhenAll(returnTasks);
             var returnsByPeriodType = periodTypes
                 .Zip(returnResults, (periodType, returns) => (periodType, returns))
@@ -74,19 +59,37 @@ namespace Data.Controllers
             return returnsByPeriodType;
         }
 
-        private static List<PeriodReturn> GetDailyReturns(string ticker, List<QuotePrice> dailyPrices)
+        private async Task<PeriodReturn[]> GetReturns(
+            string ticker,
+            IEnumerable<QuotePrice> priceHistory,
+            PeriodType periodType)
         {
-            return GetReturns(dailyPrices, ticker, PeriodType.Daily);
+            var returns = periodType switch
+            {
+                PeriodType.Daily => GetDailyReturns(ticker, priceHistory),
+                PeriodType.Monthly => GetMonthlyReturns(ticker, priceHistory),
+                PeriodType.Yearly => GetYearlyReturns(ticker, priceHistory),
+                _ => throw new NotImplementedException()
+            };
+
+            await ReturnCache.Put(ticker, returns, periodType);
+
+            return [.. returns];
+        }
+
+        private static List<PeriodReturn> GetDailyReturns(string ticker, IEnumerable<QuotePrice> dailyPrices)
+        {
+            return GetReturns(dailyPrices.ToArray(), ticker, PeriodType.Daily);
         }
 
         // TODO test
-        private static List<PeriodReturn> GetMonthlyReturns(string ticker, List<QuotePrice> dailyPrices)
+        private static List<PeriodReturn> GetMonthlyReturns(string ticker, IEnumerable<QuotePrice> dailyPrices)
         {
             var monthlyCloses = dailyPrices
                 .GroupBy(r => new { r.DateTime.Year, r.DateTime.Month })
                 .Select(g => g.OrderByDescending(r => r.DateTime).First())
                 .OrderBy(r => r.DateTime)
-                .ToList();
+                .ToArray();
 
             var monthlyReturns = GetReturns(monthlyCloses, ticker, PeriodType.Monthly);
 
@@ -102,13 +105,13 @@ namespace Data.Controllers
         }
 
         // TODO test
-        private static List<PeriodReturn> GetYearlyReturns(string ticker, List<QuotePrice> dailyPrices)
+        private static List<PeriodReturn> GetYearlyReturns(string ticker, IEnumerable<QuotePrice> dailyPrices)
         {
             var yearlyCloses = dailyPrices
                 .GroupBy(r => r.DateTime.Year)
                 .Select(g => g.OrderByDescending(r => r.DateTime).First())
                 .OrderBy(r => r.DateTime)
-                .ToList();
+                .ToArray();
 
             var yearlyReturns = GetReturns(yearlyCloses, ticker, PeriodType.Yearly);
 
@@ -124,7 +127,7 @@ namespace Data.Controllers
         }
 
         // TODO test
-        private static List<PeriodReturn> GetReturns(List<QuotePrice> prices, string ticker, PeriodType returnPeriod, bool skipFirst = true)
+        private static List<PeriodReturn> GetReturns(QuotePrice[] prices, string ticker, PeriodType returnPeriod, bool skipFirst = true)
         {
             static decimal calculateChange(decimal x, decimal y) => (y - x) / x * 100m;
             static decimal endingPrice(QuotePrice record) => record.AdjustedClose;
@@ -141,7 +144,7 @@ namespace Data.Controllers
                     }
                 ];
 
-            for (int i = 1; i < prices.Count; i++)
+            for (int i = 1; i < prices.Length; i++)
             {
                 var currentDate = prices[i].DateTime;
                 var previousDate = prices[i - 1].DateTime;
