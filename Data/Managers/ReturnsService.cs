@@ -4,26 +4,44 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Controllers
 {
-    internal class ReturnsService(IQuoteRepository quoteRepository, IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
+    internal class ReturnsService(IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
     {
-        private IQuoteRepository QuoteCache { get; init; } = quoteRepository;
-
         private IReturnRepository ReturnCache { get; init; } = returnRepository;
 
         private ILogger<ReturnsService> Logger { get; init; } = logger;
 
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
-            Dictionary<string, IEnumerable<QuotePrice>> quotesByTicker)
+            Dictionary<string, IEnumerable<QuotePrice>> pricesByTicker)
         {
-            ArgumentNullException.ThrowIfNull(quotesByTicker);
+            ArgumentNullException.ThrowIfNull(pricesByTicker);
 
-            var returnTasks = quotesByTicker.Select(pair => GetReturns(pair.Key, pair.Value));
+            var returnTasks = pricesByTicker.Select(pair => GetReturns(pair.Key, pair.Value));
             var returnResults = await Task.WhenAll(returnTasks);
-            var returnsByTicker = quotesByTicker.Keys
+            var returnsByTicker = pricesByTicker.Keys
                 .Zip(returnResults, (ticker, returns) => (ticker, returns))
                 .ToDictionary(pair => pair.ticker, pair => pair.returns);
 
             return returnsByTicker;
+        }
+
+        public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetSyntheticReturns(
+            HashSet<string> syntheticTickers)
+        {
+            ArgumentNullException.ThrowIfNull(syntheticTickers);
+
+            var syntheticReturns = await syntheticTickers.ToAsyncEnumerable()
+                .ToDictionaryAwaitAsync(
+                    async ticker => ticker,
+                    async ticker => await Enum.GetValues<PeriodType>().ToAsyncEnumerable()
+                        .ToDictionaryAwaitAsync(
+                            async periodType => periodType,
+                            async periodType => !ReturnCache.Has(ticker, periodType)
+                                ? null
+                                : (await ReturnCache.Get(ticker, periodType)).ToArray()
+                        )
+                );
+
+            return syntheticReturns;
         }
 
         public async Task RefreshSyntheticReturns()
@@ -37,12 +55,6 @@ namespace Data.Controllers
             var synYearlyReturnsPutTasks = synReturnsByTicker[1].Select(r => ReturnCache.Put(r.Key, r.Value, PeriodType.Yearly));
 
             await Task.WhenAll(synMonthlyReturnsPutTasks.Concat(synYearlyReturnsPutTasks));
-        }
-
-        // TODO needs to take in prices and put in cache before returning date-filtered cache results.
-        public Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate)
-        {
-            return ReturnCache.Get(ticker, period, startDate, endDate);
         }
 
         private async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(

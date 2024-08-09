@@ -7,8 +7,10 @@ namespace DataService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BackTestController(IReturnsService returnsService, ILogger<BackTestController> logger) : ControllerBase
+    public class BackTestController(IQuotesService quotesService, IReturnsService returnsService, ILogger<BackTestController> logger) : ControllerBase
     {
+        private readonly IQuotesService quotesService = quotesService;
+
         private readonly IReturnsService returnsService = returnsService;
 
         private readonly ILogger<BackTestController> logger = logger;
@@ -97,14 +99,39 @@ namespace DataService.Controllers
                 .ToArray();
         }
 
+        private async Task<IEnumerable<PeriodReturn[]>> GetTickerReturns(
+            HashSet<string> tickers,
+            PeriodType periodType)
+        {
+            static bool IsSyntheticTicker(string ticker) => ticker.StartsWith('$') || ticker.StartsWith('#');
+
+            var nonSyntheticTickers = tickers
+                .Where(ticker => !IsSyntheticTicker(ticker))
+                .ToHashSet();
+
+            var syntheticTickers = tickers
+                .Where(ticker => IsSyntheticTicker(ticker))
+                .ToHashSet();
+
+            var nonSyntheticPricesByTicker = await quotesService.GetPrices(nonSyntheticTickers);
+            var nonSyntheticReturnsByTicker = await returnsService.GetReturns(nonSyntheticPricesByTicker);
+            var syntheticReturnsByTicker = await returnsService.GetSyntheticReturns(syntheticTickers);
+            var constituentReturnsByTicker = nonSyntheticReturnsByTicker.Union(syntheticReturnsByTicker);
+
+            var periodReturnsByTicker = constituentReturnsByTicker.ToDictionary(
+                pair => pair.Key,
+                pair => pair.Value[periodType]);
+
+            return periodReturnsByTicker.Values;
+        }
+
         private async Task<Dictionary<string, PeriodReturn[]>> GetDateRangedReturns(
             HashSet<string> tickers,
             PeriodType periodType,
             DateTime firstPeriod,
             DateTime lastPeriod)
         {
-            var constituentReturns = await Task.WhenAll(
-                tickers.Select(ticker => returnsService.Get(ticker, periodType, firstPeriod, lastPeriod)));
+            var constituentReturns = await GetTickerReturns(tickers, periodType);
 
             var firstSharedFirstPeriod = constituentReturns
                 .Select(history => history.First().PeriodStart)
