@@ -67,10 +67,10 @@ class Program
         {
             await returnsService.RefreshSyntheticReturns();
 
-            var syntheticTickers = SyntheticIndex.GetSyntheticIndexTickers();
-            var syntheticConstituentDailyPricesByTicker = await quotesService.GetSyntheticPrices(syntheticTickers, true);
-            var returnsByTicker = await returnsService.GetSyntheticReturns(
-                syntheticTickers,
+            var syntheticIndexTickers = SyntheticIndex.GetSyntheticIndexTickers();
+            var syntheticConstituentDailyPricesByTicker = await quotesService.GetSyntheticIndexReturns(syntheticIndexTickers, true);
+            var returnsByTicker = await returnsService.GetSyntheticIndexReturns(
+                syntheticIndexTickers,
                 syntheticConstituentDailyPricesByTicker);
         }
 

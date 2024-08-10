@@ -6,7 +6,7 @@ namespace Data.Services
     {
         Task<Dictionary<string, IEnumerable<QuotePrice>>> GetPrices(HashSet<string> tickers, bool skipRefresh = false);
 
-        Task<Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>>> GetSyntheticPrices(
+        Task<Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>>> GetSyntheticIndexReturns(
             HashSet<string> tickers,
             bool skipRefresh = false);
     }

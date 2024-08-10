@@ -19,7 +19,7 @@ namespace Data.Services
                 .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
         }
 
-        public async Task<Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>>> GetSyntheticPrices(
+        public async Task<Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>>> GetSyntheticIndexReturns(
             HashSet<string> tickers,
             bool skipRefresh = false)
         {

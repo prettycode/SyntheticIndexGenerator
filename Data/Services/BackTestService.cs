@@ -94,15 +94,15 @@ namespace Data.Services
         {
             // TODO this entire thing is shit
 
-            static bool IsSyntheticTicker(string ticker) => ticker.StartsWith('$');
-            static bool IsSyntheticReturnTicker(string ticker) => ticker.StartsWith('#');
+            static bool IsSyntheticIndexTicker(string ticker) => ticker.StartsWith("$^");
+            static bool IsSyntheticReturnTicker(string ticker) => (!ticker.StartsWith("$^") && ticker.StartsWith('$')) || ticker.StartsWith('#');
 
             var quoteTickers = tickers
-                .Where(ticker => !IsSyntheticTicker(ticker) && !IsSyntheticReturnTicker(ticker))
+                .Where(ticker => !IsSyntheticIndexTicker(ticker) && !IsSyntheticReturnTicker(ticker))
                 .ToHashSet();
 
-            var syntheticTickers = tickers
-                .Where(ticker => IsSyntheticTicker(ticker))
+            var syntheticIndexTickers = tickers
+                .Where(ticker => IsSyntheticIndexTicker(ticker))
                 .ToHashSet();
 
             var syntheticReturnTickers = tickers
@@ -120,10 +120,10 @@ namespace Data.Services
                 quoteReturnsByTicker = await returnsService.GetReturns(quotePricesByTicker);
             }
 
-            if (syntheticTickers.Count > 0)
+            if (syntheticIndexTickers.Count > 0)
             {
-                var syntheticPricesByTicker = await quotesService.GetSyntheticPrices(syntheticTickers);
-                syntheticReturnsByTicker = await returnsService.GetSyntheticReturns(syntheticTickers, syntheticPricesByTicker);
+                var syntheticPricesByTicker = await quotesService.GetSyntheticIndexReturns(syntheticIndexTickers);
+                syntheticReturnsByTicker = await returnsService.GetSyntheticIndexReturns(syntheticIndexTickers, syntheticPricesByTicker);
             }
 
             if (syntheticReturnTickers.Count > 0)
