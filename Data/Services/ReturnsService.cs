@@ -19,24 +19,9 @@ namespace Data.Services
                 );
         }
 
-        public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetSyntheticReturns(
-            HashSet<string> syntheticTickers)
+        public Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate)
         {
-            ArgumentNullException.ThrowIfNull(syntheticTickers);
-
-            return await syntheticTickers
-                .ToAsyncEnumerable()
-                .ToDictionaryAwaitAsync(
-                    keySelector: ticker => ValueTask.FromResult(ticker),
-                    elementSelector: async ticker => await Enum.GetValues<PeriodType>()
-                        .ToAsyncEnumerable()
-                        .ToDictionaryAwaitAsync(
-                            keySelector: periodType => ValueTask.FromResult(periodType),
-                            elementSelector: async periodType => returnRepository.Has(ticker, periodType)
-                                ? (await returnRepository.Get(ticker, periodType)).ToArray()
-                                : null
-                        )
-                );
+            return returnRepository.Get(ticker, period, startDate, endDate);
         }
 
         public async Task RefreshSyntheticReturns()

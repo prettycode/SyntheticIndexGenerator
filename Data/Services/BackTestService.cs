@@ -88,39 +88,14 @@ namespace Data.Services
                 .ToArray();
         }
 
-        private async Task<IEnumerable<PeriodReturn[]>> GetTickerReturns(
-            HashSet<string> tickers,
-            PeriodType periodType)
-        {
-            static bool IsSyntheticTicker(string ticker) => ticker.StartsWith('$') || ticker.StartsWith('#');
-
-            var nonSyntheticTickers = tickers
-                .Where(ticker => !IsSyntheticTicker(ticker))
-                .ToHashSet();
-
-            var syntheticTickers = tickers
-                .Where(ticker => IsSyntheticTicker(ticker))
-                .ToHashSet();
-
-            var nonSyntheticPricesByTicker = await quotesService.GetPrices(nonSyntheticTickers);
-            var nonSyntheticReturnsByTicker = await returnsService.GetReturns(nonSyntheticPricesByTicker);
-            var syntheticReturnsByTicker = await returnsService.GetSyntheticReturns(syntheticTickers);
-            var constituentReturnsByTicker = nonSyntheticReturnsByTicker.Union(syntheticReturnsByTicker);
-
-            var periodReturnsByTicker = constituentReturnsByTicker.ToDictionary(
-                pair => pair.Key,
-                pair => pair.Value[periodType]);
-
-            return periodReturnsByTicker.Values;
-        }
-
         private async Task<Dictionary<string, PeriodReturn[]>> GetDateRangedReturns(
             HashSet<string> tickers,
             PeriodType periodType,
             DateTime firstPeriod,
             DateTime lastPeriod)
         {
-            var constituentReturns = await GetTickerReturns(tickers, periodType);
+            var constituentReturns = await Task.WhenAll(
+                tickers.Select(ticker => returnsService.Get(ticker, periodType, firstPeriod, lastPeriod)));
 
             var firstSharedFirstPeriod = constituentReturns
                 .Select(history => history.First().PeriodStart)
@@ -196,6 +171,16 @@ namespace Data.Services
                 lastPeriod);
 
             ConfirmAlignment(dateFilteredReturnsByTicker.Values);
+
+            // No overlapping period, empty results
+
+            if (dateFilteredReturnsByTicker.All(returns => returns.Value.Length == 0))
+            {
+                var emptyBackTestReturns = dateFilteredReturnsByTicker.Keys.ToDictionary(key => key, _ => Enumerable.Empty<BackTestPeriodReturn>().ToArray());
+                var emptyRebalanceEvents = dateFilteredReturnsByTicker.Keys.ToDictionary(key => key, _ => Enumerable.Empty<BackTestRebalanceEvent>().ToArray());
+
+                return (emptyBackTestReturns, emptyRebalanceEvents);
+            }
 
             var rebalancedPerformance = GetRebalancedPortfolioBacktest(
                 dateFilteredReturnsByTicker,
