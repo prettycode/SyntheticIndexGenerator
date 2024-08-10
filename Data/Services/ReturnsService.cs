@@ -19,101 +19,99 @@ namespace Data.Services
                 );
         }
 
-        public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(
-            HashSet<string> tickers)
+        public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(HashSet<string> tickers)
         {
-            // TODO this is shit
-
             ArgumentNullException.ThrowIfNull(tickers);
 
-            return await tickers
-                .ToAsyncEnumerable()
-                .ToDictionaryAwaitAsync(
-                    keySelector: ticker => ValueTask.FromResult(ticker),
-                    elementSelector: async ticker => await Enum.GetValues<PeriodType>().ToAsyncEnumerable().ToDictionaryAwaitAsync(keySelector: periodType => ValueTask.FromResult(periodType), elementSelector: async periodTicker => await GetReturns(ticker, periodTicker))
-                );
+            var result = new Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>();
+
+            foreach (var ticker in tickers)
+            {
+                var periodReturns = new Dictionary<PeriodType, PeriodReturn[]?>();
+
+                foreach (PeriodType periodType in Enum.GetValues<PeriodType>())
+                {
+                    periodReturns[periodType] = await GetReturns(ticker, periodType);
+                }
+
+                result[ticker] = periodReturns;
+            }
+
+            return result;
         }
 
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetSyntheticReturns(
             HashSet<string> syntheticTickers,
             Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>> syntheticConstituentDailyPricesByTicker)
         {
-            // TODO this entire thing is shit
+            async Task<Dictionary<PeriodType, PeriodReturn[]?>> GetReturnsByPeriodType(string backFillTicker)
+            {
+                var returns = new Dictionary<PeriodType, PeriodReturn[]?>();
+
+                foreach (var periodType in Enum.GetValues<PeriodType>())
+                {
+                    returns[periodType] = returnRepository.Has(backFillTicker, periodType)
+                        ? [.. await returnRepository.Get(backFillTicker, periodType)]
+                        : null;
+                }
+
+                return returns;
+            }
+
             ArgumentNullException.ThrowIfNull(syntheticTickers);
             ArgumentNullException.ThrowIfNull(syntheticConstituentDailyPricesByTicker);
 
-            var constituentTickersBySyntheticTicker = SyntheticIndex
-                .GetSyntheticIndices()
-                .ToDictionary(index => index.Ticker, index => index.BackFillTickers);
+            static Dictionary<string, HashSet<string>> GetConstituentTickersBySyntheticTicker()
+                => SyntheticIndex.GetSyntheticIndices()
+                    .ToDictionary(index => index.Ticker, index => index.BackFillTickers.ToHashSet());
 
-            Dictionary<string, Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> backFillReturnsByTickerBySyntheticTicker = [];
-            var dedupedSyntheticConstituentDailyPricesByTicker = syntheticConstituentDailyPricesByTicker.SelectMany(pair => pair.Value).DistinctBy(pair => pair.Key).ToDictionary(pair => pair.Key, pair => pair.Value);
+            var constituentTickersBySyntheticTicker = GetConstituentTickersBySyntheticTicker();
+
+            var dedupedSyntheticConstituentDailyPricesByTicker = syntheticConstituentDailyPricesByTicker
+                .SelectMany(pair => pair.Value)
+                .DistinctBy(pair => pair.Key)
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
+
             var nonSyntheticBackFillReturns = await GetReturns(dedupedSyntheticConstituentDailyPricesByTicker);
-            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnsBySyntheticTicker = [];
+
+            var backFillReturnsByTickerBySyntheticTicker = new Dictionary<string, Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>>();
+            var syntheticReturnsBySyntheticTicker = new Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>();
 
             foreach (var (syntheticTicker, backFillTickers) in constituentTickersBySyntheticTicker)
             {
-                Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> backFillTickerReturns = [];
+                var backFillTickerReturns = new Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>();
 
                 foreach (var backFillTicker in backFillTickers)
                 {
-                    var isSyntheticBackFillTicker = backFillTicker.StartsWith('$');// || backFillTicker.StartsWith('#');
-
-                    if (!isSyntheticBackFillTicker)
-                    {
-                        backFillTickerReturns[backFillTicker] = nonSyntheticBackFillReturns[backFillTicker];
-                        continue;
-                    }
-
-                    backFillTickerReturns[backFillTicker] = [];
-
-                    foreach (var periodType in Enum.GetValues<PeriodType>())
-                    {
-                        if (!returnRepository.Has(backFillTicker, periodType))
-                        {
-                            backFillTickerReturns[backFillTicker][periodType] = null;
-                            continue;
-                        }
-
-                        backFillTickerReturns[backFillTicker][periodType] = [.. await returnRepository.Get(backFillTicker, periodType)];
-                    }
+                    backFillTickerReturns[backFillTicker] = backFillTicker.StartsWith('$')
+                        ? await GetReturnsByPeriodType(backFillTicker)
+                        : nonSyntheticBackFillReturns[backFillTicker];
                 }
 
                 backFillReturnsByTickerBySyntheticTicker[syntheticTicker] = backFillTickerReturns;
             }
 
-
             foreach (var (syntheticTicker, backFillReturnsByTickerByPeriodType) in backFillReturnsByTickerBySyntheticTicker)
             {
-                var backFillReturnTickers = backFillReturnsByTickerByPeriodType.Keys.ToList();
+                syntheticReturnsBySyntheticTicker[syntheticTicker] = new Dictionary<PeriodType, PeriodReturn[]?>();
 
                 foreach (var periodType in Enum.GetValues<PeriodType>())
                 {
-                    var backFillReturnsForPeriod = new List<List<PeriodReturn>>();
+                    var backFillReturnsForPeriod = backFillReturnsByTickerByPeriodType.Values
+                        .Select(returns => returns[periodType])
+                        .Where(returns => returns != null)
+                        .ToList();
 
-                    foreach (var backFillTicker in backFillReturnTickers)
+                    if (backFillReturnsForPeriod.Count == 0)
                     {
-                        var periodBackFillReturns = backFillReturnsByTickerByPeriodType[backFillTicker][periodType];
-
-                        if (periodBackFillReturns != null)
-                        {
-                            backFillReturnsForPeriod.Add(periodBackFillReturns.ToList());
-                        }
+                        continue;
                     }
 
-                    if (!syntheticReturnsBySyntheticTicker.ContainsKey(syntheticTicker))
-                    {
-                        syntheticReturnsBySyntheticTicker[syntheticTicker] = new Dictionary<PeriodType, PeriodReturn[]?>();
-                    }
+                    var collatedReturns = CollateBackFillReturns(backFillReturnsForPeriod.Select(returns => returns!.ToList()).ToArray()).ToArray();
 
-                    if (backFillReturnsForPeriod != null)
-                    {
-                        var collatedReturns = CollateBackFillReturns(backFillReturnsForPeriod.ToArray()).ToArray();
+                    syntheticReturnsBySyntheticTicker[syntheticTicker][periodType] = collatedReturns;
 
-                        syntheticReturnsBySyntheticTicker[syntheticTicker][periodType] = collatedReturns;
-
-                        await returnRepository.Put(syntheticTicker, collatedReturns, periodType);
-                    }
+                    await returnRepository.Put(syntheticTicker, collatedReturns, periodType);
                 }
             }
 
