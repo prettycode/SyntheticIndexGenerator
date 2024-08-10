@@ -16,10 +16,8 @@ namespace Data.Extensions
             .AddTransient<IQuoteProvider, YahooFinanceApiQuoteProvider>()
             .AddTransient<IQuotesService, QuotesService>()
             .AddTransient<IReturnsService, ReturnsService>()
-            .AddTransient<IIndicesService, IndicesService>()
             .AddTransient<IBackTestService, BackTestService>()
             .AddTransient<QuotesService>()
-            .AddTransient<ReturnsService>()
-            .AddTransient<IndicesService>();
+            .AddTransient<ReturnsService>();
     }
 }

@@ -20,27 +20,28 @@ namespace Data.Services
         }
 
         public async Task<Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>>> GetSyntheticPrices(
-            HashSet<string> tickers)
+            HashSet<string> tickers,
+            bool skipRefresh = false)
         {
             ArgumentNullException.ThrowIfNull(tickers);
 
-            var constituentTickersBySyntheticTicker = IndicesService
-                .GetIndices()
-                .ToDictionary(index => index.Ticker, index => index.BackfillTickers);
+            var constituentTickersBySyntheticTicker = SyntheticIndex
+                .GetSyntheticIndices()
+                .ToDictionary(index => index.Ticker, index => index.BackFillTickers);
 
             Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>> syntheticConstituentDailyPricesByTicker = [];
 
             foreach (var syntheticTicker in tickers)
             {
-                if (!constituentTickersBySyntheticTicker.TryGetValue(syntheticTicker, out var backfillTickers))
+                if (!constituentTickersBySyntheticTicker.TryGetValue(syntheticTicker, out var backFillTickers))
                 {
                     throw new ArgumentException($"Synthetic ticker '{syntheticTicker}' not found.", nameof(tickers));
                 }
 
-                var nonSyntheticConstituentTickers = backfillTickers.Where(t => !t.StartsWith('$'));
+                var nonSyntheticConstituentTickers = backFillTickers.Where(t => !t.StartsWith('$'));
 
                 var quotePrices = await Task.WhenAll(nonSyntheticConstituentTickers.Select(ticker
-                    => GetQuotePrices(ticker, false)));
+                    => GetQuotePrices(ticker, skipRefresh)));
 
                 syntheticConstituentDailyPricesByTicker[syntheticTicker] = nonSyntheticConstituentTickers
                     .Zip(quotePrices)

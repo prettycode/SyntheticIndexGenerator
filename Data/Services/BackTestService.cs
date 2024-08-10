@@ -92,20 +92,46 @@ namespace Data.Services
             HashSet<string> tickers,
             PeriodType periodType)
         {
-            static bool IsSyntheticTicker(string ticker) => ticker.StartsWith('$') || ticker.StartsWith('#');
+            // TODO this entire thing is shit
 
-            var nonSyntheticTickers = tickers
-                .Where(ticker => !IsSyntheticTicker(ticker))
+            static bool IsSyntheticTicker(string ticker) => ticker.StartsWith('$');
+            static bool IsSyntheticReturnTicker(string ticker) => ticker.StartsWith('#');
+
+            var quoteTickers = tickers
+                .Where(ticker => !IsSyntheticTicker(ticker) && !IsSyntheticReturnTicker(ticker))
                 .ToHashSet();
 
             var syntheticTickers = tickers
                 .Where(ticker => IsSyntheticTicker(ticker))
                 .ToHashSet();
 
-            var nonSyntheticPricesByTicker = await quotesService.GetPrices(nonSyntheticTickers);
-            var nonSyntheticReturnsByTicker = await returnsService.GetReturns(nonSyntheticPricesByTicker);
-            var syntheticReturnsByTicker = await returnsService.GetSyntheticReturns(syntheticTickers);
-            var constituentReturnsByTicker = nonSyntheticReturnsByTicker.Union(syntheticReturnsByTicker);
+            var syntheticReturnTickers = tickers
+                .Where(ticker => IsSyntheticReturnTicker(ticker))
+                .ToHashSet();
+
+
+            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> quoteReturnsByTicker = new();
+            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnsByTicker = new();
+            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnReturnsByTicker = new();
+
+            if (quoteTickers.Count > 0)
+            {
+                var quotePricesByTicker = await quotesService.GetPrices(quoteTickers);
+                quoteReturnsByTicker = await returnsService.GetReturns(quotePricesByTicker);
+            }
+
+            if (syntheticTickers.Count > 0)
+            {
+                var syntheticPricesByTicker = await quotesService.GetSyntheticPrices(syntheticTickers);
+                syntheticReturnsByTicker = await returnsService.GetSyntheticReturns(syntheticTickers, syntheticPricesByTicker);
+            }
+
+            if (syntheticReturnTickers.Count > 0)
+            {
+                syntheticReturnReturnsByTicker = await returnsService.GetReturns(syntheticReturnTickers);
+            }
+
+            var constituentReturnsByTicker = quoteReturnsByTicker.Union(syntheticReturnsByTicker).Union(syntheticReturnReturnsByTicker);
 
             var periodReturnsByTicker = constituentReturnsByTicker.ToDictionary(
                 pair => pair.Key,
@@ -113,7 +139,6 @@ namespace Data.Services
 
             return periodReturnsByTicker.Values;
         }
-
         private async Task<Dictionary<string, PeriodReturn[]>> GetDateRangedReturns(
             HashSet<string> tickers,
             PeriodType periodType,

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Data.Extensions;
+using Data.Models;
 using Data.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,29 +53,32 @@ class Program
     static async Task PrimeReturnsCache(IServiceProvider provider)
     {
         static async Task UpdateReturnsCacheWithIndexBackTestTickers(
-            IIndicesService indicesService,
             IQuotesService quotesService,
             IReturnsService returnsService)
         {
-            var tickersNeeded = indicesService.GetRequiredTickers();
-            var dailyPricesByTicker = await quotesService.GetPrices(tickersNeeded);
+            var tickersNeeded = SyntheticIndex.GetBackFillTickers();
+            var dailyPricesByTicker = await quotesService.GetPrices(tickersNeeded, true);
             var returnsByTicker = await returnsService.GetReturns(dailyPricesByTicker);
         }
 
         static async Task UpdateReturnsCacheWithSyntheticTickers(
-            IIndicesService indicesService,
+            IQuotesService quotesService,
             IReturnsService returnsService)
         {
             await returnsService.RefreshSyntheticReturns();
-            await indicesService.RefreshIndices();
+
+            var syntheticTickers = SyntheticIndex.GetSyntheticIndexTickers();
+            var syntheticConstituentDailyPricesByTicker = await quotesService.GetSyntheticPrices(syntheticTickers, true);
+            var returnsByTicker = await returnsService.GetSyntheticReturns(
+                syntheticTickers,
+                syntheticConstituentDailyPricesByTicker);
         }
 
         var quotesService = provider.GetRequiredService<IQuotesService>();
         var returnsService = provider.GetRequiredService<IReturnsService>();
-        var indicesService = provider.GetRequiredService<IIndicesService>();
 
-        await UpdateReturnsCacheWithIndexBackTestTickers(indicesService, quotesService, returnsService);
-        await UpdateReturnsCacheWithSyntheticTickers(indicesService, returnsService);
+        await UpdateReturnsCacheWithIndexBackTestTickers(quotesService, returnsService);
+        await UpdateReturnsCacheWithSyntheticTickers(quotesService, returnsService);
     }
 
     // TODO test
