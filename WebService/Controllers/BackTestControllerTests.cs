@@ -19,11 +19,36 @@ namespace WebService.Controllers
                 new() { Ticker = "AVMC", Percentage = 12.5m }
             };
 
-            var controller = base.GetController<BackTestController>();
+            var controller1 = base.GetController<BackTestController>();
 
-            await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily);
-            await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly);
-            await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly);
+            // LCB has no daily
+            await Assert.ThrowsAsync<ArgumentNullException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
+
+            // No overlapping period because $LCB ends boefre AVMC starts
+            var foo1 = await controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly);
+            Assert.Empty(foo1.AggregatePerformance);
+
+            // AVMC has no yearly
+            await Assert.ThrowsAsync<ArgumentNullException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
+
+            var portfolio2 = new List<BackTestAllocation>()
+            {
+                new() { Ticker = "#1X", Percentage = 25 },
+                new() { Ticker = "#3X", Percentage = 25 },
+                new() { Ticker = "$^USLCV", Percentage = 12.5m },
+                new() { Ticker = "VOO", Percentage = 12.5m }
+            };
+
+            var controller2 = base.GetController<BackTestController>();
+
+            var foo2 = await controller1.GetPortfolioBackTest(portfolio2, 100, PeriodType.Daily);
+            Assert.NotEmpty(foo2.AggregatePerformance);
+
+            var foo3 = await controller1.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly);
+            Assert.NotEmpty(foo3.AggregatePerformance);
+
+            var foo4 = await controller1.GetPortfolioBackTest(portfolio2, 100, PeriodType.Yearly);
+            Assert.NotEmpty(foo4.AggregatePerformance);
 
             Assert.True(true);
         }

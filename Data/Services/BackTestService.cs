@@ -131,21 +131,23 @@ namespace Data.Services
                 syntheticReturnReturnsByTicker = await returnsService.GetReturns(syntheticReturnTickers);
             }
 
-            var constituentReturnsByTicker = quoteReturnsByTicker.Union(syntheticReturnsByTicker).Union(syntheticReturnReturnsByTicker);
+            var constituentReturnsByTickerByReturnPeriod = quoteReturnsByTicker
+                .Concat(syntheticReturnsByTicker)
+                .Concat(syntheticReturnReturnsByTicker);
 
-            var periodReturnsByTicker = constituentReturnsByTicker.ToDictionary(
-                pair => pair.Key,
-                pair => pair.Value[periodType]);
+            var constituentReturnsByTicker = constituentReturnsByTickerByReturnPeriod
+                .Select(pair => pair.Value[periodType]);
 
-            return periodReturnsByTicker.Values;
+            return constituentReturnsByTicker;
         }
+
         private async Task<Dictionary<string, PeriodReturn[]>> GetDateRangedReturns(
             HashSet<string> tickers,
             PeriodType periodType,
             DateTime firstPeriod,
             DateTime lastPeriod)
         {
-            var constituentReturns = await GetTickerReturns(tickers, periodType);
+            IEnumerable<PeriodReturn[]> constituentReturns = await GetTickerReturns(tickers, periodType);
 
             var firstSharedFirstPeriod = constituentReturns
                 .Select(history => history.First().PeriodStart)
@@ -220,6 +222,18 @@ namespace Data.Services
                 firstPeriod,
                 lastPeriod);
 
+            ConfirmAlignment(dateFilteredReturnsByTicker.Values);
+
+            // No overlapping period, empty results
+
+            if (dateFilteredReturnsByTicker.All(returns => returns.Value.Length == 0))
+            {
+                var emptyBackTestReturns = dateFilteredReturnsByTicker.Keys.ToDictionary(key => key, _ => Enumerable.Empty<BackTestPeriodReturn>().ToArray());
+                var emptyRebalanceEvents = dateFilteredReturnsByTicker.Keys.ToDictionary(key => key, _ => Enumerable.Empty<BackTestRebalanceEvent>().ToArray());
+
+                return (emptyBackTestReturns, emptyRebalanceEvents);
+            }
+
             var rebalancedPerformance = GetRebalancedPortfolioBacktest(
                 dateFilteredReturnsByTicker,
                 dedupedPortfolioConstituents,
@@ -227,8 +241,6 @@ namespace Data.Services
                 rebalanceStrategy,
                 rebalanceBandThreshold
             );
-
-            ConfirmAlignment(dateFilteredReturnsByTicker.Values);
 
             return rebalancedPerformance;
         }

@@ -61,11 +61,11 @@ namespace Data.Services
             ArgumentNullException.ThrowIfNull(syntheticTickers);
             ArgumentNullException.ThrowIfNull(syntheticConstituentDailyPricesByTicker);
 
-            static Dictionary<string, HashSet<string>> GetConstituentTickersBySyntheticTicker()
-                => SyntheticIndex.GetSyntheticIndices()
+            static Dictionary<string, HashSet<string>> GetConstituentTickersBySyntheticTicker(HashSet<string> neededSyntheticIndexTickers)
+                => SyntheticIndex.GetSyntheticIndices().Where(index => neededSyntheticIndexTickers.Contains(index.Ticker))
                     .ToDictionary(index => index.Ticker, index => index.BackFillTickers.ToHashSet());
 
-            var constituentTickersBySyntheticTicker = GetConstituentTickersBySyntheticTicker();
+            var constituentTickersBySyntheticTicker = GetConstituentTickersBySyntheticTicker(syntheticTickers);
 
             var dedupedSyntheticConstituentDailyPricesByTicker = syntheticConstituentDailyPricesByTicker
                 .SelectMany(pair => pair.Value)
