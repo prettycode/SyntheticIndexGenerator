@@ -13,10 +13,43 @@ namespace Data.Services
         {
             ArgumentNullException.ThrowIfNull(tickers);
 
-            return await tickers.ToAsyncEnumerable()
+            return await tickers
+                .ToAsyncEnumerable()
                 .SelectAwait(async ticker => new { ticker, quote = await GetQuotePrices(ticker, skipRefresh) })
                 .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
         }
+
+        public async Task<Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>>> GetSyntheticPrices(
+            HashSet<string> tickers)
+        {
+            ArgumentNullException.ThrowIfNull(tickers);
+
+            var constituentTickersBySyntheticTicker = IndicesService
+                .GetIndices()
+                .ToDictionary(index => index.Ticker, index => index.BackfillTickers);
+
+            Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>> syntheticConstituentDailyPricesByTicker = [];
+
+            foreach (var syntheticTicker in tickers)
+            {
+                if (!constituentTickersBySyntheticTicker.TryGetValue(syntheticTicker, out var backfillTickers))
+                {
+                    throw new ArgumentException($"Synthetic ticker '{syntheticTicker}' not found.", nameof(tickers));
+                }
+
+                var nonSyntheticConstituentTickers = backfillTickers.Where(t => !t.StartsWith('$'));
+
+                var quotePrices = await Task.WhenAll(nonSyntheticConstituentTickers.Select(ticker
+                    => GetQuotePrices(ticker, false)));
+
+                syntheticConstituentDailyPricesByTicker[syntheticTicker] = nonSyntheticConstituentTickers
+                    .Zip(quotePrices)
+                    .ToDictionary(pair => pair.First, pair => pair.Second);
+            }
+
+            return syntheticConstituentDailyPricesByTicker;
+        }
+
         private async Task<IEnumerable<QuotePrice>> GetQuotePrices(string ticker, bool skipRefresh)
             => (await GetQuote(ticker, skipRefresh)).Prices;
 
@@ -24,7 +57,8 @@ namespace Data.Services
         {
             ArgumentNullException.ThrowIfNull(tickers);
 
-            return await tickers.ToAsyncEnumerable()
+            return await tickers
+                .ToAsyncEnumerable()
                 .SelectAwait(async ticker => new { ticker, quote = await GetQuote(ticker, false) })
                 .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
         }
@@ -126,7 +160,6 @@ namespace Data.Services
         /// Check for new records to add to the history and return that if there are any, or get the entire history
         /// because historical records have changed (e.g. adjusted close has been recalculated).
         /// <exception cref="InvalidOperationException"></exception>
-        // TODO test
         private async Task<(bool ReplaceExistingData, Quote? NewHistory)> GetNewQuote(Quote fundHistory)
         {
             var ticker = fundHistory.Ticker;

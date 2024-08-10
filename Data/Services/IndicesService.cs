@@ -96,7 +96,7 @@ namespace Data.Services
             return indices.Where(ticker => !ticker.StartsWith('$')).ToHashSet();
         }
 
-        private static HashSet<Index> GetIndices() => [
+        public static HashSet<Index> GetIndices() => [
             new (IndexRegion.Us, IndexMarketCap.Total, IndexStyle.Blend, ["$TSM", "VTSMX", "VTI", "AVUS"]),
             new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Blend, ["$LCB", "VFINX", "VOO"]),
             new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Value, ["$LCV", "DFLVX", "AVLV"]),
