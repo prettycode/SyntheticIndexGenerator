@@ -1223,3 +1223,4 @@
 {"DateTime":"2024-08-06T00:00:00","Open":86.6600,"High":88.2260,"Low":86.3500,"Close":87.0800,"Volume":601200,"AdjustedClose":87.0800}
 {"DateTime":"2024-08-07T00:00:00","Open":88.1600,"High":88.5400,"Low":86.3110,"Close":86.3600,"Volume":471000,"AdjustedClose":86.3600}
 {"DateTime":"2024-08-08T00:00:00","Open":87.3200,"High":88.5090,"Low":87.1000,"Close":88.3900,"Volume":343900,"AdjustedClose":88.3900}
+{"DateTime":"2024-08-09T00:00:00","Open":88.3200,"High":88.9490,"Low":88.0930,"Close":88.7500,"Volume":198500,"AdjustedClose":88.7500}
