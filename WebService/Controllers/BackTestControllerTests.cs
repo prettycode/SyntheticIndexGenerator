@@ -1,10 +1,33 @@
 ﻿using System.Text.Json;
 using Data.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
 {
     public class BackTestControllerTests : ControllerTestBase
     {
+
+        [Fact]
+        public async Task HandlesMultipleTickerTypes()
+        {
+            var portfolio1 = new List<BackTestAllocation>()
+            {
+                new() { Ticker = "#1X", Percentage = 25 },
+                new() { Ticker = "#3X", Percentage = 25 },
+                new() { Ticker = "$LCB", Percentage = 25 },
+                new() { Ticker = "$^USLCV", Percentage = 12.5m },
+                new() { Ticker = "AVMC", Percentage = 12.5m }
+            };
+
+            var controller = base.GetController<BackTestController>();
+
+            await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily);
+            await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly);
+            await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly);
+
+            Assert.True(true);
+        }
+
         [Fact]
         public async Task GetPortfolioBackTestDecomposed_NoRebalance_SingleConstituent1()
         {
