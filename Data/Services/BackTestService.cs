@@ -195,6 +195,8 @@ namespace Data.Services
                 firstPeriod,
                 lastPeriod);
 
+            ConfirmAlignment(dateFilteredReturnsByTicker.Values);
+
             var rebalancedPerformance = GetRebalancedPortfolioBacktest(
                 dateFilteredReturnsByTicker,
                 dedupedPortfolioConstituents,
@@ -202,8 +204,6 @@ namespace Data.Services
                 rebalanceStrategy,
                 rebalanceBandThreshold
             );
-
-            ConfirmAlignment(dateFilteredReturnsByTicker.Values);
 
             return rebalancedPerformance;
         }
