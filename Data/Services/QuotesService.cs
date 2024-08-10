@@ -19,49 +19,8 @@ namespace Data.Services
                 .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
         }
 
-        public async Task<Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>>> GetSyntheticPrices(
-            HashSet<string> tickers)
-        {
-            ArgumentNullException.ThrowIfNull(tickers);
-
-            var constituentTickersBySyntheticTicker = IndicesService
-                .GetIndices()
-                .ToDictionary(index => index.Ticker, index => index.BackfillTickers);
-
-            Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>> syntheticConstituentDailyPricesByTicker = [];
-
-            foreach (var syntheticTicker in tickers)
-            {
-                if (!constituentTickersBySyntheticTicker.TryGetValue(syntheticTicker, out var backfillTickers))
-                {
-                    throw new ArgumentException($"Synthetic ticker '{syntheticTicker}' not found.", nameof(tickers));
-                }
-
-                var nonSyntheticConstituentTickers = backfillTickers.Where(t => !t.StartsWith('$'));
-
-                var quotePrices = await Task.WhenAll(nonSyntheticConstituentTickers.Select(ticker
-                    => GetQuotePrices(ticker, false)));
-
-                syntheticConstituentDailyPricesByTicker[syntheticTicker] = nonSyntheticConstituentTickers
-                    .Zip(quotePrices)
-                    .ToDictionary(pair => pair.First, pair => pair.Second);
-            }
-
-            return syntheticConstituentDailyPricesByTicker;
-        }
-
         private async Task<IEnumerable<QuotePrice>> GetQuotePrices(string ticker, bool skipRefresh)
             => (await GetQuote(ticker, skipRefresh)).Prices;
-
-        private async Task<Dictionary<string, Quote>> GetQuotes(HashSet<string> tickers)
-        {
-            ArgumentNullException.ThrowIfNull(tickers);
-
-            return await tickers
-                .ToAsyncEnumerable()
-                .SelectAwait(async ticker => new { ticker, quote = await GetQuote(ticker, false) })
-                .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
-        }
 
         private async Task<Quote> GetQuote(string ticker, bool skipRefresh)
         {

@@ -57,7 +57,7 @@ class Program
             IReturnsService returnsService)
         {
             var tickersNeeded = indicesService.GetRequiredTickers();
-            var dailyPricesByTicker = await quotesService.GetPrices(tickersNeeded);
+            var dailyPricesByTicker = await quotesService.GetPrices(tickersNeeded, true);
             var returnsByTicker = await returnsService.GetReturns(dailyPricesByTicker);
         }
 
