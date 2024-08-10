@@ -137,9 +137,15 @@ namespace Data.Repositories
             var serializedSplits = fundHistory.Splits.Select(split => JsonSerializer.Serialize(split));
 
             await Task.WhenAll([
-                fileOperation(cacheFilePaths[CacheType.Dividend], serializedDividends),
-                fileOperation(cacheFilePaths[CacheType.Price], serializedPrices),
-                fileOperation(cacheFilePaths[CacheType.Split], serializedSplits)
+                !serializedDividends.Any()
+                    ? Task.FromResult(0)
+                    : fileOperation(cacheFilePaths[CacheType.Dividend], serializedDividends),
+                !serializedPrices.Any()
+                    ? Task.FromResult(0)
+                    : fileOperation(cacheFilePaths[CacheType.Price], serializedPrices),
+                !serializedSplits.Any()
+                    ? Task.FromResult(0)
+                    : fileOperation(cacheFilePaths[CacheType.Split], serializedSplits)
             ]);
         }
 
