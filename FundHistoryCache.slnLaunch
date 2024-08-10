@@ -4,19 +4,13 @@
     "Projects": [
       {
         "Path": "DataRefreshJob\\DataRefreshJob.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": "DataRefreshJob"
       },
       {
         "Path": "WebService\\WebService.csproj",
-        "Action": "Start"
-      },
-      {
-        "Path": "WebApplication\\WebApplication\\WebApplication.csproj",
-        "Action": "Start"
-      },
-      {
-        "Path": "WebApplication\\WebApplication.Client\\WebApplication.Client.csproj",
-        "Action": "Start"
+        "Action": "Start",
+        "DebugTarget": "https"
       }
     ]
   }

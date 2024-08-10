@@ -164,13 +164,14 @@ namespace Data.Repositories
             _ => throw new NotImplementedException(),
         };
 
-        private Task<string[]> GetRawCacheContent(string ticker, CacheType cacheType) => cacheType switch
+        private Task<string[]> GetRawCacheContent(string ticker, CacheType cacheType)
         {
-            CacheType.Dividend => File.ReadAllLinesAsync(GetCacheFilePath(ticker, CacheType.Dividend)),
-            CacheType.Price => File.ReadAllLinesAsync(GetCacheFilePath(ticker, CacheType.Price)),
-            CacheType.Split => File.ReadAllLinesAsync(GetCacheFilePath(ticker, CacheType.Split)),
-            _ => throw new NotImplementedException(),
-        };
+            var filePath = GetCacheFilePath(ticker, cacheType);
+
+            return File.Exists(filePath)
+                ? File.ReadAllLinesAsync(filePath)
+                : Task.FromResult(Array.Empty<string>());
+        }
 
         private List<Exception> Inspect(Quote fundHistory)
         {
