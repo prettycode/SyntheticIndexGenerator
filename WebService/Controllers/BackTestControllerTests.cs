@@ -1,12 +1,10 @@
 ﻿using System.Text.Json;
 using Data.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
 {
     public class BackTestControllerTests : ControllerTestBase
     {
-
         [Fact]
         public async Task HandlesMultipleTickerTypes()
         {
@@ -22,14 +20,14 @@ namespace WebService.Controllers
             var controller1 = base.GetController<BackTestController>();
 
             // LCB has no daily
-            await Assert.ThrowsAsync<ArgumentNullException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
+            await Assert.ThrowsAsync<KeyNotFoundException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
 
             // No overlapping period because $LCB ends boefre AVMC starts
             var foo1 = await controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly);
             Assert.Empty(foo1.AggregatePerformance);
 
             // AVMC has no yearly
-            await Assert.ThrowsAsync<ArgumentNullException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
+            await Assert.ThrowsAsync<KeyNotFoundException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
 
             var portfolio2 = new List<BackTestAllocation>()
             {
@@ -507,15 +505,16 @@ namespace WebService.Controllers
 
             var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.Weekly);
 
-            var rebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
+            var actualRebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
             var expectedRebalanceDates = new List<DateTime>() {
-                new DateTime(2023, 1, 6),
+                new DateTime(2023, 1, 9),
                 new DateTime(2023, 1, 13),
-                new DateTime(2023, 1, 20),
-                new DateTime(2023, 1, 27)
+                new DateTime(2023, 1, 23),
+                new DateTime(2023, 1, 30),
+                new DateTime(2023, 2, 6)
             };
 
-            Assert.Equal(rebalanceDates, expectedRebalanceDates);
+            Assert.Equal(expectedRebalanceDates, actualRebalanceDates);
         }
 
         [Fact]
@@ -531,12 +530,12 @@ namespace WebService.Controllers
 
             var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.Monthly);
 
-            var rebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
+            var actualRebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
             var expectedRebalanceDates = new List<DateTime>() {
-                new DateTime(2023, 2, 1)
+                new DateTime(2023, 2, 2)
             };
 
-            Assert.Equal(rebalanceDates, expectedRebalanceDates);
+            Assert.Equal(expectedRebalanceDates, actualRebalanceDates);
         }
     }
 }

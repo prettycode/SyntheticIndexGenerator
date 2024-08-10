@@ -1,4 +1,4 @@
-$baseDir = "..\Data\data"
+$baseDir = "."
 
 $dirsToClean = @(
     "$baseDir\returns\daily",
