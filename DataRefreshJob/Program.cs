@@ -33,7 +33,6 @@ class Program
                 break;
             }
         }
-
     }
 
     static ServiceProvider BuildServiceProvider()

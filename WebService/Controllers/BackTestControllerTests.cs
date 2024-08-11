@@ -22,7 +22,7 @@ namespace WebService.Controllers
             // LCB has no daily
             await Assert.ThrowsAsync<KeyNotFoundException>(() => controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
 
-            // No overlapping period because $LCB ends boefre AVMC starts
+            // No overlapping period because $LCB ends before AVMC starts
             var foo1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly);
             Assert.Empty(foo1.AggregatePerformance);
 
@@ -342,8 +342,8 @@ namespace WebService.Controllers
 
             var expectedDecomposed = new Dictionary<string, BackTestPeriodReturn[]>
             {
-                ["#1X"] = new BackTestPeriodReturn[]
-                {
+                ["#1X"] =
+                [
                     new("#1X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 125m,        new PeriodReturn { PeriodStart = new DateTime(2023, 3, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
@@ -356,9 +356,9 @@ namespace WebService.Controllers
                     new("#1X", 1953.125m,   new PeriodReturn { PeriodStart = new DateTime(2023, 10, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly })
-                },
-                ["#2X"] = new BackTestPeriodReturn[]
-                {
+                ],
+                ["#2X"] =
+                [
                     new("#2X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                     new("#2X", 100m,        new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                     new("#2X", 125m,        new PeriodReturn { PeriodStart = new DateTime(2023, 3, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
@@ -371,27 +371,27 @@ namespace WebService.Controllers
                     new("#2X", 3906.25m,    new PeriodReturn { PeriodStart = new DateTime(2023, 10, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                     new("#2X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                     new("#2X", 9765.625m,   new PeriodReturn { PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly })
-                }
+                ]
             };
 
             var expectedRebalances = new Dictionary<string, BackTestRebalanceEvent[]>
             {
-                ["#1X"] = new BackTestRebalanceEvent[]
-                {
-                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 50m,      BalanceAfterRebalance = 125m,        },
-                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 125m,     BalanceAfterRebalance = 312.5m,      },
-                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 312.5m,   BalanceAfterRebalance = 781.25m,     },
-                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 781.25m,  BalanceAfterRebalance = 1953.125m,   },
-                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1953.125m, BalanceAfterRebalance = 4882.8125m }
-                },
-                ["#2X"] = new BackTestRebalanceEvent[]
-                {
-                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 200m,      BalanceAfterRebalance = 125m,       },
-                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 500m,      BalanceAfterRebalance = 312.5m,     },
-                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1250m,     BalanceAfterRebalance = 781.25m,    },
-                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 3125m,     BalanceAfterRebalance = 1953.125m,  },
-                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 7812.5m,   BalanceAfterRebalance = 4882.8125m }
-                }
+                ["#1X"] =
+                [
+                    new() { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 50m,      BalanceAfterRebalance = 125m,        },
+                    new() { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 125m,     BalanceAfterRebalance = 312.5m,      },
+                    new() { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 312.5m,   BalanceAfterRebalance = 781.25m,     },
+                    new() { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 781.25m,  BalanceAfterRebalance = 1953.125m,   },
+                    new() { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1953.125m, BalanceAfterRebalance = 4882.8125m }
+                ],
+                ["#2X"] =
+                [
+                    new() { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 200m,      BalanceAfterRebalance = 125m,       },
+                    new() { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 500m,      BalanceAfterRebalance = 312.5m,     },
+                    new() { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1250m,     BalanceAfterRebalance = 781.25m,    },
+                    new() { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 3125m,     BalanceAfterRebalance = 1953.125m,  },
+                    new() { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 7812.5m,   BalanceAfterRebalance = 4882.8125m }
+                ]
             };
 
             var actualOutput1Json = JsonSerializer.Serialize(decomposed, new JsonSerializerOptions() { WriteIndented = true });
@@ -417,8 +417,8 @@ namespace WebService.Controllers
 
             var expectedDecomposed = new Dictionary<string, BackTestPeriodReturn[]>
             {
-                ["#1X"] = new BackTestPeriodReturn[]
-                {
+                ["#1X"] =
+                [
                     new("#1X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 125m,        new PeriodReturn { PeriodStart = new DateTime(2023, 3, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
@@ -431,9 +431,9 @@ namespace WebService.Controllers
                     new("#1X", 1953.125m,   new PeriodReturn { PeriodStart = new DateTime(2023, 10, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly }),
                     new("#1X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 0m, SourceTicker = "#1X", PeriodType = PeriodType.Monthly })
-                },
-                ["#2X"] = new BackTestPeriodReturn[]
-                {
+                ],
+                ["#2X"] =
+                [
                     new("#2X", 50m,         new PeriodReturn { PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                     new("#2X", 100m,        new PeriodReturn { PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                     new("#2X", 125m,        new PeriodReturn { PeriodStart = new DateTime(2023, 3, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
@@ -446,27 +446,27 @@ namespace WebService.Controllers
                     new("#2X", 3906.25m,    new PeriodReturn { PeriodStart = new DateTime(2023, 10, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                     new("#2X", 4882.8125m,  new PeriodReturn { PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly }),
                     new("#2X", 9765.625m,   new PeriodReturn { PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 100m, SourceTicker = "#2X", PeriodType = PeriodType.Monthly })
-                }
+                ]
             };
 
             var expectedRebalances = new Dictionary<string, BackTestRebalanceEvent[]>
             {
-                ["#1X"] = new BackTestRebalanceEvent[]
-                {
-                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 50m,      BalanceAfterRebalance = 125m,        },
-                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 125m,     BalanceAfterRebalance = 312.5m,      },
-                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 312.5m,   BalanceAfterRebalance = 781.25m,     },
-                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 781.25m,  BalanceAfterRebalance = 1953.125m,   },
-                    new BackTestRebalanceEvent { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1953.125m, BalanceAfterRebalance = 4882.8125m }
-                },
-                ["#2X"] = new BackTestRebalanceEvent[]
-                {
-                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 200m,      BalanceAfterRebalance = 125m,       },
-                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 500m,      BalanceAfterRebalance = 312.5m,     },
-                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1250m,     BalanceAfterRebalance = 781.25m,    },
-                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 3125m,     BalanceAfterRebalance = 1953.125m,  },
-                    new BackTestRebalanceEvent { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 7812.5m,   BalanceAfterRebalance = 4882.8125m }
-                }
+                ["#1X"] =
+                [
+                    new() { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 50m,      BalanceAfterRebalance = 125m,        },
+                    new() { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 125m,     BalanceAfterRebalance = 312.5m,      },
+                    new() { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 312.5m,   BalanceAfterRebalance = 781.25m,     },
+                    new() { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 781.25m,  BalanceAfterRebalance = 1953.125m,   },
+                    new() { Ticker = "#1X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1953.125m, BalanceAfterRebalance = 4882.8125m }
+                ],
+                ["#2X"] =
+                [
+                    new() { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 2, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 200m,      BalanceAfterRebalance = 125m,       },
+                    new() { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 4, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 500m,      BalanceAfterRebalance = 312.5m,     },
+                    new() { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 6, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 1250m,     BalanceAfterRebalance = 781.25m,    },
+                    new() { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 8, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 3125m,     BalanceAfterRebalance = 1953.125m,  },
+                    new() { Ticker = "#2X", PrecedingCompletedPeriodStart = new DateTime(2023, 10, 1), PrecedingCompletedPeriodType = PeriodType.Monthly, BalanceBeforeRebalance = 7812.5m,   BalanceAfterRebalance = 4882.8125m }
+                ]
             };
 
             var actualOutput1Json = JsonSerializer.Serialize(decomposed, new JsonSerializerOptions() { WriteIndented = true });
@@ -491,17 +491,17 @@ namespace WebService.Controllers
 
             var rebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
             var expectedRebalanceDates = new List<DateTime>() {
-                new DateTime(2023, 1, 1),
-                new DateTime(2023, 2, 1),
-                new DateTime(2023, 3, 1),
-                new DateTime(2023, 4, 1),
-                new DateTime(2023, 5, 1),
-                new DateTime(2023, 6, 1),
-                new DateTime(2023, 7, 1),
-                new DateTime(2023, 8, 1),
-                new DateTime(2023, 9, 1),
-                new DateTime(2023, 10, 1),
-                new DateTime(2023, 11, 1)
+                new(2023, 1, 1),
+                new(2023, 2, 1),
+                new(2023, 3, 1),
+                new(2023, 4, 1),
+                new(2023, 5, 1),
+                new(2023, 6, 1),
+                new(2023, 7, 1),
+                new(2023, 8, 1),
+                new(2023, 9, 1),
+                new(2023, 10, 1),
+                new(2023, 11, 1)
             };
 
             Assert.Equal(rebalanceDates, expectedRebalanceDates);
@@ -522,11 +522,11 @@ namespace WebService.Controllers
 
             var actualRebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
             var expectedRebalanceDates = new List<DateTime>() {
-                new DateTime(2023, 1, 9),
-                new DateTime(2023, 1, 13),
-                new DateTime(2023, 1, 23),
-                new DateTime(2023, 1, 30),
-                new DateTime(2023, 2, 6)
+                new(2023, 1, 9),
+                new(2023, 1, 13),
+                new(2023, 1, 23),
+                new(2023, 1, 30),
+                new(2023, 2, 6)
             };
 
             Assert.Equal(expectedRebalanceDates, actualRebalanceDates);
@@ -547,7 +547,7 @@ namespace WebService.Controllers
 
             var actualRebalanceDates = actualOutput1.RebalancesByTicker.First().Value.Select(rebalance => rebalance.PrecedingCompletedPeriodStart).ToList();
             var expectedRebalanceDates = new List<DateTime>() {
-                new DateTime(2023, 2, 2)
+                new(2023, 2, 2)
             };
 
             Assert.Equal(expectedRebalanceDates, actualRebalanceDates);
