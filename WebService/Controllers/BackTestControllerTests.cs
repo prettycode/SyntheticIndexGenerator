@@ -29,6 +29,7 @@ namespace WebService.Controllers
             // AVMC has no yearly
             await Assert.ThrowsAsync<KeyNotFoundException>(() => controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
 
+
             var portfolio2 = new List<BackTestAllocation>()
             {
                 new() { Ticker = "#1X", Percentage = 25 },
@@ -48,7 +49,21 @@ namespace WebService.Controllers
             await Assert.ThrowsAsync<KeyNotFoundException>(() => controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
 
 
-            Assert.True(true);
+            var portfolio3 = new List<BackTestAllocation>()
+            {
+                new() { Ticker = "$^USLCV", Percentage = 12.5m },
+                new() { Ticker = "VOO", Percentage = 12.5m }
+            };
+
+            var foo4 = await controller.GetPortfolioBackTest(portfolio3, 100, PeriodType.Daily);
+            Assert.NotEmpty(foo4.AggregatePerformance);
+
+            var foo5 = await controller.GetPortfolioBackTest(portfolio3, 100, PeriodType.Monthly);
+            Assert.NotEmpty(foo5.AggregatePerformance);
+
+            var foo6 = await controller.GetPortfolioBackTest(portfolio3, 100, PeriodType.Yearly);
+            Assert.NotEmpty(foo6.AggregatePerformance);
+
         }
 
         [Fact]
