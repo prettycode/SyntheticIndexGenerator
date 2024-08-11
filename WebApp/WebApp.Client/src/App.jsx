@@ -127,7 +127,7 @@ function App() {
                         </tr>
                     </thead>
                     <tbody>
-                        {portfolioBackTest.aggregatePerformance.map((tick, i) =>
+                        {portfolioBackTest.aggregatePerformance.slice(0, 10).map((tick, i) => (
                             <tr key={i}>
                                 <td>{tick.periodStart.substr(0, 10)}</td>
                                 <td>{tick.returnPercentage.toLocaleString(undefined, {
@@ -147,45 +147,40 @@ function App() {
                                     maximumFractionDigits: 2,
                                 })}</td>
                             </tr>
+                        ))}
+                        {portfolioBackTest.aggregatePerformance.length > 20 && (
+                            <tr>
+                                <td colSpan="5" style={{ textAlign: 'center' }}>
+                                    &hellip;<br />
+                                    [{(portfolioBackTest.aggregatePerformance.length - 20).toLocaleString()} rows]<br />
+                                    &hellip;
+                                </td>
+                            </tr>
                         )}
+                        {portfolioBackTest.aggregatePerformance.slice(-10).map((tick, i) => (
+                            <tr key={i + portfolioBackTest.aggregatePerformance.length - 10}>
+                                <td>{tick.periodStart.substr(0, 10)}</td>
+                                <td>{tick.returnPercentage.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                                <td>{tick.startingBalance.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                                <td>{tick.endingBalance.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                                <td>{tick.balanceIncrease.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
 
-                <h3>Rebalances</h3>
-                <table className="table table-striped" aria-labelledby="tableLabel">
-                    <thead>
-                        <tr>
-                            <th>Period Start Date</th>
-                            <th>Return (%)</th>
-                            <th>Start Balance ($)</th>
-                            <th>Ending Balance ($)</th>
-                            <th>Balance Increase ($)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {portfolioBackTest.aggregatePerformance.map((tick, i) =>
-                            <tr key={i}>
-                                <td>{tick.periodStart.substr(0, 10)}</td>
-                                <td>{tick.returnPercentage.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
-                                <td>{tick.startingBalance.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
-                                <td>{tick.endingBalance.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
-                                <td>{tick.balanceIncrease.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
             </div>
 
         </>;
