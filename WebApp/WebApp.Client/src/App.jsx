@@ -9,9 +9,9 @@ function App() {
     const [isLoadingBackTest, setIsLoadingBackTest] = useState(true);
 
     const portfolioOptions = [
-        { name: 'Default (AVUV 50%, VOO 50%)', value: 'default' },
-        { name: 'Aggressive (AVUV 70%, VOO 30%)', value: 'aggressive' },
-        { name: 'Conservative (AVUV 30%, VOO 70%)', value: 'conservative' },
+        { name: 'Default ($^USSCV 50%, $^USLCB 50%)', value: 'default' },
+        { name: 'Aggressive ($^USSCV 70%, $^USLCB 30%)', value: 'aggressive' },
+        { name: 'Conservative ($^USSCV 30%, $^USLCB 70%)', value: 'conservative' },
     ];
 
     const periodOptions = [
@@ -116,7 +116,43 @@ function App() {
                 </table>
 
                 <h3>History</h3>
-                <table className='table table-striped' aria-labelledby="tableLabel">
+                <table className="table table-striped" aria-labelledby="tableLabel">
+                    <thead>
+                        <tr>
+                            <th>Period Start Date</th>
+                            <th>Return (%)</th>
+                            <th>Start Balance ($)</th>
+                            <th>Ending Balance ($)</th>
+                            <th>Balance Increase ($)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {portfolioBackTest.aggregatePerformance.map((tick, i) =>
+                            <tr key={i}>
+                                <td>{tick.periodStart.substr(0, 10)}</td>
+                                <td>{tick.returnPercentage.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                                <td>{tick.startingBalance.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                                <td>{tick.endingBalance.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                                <td>{tick.balanceIncrease.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+
+                <h3>Rebalances</h3>
+                <table className="table table-striped" aria-labelledby="tableLabel">
                     <thead>
                         <tr>
                             <th>Period Start Date</th>
@@ -166,20 +202,20 @@ function App() {
         switch (portfolioType) {
             case 'aggressive':
                 portfolioConstituents = [
-                    { Ticker: 'AVUV', Percentage: 70 },
-                    { Ticker: 'VOO', Percentage: 30 }
+                    { Ticker: '$^USSCV', Percentage: 70 },
+                    { Ticker: '$^USLCB', Percentage: 30 }
                 ];
                 break;
             case 'conservative':
                 portfolioConstituents = [
-                    { Ticker: 'AVUV', Percentage: 30 },
-                    { Ticker: 'VOO', Percentage: 70 }
+                    { Ticker: '$^USSCV', Percentage: 30 },
+                    { Ticker: '$^USLCB', Percentage: 70 }
                 ];
                 break;
             default:
                 portfolioConstituents = [
-                    { Ticker: 'AVUV', Percentage: 50 },
-                    { Ticker: 'VOO', Percentage: 50 }
+                    { Ticker: '$^USSCV', Percentage: 50 },
+                    { Ticker: '$^USLCB', Percentage: 50 }
                 ];
         }
 
