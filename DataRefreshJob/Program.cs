@@ -22,7 +22,7 @@ class Program
 
             try
             {
-                await PrimeReturnsCache(serviceProvider);
+                await UpdateReturnsRepository(serviceProvider);
             }
             catch (Exception ex)
             {
@@ -34,7 +34,6 @@ class Program
                 break;
             }
         }
-
     }
 
     static ServiceProvider BuildServiceProvider()
@@ -50,7 +49,7 @@ class Program
             .BuildServiceProvider();
     }
 
-    static async Task PrimeReturnsCache(IServiceProvider provider)
+    static async Task UpdateReturnsRepository(IServiceProvider provider)
     {
         static async Task UpdateReturnsCacheWithIndexBackTestTickers(
             IQuotesService quotesService,
@@ -65,7 +64,7 @@ class Program
             IQuotesService quotesService,
             IReturnsService returnsService)
         {
-            await returnsService.RefreshSyntheticReturns();
+            await returnsService.PutSyntheticReturnsInReturnsRepository();
 
             var syntheticIndexTickers = SyntheticIndex.GetSyntheticIndexTickers();
             var syntheticConstituentDailyPricesByTicker = await quotesService.GetSyntheticIndexReturns(syntheticIndexTickers, true);

@@ -132,7 +132,7 @@ namespace Data.Services
             return collatedReturns;
         }
 
-        public async Task RefreshSyntheticReturns()
+        public async Task PutSyntheticReturnsInReturnsRepository()
         {
             var synReturnsByTicker = await Task.WhenAll(
                 returnRepository.GetSyntheticMonthlyReturns(),

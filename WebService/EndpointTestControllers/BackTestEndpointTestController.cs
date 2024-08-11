@@ -1,6 +1,6 @@
 using Data.Models;
-using WebService.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using WebService.Controllers;
 
 namespace WebService.TestEndpointControllers
 {

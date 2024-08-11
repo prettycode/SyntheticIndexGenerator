@@ -13,6 +13,6 @@ namespace Data.Services
 
         Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(HashSet<string> tickers);
 
-        Task RefreshSyntheticReturns();
+        Task PutSyntheticReturnsInReturnsRepository();
     }
 }

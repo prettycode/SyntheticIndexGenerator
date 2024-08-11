@@ -1,0 +1,19 @@
+﻿#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+th, td, h3 + div {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+td:not(:first-of-type) {
+    text-align: right;
+}
+
+.loading {
+    opacity: 0.3;
+    filter: blur(1px);
+}
