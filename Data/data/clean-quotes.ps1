@@ -1,4 +1,4 @@
-$baseDir = "."
+﻿$baseDir = "."
 
 $dirsToClean = @(
     "$baseDir\quotes\dvidiend",

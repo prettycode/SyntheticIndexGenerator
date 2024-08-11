@@ -7,6 +7,8 @@ namespace Data.Services
         Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(
             Dictionary<string, IEnumerable<QuotePrice>> dailyPricesByTicker);
 
+        Task<IEnumerable<PeriodReturn[]>> GetTickerReturns(HashSet<string> tickers, PeriodType periodType);
+
         Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetSyntheticIndexReturns(
             HashSet<string> syntheticTickers,
             Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>> syntheticConstituentDailyPricesByTicker);

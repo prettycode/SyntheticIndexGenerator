@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Services
 {
-    internal class ReturnsService(IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
+    internal class ReturnsService(IQuotesService quotesService, IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
     {
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(
             Dictionary<string, IEnumerable<QuotePrice>> dailyPricesByTicker)
@@ -17,6 +17,57 @@ namespace Data.Services
                     keySelector: pair => ValueTask.FromResult(pair.Key),
                     elementSelector: async pair => await GetReturns(pair.Key, pair.Value)
                 );
+        }
+
+        public async Task<IEnumerable<PeriodReturn[]>> GetTickerReturns(
+            HashSet<string> tickers,
+            PeriodType periodType)
+        {
+            static bool IsSyntheticIndexTicker(string ticker) => ticker.StartsWith("$^");
+            static bool IsSyntheticReturnTicker(string ticker) => (!ticker.StartsWith("$^") && ticker.StartsWith('$')) || ticker.StartsWith('#');
+
+            var quoteTickers = tickers
+                .Where(ticker => !IsSyntheticIndexTicker(ticker) && !IsSyntheticReturnTicker(ticker))
+                .ToHashSet();
+
+            var syntheticIndexTickers = tickers
+                .Where(ticker => IsSyntheticIndexTicker(ticker))
+                .ToHashSet();
+
+            var syntheticReturnTickers = tickers
+                .Where(ticker => IsSyntheticReturnTicker(ticker))
+                .ToHashSet();
+
+            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> quoteReturnsByTicker = new();
+            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnsByTicker = new();
+            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnReturnsByTicker = new();
+
+            if (quoteTickers.Count > 0)
+            {
+                var quotePricesByTicker = await quotesService.GetPrices(quoteTickers, true);
+                quoteReturnsByTicker = await GetReturns(quotePricesByTicker);
+            }
+
+            if (syntheticIndexTickers.Count > 0)
+            {
+                var syntheticPricesByTicker = await quotesService.GetSyntheticIndexReturns(syntheticIndexTickers, true);
+                syntheticReturnsByTicker = await GetSyntheticIndexReturns(syntheticIndexTickers, syntheticPricesByTicker);
+            }
+
+            if (syntheticReturnTickers.Count > 0)
+            {
+                syntheticReturnReturnsByTicker = await GetReturns(syntheticReturnTickers);
+            }
+
+            var constituentReturnsByTickerByReturnPeriod = quoteReturnsByTicker
+                .Concat(syntheticReturnsByTicker)
+                .Concat(syntheticReturnReturnsByTicker);
+
+            var constituentReturnsByTicker = constituentReturnsByTickerByReturnPeriod
+                .Select(pair => pair.Value[periodType])
+                .Select(value => value ?? [.. Enumerable.Empty<PeriodReturn>()]);
+
+            return constituentReturnsByTicker;
         }
 
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(HashSet<string> tickers)

@@ -67,7 +67,9 @@ class Program
             await returnsService.PutSyntheticReturnsInReturnsRepository();
 
             var syntheticIndexTickers = SyntheticIndex.GetSyntheticIndexTickers();
-            var syntheticConstituentDailyPricesByTicker = await quotesService.GetSyntheticIndexReturns(syntheticIndexTickers, true);
+            var syntheticConstituentDailyPricesByTicker = await quotesService.GetSyntheticIndexReturns(
+                syntheticIndexTickers,
+                true);
             var returnsByTicker = await returnsService.GetSyntheticIndexReturns(
                 syntheticIndexTickers,
                 syntheticConstituentDailyPricesByTicker);

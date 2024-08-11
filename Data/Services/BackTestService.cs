@@ -88,74 +88,23 @@ namespace Data.Services
                 .ToArray();
         }
 
-        private async Task<IEnumerable<PeriodReturn[]>> GetTickerReturns(
-            HashSet<string> tickers,
-            PeriodType periodType)
-        {
-            // TODO this entire thing is shit
-
-            static bool IsSyntheticIndexTicker(string ticker) => ticker.StartsWith("$^");
-            static bool IsSyntheticReturnTicker(string ticker) => (!ticker.StartsWith("$^") && ticker.StartsWith('$')) || ticker.StartsWith('#');
-
-            var quoteTickers = tickers
-                .Where(ticker => !IsSyntheticIndexTicker(ticker) && !IsSyntheticReturnTicker(ticker))
-                .ToHashSet();
-
-            var syntheticIndexTickers = tickers
-                .Where(ticker => IsSyntheticIndexTicker(ticker))
-                .ToHashSet();
-
-            var syntheticReturnTickers = tickers
-                .Where(ticker => IsSyntheticReturnTicker(ticker))
-                .ToHashSet();
-
-
-            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> quoteReturnsByTicker = new();
-            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnsByTicker = new();
-            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnReturnsByTicker = new();
-
-            if (quoteTickers.Count > 0)
-            {
-                var quotePricesByTicker = await quotesService.GetPrices(quoteTickers, true);
-                quoteReturnsByTicker = await returnsService.GetReturns(quotePricesByTicker);
-            }
-
-            if (syntheticIndexTickers.Count > 0)
-            {
-                var syntheticPricesByTicker = await quotesService.GetSyntheticIndexReturns(syntheticIndexTickers);
-                syntheticReturnsByTicker = await returnsService.GetSyntheticIndexReturns(syntheticIndexTickers, syntheticPricesByTicker);
-            }
-
-            if (syntheticReturnTickers.Count > 0)
-            {
-                syntheticReturnReturnsByTicker = await returnsService.GetReturns(syntheticReturnTickers);
-            }
-
-            var constituentReturnsByTickerByReturnPeriod = quoteReturnsByTicker
-                .Concat(syntheticReturnsByTicker)
-                .Concat(syntheticReturnReturnsByTicker);
-
-            var constituentReturnsByTicker = constituentReturnsByTickerByReturnPeriod
-                .Select(pair => pair.Value[periodType]);
-
-            return constituentReturnsByTicker;
-        }
-
         private async Task<Dictionary<string, PeriodReturn[]>> GetDateRangedReturns(
             HashSet<string> tickers,
             PeriodType periodType,
             DateTime firstPeriod,
             DateTime lastPeriod)
         {
-            IEnumerable<PeriodReturn[]> constituentReturns = await GetTickerReturns(tickers, periodType);
+            IEnumerable<PeriodReturn[]> constituentReturns = await returnsService.GetTickerReturns(tickers, periodType);
+
+
 
             var firstSharedFirstPeriod = constituentReturns
-                .Select(history => history.First().PeriodStart)
+                .Select(history => history.FirstOrDefault().PeriodStart)
                 .Append(firstPeriod)
                 .Max();
 
             var lastSharedLastPeriod = constituentReturns
-                .Select(history => history.Last().PeriodStart)
+                .Select(history => history.LastOrDefault().PeriodStart)
                 .Append(lastPeriod)
                 .Min();
 
@@ -222,8 +171,6 @@ namespace Data.Services
                 firstPeriod,
                 lastPeriod);
 
-            ConfirmAlignment(dateFilteredReturnsByTicker.Values);
-
             // No overlapping period, empty results
 
             if (dateFilteredReturnsByTicker.All(returns => returns.Value.Length == 0))
@@ -233,6 +180,8 @@ namespace Data.Services
 
                 return (emptyBackTestReturns, emptyRebalanceEvents);
             }
+
+            ConfirmAlignment(dateFilteredReturnsByTicker.Values);
 
             var rebalancedPerformance = GetRebalancedPortfolioBacktest(
                 dateFilteredReturnsByTicker,
