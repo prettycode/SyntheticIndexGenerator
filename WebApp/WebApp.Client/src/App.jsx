@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
     const [periodType, setPeriodType] = useState(dailyPeriodOptionValue);
     const [rebalanceFrequency, setRebalanceFrequency] = useState(annualRebalanceOptionValue);
     const [isLoadingBackTest, setIsLoadingBackTest] = useState(true);
+    const [isLogScale, setIsLogScale] = useState(false);
 
     useEffect(() => {
         setIsLoadingBackTest(true);
@@ -51,6 +53,10 @@ function App() {
 
     const handleRebalanceFrequencyChange = (event) => {
         setRebalanceFrequency(Number(event.target.value));
+    };
+
+    const handleLogScaleChange = (event) => {
+        setIsLogScale(event.target.checked);
     };
 
     const formatNumber = (number) =>
@@ -123,6 +129,44 @@ function App() {
                         </tr>
                     </tbody>
                 </table>
+
+
+                <h3>Performance Chart</h3>
+                <div style={{ width: 750, height: 400 }}>
+                    <ResponsiveContainer>
+                        <LineChart
+                            data={portfolioBackTest.aggregatePerformance}
+                            margin={{ top: 0, right: 0, left: 20, bottom: 0 }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis
+                                dataKey="periodStart"
+                                tickFormatter={(tick) => new Date(tick).toLocaleDateString()}
+                            />
+                            <YAxis
+                                scale={isLogScale ? 'log' : 'auto'}
+                                domain={isLogScale ? ['auto', 'auto'] : [0, 'auto']}
+                                allowDataOverflow={false}
+                                tickFormatter={(value) => '$' + formatNumber(value)}
+                            />
+                            <Tooltip
+                                labelFormatter={(label) => new Date(label).toLocaleDateString()}
+                                formatter={(value) => ['$' + formatNumber(value), 'Ending Balance']}
+                            />
+                            <Line type="monotone" dataKey="endingBalance" stroke="#8884d8" dot={false} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
+                <div style={{ marginTop: '0.5em', textAlign: 'center' }}>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={isLogScale}
+                            onChange={handleLogScaleChange}
+                        />
+                        Logarithmic Scale
+                    </label>
+                </div>
 
                 <h3>History</h3>
                 <table className="table table-striped" aria-labelledby="tableLabel">
