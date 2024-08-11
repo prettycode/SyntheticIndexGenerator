@@ -6,6 +6,7 @@ function App() {
     const [selectedPortfolio, setSelectedPortfolio] = useState('default');
     const [periodType, setPeriodType] = useState(0); // Default to Daily
     const [rebalanceFrequency, setRebalanceFrequency] = useState(1); // Default to Annually
+    const [isLoadingBackTest, setIsLoadingBackTest] = useState(true);
 
     const portfolioOptions = [
         { name: 'Default (AVUV 50%, VOO 50%)', value: 'default' },
@@ -30,7 +31,11 @@ function App() {
     ];
 
     useEffect(() => {
-        fetchPortfolio(selectedPortfolio, periodType, rebalanceFrequency);
+        setIsLoadingBackTest(true);
+        (async () => {
+            await fetchPortfolio(selectedPortfolio, periodType, rebalanceFrequency);
+            setIsLoadingBackTest(false);
+        })();
     }, [selectedPortfolio, periodType, rebalanceFrequency]);
 
     const handlePortfolioChange = (event) => {
@@ -48,6 +53,8 @@ function App() {
     const contents = portfolioBackTest === undefined
         ? <p>Loading&hellip;</p>
         : <>
+
+            <h3>Configuration</h3>
             <div style={{ textAlign: 'left', marginBottom: '20px' }}>
                 <div style={{ marginBottom: '10px' }}>
                     <label htmlFor="portfolio-select" style={{ marginRight: '10px' }}>Choose a portfolio: </label>
@@ -80,65 +87,71 @@ function App() {
                     </select>
                 </div>
             </div>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>First Period:</td>
-                        <td>{portfolioBackTest.aggregatePerformance[0].periodStart.substr(0, 10)}</td>
-                    </tr>
-                    <tr>
-                        <td>Last Period:</td>
-                        <td>{(portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].periodStart.substr(0, 10))}</td>
-                    </tr>
-                    <tr>
-                        <td>CAGR (%):</td>
-                        <td>{(portfolioBackTest.cagr * 100).toFixed(2)}</td>
-                    </tr>
-                    <tr>
-                        <td>Rebalances:</td>
-                        <td>{portfolioBackTest.rebalancesByTicker[Object.keys(portfolioBackTest.rebalancesByTicker)[0]].length}</td>
-                    </tr>
-                    <tr>
-                        <td>Years to 2x:</td>
-                        <td>{portfolioBackTest.yearsBeforeDoubling.toFixed(2)}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p />
-            <table className="table table-striped" aria-labelledby="tableLabel">
-                <thead>
-                    <tr>
-                        <th>Period Start Date</th>
-                        <th>Return (%)</th>
-                        <th>Start Balance ($)</th>
-                        <th>Ending Balance ($)</th>
-                        <th>Balance Increase ($)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {portfolioBackTest.aggregatePerformance.map((tick, i) =>
-                        <tr key={i}>
-                            <td>{tick.periodStart.substr(0, 10)}</td>
-                            <td>{tick.returnPercentage.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                            })}</td>
-                            <td>{tick.startingBalance.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                            })}</td>
-                            <td>{tick.endingBalance.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                            })}</td>
-                            <td>{tick.balanceIncrease.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                            })}</td>
+
+            <div className={isLoadingBackTest ? 'loading' : ''} >
+                <h3>Overview</h3>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>First Period:</td>
+                            <td>{portfolioBackTest.aggregatePerformance[0].periodStart.substr(0, 10)}</td>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                        <tr>
+                            <td>Last Period:</td>
+                            <td>{(portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].periodStart.substr(0, 10))}</td>
+                        </tr>
+                        <tr>
+                            <td>CAGR (%):</td>
+                            <td>{(portfolioBackTest.cagr * 100).toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Rebalances:</td>
+                            <td>{portfolioBackTest.rebalancesByTicker[Object.keys(portfolioBackTest.rebalancesByTicker)[0]].length}</td>
+                        </tr>
+                        <tr>
+                            <td>Years to 2x:</td>
+                            <td>{portfolioBackTest.yearsBeforeDoubling.toFixed(2)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>History</h3>
+                <table className='table table-striped' aria-labelledby="tableLabel">
+                    <thead>
+                        <tr>
+                            <th>Period Start Date</th>
+                            <th>Return (%)</th>
+                            <th>Start Balance ($)</th>
+                            <th>Ending Balance ($)</th>
+                            <th>Balance Increase ($)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {portfolioBackTest.aggregatePerformance.map((tick, i) =>
+                            <tr key={i}>
+                                <td>{tick.periodStart.substr(0, 10)}</td>
+                                <td>{tick.returnPercentage.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                                <td>{tick.startingBalance.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                                <td>{tick.endingBalance.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                                <td>{tick.balanceIncrease.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+
         </>;
 
     return (
@@ -177,9 +190,9 @@ function App() {
             },
             body: JSON.stringify({
                 startingBalance: 100,
-                periodType: periodType,
+                periodType,
                 rebalanceStrategy: rebalanceFrequency,
-                portfolioConstituents: portfolioConstituents
+                portfolioConstituents
             })
         });
         const data = await response.json();
