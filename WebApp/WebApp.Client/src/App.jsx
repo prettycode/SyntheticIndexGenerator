@@ -1,31 +1,110 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
     const [portfolioBackTest, setPortfolioBackTest] = useState();
+    const [selectedPortfolio, setSelectedPortfolio] = useState('default');
+    const [periodType, setPeriodType] = useState(0); // Default to Daily
+    const [rebalanceFrequency, setRebalanceFrequency] = useState(1); // Default to Annually
+
+    const portfolioOptions = [
+        { name: 'Default (AVUV 50%, VOO 50%)', value: 'default' },
+        { name: 'Aggressive (AVUV 70%, VOO 30%)', value: 'aggressive' },
+        { name: 'Conservative (AVUV 30%, VOO 70%)', value: 'conservative' },
+    ];
+
+    const periodOptions = [
+        { name: 'Daily', value: 0 },
+        { name: 'Monthly', value: 1 },
+        { name: 'Yearly', value: 2 },
+    ];
+
+    const rebalanceOptions = [
+        { name: 'None', value: 0 },
+        { name: 'Annually', value: 1 },
+        { name: 'Semi-Annually', value: 2 },
+        { name: 'Quarterly', value: 3 },
+        { name: 'Monthly', value: 4 },
+        { name: 'Weekly', value: 5 },
+        { name: 'Daily', value: 6 },
+    ];
 
     useEffect(() => {
-        fetchDefaultPortfolio();
-    }, []);
+        fetchPortfolio(selectedPortfolio, periodType, rebalanceFrequency);
+    }, [selectedPortfolio, periodType, rebalanceFrequency]);
+
+    const handlePortfolioChange = (event) => {
+        setSelectedPortfolio(event.target.value);
+    };
+
+    const handlePeriodTypeChange = (event) => {
+        setPeriodType(Number(event.target.value));
+    };
+
+    const handleRebalanceFrequencyChange = (event) => {
+        setRebalanceFrequency(Number(event.target.value));
+    };
 
     const contents = portfolioBackTest === undefined
         ? <p>Loading&hellip;</p>
         : <>
+            <div style={{ textAlign: 'left', marginBottom: '20px' }}>
+                <div style={{ marginBottom: '10px' }}>
+                    <label htmlFor="portfolio-select" style={{ marginRight: '10px' }}>Choose a portfolio: </label>
+                    <select id="portfolio-select" value={selectedPortfolio} onChange={handlePortfolioChange}>
+                        {portfolioOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div style={{ marginBottom: '10px' }}>
+                    <label htmlFor="period-select" style={{ marginRight: '10px' }}>Choose granularity: </label>
+                    <select id="period-select" value={periodType} onChange={handlePeriodTypeChange}>
+                        {periodOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor="rebalance-select" style={{ marginRight: '10px' }}>Choose rebalancing frequency: </label>
+                    <select id="rebalance-select" value={rebalanceFrequency} onChange={handleRebalanceFrequencyChange}>
+                        {rebalanceOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div>
             <table>
-                <tr>
-                    <td>CAGR (%):</td>
-                    <td>{(portfolioBackTest.cagr * 100).toFixed(2)}</td>
-                </tr>
-                <tr>
-                    <td>Rebalances:</td>
-                    <td>{portfolioBackTest.rebalancesByTicker[Object.keys(portfolioBackTest.rebalancesByTicker)[0]].length}</td>
-                </tr>
-                <tr>
-                    <td>Years to 2x:</td>
-                    <td>{portfolioBackTest.yearsBeforeDoubling.toFixed(1)}</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>First Period:</td>
+                        <td>{portfolioBackTest.aggregatePerformance[0].periodStart.substr(0, 10)}</td>
+                    </tr>
+                    <tr>
+                        <td>Last Period:</td>
+                        <td>{(portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].periodStart.substr(0, 10))}</td>
+                    </tr>
+                    <tr>
+                        <td>CAGR (%):</td>
+                        <td>{(portfolioBackTest.cagr * 100).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                        <td>Rebalances:</td>
+                        <td>{portfolioBackTest.rebalancesByTicker[Object.keys(portfolioBackTest.rebalancesByTicker)[0]].length}</td>
+                    </tr>
+                    <tr>
+                        <td>Years to 2x:</td>
+                        <td>{portfolioBackTest.yearsBeforeDoubling.toFixed(2)}</td>
+                    </tr>
+                </tbody>
             </table>
-            <p/>
+            <p />
             <table className="table table-striped" aria-labelledby="tableLabel">
                 <thead>
                     <tr>
@@ -69,7 +148,28 @@ function App() {
         </div>
     );
 
-    async function fetchDefaultPortfolio() {
+    async function fetchPortfolio(portfolioType, periodType, rebalanceFrequency) {
+        let portfolioConstituents;
+        switch (portfolioType) {
+            case 'aggressive':
+                portfolioConstituents = [
+                    { Ticker: 'AVUV', Percentage: 70 },
+                    { Ticker: 'VOO', Percentage: 30 }
+                ];
+                break;
+            case 'conservative':
+                portfolioConstituents = [
+                    { Ticker: 'AVUV', Percentage: 30 },
+                    { Ticker: 'VOO', Percentage: 70 }
+                ];
+                break;
+            default:
+                portfolioConstituents = [
+                    { Ticker: 'AVUV', Percentage: 50 },
+                    { Ticker: 'VOO', Percentage: 50 }
+                ];
+        }
+
         const response = await fetch(`https://localhost:7219/api/BackTest/GetPortfolioBackTest`, {
             method: 'POST',
             headers: {
@@ -77,12 +177,9 @@ function App() {
             },
             body: JSON.stringify({
                 startingBalance: 100,
-                periodType: 1,
-                rebalanceStrategy: 1,
-                portfolioConstituents: [
-                    { Ticker: '$^USLCB', Percentage: 50 },
-                    { Ticker: '$^USSCV', Percentage: 50 }
-                ]
+                periodType: periodType,
+                rebalanceStrategy: rebalanceFrequency,
+                portfolioConstituents: portfolioConstituents
             })
         });
         const data = await response.json();
