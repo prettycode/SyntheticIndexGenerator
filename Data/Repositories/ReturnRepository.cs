@@ -121,6 +121,8 @@ namespace Data.Repositories
 
             var csvFileLines = returns.Select(r => r.ToCsvLine());
 
+            logger.LogInformation("{ticker}: Writing returns for period type {periodType}.", ticker, periodType);
+
             return WriteLinesToFileWithRetry(csvFilePath, csvFileLines);
         }
 

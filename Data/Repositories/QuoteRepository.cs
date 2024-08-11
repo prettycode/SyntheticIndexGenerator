@@ -136,6 +136,8 @@ namespace Data.Repositories
             var serializedPrices = fundHistory.Prices.Select(price => JsonSerializer.Serialize(price));
             var serializedSplits = fundHistory.Splits.Select(split => JsonSerializer.Serialize(split));
 
+            logger.LogInformation("{ticker}: Appending or replace quotes.", fundHistory.Ticker);
+
             await Task.WhenAll([
                 !serializedDividends.Any()
                     ? Task.FromResult(0)
