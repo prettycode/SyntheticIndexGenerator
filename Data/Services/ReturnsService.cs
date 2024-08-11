@@ -6,10 +6,12 @@ namespace Data.Services
 {
     internal class ReturnsService(IQuotesService quotesService, IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
     {
-        public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(
-            Dictionary<string, IEnumerable<QuotePrice>> dailyPricesByTicker)
+        public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetQuoteReturns(
+            HashSet<string> tickers)
         {
-            ArgumentNullException.ThrowIfNull(dailyPricesByTicker);
+            ArgumentNullException.ThrowIfNull(tickers);
+
+            var dailyPricesByTicker = await quotesService.GetPrices(tickers, true);
 
             return await dailyPricesByTicker
                 .ToAsyncEnumerable()
@@ -19,7 +21,7 @@ namespace Data.Services
                 );
         }
 
-        public async Task<IEnumerable<PeriodReturn[]>> GetTickerReturns(
+        public async Task<IEnumerable<PeriodReturn[]>> GetPeriodReturns(
             HashSet<string> tickers,
             PeriodType periodType)
         {
@@ -39,20 +41,18 @@ namespace Data.Services
                 .Where(ticker => IsSyntheticReturnTicker(ticker))
                 .ToHashSet();
 
-            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> quoteReturnsByTicker = new();
-            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnsByTicker = new();
-            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnReturnsByTicker = new();
+            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> quoteReturnsByTicker = [];
+            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnsByTicker = [];
+            Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>> syntheticReturnReturnsByTicker = [];
 
             if (quoteTickers.Count > 0)
             {
-                var quotePricesByTicker = await quotesService.GetPrices(quoteTickers, true);
-                quoteReturnsByTicker = await GetReturns(quotePricesByTicker);
+                quoteReturnsByTicker = await GetQuoteReturns(quoteTickers);
             }
 
             if (syntheticIndexTickers.Count > 0)
             {
-                var syntheticPricesByTicker = await quotesService.GetSyntheticIndexReturns(syntheticIndexTickers, true);
-                syntheticReturnsByTicker = await GetSyntheticIndexReturns(syntheticIndexTickers, syntheticPricesByTicker);
+                syntheticReturnsByTicker = await GetSyntheticIndexReturns(syntheticIndexTickers);
             }
 
             if (syntheticReturnTickers.Count > 0)
@@ -71,7 +71,7 @@ namespace Data.Services
             return constituentReturnsByTicker;
         }
 
-        public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(
+        private async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(
             HashSet<string> tickers)
         {
             ArgumentNullException.ThrowIfNull(tickers);
@@ -94,76 +94,102 @@ namespace Data.Services
         }
 
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetSyntheticIndexReturns(
-            HashSet<string> syntheticTickers,
-            Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>> syntheticConstituentDailyPricesByTicker)
+            HashSet<string> syntheticTickers)
         {
             ArgumentNullException.ThrowIfNull(syntheticTickers);
-            ArgumentNullException.ThrowIfNull(syntheticConstituentDailyPricesByTicker);
 
-            async Task<Dictionary<PeriodType, PeriodReturn[]?>> GetReturnsByPeriodType(string backFillTicker) =>
-                await Task.WhenAll(Enum.GetValues<PeriodType>()
-                    .Select(async periodType => (periodType, returns: returnRepository.Has(backFillTicker, periodType)
-                        ? await returnRepository.Get(backFillTicker, periodType)
-                        : null)))
-                    .ContinueWith(t => t.Result.ToDictionary(
-                        x => x.periodType,
-                        x => x.returns?.ToArray()));
+            async Task<Dictionary<PeriodType, PeriodReturn[]?>> GetReturnsByPeriodType(string ticker)
+            {
+                var result = new Dictionary<PeriodType, PeriodReturn[]?>();
+                foreach (var periodType in Enum.GetValues<PeriodType>())
+                {
+                    result[periodType] = returnRepository.Has(ticker, periodType)
+                        ? [.. await returnRepository.Get(ticker, periodType)]
+                        : null;
+                }
+                return result;
+            }
 
-            static Dictionary<string, HashSet<string>> GetConstituentTickersBySyntheticTicker(
-                HashSet<string> neededSyntheticIndexTickers)
-                => SyntheticIndex.GetSyntheticIndices()
-                    .Where(index => neededSyntheticIndexTickers.Contains(index.Ticker))
-                    .ToDictionary(index => index.Ticker, index => index.BackFillTickers.ToHashSet());
+            var constituentTickersBySyntheticTicker = SyntheticIndex.GetSyntheticIndices()
+                .Where(index => syntheticTickers.Contains(index.Ticker))
+                .ToDictionary(index => index.Ticker, index => index.BackFillTickers.ToHashSet());
 
-            var constituentTickersBySyntheticTicker = GetConstituentTickersBySyntheticTicker(syntheticTickers);
-
-            var dedupedSyntheticConstituentDailyPricesByTicker = syntheticConstituentDailyPricesByTicker
+            var syntheticConstituentDailyPrices = await GetSyntheticIndexBackFillPrices(syntheticTickers, true);
+            var dedupedConstituentDailyPrices = syntheticConstituentDailyPrices
                 .SelectMany(pair => pair.Value)
                 .DistinctBy(pair => pair.Key)
                 .ToDictionary(pair => pair.Key, pair => pair.Value);
 
-            var nonSyntheticBackFillReturns = await GetReturns(dedupedSyntheticConstituentDailyPricesByTicker);
+            var nonSyntheticBackFillReturns = await GetQuoteReturns([.. dedupedConstituentDailyPrices.Keys]);
 
-            var syntheticReturnsBySyntheticTicker = new Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>();
+            var result = new Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>();
 
             foreach (var (syntheticTicker, backFillTickers) in constituentTickersBySyntheticTicker)
             {
-                var backFillTickerReturns = await Task.WhenAll(backFillTickers.Select(async backFillTicker =>
-                    (backFillTicker, returns: backFillTicker.StartsWith('$')
-                        ? await GetReturnsByPeriodType(backFillTicker)
-                        : nonSyntheticBackFillReturns[backFillTicker])));
+                result[syntheticTicker] = [];
 
-                syntheticReturnsBySyntheticTicker[syntheticTicker] = new Dictionary<PeriodType, PeriodReturn[]?>();
+                var backFillTickerReturns = new Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>();
+                foreach (var backFillTicker in backFillTickers)
+                {
+                    backFillTickerReturns[backFillTicker] = backFillTicker.StartsWith('$')
+                        ? await GetReturnsByPeriodType(backFillTicker)
+                        : nonSyntheticBackFillReturns[backFillTicker];
+                }
 
                 foreach (var periodType in Enum.GetValues<PeriodType>())
                 {
                     var backFillReturnsForPeriod = backFillTickerReturns
-                        .Select(x => x.returns[periodType])
+                        .Values
+                        .Select(returns => returns[periodType])
                         .Where(returns => returns is not null)
                         .ToList();
 
-                    if (backFillReturnsForPeriod.Count == 0)
+                    if (backFillReturnsForPeriod.Count > 0)
                     {
-                        continue;
+                        var collatedReturns = CollateBackFillReturns(backFillReturnsForPeriod!);
+                        result[syntheticTicker][periodType] = [.. collatedReturns];
+                        await returnRepository.Put(syntheticTicker, collatedReturns, periodType);
                     }
-
-                    var collatedReturns = CollateBackFillReturns(backFillReturnsForPeriod.Select(returns
-                        => returns!.ToList()).ToArray()).ToArray();
-
-                    syntheticReturnsBySyntheticTicker[syntheticTicker][periodType] = collatedReturns;
-
-                    await returnRepository.Put(syntheticTicker, collatedReturns, periodType);
                 }
             }
 
-            return syntheticReturnsBySyntheticTicker;
+            return result;
         }
 
-        private static IEnumerable<PeriodReturn> CollateBackFillReturns(List<PeriodReturn>[] backfillReturns)
+        private async Task<Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>>> GetSyntheticIndexBackFillPrices(
+            HashSet<string> tickers,
+            bool skipRefresh = false)
+        {
+            ArgumentNullException.ThrowIfNull(tickers);
+
+            var constituentTickersBySyntheticTicker = SyntheticIndex
+                .GetSyntheticIndices()
+                .ToDictionary(index => index.Ticker, index => index.BackFillTickers);
+
+            Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>> syntheticConstituentDailyPricesByTicker = [];
+
+            foreach (var syntheticTicker in tickers)
+            {
+                if (!constituentTickersBySyntheticTicker.TryGetValue(syntheticTicker, out var backFillTickers))
+                {
+                    throw new ArgumentException($"Synthetic ticker '{syntheticTicker}' not found.", nameof(tickers));
+                }
+
+                var nonSyntheticConstituentTickers = backFillTickers.Where(t => !t.StartsWith('$'));
+
+                var quotePrices = await quotesService.GetPrices(nonSyntheticConstituentTickers.ToHashSet(), skipRefresh);
+
+                syntheticConstituentDailyPricesByTicker[syntheticTicker] = quotePrices;
+            }
+
+            return syntheticConstituentDailyPricesByTicker;
+        }
+
+        private static IEnumerable<PeriodReturn> CollateBackFillReturns(List<PeriodReturn[]> backfillReturns)
         {
             var collatedReturns = backfillReturns
                 .Select((returns, index) =>
-                    (returns, nextStartDate: index < backfillReturns.Length - 1
+                    (returns, nextStartDate: index < backfillReturns.Count - 1
                         ? backfillReturns[index + 1]?.First().PeriodStart
                         : DateTime.MaxValue
                     )
@@ -214,11 +240,11 @@ namespace Data.Services
             return [.. returns];
         }
 
-        private async Task<PeriodReturn[]> GetReturns(string ticker, PeriodType periodType)
+        private async Task<PeriodReturn[]?> GetReturns(string ticker, PeriodType periodType)
         {
             if (!returnRepository.Has(ticker, periodType))
             {
-                return null!;
+                return null;
             }
 
             return [.. await returnRepository.Get(ticker, periodType)];

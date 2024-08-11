@@ -94,9 +94,7 @@ namespace Data.Services
             DateTime firstPeriod,
             DateTime lastPeriod)
         {
-            IEnumerable<PeriodReturn[]> constituentReturns = await returnsService.GetTickerReturns(tickers, periodType);
-
-
+            IEnumerable<PeriodReturn[]> constituentReturns = await returnsService.GetPeriodReturns(tickers, periodType);
 
             var firstSharedFirstPeriod = constituentReturns
                 .Select(history => history.FirstOrDefault().PeriodStart)

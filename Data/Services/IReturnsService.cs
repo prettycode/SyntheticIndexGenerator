@@ -4,16 +4,12 @@ namespace Data.Services
 {
     public interface IReturnsService
     {
-        Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(
-            Dictionary<string, IEnumerable<QuotePrice>> dailyPricesByTicker);
+        Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetQuoteReturns(
+            HashSet<string> tickers);
 
-        Task<IEnumerable<PeriodReturn[]>> GetTickerReturns(HashSet<string> tickers, PeriodType periodType);
+        Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetSyntheticIndexReturns(HashSet<string> tickers);
 
-        Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetSyntheticIndexReturns(
-            HashSet<string> syntheticTickers,
-            Dictionary<string, Dictionary<string, IEnumerable<QuotePrice>>> syntheticConstituentDailyPricesByTicker);
-
-        Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]?>>> GetReturns(HashSet<string> tickers);
+        Task<IEnumerable<PeriodReturn[]>> GetPeriodReturns(HashSet<string> tickers, PeriodType periodType);
 
         Task PutSyntheticReturnsInReturnsRepository();
     }

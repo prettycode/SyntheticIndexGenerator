@@ -56,8 +56,7 @@ class Program
             IReturnsService returnsService)
         {
             var tickersNeeded = SyntheticIndex.GetBackFillTickers();
-            var dailyPricesByTicker = await quotesService.GetPrices(tickersNeeded, true);
-            var returnsByTicker = await returnsService.GetReturns(dailyPricesByTicker);
+            var returnsByTicker = await returnsService.GetQuoteReturns(tickersNeeded);
         }
 
         static async Task UpdateReturnsCacheWithSyntheticTickers(
@@ -67,12 +66,7 @@ class Program
             await returnsService.PutSyntheticReturnsInReturnsRepository();
 
             var syntheticIndexTickers = SyntheticIndex.GetSyntheticIndexTickers();
-            var syntheticConstituentDailyPricesByTicker = await quotesService.GetSyntheticIndexReturns(
-                syntheticIndexTickers,
-                true);
-            var returnsByTicker = await returnsService.GetSyntheticIndexReturns(
-                syntheticIndexTickers,
-                syntheticConstituentDailyPricesByTicker);
+            var returnsByTicker = await returnsService.GetSyntheticIndexReturns(syntheticIndexTickers);
         }
 
         var quotesService = provider.GetRequiredService<IQuotesService>();
