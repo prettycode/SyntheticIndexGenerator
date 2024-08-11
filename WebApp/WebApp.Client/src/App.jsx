@@ -2,12 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-    const [portfolioBackTest, setPortfolioBackTest] = useState();
-    const [selectedPortfolio, setSelectedPortfolio] = useState('default');
-    const [periodType, setPeriodType] = useState(0); // Default to Daily
-    const [rebalanceFrequency, setRebalanceFrequency] = useState(1); // Default to Annually
-    const [isLoadingBackTest, setIsLoadingBackTest] = useState(true);
-
     const portfolioOptions = [
         { name: 'Default ($^USSCV 50%, $^USLCB 50%)', value: 'default' },
         { name: 'Aggressive ($^USSCV 70%, $^USLCB 30%)', value: 'aggressive' },
@@ -30,6 +24,15 @@ function App() {
         { name: 'Daily', value: 6 },
     ];
 
+    const dailyPeriodOptionValue = periodOptions.find(option => option.name === 'Daily').value;
+    const annualRebalanceOptionValue = rebalanceOptions.find(option => option.name === 'Annually').value;
+
+    const [portfolioBackTest, setPortfolioBackTest] = useState();
+    const [selectedPortfolio, setSelectedPortfolio] = useState('default');
+    const [periodType, setPeriodType] = useState(dailyPeriodOptionValue);
+    const [rebalanceFrequency, setRebalanceFrequency] = useState(annualRebalanceOptionValue);
+    const [isLoadingBackTest, setIsLoadingBackTest] = useState(true);
+
     useEffect(() => {
         setIsLoadingBackTest(true);
         (async () => {
@@ -50,6 +53,12 @@ function App() {
         setRebalanceFrequency(Number(event.target.value));
     };
 
+    const formatNumber = (number) =>
+        number.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+
     const contents = portfolioBackTest === undefined
         ? <p>Loading&hellip;</p>
         : <>
@@ -57,7 +66,7 @@ function App() {
             <h3>Configuration</h3>
             <div style={{ textAlign: 'left', marginBottom: '20px' }}>
                 <div style={{ marginBottom: '10px' }}>
-                    <label htmlFor="portfolio-select" style={{ marginRight: '10px' }}>Choose a portfolio: </label>
+                    <label htmlFor="portfolio-select" style={{ marginRight: '10px' }}>Portfolio: </label>
                     <select id="portfolio-select" value={selectedPortfolio} onChange={handlePortfolioChange}>
                         {portfolioOptions.map((option) => (
                             <option key={option.value} value={option.value}>
@@ -67,7 +76,7 @@ function App() {
                     </select>
                 </div>
                 <div style={{ marginBottom: '10px' }}>
-                    <label htmlFor="period-select" style={{ marginRight: '10px' }}>Choose granularity: </label>
+                    <label htmlFor="period-select" style={{ marginRight: '10px' }}>History resolution: </label>
                     <select id="period-select" value={periodType} onChange={handlePeriodTypeChange}>
                         {periodOptions.map((option) => (
                             <option key={option.value} value={option.value}>
@@ -77,7 +86,7 @@ function App() {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor="rebalance-select" style={{ marginRight: '10px' }}>Choose rebalancing frequency: </label>
+                    <label htmlFor="rebalance-select" style={{ marginRight: '10px' }}>Rebalancing frequency: </label>
                     <select id="rebalance-select" value={rebalanceFrequency} onChange={handleRebalanceFrequencyChange}>
                         {rebalanceOptions.map((option) => (
                             <option key={option.value} value={option.value}>
@@ -98,11 +107,11 @@ function App() {
                         </tr>
                         <tr>
                             <td>Last Period:</td>
-                            <td>{(portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].periodStart.substr(0, 10))}</td>
+                            <td>{portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].periodStart.substr(0, 10)}</td>
                         </tr>
                         <tr>
                             <td>CAGR (%):</td>
-                            <td>{(portfolioBackTest.cagr * 100).toFixed(2)}</td>
+                            <td>{formatNumber(portfolioBackTest.cagr * 100)}</td>
                         </tr>
                         <tr>
                             <td>Rebalances:</td>
@@ -110,7 +119,7 @@ function App() {
                         </tr>
                         <tr>
                             <td>Years to 2x:</td>
-                            <td>{portfolioBackTest.yearsBeforeDoubling.toFixed(2)}</td>
+                            <td>{formatNumber(portfolioBackTest.yearsBeforeDoubling)}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -130,22 +139,10 @@ function App() {
                         {portfolioBackTest.aggregatePerformance.slice(0, 10).map((tick, i) => (
                             <tr key={i}>
                                 <td>{tick.periodStart.substr(0, 10)}</td>
-                                <td>{tick.returnPercentage.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
-                                <td>{tick.startingBalance.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
-                                <td>{tick.endingBalance.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
-                                <td>{tick.balanceIncrease.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
+                                <td>{formatNumber(tick.returnPercentage)}</td>
+                                <td>{formatNumber(tick.startingBalance)}</td>
+                                <td>{formatNumber(tick.endingBalance)}</td>
+                                <td>{formatNumber(tick.balanceIncrease)}</td>
                             </tr>
                         ))}
                         {portfolioBackTest.aggregatePerformance.length > 20 && (
@@ -160,29 +157,15 @@ function App() {
                         {portfolioBackTest.aggregatePerformance.slice(-10).map((tick, i) => (
                             <tr key={i + portfolioBackTest.aggregatePerformance.length - 10}>
                                 <td>{tick.periodStart.substr(0, 10)}</td>
-                                <td>{tick.returnPercentage.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
-                                <td>{tick.startingBalance.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
-                                <td>{tick.endingBalance.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
-                                <td>{tick.balanceIncrease.toLocaleString(undefined, {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                })}</td>
+                                <td>{formatNumber(tick.returnPercentage)}</td>
+                                <td>{formatNumber(tick.startingBalance)}</td>
+                                <td>{formatNumber(tick.endingBalance)}</td>
+                                <td>{formatNumber(tick.balanceIncrease)}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
-
             </div>
-
         </>;
 
     return (
@@ -191,7 +174,6 @@ function App() {
             {contents}
         </div>
     );
-
     async function fetchPortfolio(portfolioType, periodType, rebalanceFrequency) {
         let portfolioConstituents;
         switch (portfolioType) {
