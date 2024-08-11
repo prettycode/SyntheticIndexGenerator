@@ -116,7 +116,7 @@ namespace Data.Services
 
             if (quoteTickers.Count > 0)
             {
-                var quotePricesByTicker = await quotesService.GetPrices(quoteTickers);
+                var quotePricesByTicker = await quotesService.GetPrices(quoteTickers, true);
                 quoteReturnsByTicker = await returnsService.GetReturns(quotePricesByTicker);
             }
 

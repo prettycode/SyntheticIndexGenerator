@@ -17,17 +17,18 @@ namespace WebService.Controllers
                 new() { Ticker = "AVMC", Percentage = 12.5m }
             };
 
-            var controller1 = base.GetController<BackTestController>();
+            var controller = base.GetController<BackTestController>();
 
             // LCB has no daily
-            await Assert.ThrowsAsync<ArgumentNullException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
 
             // No overlapping period because $LCB ends before AVMC starts
-            var foo1 = await controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly);
+            var foo1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly);
             Assert.Empty(foo1.AggregatePerformance);
 
             // 1x has no yearly
-            await Assert.ThrowsAsync<ArgumentNullException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
+
 
             var portfolio2 = new List<BackTestAllocation>()
             {
@@ -39,13 +40,30 @@ namespace WebService.Controllers
 
             var controller2 = base.GetController<BackTestController>();
 
-            var foo2 = await controller1.GetPortfolioBackTest(portfolio2, 100, PeriodType.Daily);
+            var foo2 = await controller.GetPortfolioBackTest(portfolio2, 100, PeriodType.Daily);
             Assert.NotEmpty(foo2.AggregatePerformance);
 
-            var foo3 = await controller1.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly);
+            var foo3 = await controller.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly);
             Assert.NotEmpty(foo3.AggregatePerformance);
 
-            await Assert.ThrowsAsync<ArgumentNullException>(() => controller1.GetPortfolioBackTest(portfolio2, 100, PeriodType.Yearly));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => controller.GetPortfolioBackTest(portfolio2, 100, PeriodType.Yearly));
+
+
+            var portfolio3 = new List<BackTestAllocation>()
+            {
+                new() { Ticker = "$^USLCV", Percentage = 12.5m },
+                new() { Ticker = "VOO", Percentage = 12.5m }
+            };
+
+            var foo4 = await controller.GetPortfolioBackTest(portfolio3, 100, PeriodType.Daily);
+            Assert.NotEmpty(foo4.AggregatePerformance);
+
+            var foo5 = await controller.GetPortfolioBackTest(portfolio3, 100, PeriodType.Monthly);
+            Assert.NotEmpty(foo5.AggregatePerformance);
+
+            var foo6 = await controller.GetPortfolioBackTest(portfolio3, 100, PeriodType.Yearly);
+            Assert.NotEmpty(foo6.AggregatePerformance);
+
 
             Assert.True(true);
         }
