@@ -52,12 +52,10 @@ class Program
     {
         static async Task UpdateReturnsRepositoryWithIndexBackfillTickers(
             IIndicesService indicesService,
-            IQuotesService quotesService,
             IReturnsService returnsService)
         {
             var tickersNeeded = indicesService.GetIndexBackfillTickers();
-            var dailyPricesByTicker = await quotesService.GetPrices(tickersNeeded, true);
-            var returnsByTicker = await returnsService.GetReturns(dailyPricesByTicker);
+            var returnsByTicker = await returnsService.GetReturns(tickersNeeded);
         }
 
         static async Task UpdateReturnsRepositoryWithSyntheticTickers(
@@ -68,11 +66,10 @@ class Program
             await indicesService.PutSyntheticIndicesInReturnsRepository();
         }
 
-        var quotesService = provider.GetRequiredService<IQuotesService>();
         var returnsService = provider.GetRequiredService<IReturnsService>();
         var indicesService = provider.GetRequiredService<IIndicesService>();
 
-        await UpdateReturnsRepositoryWithIndexBackfillTickers(indicesService, quotesService, returnsService);
+        await UpdateReturnsRepositoryWithIndexBackfillTickers(indicesService, returnsService);
         await UpdateReturnsRepositoryWithSyntheticTickers(indicesService, returnsService);
     }
 

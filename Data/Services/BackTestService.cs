@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Services
 {
-    internal class BackTestService(IQuotesService quotesService, IReturnsService returnsService, ILogger<BackTestService> logger) : IBackTestService
+    internal class BackTestService(IReturnsService returnsService, ILogger<BackTestService> logger) : IBackTestService
     {
         public async Task<BackTest> GetPortfolioBackTest(
             IEnumerable<BackTestAllocation> portfolioConstituents,

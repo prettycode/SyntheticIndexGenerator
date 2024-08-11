@@ -4,8 +4,7 @@ namespace Data.Services
 {
     public interface IReturnsService
     {
-        Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
-            Dictionary<string, IEnumerable<QuotePrice>> dailyPricesByTicker);
+        Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(HashSet<string> tickers);
 
         Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate);
 

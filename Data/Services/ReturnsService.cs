@@ -4,12 +4,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Services
 {
-    internal class ReturnsService(IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
+    internal class ReturnsService(IQuotesService quotesService, IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
     {
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
-            Dictionary<string, IEnumerable<QuotePrice>> dailyPricesByTicker)
+            HashSet<string> tickers)
         {
-            ArgumentNullException.ThrowIfNull(dailyPricesByTicker);
+            ArgumentNullException.ThrowIfNull(tickers);
+
+            var dailyPricesByTicker = await quotesService.GetPrices(tickers, true);
 
             return await dailyPricesByTicker
                 .ToAsyncEnumerable()
