@@ -168,7 +168,7 @@ function App() {
                     </label>
                 </div>
 
-                <h3>History</h3>
+                <h3>Performance History</h3>
                 <table className="table table-striped" aria-labelledby="tableLabel">
                     <thead>
                         <tr>
@@ -209,6 +209,53 @@ function App() {
                         ))}
                     </tbody>
                 </table>
+
+                {/*Object.entries(portfolioBackTest.decomposedPerformanceByTicker).map(([ticker, performance]) => (
+                    <div key={ticker}>
+                        <h3>{ticker} Performance</h3>
+                        <table className="table table-striped" aria-labelledby="tableLabel">
+                            <thead>
+                                <tr>
+                                    <th>Period Start Date</th>
+                                    <th>Return (%)</th>
+                                    <th>Start Balance ($)</th>
+                                    <th>Ending Balance ($)</th>
+                                    <th>Balance Increase ($)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {performance.slice(0, 10).map((tick, i) => (
+                                    <tr key={i}>
+                                        <td>{tick.periodStart.substr(0, 10)}</td>
+                                        <td>{formatNumber(tick.returnPercentage)}</td>
+                                        <td>{formatNumber(tick.startingBalance)}</td>
+                                        <td>{formatNumber(tick.endingBalance)}</td>
+                                        <td>{formatNumber(tick.balanceIncrease)}</td>
+                                    </tr>
+                                ))}
+                                {performance.length > 20 && (
+                                    <tr>
+                                        <td colSpan="5" style={{ textAlign: 'center' }}>
+                                            &hellip;<br />
+                                            [{(performance.length - 20).toLocaleString()} rows]<br />
+                                            &hellip;
+                                        </td>
+                                    </tr>
+                                )}
+                                {performance.slice(-10).map((tick, i) => (
+                                    <tr key={i + performance.length - 10}>
+                                        <td>{tick.periodStart.substr(0, 10)}</td>
+                                        <td>{formatNumber(tick.returnPercentage)}</td>
+                                        <td>{formatNumber(tick.startingBalance)}</td>
+                                        <td>{formatNumber(tick.endingBalance)}</td>
+                                        <td>{formatNumber(tick.balanceIncrease)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                ))*/}
+
             </div>
         </>;
 
