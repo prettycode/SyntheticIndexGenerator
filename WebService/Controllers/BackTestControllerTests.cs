@@ -20,14 +20,14 @@ namespace WebService.Controllers
             var controller1 = base.GetController<BackTestController>();
 
             // LCB has no daily
-            await Assert.ThrowsAsync<KeyNotFoundException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
 
-            // No overlapping period because $LCB ends boefre AVMC starts
+            // No overlapping period because $LCB ends before AVMC starts
             var foo1 = await controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly);
             Assert.Empty(foo1.AggregatePerformance);
 
-            // AVMC has no yearly
-            await Assert.ThrowsAsync<KeyNotFoundException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
+            // 1x has no yearly
+            await Assert.ThrowsAsync<ArgumentNullException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
 
             var portfolio2 = new List<BackTestAllocation>()
             {
@@ -45,8 +45,7 @@ namespace WebService.Controllers
             var foo3 = await controller1.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly);
             Assert.NotEmpty(foo3.AggregatePerformance);
 
-            var foo4 = await controller1.GetPortfolioBackTest(portfolio2, 100, PeriodType.Yearly);
-            Assert.NotEmpty(foo4.AggregatePerformance);
+            await Assert.ThrowsAsync<ArgumentNullException>(() => controller1.GetPortfolioBackTest(portfolio2, 100, PeriodType.Yearly));
 
             Assert.True(true);
         }
