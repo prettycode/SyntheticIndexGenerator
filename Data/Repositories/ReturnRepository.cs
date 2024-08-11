@@ -76,6 +76,32 @@ namespace Data.Repositories
 
         public Task Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType periodType)
         {
+            async Task WriteLinesToFileWithRetry(
+                string csvFilePath,
+                IEnumerable<string>
+                csvFileLines,
+                int maxRetries = 5,
+                int delayMs = 0)
+            {
+                for (int attempt = 1; attempt <= maxRetries; attempt++)
+                {
+                    try
+                    {
+                        await File.WriteAllLinesAsync(csvFilePath, csvFileLines);
+                        return;
+                    }
+                    catch (IOException ex) when (ex.Message.Contains("user-mapped section open"))
+                    {
+                        if (attempt == maxRetries)
+                        {
+                            throw;
+                        }
+
+                        await Task.Delay(delayMs * attempt);
+                    }
+                }
+            }
+
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(returns);
             ArgumentNullException.ThrowIfNull(periodType);
@@ -95,7 +121,7 @@ namespace Data.Repositories
 
             var csvFileLines = returns.Select(r => r.ToCsvLine());
 
-            return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
+            return WriteLinesToFileWithRetry(csvFilePath, csvFileLines);
         }
 
         // TODO test
