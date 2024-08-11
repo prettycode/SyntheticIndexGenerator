@@ -54,16 +54,6 @@ namespace Data.Services
         private async Task<IEnumerable<QuotePrice>> GetQuotePrices(string ticker, bool skipRefresh)
             => (await GetQuote(ticker, skipRefresh)).Prices;
 
-        private async Task<Dictionary<string, Quote>> GetQuotes(HashSet<string> tickers)
-        {
-            ArgumentNullException.ThrowIfNull(tickers);
-
-            return await tickers
-                .ToAsyncEnumerable()
-                .SelectAwait(async ticker => new { ticker, quote = await GetQuote(ticker, false) })
-                .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
-        }
-
         private async Task<Quote> GetQuote(string ticker, bool skipRefresh)
         {
             ArgumentNullException.ThrowIfNull(ticker);

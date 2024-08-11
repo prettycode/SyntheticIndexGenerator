@@ -1,9 +1,9 @@
 $baseDir = "."
 
 $dirsToClean = @(
-    "$baseDir\quotes\dvidiends",
-    "$baseDir\quotes\prices",
-    "$baseDir\quotes\splits"
+    "$baseDir\quotes\dvidiend",
+    "$baseDir\quotes\price",
+    "$baseDir\quotes\split"
 )
 
 foreach ($dir in $dirsToClean) {
