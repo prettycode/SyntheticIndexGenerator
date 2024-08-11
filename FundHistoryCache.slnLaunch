@@ -16,6 +16,11 @@
         "Path": "WebApp\\WebApp.Server\\WebApp.Server.csproj",
         "Action": "Start",
         "DebugTarget": "https"
+      },
+      {
+        "Path": "WebApp\\WebApp.Client\\WebApp.Client.esproj",
+        "Action": "Start",
+        "DebugTarget": "localhost (Chrome)"
       }
     ]
   }

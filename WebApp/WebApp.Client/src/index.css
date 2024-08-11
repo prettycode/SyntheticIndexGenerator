@@ -35,6 +35,14 @@ h1 {
   line-height: 1.1;
 }
 
+td:not(:first-of-type) {
+    text-align: right;
+}
+
+td:first-of-type {
+    text-align: left;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

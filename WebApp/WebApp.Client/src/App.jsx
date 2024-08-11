@@ -2,44 +2,74 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-    const [forecasts, setForecasts] = useState();
+    const [portfolioBackTest, setPortfolioBackTest] = useState();
 
     useEffect(() => {
-        populateWeatherData();
+        fetchDefaultPortfolio();
     }, []);
 
-    const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-        : <table className="table table-striped" aria-labelledby="tableLabel">
-            <thead>
+    const contents = portfolioBackTest === undefined
+        ? <p>Loading&hellip;</p>
+        : <>
+            <table>
                 <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
+                    <td>CAGR (%):</td>
+                    <td>{(portfolioBackTest.cagr * 100).toFixed(2)}</td>
                 </tr>
-            </thead>
-            <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
+                <tr>
+                    <td>Rebalances:</td>
+                    <td>{portfolioBackTest.rebalancesByTicker[Object.keys(portfolioBackTest.rebalancesByTicker)[0]].length}</td>
+                </tr>
+                <tr>
+                    <td>Years to 2x:</td>
+                    <td>{portfolioBackTest.yearsBeforeDoubling.toFixed(1)}</td>
+                </tr>
+            </table>
+            <p/>
+            <table className="table table-striped" aria-labelledby="tableLabel">
+                <thead>
+                    <tr>
+                        <th>Period Start Date</th>
+                        <th>Return (%)</th>
+                        <th>Start Balance ($)</th>
+                        <th>Ending Balance ($)</th>
+                        <th>Balance Increase ($)</th>
                     </tr>
-                )}
-            </tbody>
-        </table>;
+                </thead>
+                <tbody>
+                    {portfolioBackTest.aggregatePerformance.map((tick, i) =>
+                        <tr key={i}>
+                            <td>{tick.periodStart.substr(0, 10)}</td>
+                            <td>{tick.returnPercentage.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}</td>
+                            <td>{tick.startingBalance.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}</td>
+                            <td>{tick.endingBalance.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}</td>
+                            <td>{tick.balanceIncrease.toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}</td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
+        </>;
 
     return (
         <div>
-            <h1 id="tableLabel">Weather forecast</h1>
-            <p>This component demonstrates fetching data from the server.</p>
+            <h2 id="tableLabel">Portfolio Back Test</h2>
             {contents}
         </div>
     );
 
-    async function populateWeatherData() {
+    async function fetchDefaultPortfolio() {
         const response = await fetch(`https://localhost:7219/api/BackTest/GetPortfolioBackTest`, {
             method: 'POST',
             headers: {
@@ -56,7 +86,7 @@ function App() {
             })
         });
         const data = await response.json();
-        setForecasts(data);
+        setPortfolioBackTest(data);
     }
 }
 
