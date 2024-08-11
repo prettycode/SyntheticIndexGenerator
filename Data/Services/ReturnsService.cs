@@ -24,7 +24,7 @@ namespace Data.Services
             return returnRepository.Get(ticker, period, startDate, endDate);
         }
 
-        public async Task RefreshSyntheticReturns()
+        public async Task PutSyntheticReturnsInReturnsRepository()
         {
             var synReturnsByTicker = await Task.WhenAll(
                 returnRepository.GetSyntheticMonthlyReturns(),

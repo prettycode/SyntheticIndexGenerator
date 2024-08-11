@@ -75,7 +75,7 @@ namespace Data.Services
             Growth
         }
 
-        public Task RefreshIndices()
+        public Task PutSyntheticIndicesInReturnsRepository()
         {
             var refreshTasks = GetIndices()
                 .Where(index => index.BackfillTickers != null)
@@ -84,7 +84,7 @@ namespace Data.Services
             return Task.WhenAll(refreshTasks);
         }
 
-        public HashSet<string> GetRequiredTickers(bool filterSynthetic = true)
+        public HashSet<string> GetIndexBackfillTickers(bool filterSynthetic = true)
         {
             var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []);
 

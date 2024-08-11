@@ -21,7 +21,7 @@ class Program
 
             try
             {
-                await PrimeReturnsCache(serviceProvider);
+                await UpdateReturnsRepository(serviceProvider);
             }
             catch (Exception ex)
             {
@@ -49,32 +49,32 @@ class Program
             .BuildServiceProvider();
     }
 
-    static async Task PrimeReturnsCache(IServiceProvider provider)
+    static async Task UpdateReturnsRepository(IServiceProvider provider)
     {
-        static async Task UpdateReturnsCacheWithIndexBackTestTickers(
+        static async Task UpdateReturnsRepositoryWithIndexBackfillTickers(
             IIndicesService indicesService,
             IQuotesService quotesService,
             IReturnsService returnsService)
         {
-            var tickersNeeded = indicesService.GetRequiredTickers();
+            var tickersNeeded = indicesService.GetIndexBackfillTickers();
             var dailyPricesByTicker = await quotesService.GetPrices(tickersNeeded, true);
             var returnsByTicker = await returnsService.GetReturns(dailyPricesByTicker);
         }
 
-        static async Task UpdateReturnsCacheWithSyntheticTickers(
+        static async Task UpdateReturnsRepositoryWithSyntheticTickers(
             IIndicesService indicesService,
             IReturnsService returnsService)
         {
-            await returnsService.RefreshSyntheticReturns();
-            await indicesService.RefreshIndices();
+            await returnsService.PutSyntheticReturnsInReturnsRepository();
+            await indicesService.PutSyntheticIndicesInReturnsRepository();
         }
 
         var quotesService = provider.GetRequiredService<IQuotesService>();
         var returnsService = provider.GetRequiredService<IReturnsService>();
         var indicesService = provider.GetRequiredService<IIndicesService>();
 
-        await UpdateReturnsCacheWithIndexBackTestTickers(indicesService, quotesService, returnsService);
-        await UpdateReturnsCacheWithSyntheticTickers(indicesService, returnsService);
+        await UpdateReturnsRepositoryWithIndexBackfillTickers(indicesService, quotesService, returnsService);
+        await UpdateReturnsRepositoryWithSyntheticTickers(indicesService, returnsService);
     }
 
     // TODO test

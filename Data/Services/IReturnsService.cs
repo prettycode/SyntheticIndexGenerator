@@ -9,6 +9,6 @@ namespace Data.Services
 
         Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate);
 
-        Task RefreshSyntheticReturns();
+        Task PutSyntheticReturnsInReturnsRepository();
     }
 }

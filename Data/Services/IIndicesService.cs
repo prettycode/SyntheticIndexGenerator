@@ -3,8 +3,8 @@ namespace Data.Services
 {
     public interface IIndicesService
     {
-        Task RefreshIndices();
+        Task PutSyntheticIndicesInReturnsRepository();
 
-        HashSet<string> GetRequiredTickers(bool filterSynthetic = true);
+        HashSet<string> GetIndexBackfillTickers(bool filterSynthetic = true);
     }
 }
