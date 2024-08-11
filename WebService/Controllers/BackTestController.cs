@@ -4,11 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
 {
+    public class BackTestRequest
+    {
+        public IEnumerable<BackTestAllocation> PortfolioConstituents { get; set; }
+        public decimal StartingBalance { get; set; }
+        public PeriodType PeriodType { get; set; }
+        public DateTime FirstPeriod { get; set; }
+        public DateTime? LastPeriod { get; set; }
+        public BackTestRebalanceStrategy RebalanceStrategy { get; set; }
+        public decimal? RebalanceBandThreshold { get; set; }
+    }
+
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class BackTestController(IBackTestService backTestService, ILogger<BackTestController> logger) : ControllerBase
     {
-        [HttpGet]
+        [NonAction]
         public Task<BackTest> GetPortfolioBackTest(
             IEnumerable<BackTestAllocation> portfolioConstituents,
             decimal startingBalance = 100,
@@ -25,5 +36,17 @@ namespace WebService.Controllers
                 lastPeriod,
                 rebalanceStrategy,
                 rebalanceBandThreshold);
+
+        [HttpPost]
+        public Task<BackTest> GetPortfolioBackTest(
+            [FromBody] BackTestRequest backTestRequest)
+            => GetPortfolioBackTest(
+                backTestRequest.PortfolioConstituents,
+                backTestRequest.StartingBalance,
+                backTestRequest.PeriodType,
+                backTestRequest.FirstPeriod,
+                backTestRequest.LastPeriod,
+                backTestRequest.RebalanceStrategy,
+                backTestRequest.RebalanceBandThreshold);
     }
 }
