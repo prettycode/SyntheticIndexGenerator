@@ -1,12 +1,12 @@
-using Data.Models;
-using Data.Services;
+using Data.BackTest;
+using Data.Returns;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebService.Controllers
 {
     public class BackTestRequest
     {
-        public IEnumerable<BackTestAllocation> PortfolioConstituents { get; set; }
+        public required IEnumerable<BackTestAllocation> PortfolioConstituents { get; set; }
         public decimal StartingBalance { get; set; }
         public PeriodType PeriodType { get; set; }
         public DateTime FirstPeriod { get; set; }

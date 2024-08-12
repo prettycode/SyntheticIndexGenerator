@@ -16,6 +16,11 @@
         "Path": "WebApp\\WebApp.Client\\WebApp.Client.esproj",
         "Action": "Start",
         "DebugTarget": "localhost (Chrome)"
+      },
+      {
+        "Path": "DataRefreshJob\\DataRefreshJob.csproj",
+        "Action": "Start",
+        "DebugTarget": "DataRefreshJob"
       }
     ]
   }

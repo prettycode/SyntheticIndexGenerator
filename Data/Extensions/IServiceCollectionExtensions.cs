@@ -1,6 +1,8 @@
-﻿using Data.QuoteProvider;
-using Data.Repositories;
-using Data.Services;
+﻿using Data.BackTest;
+using Data.Indices;
+using Data.Quotes;
+using Data.Quotes.QuoteProvider;
+using Data.Returns;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
