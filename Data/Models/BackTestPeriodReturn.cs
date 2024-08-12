@@ -2,7 +2,7 @@
 {
     public readonly struct BackTestPeriodReturn(string ticker, decimal startingBalance, PeriodReturn periodReturn)
     {
-        public string Ticker { get; init; } = ticker ?? periodReturn.SourceTicker;
+        public string Ticker { get; init; } = ticker ?? periodReturn.Ticker;
 
         public PeriodType PeriodType { get; init; } = periodReturn.PeriodType;
 

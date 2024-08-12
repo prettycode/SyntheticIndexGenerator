@@ -27,9 +27,9 @@ namespace Data.QuoteProvider
             var allHistory = await Throttle(() => yahooQuotes.GetAsync(ticker, Histories.All))
                 ?? throw new InvalidOperationException($"Could not fetch history for '{ticker}'.");
 
-            var divs = allHistory.DividendHistory.Value.Select(div => new QuoteDividend(div)).ToList();
-            var prices = allHistory.PriceHistory.Value.Select(price => new QuotePrice(price)).ToList();
-            var splits = allHistory.SplitHistory.Value.Select(split => new QuoteSplit(split)).ToList();
+            var divs = allHistory.DividendHistory.Value.Select(div => new QuoteDividend(ticker, div)).ToList();
+            var prices = allHistory.PriceHistory.Value.Select(price => new QuotePrice(ticker, price)).ToList();
+            var splits = allHistory.SplitHistory.Value.Select(split => new QuoteSplit(ticker, split)).ToList();
 
             return base.GetQuote(ticker, divs, prices, splits);
         }

@@ -1,2 +1,2 @@
-{"DateTime":"2023-12-18T00:00:00","Dividend":0.2100}
-{"DateTime":"2024-06-24T00:00:00","Dividend":0.4410}
+{"Ticker":"AVEE","DateTime":"2023-12-18T00:00:00","Dividend":0.2100}
+{"Ticker":"AVEE","DateTime":"2024-06-24T00:00:00","Dividend":0.4410}

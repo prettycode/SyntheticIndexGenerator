@@ -1,9 +1,12 @@
 ﻿using Data.Extensions;
+using YahooFinanceApi;
 
 namespace Data.Models
 {
     public readonly struct QuotePrice
     {
+        public string Ticker { get; init; }
+
         public DateTime DateTime { get; init; }
 
         public decimal Open { get; init; }
@@ -18,10 +21,12 @@ namespace Data.Models
 
         public decimal AdjustedClose { get; init; }
 
-        public QuotePrice(YahooQuotesApi.PriceTick price)
+        public QuotePrice(string ticker, YahooQuotesApi.PriceTick price)
         {
+            ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(price);
 
+            Ticker = ticker;
             DateTime = price.Date.ToDateTimeUnspecified();
             Open = Convert.ToDecimal(price.Open).ToQuotePrice();
             High = Convert.ToDecimal(price.High).ToQuotePrice();
@@ -31,10 +36,12 @@ namespace Data.Models
             Volume = price.Volume;
         }
 
-        public QuotePrice(YahooFinanceApi.Candle candle)
+        public QuotePrice(string ticker, YahooFinanceApi.Candle candle)
         {
+            ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(candle);
 
+            Ticker = ticker;
             DateTime = candle.DateTime;
             Open = candle.Open.ToQuotePrice();
             High = candle.High.ToQuotePrice();

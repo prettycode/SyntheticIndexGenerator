@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Text.Json;
 using Data.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -67,7 +68,7 @@ namespace Data.Repositories
             var csvLines = await File.ReadAllLinesAsync(csvFilePath);
 
             return csvLines
-                .Select(PeriodReturn.ParseCsvLine)
+                .Select(line => JsonSerializer.Deserialize<PeriodReturn>(line))
                 .Where(pair =>
                     (firstPeriod == null || pair.PeriodStart >= firstPeriod) &&
                     (lastPeriod == null || pair.PeriodStart <= lastPeriod))
@@ -93,7 +94,7 @@ namespace Data.Repositories
                 Directory.CreateDirectory(csvDirPath!);
             }
 
-            var csvFileLines = returns.Select(r => r.ToCsvLine());
+            var csvFileLines = returns.Select(returnPeriod => JsonSerializer.Serialize(returnPeriod));
 
             logger.LogInformation("{ticker}: Writing returns for period type {periodType}.", ticker, periodType);
 
@@ -143,7 +144,7 @@ namespace Data.Repositories
                     {
                         PeriodStart = date,
                         ReturnPercentage = decimal.Parse($"{cellValue:G29}"),
-                        SourceTicker = ticker,
+                        Ticker = ticker,
                         PeriodType = PeriodType.Monthly
                     });
                 }
@@ -176,7 +177,7 @@ namespace Data.Repositories
                     {
                         PeriodStart = new DateTime(currentYear, 1, 1),
                         ReturnPercentage = currentYearAggregateReturn,
-                        SourceTicker = ticker,
+                        Ticker = ticker,
                         PeriodType = PeriodType.Yearly
                     };
 

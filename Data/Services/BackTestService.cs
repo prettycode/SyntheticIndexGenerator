@@ -341,7 +341,7 @@ namespace Data.Services
 
             foreach (var currentReturnTick in tickerReturns)
             {
-                performanceTicks.Add(new(currentReturnTick.SourceTicker, currentBalance, currentReturnTick));
+                performanceTicks.Add(new(currentReturnTick.Ticker, currentBalance, currentReturnTick));
                 currentBalance = performanceTicks[^1].EndingBalance;
             }
 

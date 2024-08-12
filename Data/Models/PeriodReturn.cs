@@ -2,6 +2,8 @@
 {
     public readonly struct PeriodReturn
     {
+        public string Ticker { get; init; }
+
         public DateTime PeriodStart { get; init; }
 
         /// <summary>
@@ -9,26 +11,6 @@
         /// </summary>
         public decimal ReturnPercentage { get; init; }
 
-        public string SourceTicker { get; init; }
-
         public PeriodType PeriodType { get; init; }
-
-        public string ToCsvLine()
-        {
-            return $"{PeriodStart:yyyy-MM-dd},{ReturnPercentage},{SourceTicker},{PeriodType}";
-        }
-
-        public static PeriodReturn ParseCsvLine(string csvLine)
-        {
-            var cells = csvLine.Split(',');
-
-            return new()
-            {
-                PeriodStart = DateTime.Parse(cells[0]),
-                ReturnPercentage = decimal.Parse(cells[1]),
-                SourceTicker = cells[2],
-                PeriodType = Enum.Parse<PeriodType>(cells[3])
-            };
-        }
     }
 }

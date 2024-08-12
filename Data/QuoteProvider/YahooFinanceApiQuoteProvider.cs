@@ -13,9 +13,9 @@ namespace Data.QuoteProvider
             var libPrices = await Throttle(() => YahooFinanceApi.Yahoo.GetHistoricalAsync(ticker, startDate, endDate));
             var libSplits = await Throttle(() => YahooFinanceApi.Yahoo.GetSplitsAsync(ticker, startDate, endDate));
 
-            var divs = libDivs.Select(div => new QuoteDividend(div)).ToList();
-            var prices = libPrices.Select(price => new QuotePrice(price)).ToList();
-            var splits = libSplits.Select(split => new QuoteSplit(split)).ToList();
+            var divs = libDivs.Select(div => new QuoteDividend(ticker, div)).ToList();
+            var prices = libPrices.Select(price => new QuotePrice(ticker, price)).ToList();
+            var splits = libSplits.Select(split => new QuoteSplit(ticker, split)).ToList();
 
             return base.GetQuote(ticker, divs, prices, splits);
         }

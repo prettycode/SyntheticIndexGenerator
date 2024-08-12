@@ -7,11 +7,11 @@ namespace Data.Services
     internal class ReturnsService(IQuotesService quotesService, IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
     {
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
-            HashSet<string> tickers)
+            HashSet<string> tickers, bool skipRefresh = false)
         {
             ArgumentNullException.ThrowIfNull(tickers);
 
-            var dailyPricesByTicker = await quotesService.GetPrices(tickers, true);
+            var dailyPricesByTicker = await quotesService.GetPrices(tickers, skipRefresh);
 
             return await dailyPricesByTicker
                 .ToAsyncEnumerable()
@@ -105,9 +105,9 @@ namespace Data.Services
             return prices
                 .Zip(prices.Skip(1), (prev, current) => new PeriodReturn
                 {
+                    Ticker = ticker,
                     PeriodStart = current.DateTime,
                     ReturnPercentage = CalculateChange(prev.AdjustedClose, current.AdjustedClose),
-                    SourceTicker = ticker,
                     PeriodType = periodType
                 })
                 .ToList();

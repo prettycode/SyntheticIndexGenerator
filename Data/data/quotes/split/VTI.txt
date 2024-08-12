@@ -1,1 +1,1 @@
-{"DateTime":"2008-06-18T00:00:00","BeforeSplit":1,"AfterSplit":2}
+{"Ticker":"VTI","DateTime":"2008-06-18T00:00:00","BeforeSplit":1,"AfterSplit":2}

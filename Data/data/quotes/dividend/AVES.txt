@@ -1,6 +1,6 @@
-{"DateTime":"2021-12-16T00:00:00","Dividend":0.3160}
-{"DateTime":"2022-06-21T00:00:00","Dividend":0.4850}
-{"DateTime":"2022-12-15T00:00:00","Dividend":1.0310}
-{"DateTime":"2023-06-20T00:00:00","Dividend":0.4940}
-{"DateTime":"2023-12-18T00:00:00","Dividend":1.3260}
-{"DateTime":"2024-06-24T00:00:00","Dividend":0.4770}
+{"Ticker":"AVES","DateTime":"2021-12-16T00:00:00","Dividend":0.3160}
+{"Ticker":"AVES","DateTime":"2022-06-21T00:00:00","Dividend":0.4850}
+{"Ticker":"AVES","DateTime":"2022-12-15T00:00:00","Dividend":1.0310}
+{"Ticker":"AVES","DateTime":"2023-06-20T00:00:00","Dividend":0.4940}
+{"Ticker":"AVES","DateTime":"2023-12-18T00:00:00","Dividend":1.3260}
+{"Ticker":"AVES","DateTime":"2024-06-24T00:00:00","Dividend":0.4770}
