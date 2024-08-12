@@ -35,8 +35,8 @@ namespace WebService.Controllers
             {
                 new() { Ticker = "#1X", Percentage = 25 },
                 new() { Ticker = "#3X", Percentage = 25 },
-                new() { Ticker = "$^USLCV", Percentage = 12.5m },
-                new() { Ticker = "VOO", Percentage = 12.5m }
+                new() { Ticker = "$^USLCV", Percentage = 25 },
+                new() { Ticker = "VOO", Percentage = 25 }
             };
 
             var controller2 = base.GetController<BackTestController>();
@@ -52,8 +52,8 @@ namespace WebService.Controllers
 
             var portfolio3 = new List<BackTestAllocation>()
             {
-                new() { Ticker = "$^USLCV", Percentage = 12.5m },
-                new() { Ticker = "VOO", Percentage = 12.5m }
+                new() { Ticker = "$^USLCV", Percentage = 50 },
+                new() { Ticker = "VOO", Percentage = 50 }
             };
 
             var foo4 = await controller.GetPortfolioBackTest(portfolio3, 100, PeriodType.Daily);
