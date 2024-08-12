@@ -1,9 +1,9 @@
 ﻿$baseDir = "."
 
 $dirsToClean = @(
-    "$baseDir\returns\daily",
-    "$baseDir\returns\monthly",
-    "$baseDir\returns\yearly"
+    "$baseDir\PeriodReturn\Daily",
+    "$baseDir\PeriodReturn\Monthly",
+    "$baseDir\PeriodReturn\Yearly"
 )
 
 foreach ($dir in $dirsToClean) {
