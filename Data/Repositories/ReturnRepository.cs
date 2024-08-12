@@ -46,7 +46,7 @@ namespace Data.Repositories
 
         private bool Has(string ticker, PeriodType period, out string cacheFilePath)
         {
-            cacheFilePath = GetCsvFilePath(ticker, period);
+            cacheFilePath = GetFilePath(ticker, period);
 
             return File.Exists(cacheFilePath);
         }
@@ -60,14 +60,14 @@ namespace Data.Repositories
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(periodType);
 
-            if (!Has(ticker, periodType, out string csvFilePath))
+            if (!Has(ticker, periodType, out string filePath))
             {
                 throw new KeyNotFoundException($"No record for {nameof(ticker)} \"{ticker}\".");
             }
 
-            var csvLines = await File.ReadAllLinesAsync(csvFilePath);
+            var fileLines = await File.ReadAllLinesAsync(filePath);
 
-            return csvLines
+            return fileLines
                 .Select(line => JsonSerializer.Deserialize<PeriodReturn>(line))
                 .Where(pair =>
                     (firstPeriod == null || pair.PeriodStart >= firstPeriod) &&
@@ -86,19 +86,19 @@ namespace Data.Repositories
                 throw new ArgumentException("Cannot be empty.", nameof(returns));
             }
 
-            var csvFilePath = GetCsvFilePath(ticker, periodType);
-            var csvDirPath = Path.GetDirectoryName(csvFilePath);
+            var filePath = GetFilePath(ticker, periodType);
+            var dirPath = Path.GetDirectoryName(filePath);
 
-            if (!Directory.Exists(csvDirPath))
+            if (!Directory.Exists(dirPath))
             {
-                Directory.CreateDirectory(csvDirPath!);
+                Directory.CreateDirectory(dirPath!);
             }
 
-            var csvFileLines = returns.Select(returnPeriod => JsonSerializer.Serialize(returnPeriod));
+            var fileLines = returns.Select(returnPeriod => JsonSerializer.Serialize(returnPeriod));
 
             logger.LogInformation("{ticker}: Writing returns for period type {periodType}.", ticker, periodType);
 
-            return File.WriteAllLinesAsync(csvFilePath, csvFileLines);
+            return File.WriteAllLinesAsync(filePath, fileLines);
         }
 
         // TODO test
@@ -193,7 +193,7 @@ namespace Data.Repositories
             return yearlyReturns;
         }
 
-        private string GetCsvFilePath(string ticker, PeriodType period)
+        private string GetFilePath(string ticker, PeriodType period)
         {
             return Path.Combine(cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
         }
