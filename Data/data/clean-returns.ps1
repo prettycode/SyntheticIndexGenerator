@@ -8,7 +8,7 @@ $dirsToClean = @(
 
 foreach ($dir in $dirsToClean) {
     if (Test-Path $dir) {
-        if ($dir -like "*\returns\*") {
+        if ($dir -like "*\PeriodReturn\*") {
             # For returns directories, exclude files starting with "#"
             Get-ChildItem $dir -File | Where-Object { $_.Name -notlike "#*" } | Remove-Item -Force
         } else {
