@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="data\quotes\" />
     <Folder Include="data\returns\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
