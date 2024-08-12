@@ -195,7 +195,7 @@ namespace Data.Repositories
 
         private string GetFilePath(string ticker, PeriodType period)
         {
-            return Path.Combine(cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.csv");
+            return Path.Combine(cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.txt");
         }
     }
 }
