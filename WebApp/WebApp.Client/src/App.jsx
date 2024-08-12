@@ -17,12 +17,12 @@ function App() {
 
     const rebalanceOptions = [
         { name: 'None', value: 0 },
-        { name: 'Annually', value: 1 },
-        { name: 'Semi-Annually', value: 2 },
-        { name: 'Quarterly', value: 3 },
-        { name: 'Monthly', value: 4 },
-        { name: 'Weekly', value: 5 },
-        { name: 'Daily', value: 6 },
+        { name: 'Daily', value: 1 },
+        { name: 'Weekly', value: 2 },
+        { name: 'Monthly', value: 3 },
+        { name: 'Quarterly', value: 4 },
+        { name: 'Semi-Annually', value: 5 },
+        { name: 'Annually', value: 6 }
     ];
 
     const dailyPeriodOptionValue = periodOptions.find(option => option.name === 'Daily').value;

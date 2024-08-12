@@ -18,7 +18,12 @@ namespace Data.BackTest
 
             if (!portfolioConstituents.Any())
             {
-                throw new ArgumentException("Portfolio constituents cannot be empty", nameof(portfolioConstituents));
+                throw new ArgumentException("Portfolio constituents cannot be empty.", nameof(portfolioConstituents));
+            }
+
+            if (portfolioConstituents.Sum(constituent => constituent.Percentage) != 100)
+            {
+                throw new ArgumentException("Portfolio constituents percentages must add up to 100.", nameof(portfolioConstituents));
             }
 
             ArgumentOutOfRangeException.ThrowIfLessThan(startingBalance, 1, nameof(startingBalance));
@@ -35,6 +40,14 @@ namespace Data.BackTest
                 throw new ArgumentOutOfRangeException(
                     nameof(rebalanceBandThreshold),
                     $"Should be greater than 0 when rebalance strategy is {rebalanceStrategy}");
+            }
+
+            if (rebalanceStrategy != BackTestRebalanceStrategy.None &&
+                ((periodType >= PeriodType.Yearly && rebalanceStrategy < BackTestRebalanceStrategy.Annually) ||
+                periodType >= PeriodType.Monthly && rebalanceStrategy < BackTestRebalanceStrategy.Monthly))
+            {
+                throw new ArgumentOutOfRangeException(nameof(rebalanceStrategy),
+                    "Rebalance strategy cannot be more frequent than period type.");
             }
 
             lastPeriod ??= DateTime.MaxValue;
