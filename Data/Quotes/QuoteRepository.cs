@@ -87,50 +87,29 @@ namespace Data.Quotes
             return filteredQuote;
         }
 
-        public async Task<Quote> Append(Quote fundHistory)
+        public Task<Quote> Append(Quote fundHistory) => Put(fundHistory, true);
+
+        public Task<Quote> Replace(Quote fundHistory) => Put(fundHistory, false);
+
+        private async Task<Quote> Put(Quote fundHistory, bool append)
         {
-            ArgumentNullException.ThrowIfNull(fundHistory);
-
             var ticker = fundHistory.Ticker;
+            var operation = append ? "Appending" : "Replacing";
 
-            logger.LogInformation("{ticker}: Appending quotes.", ticker);
+            logger.LogInformation("{ticker}: {operation} quotes.", ticker, operation);
 
             await Task.WhenAll(
                 fundHistory.Dividends.Count == 0
                     ? Task.FromResult(0)
-                    : dividendsCache.Append(ticker, fundHistory.Dividends),
+                    : dividendsCache.Put(ticker, fundHistory.Dividends, append),
 
                 fundHistory.Prices.Count == 0
                     ? Task.FromResult(0)
-                    : pricesCache.Append(ticker, fundHistory.Prices),
+                    : pricesCache.Put(ticker, fundHistory.Prices, append),
 
                 fundHistory.Splits.Count == 0
                     ? Task.FromResult(0)
-                    : splitsCache.Append(ticker, fundHistory.Splits));
-
-            return fundHistory;
-        }
-
-        public async Task<Quote> Replace(Quote fundHistory)
-        {
-            ArgumentNullException.ThrowIfNull(fundHistory);
-
-            var ticker = fundHistory.Ticker;
-
-            logger.LogInformation("{ticker}: Replacing quotes.", ticker);
-
-            await Task.WhenAll(
-                fundHistory.Dividends.Count == 0
-                    ? Task.FromResult(0)
-                    : dividendsCache.Set(ticker, fundHistory.Dividends),
-
-                fundHistory.Prices.Count == 0
-                    ? Task.FromResult(0)
-                    : pricesCache.Set(ticker, fundHistory.Prices),
-
-                fundHistory.Splits.Count == 0
-                    ? Task.FromResult(0)
-                    : splitsCache.Set(ticker, fundHistory.Splits));
+                    : splitsCache.Put(ticker, fundHistory.Splits, append));
 
             return fundHistory;
         }

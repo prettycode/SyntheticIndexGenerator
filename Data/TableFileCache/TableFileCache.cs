@@ -64,6 +64,11 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         return memoryCache[cacheInstanceKey][key] = memoryCache[cacheInstanceKey][key].Concat(value);
     }
 
+    public Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append)
+        => !append
+            ? Set(key, value)
+            : Append(key, value);
+
     private async Task WriteToFileAsync(TKey key, IEnumerable<TValue> value)
     {
         var fullFilePath = GetCacheFilePath(key);
