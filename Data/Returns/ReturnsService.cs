@@ -3,8 +3,25 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Returns
 {
-    internal class ReturnsService(IQuotesService quotesService, IReturnRepository returnRepository, ILogger<ReturnsService> logger) : IReturnsService
+    internal class ReturnsService : IReturnsService
     {
+        private readonly IQuotesService quotesService;
+        private readonly IReturnRepository returnRepository;
+        private readonly ILogger<ReturnsService> logger;
+
+        public ReturnsService(IQuotesService quotesService, IReturnRepository returnRepository, ILogger<ReturnsService> logger)
+        {
+            ArgumentNullException.ThrowIfNull(nameof(quotesService));
+            ArgumentNullException.ThrowIfNull(nameof(returnRepository));
+            ArgumentNullException.ThrowIfNull(nameof(logger));
+
+            this.quotesService = quotesService;
+            this.returnRepository = returnRepository;
+            this.logger = logger;
+
+            PutSyntheticReturnsInReturnsRepository().ConfigureAwait(false);
+        }
+
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
             HashSet<string> tickers, bool skipRefresh = false)
         {
@@ -27,16 +44,23 @@ namespace Data.Returns
 
         public async Task PutSyntheticReturnsInReturnsRepository()
         {
-            var synReturnsByTicker = await Task.WhenAll(
-                returnRepository.GetSyntheticMonthlyReturns(),
-                returnRepository.GetSyntheticYearlyReturns()
-            );
+            var monthlyReturnsTask = returnRepository.GetSyntheticMonthlyReturns();
+            var yearlyReturnsTask = returnRepository.GetSyntheticYearlyReturns();
 
-            var (putMonthlyTask, putYearlyTask) = (
-                synReturnsByTicker[0].Select(r => returnRepository.Put(r.Key, r.Value, PeriodType.Monthly)),
-                synReturnsByTicker[1].Select(r => returnRepository.Put(r.Key, r.Value, PeriodType.Yearly)));
+            await Task.WhenAll(monthlyReturnsTask, yearlyReturnsTask);
 
-            await Task.WhenAll([.. putMonthlyTask, .. putYearlyTask]);
+            var synReturnsByTickerByPeriodType = new Dictionary<PeriodType, Dictionary<string, List<PeriodReturn>>>
+            {
+                { PeriodType.Monthly, monthlyReturnsTask.Result },
+                { PeriodType.Yearly, yearlyReturnsTask.Result }
+            };
+
+            var allPutTasks = synReturnsByTickerByPeriodType
+                .SelectMany(kvp => kvp.Value.Select(innerKvp =>
+                    returnRepository.Put(innerKvp.Key, innerKvp.Value, kvp.Key)))
+                .ToList();
+
+            await Task.WhenAll(allPutTasks);
         }
 
         public async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker, IEnumerable<QuotePrice> dailyPriceHistory)
