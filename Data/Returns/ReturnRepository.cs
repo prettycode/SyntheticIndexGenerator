@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using System.Text.Json;
+using Data.TableFileCache;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -13,6 +13,10 @@ namespace Data.Returns
 
         private readonly ILogger<ReturnRepository> logger;
 
+        private readonly TableFileCache<string, PeriodReturn> dailyCache;
+        private readonly TableFileCache<string, PeriodReturn> monthlyCache;
+        private readonly TableFileCache<string, PeriodReturn> yearlyCache;
+
         public ReturnRepository(IOptions<ReturnRepositorySettings> settings, ILogger<ReturnRepository> logger)
         {
             ArgumentNullException.ThrowIfNull(settings);
@@ -20,10 +24,9 @@ namespace Data.Returns
 
             cachePath = settings.Value.CacheDirPath;
 
-            if (!Directory.Exists(cachePath))
-            {
-                Directory.CreateDirectory(cachePath);
-            }
+            dailyCache = new(cachePath, PeriodType.Daily.ToString());
+            monthlyCache = new(cachePath, PeriodType.Monthly.ToString());
+            yearlyCache = new(cachePath, PeriodType.Yearly.ToString());
 
             syntheticReturnsFilePath = settings.Value.SyntheticReturnsFilePath;
 
@@ -35,20 +38,7 @@ namespace Data.Returns
             this.logger = logger;
         }
 
-        public bool Has(string ticker, PeriodType period)
-        {
-            ArgumentNullException.ThrowIfNull(ticker);
-            ArgumentNullException.ThrowIfNull(period);
-
-            return Has(ticker, period, out string _);
-        }
-
-        private bool Has(string ticker, PeriodType period, out string cacheFilePath)
-        {
-            cacheFilePath = GetFilePath(ticker, period);
-
-            return File.Exists(cacheFilePath);
-        }
+        public bool Has(string ticker, PeriodType periodType) => GetCache(periodType).Has(ticker);
 
         public async Task<List<PeriodReturn>> Get(
             string ticker,
@@ -59,22 +49,31 @@ namespace Data.Returns
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(periodType);
 
-            if (!Has(ticker, periodType, out string filePath))
+            var cache = GetCache(periodType);
+
+            if (!cache.Has(ticker))
             {
                 throw new KeyNotFoundException($"No record for {nameof(ticker)} \"{ticker}\".");
             }
 
-            var fileLines = await File.ReadAllLinesAsync(filePath);
+            var cacheRecords = await cache.Get(ticker);
 
-            return fileLines
-                .Select(line => JsonSerializer.Deserialize<PeriodReturn>(line))
+            return cacheRecords
                 .Where(pair =>
                     (firstPeriod == null || pair.PeriodStart >= firstPeriod) &&
                     (lastPeriod == null || pair.PeriodStart <= lastPeriod))
                 .ToList();
         }
 
-        public Task Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType periodType)
+        private TableFileCache<string, PeriodReturn> GetCache(PeriodType periodType) => periodType switch
+        {
+            PeriodType.Daily => dailyCache,
+            PeriodType.Monthly => monthlyCache,
+            PeriodType.Yearly => yearlyCache,
+            _ => throw new NotImplementedException()
+        };
+
+        public async Task Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType periodType)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             ArgumentNullException.ThrowIfNull(returns);
@@ -85,19 +84,11 @@ namespace Data.Returns
                 throw new ArgumentException("Cannot be empty.", nameof(returns));
             }
 
-            var filePath = GetFilePath(ticker, periodType);
-            var dirPath = Path.GetDirectoryName(filePath);
-
-            if (!Directory.Exists(dirPath))
-            {
-                Directory.CreateDirectory(dirPath!);
-            }
-
-            var fileLines = returns.Select(returnPeriod => JsonSerializer.Serialize(returnPeriod));
+            var cache = GetCache(periodType);
 
             logger.LogInformation("{ticker}: Writing returns for period type {periodType}.", ticker, periodType);
 
-            return File.WriteAllLinesAsync(filePath, fileLines);
+            await cache.Set(ticker, returns);
         }
 
         // TODO test
@@ -190,11 +181,6 @@ namespace Data.Returns
             var yearlyReturns = monthlyReturns.ToDictionary(pair => pair.Key, pair => CalculateYearlyFromMonthly(pair.Key, pair.Value));
 
             return yearlyReturns;
-        }
-
-        private string GetFilePath(string ticker, PeriodType period)
-        {
-            return Path.Combine(cachePath, $"./{period.ToString().ToLowerInvariant()}/{ticker}.txt");
         }
     }
 }

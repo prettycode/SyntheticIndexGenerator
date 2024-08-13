@@ -1,4 +1,4 @@
-﻿namespace Job
+﻿namespace DataRefreshJob
 {
     public class AppSettings
     {

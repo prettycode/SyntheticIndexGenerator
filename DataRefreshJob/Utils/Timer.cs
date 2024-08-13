@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Job.Utils
+namespace DataRefreshJob.Utils
 {
     public static class Timer
     {

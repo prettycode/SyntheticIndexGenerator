@@ -3,7 +3,7 @@ using Data.Returns;
 using Microsoft.AspNetCore.Mvc;
 using WebService.Controllers;
 
-namespace WebService.TestEndpointControllers
+namespace WebService.EndpointTestControllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
@@ -12,7 +12,7 @@ namespace WebService.TestEndpointControllers
         [HttpGet]
         public async Task TestAll([FromServices] BackTestController controller)
         {
-            var httpGetMethods = this.GetType().GetMethods()
+            var httpGetMethods = GetType().GetMethods()
                 .Where(m => m.GetCustomAttributes(typeof(HttpGetAttribute), false).Length > 0)
                 .Where(m => m.ReturnType == typeof(Task<BackTest>))
                 .Where(m => m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType == typeof(BackTestController))

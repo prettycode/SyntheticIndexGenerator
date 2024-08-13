@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp.Server", "WebApp\Web
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "WebApp.Client", "WebApp\WebApp.Client\WebApp.Client.esproj", "{59F52663-0251-4243-A9DE-93BE4606F013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableFileCache", "TableFileCache\TableFileCache.csproj", "{7B459D66-C0ED-491E-B35E-E4AAB76A77CF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,10 +41,6 @@ Global
 		{59F52663-0251-4243-A9DE-93BE4606F013}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59F52663-0251-4243-A9DE-93BE4606F013}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59F52663-0251-4243-A9DE-93BE4606F013}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{7B459D66-C0ED-491E-B35E-E4AAB76A77CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B459D66-C0ED-491E-B35E-E4AAB76A77CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B459D66-C0ED-491E-B35E-E4AAB76A77CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B459D66-C0ED-491E-B35E-E4AAB76A77CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
