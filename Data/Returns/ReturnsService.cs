@@ -8,6 +8,7 @@ namespace Data.Returns
         private readonly IQuotesService quotesService;
         private readonly IReturnRepository returnRepository;
         private readonly ILogger<ReturnsService> logger;
+        private static bool havePutSyntheticReturnsInReturnsRepository = false;
 
         public ReturnsService(IQuotesService quotesService, IReturnRepository returnRepository, ILogger<ReturnsService> logger)
         {
@@ -19,7 +20,13 @@ namespace Data.Returns
             this.returnRepository = returnRepository;
             this.logger = logger;
 
-            PutSyntheticReturnsInReturnsRepository().ConfigureAwait(false);
+            logger.LogInformation("Synthetic returns have already been put in the returns repository: {syntheticsDone}",
+                havePutSyntheticReturnsInReturnsRepository.ToString().ToLower());
+
+            if (!havePutSyntheticReturnsInReturnsRepository)
+            {
+                PutSyntheticReturnsInReturnsRepository().Wait();
+            }
         }
 
         public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
@@ -46,21 +53,36 @@ namespace Data.Returns
         {
             var monthlyReturnsTask = returnRepository.GetSyntheticMonthlyReturns();
             var yearlyReturnsTask = returnRepository.GetSyntheticYearlyReturns();
+            var allPutTasks = new List<Task>();
+
+
+            logger.LogInformation("Getting synthetic monthly and yearly returns...");
 
             await Task.WhenAll(monthlyReturnsTask, yearlyReturnsTask);
 
-            var synReturnsByTickerByPeriodType = new Dictionary<PeriodType, Dictionary<string, List<PeriodReturn>>>
-            {
-                { PeriodType.Monthly, monthlyReturnsTask.Result },
-                { PeriodType.Yearly, yearlyReturnsTask.Result }
-            };
+            logger.LogInformation("Got synthetic monthly and yearly returns. Adding to returns repository...");
 
-            var allPutTasks = synReturnsByTickerByPeriodType
-                .SelectMany(kvp => kvp.Value.Select(innerKvp =>
-                    returnRepository.Put(innerKvp.Key, innerKvp.Value, kvp.Key)))
-                .ToList();
+            foreach (var (ticker, returns) in monthlyReturnsTask.Result)
+            {
+                if (!returnRepository.Has(ticker, PeriodType.Monthly))
+                {
+                    allPutTasks.Add(returnRepository.Put(ticker, returns, PeriodType.Monthly));
+                }
+            }
+
+            foreach (var (ticker, returns) in yearlyReturnsTask.Result)
+            {
+                if (!returnRepository.Has(ticker, PeriodType.Yearly))
+                {
+                    allPutTasks.Add(returnRepository.Put(ticker, returns, PeriodType.Yearly));
+                }
+            }
 
             await Task.WhenAll(allPutTasks);
+
+            logger.LogInformation("Synthetic monthly and yearly returns added to repository.");
+
+            havePutSyntheticReturnsInReturnsRepository = true;
         }
 
         public async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker, IEnumerable<QuotePrice> dailyPriceHistory)

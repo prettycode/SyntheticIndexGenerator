@@ -5,6 +5,8 @@ namespace Data.TableFileCache;
 
 public class TableFileCache<TKey, TValue> where TKey : notnull
 {
+    // TODO cache invalidation/expired entry and expungement
+
     private const string CACHE_FILE_EXTENSION = "txt";
 
     private readonly string cacheRootPath;

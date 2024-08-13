@@ -90,7 +90,6 @@ namespace Data.Returns
             await cache.Set(ticker, returns);
         }
 
-        // TODO test
         public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticMonthlyReturns()
         {
             var columnIndexToCategory = new Dictionary<int, string>
@@ -142,7 +141,6 @@ namespace Data.Returns
             return returns;
         }
 
-        // TODO test
         public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticYearlyReturns()
         {
             static List<PeriodReturn> CalculateYearlyFromMonthly(string ticker, List<PeriodReturn> monthlyReturns)
