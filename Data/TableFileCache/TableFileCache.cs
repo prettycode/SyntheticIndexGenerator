@@ -14,13 +14,12 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private static readonly ConcurrentDictionary<string, ConcurrentDictionary<TKey, IEnumerable<TValue>>> memoryCache = [];
 
-    public TableFileCache(string cacheRootPath, string cacheNamespace)
+    public TableFileCache(string cacheRootPath, string? cacheNamespace = null)
     {
         ArgumentException.ThrowIfNullOrEmpty(cacheRootPath);
-        ArgumentException.ThrowIfNullOrEmpty(cacheNamespace);
 
         this.cacheRootPath = cacheRootPath;
-        this.cacheNamespace = cacheNamespace;
+        this.cacheNamespace = cacheNamespace ?? String.Empty;
         cacheInstanceKey = cacheRootPath + cacheNamespace;
 
         memoryCache[cacheInstanceKey] = [];

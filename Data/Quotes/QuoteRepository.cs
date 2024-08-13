@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Text.Json;
+using Data.Returns;
+using Data.TableFileCache;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -7,49 +9,27 @@ namespace Data.Quotes
 {
     internal class QuoteRepository : IQuoteRepository
     {
-        private enum CacheType
-        {
-            Dividend,
-            Price,
-            Split
-        }
+        private readonly TableFileCache<string, QuoteDividend> dividendsCache;
+        private readonly TableFileCache<string, QuotePrice> pricesCache;
+        private readonly TableFileCache<string, QuoteSplit> splitsCache;
 
         private readonly ILogger<QuoteRepository> logger;
-
-        private readonly string cachePath;
 
         public QuoteRepository(IOptions<QuoteRepositorySettings> settings, ILogger<QuoteRepository> logger)
         {
             ArgumentNullException.ThrowIfNull(settings);
 
-            cachePath = settings.Value.CacheDirPath;
+            var cachePath = settings?.Value?.CacheDirPath ??
+                throw new ArgumentNullException($"{nameof(settings.Value.CacheDirPath)}");
 
-            if (!Directory.Exists(cachePath))
-            {
-                Directory.CreateDirectory(cachePath);
-            }
+            dividendsCache = new(cachePath);
+            pricesCache = new(cachePath);
+            splitsCache = new(cachePath);
 
             this.logger = logger;
         }
 
-        public IEnumerable<string> GetAllTickers()
-        {
-            var cacheFilePath = GetCacheFilePath("*", CacheType.Price);
-            var dirNameOnly = Path.GetDirectoryName(cacheFilePath);
-            var fileNameOnly = Path.GetFileName(cacheFilePath);
-            var matchingFiles = Directory.GetFiles(dirNameOnly!, fileNameOnly);
-
-            return matchingFiles.Select(file => Path.GetFileNameWithoutExtension(file));
-        }
-
-        public bool Has(string ticker)
-        {
-            ArgumentNullException.ThrowIfNull(ticker);
-
-            ReadOnlyDictionary<CacheType, string> cacheFilePaths = GetCacheFilePaths(ticker);
-
-            return File.Exists(cacheFilePaths[CacheType.Price]);
-        }
+        public bool Has(string ticker) => pricesCache.Has(ticker);
 
         private async Task<Quote> Get(string ticker)
         {
@@ -60,17 +40,19 @@ namespace Data.Quotes
                 throw new KeyNotFoundException($"No record for {nameof(ticker)} \"{ticker}\".");
             }
 
-            var rawCacheContent = await Task.WhenAll([
-                GetRawCacheContent(ticker, CacheType.Dividend),
-                GetRawCacheContent(ticker, CacheType.Price),
-                GetRawCacheContent(ticker, CacheType.Split)
-            ]);
-
             var history = new Quote(ticker)
             {
-                Dividends = rawCacheContent[0].Select(line => JsonSerializer.Deserialize<QuoteDividend>(line)).ToList(),
-                Prices = rawCacheContent[1].Select(line => JsonSerializer.Deserialize<QuotePrice>(line)).ToList(),
-                Splits = rawCacheContent[2].Select(line => JsonSerializer.Deserialize<QuoteSplit>(line)).ToList()
+                Dividends = dividendsCache.Has(ticker)
+                    ? (await dividendsCache.Get(ticker)).ToList()
+                    : Enumerable.Empty<QuoteDividend>().ToList(),
+
+                Prices = pricesCache.Has(ticker)
+                    ? (await pricesCache.Get(ticker)).ToList()
+                    : Enumerable.Empty<QuotePrice>().ToList(),
+
+                Splits = splitsCache.Has(ticker)
+                    ? (await splitsCache.Get(ticker)).ToList()
+                    : Enumerable.Empty<QuoteSplit>().ToList(),
             };
 
             Inspect(history);
@@ -105,73 +87,36 @@ namespace Data.Quotes
             return filteredQuote;
         }
 
-        public Task<Quote> Append(Quote fundHistory) =>
-            Put(fundHistory, (path, lines) => File.AppendAllLinesAsync(path, lines))
-                .ContinueWith(_ => Get(fundHistory.Ticker))
-                .Unwrap();
-
-        public Task<Quote> Replace(Quote fundHistory) =>
-            Put(fundHistory, (path, lines) => File.WriteAllLinesAsync(path, lines)).ContinueWith(_ => fundHistory);
-
-        private async Task Put(Quote fundHistory, Func<string, IEnumerable<string>, Task> fileOperation)
+        public async Task<Quote> Append(Quote fundHistory)
         {
             ArgumentNullException.ThrowIfNull(fundHistory);
 
-            Inspect(fundHistory);
+            var ticker = fundHistory.Ticker;
 
-            ReadOnlyDictionary<CacheType, string> cacheFilePaths = GetCacheFilePaths(fundHistory.Ticker);
+            logger.LogInformation("{ticker}: Appending quotes.", ticker);
 
-            foreach (var cacheType in Enum.GetValues<CacheType>())
-            {
-                var cacheFilePath = Path.GetDirectoryName(cacheFilePaths[cacheType]);
+            await Task.WhenAll(
+                dividendsCache.Append(ticker, fundHistory.Dividends),
+                pricesCache.Append(ticker, fundHistory.Prices),
+                splitsCache.Append(ticker, fundHistory.Splits));
 
-                if (!Directory.Exists(cacheFilePath))
-                {
-                    Directory.CreateDirectory(cacheFilePath!);
-                }
-            }
-
-            var serializedDividends = fundHistory.Dividends.Select(div => JsonSerializer.Serialize(div));
-            var serializedPrices = fundHistory.Prices.Select(price => JsonSerializer.Serialize(price));
-            var serializedSplits = fundHistory.Splits.Select(split => JsonSerializer.Serialize(split));
-
-            logger.LogInformation("{ticker}: Appending or replace quotes.", fundHistory.Ticker);
-
-            await Task.WhenAll([
-                !serializedDividends.Any()
-                    ? Task.FromResult(0)
-                    : fileOperation(cacheFilePaths[CacheType.Dividend], serializedDividends),
-                !serializedPrices.Any()
-                    ? Task.FromResult(0)
-                    : fileOperation(cacheFilePaths[CacheType.Price], serializedPrices),
-                !serializedSplits.Any()
-                    ? Task.FromResult(0)
-                    : fileOperation(cacheFilePaths[CacheType.Split], serializedSplits)
-            ]);
+            return fundHistory;
         }
 
-        private ReadOnlyDictionary<CacheType, string> GetCacheFilePaths(string ticker) => new(new Dictionary<CacheType, string>()
+        public async Task<Quote> Replace(Quote fundHistory)
         {
-            [CacheType.Dividend] = GetCacheFilePath(ticker, CacheType.Dividend),
-            [CacheType.Price] = GetCacheFilePath(ticker, CacheType.Price),
-            [CacheType.Split] = GetCacheFilePath(ticker, CacheType.Split),
-        });
+            ArgumentNullException.ThrowIfNull(fundHistory);
 
-        private string GetCacheFilePath(string ticker, CacheType cacheType) => cacheType switch
-        {
-            CacheType.Dividend => Path.Combine(cachePath, $"./dividend/{ticker}.txt"),
-            CacheType.Price => Path.Combine(cachePath, $"./price/{ticker}.txt"),
-            CacheType.Split => Path.Combine(cachePath, $"./split/{ticker}.txt"),
-            _ => throw new NotImplementedException(),
-        };
+            var ticker = fundHistory.Ticker;
 
-        private Task<string[]> GetRawCacheContent(string ticker, CacheType cacheType)
-        {
-            var filePath = GetCacheFilePath(ticker, cacheType);
+            logger.LogInformation("{ticker}: Replacing quotes.", ticker);
 
-            return File.Exists(filePath)
-                ? File.ReadAllLinesAsync(filePath)
-                : Task.FromResult(Array.Empty<string>());
+            await Task.WhenAll(
+                dividendsCache.Set(ticker, fundHistory.Dividends),
+                pricesCache.Set(ticker, fundHistory.Prices),
+                splitsCache.Set(ticker, fundHistory.Splits));
+
+            return fundHistory;
         }
 
         private void Inspect(Quote fundHistory)
