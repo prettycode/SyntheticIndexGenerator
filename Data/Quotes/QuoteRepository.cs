@@ -96,9 +96,17 @@ namespace Data.Quotes
             logger.LogInformation("{ticker}: Appending quotes.", ticker);
 
             await Task.WhenAll(
-                dividendsCache.Append(ticker, fundHistory.Dividends),
-                pricesCache.Append(ticker, fundHistory.Prices),
-                splitsCache.Append(ticker, fundHistory.Splits));
+                fundHistory.Dividends.Count == 0
+                    ? Task.FromResult(0)
+                    : dividendsCache.Append(ticker, fundHistory.Dividends),
+
+                fundHistory.Prices.Count == 0
+                    ? Task.FromResult(0)
+                    : pricesCache.Append(ticker, fundHistory.Prices),
+
+                fundHistory.Splits.Count == 0
+                    ? Task.FromResult(0)
+                    : splitsCache.Append(ticker, fundHistory.Splits));
 
             return fundHistory;
         }
@@ -112,9 +120,17 @@ namespace Data.Quotes
             logger.LogInformation("{ticker}: Replacing quotes.", ticker);
 
             await Task.WhenAll(
-                dividendsCache.Set(ticker, fundHistory.Dividends),
-                pricesCache.Set(ticker, fundHistory.Prices),
-                splitsCache.Set(ticker, fundHistory.Splits));
+                fundHistory.Dividends.Count == 0
+                    ? Task.FromResult(0)
+                    : dividendsCache.Set(ticker, fundHistory.Dividends),
+
+                fundHistory.Prices.Count == 0
+                    ? Task.FromResult(0)
+                    : pricesCache.Set(ticker, fundHistory.Prices),
+
+                fundHistory.Splits.Count == 0
+                    ? Task.FromResult(0)
+                    : splitsCache.Set(ticker, fundHistory.Splits));
 
             return fundHistory;
         }
