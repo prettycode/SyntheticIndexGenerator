@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="data\quotes\" />
+    <Folder Include="data\Quote\" />
     <Folder Include="data\PeriodReturn\" />
   </ItemGroup>
 
