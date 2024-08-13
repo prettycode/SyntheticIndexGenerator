@@ -174,26 +174,37 @@ namespace Data.Quotes
                 : Task.FromResult(Array.Empty<string>());
         }
 
-        private List<Exception> Inspect(Quote fundHistory)
+        private void Inspect(Quote fundHistory)
         {
-            var exceptions = new List<Exception>();
             var previousDateTime = DateTime.MinValue;
 
             foreach (var div in fundHistory.Dividends)
             {
                 if (div.Dividend == 0)
                 {
-                    exceptions.Add(new($"Zero-dollar {nameof(div.Dividend)} in {nameof(fundHistory.Dividends)} on {div.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(div.Dividend),
+                        nameof(fundHistory.Dividends),
+                        div.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (div.DateTime == default)
                 {
-                    exceptions.Add(new($"Invalid {nameof(div.DateTime)} in {nameof(fundHistory.Dividends)} on {div.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Invalid {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(div.DateTime),
+                        nameof(fundHistory.Dividends),
+                        div.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (div.DateTime <= previousDateTime)
                 {
-                    exceptions.Add(new($"Non-chronological {nameof(div.DateTime)} in {nameof(fundHistory.Dividends)} on {div.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Non-chronological {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(div.DateTime),
+                        nameof(fundHistory.Dividends),
+                        div.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 previousDateTime = div.DateTime;
@@ -205,53 +216,82 @@ namespace Data.Quotes
             {
                 if (price.Open == 0)
                 {
-                    exceptions.Add(new($"Zero-dollar {nameof(price.Open)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(price.Open),
+                        nameof(fundHistory.Prices),
+                        price.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (price.Close == 0)
                 {
-                    exceptions.Add(new($"Zero-dollar {nameof(price.Close)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(price.Close),
+                        nameof(fundHistory.Prices),
+                        price.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (price.AdjustedClose == 0)
                 {
-                    exceptions.Add(new($"Zero-dollar {nameof(price.AdjustedClose)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(price.AdjustedClose),
+                        nameof(fundHistory.Prices),
+                        price.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (price.High == 0)
                 {
-                    exceptions.Add(new($"Zero-dollar {nameof(price.High)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(price.High),
+                        nameof(fundHistory.Prices),
+                        price.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (price.Low == 0)
                 {
-                    exceptions.Add(new($"Zero-dollar {nameof(price.Low)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(price.Low),
+                        nameof(fundHistory.Prices),
+                        price.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (price.DateTime == default)
                 {
-                    exceptions.Add(new($"Invalid {nameof(price.DateTime)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Invalid {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(price.DateTime),
+                        nameof(fundHistory.Prices),
+                        price.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (price.DateTime <= previousDateTime)
                 {
-                    exceptions.Add(new($"Non-chronological {nameof(price.DateTime)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Non-chronological {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(price.DateTime),
+                        nameof(fundHistory.Prices),
+                        price.DateTime,
+                        fundHistory.Ticker);
                 }
-
-                // Check volume later
 
                 previousDateTime = price.DateTime;
             }
 
             // Check volume of non-mutual funds
-
             if (fundHistory.Prices.Any(tick => tick.Volume != 0))
             {
                 foreach (var price in fundHistory.Prices)
                 {
                     if (price.Volume == 0)
                     {
-                        exceptions.Add(new($"Zero {nameof(price.Volume)} in {nameof(fundHistory.Prices)} on {price.DateTime:yyyy-MM-dd}"));
+                        logger.LogWarning("Zero {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                            nameof(price.Volume),
+                            nameof(fundHistory.Prices),
+                            price.DateTime,
+                            fundHistory.Ticker);
                     }
                 }
             }
@@ -262,33 +302,42 @@ namespace Data.Quotes
             {
                 if (split.BeforeSplit == 0)
                 {
-                    exceptions.Add(new($"Zero-dollar {nameof(split.BeforeSplit)} in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(split.BeforeSplit),
+                        nameof(fundHistory.Splits),
+                        split.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (split.AfterSplit == 0)
                 {
-                    exceptions.Add(new($"Zero-dollar {nameof(split.AfterSplit)} in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(split.AfterSplit),
+                        nameof(fundHistory.Splits),
+                        split.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (split.DateTime == default)
                 {
-                    exceptions.Add(new($"Invalid {nameof(split.DateTime)} in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Invalid {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(split.DateTime),
+                        nameof(fundHistory.Splits),
+                        split.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 if (split.DateTime <= previousDateTime)
                 {
-                    exceptions.Add(new($"Non-chronological {nameof(split.DateTime)} in {nameof(fundHistory.Splits)} on {split.DateTime:yyyy-MM-dd}"));
+                    logger.LogWarning("Non-chronological {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                        nameof(split.DateTime),
+                        nameof(fundHistory.Splits),
+                        split.DateTime,
+                        fundHistory.Ticker);
                 }
 
                 previousDateTime = split.DateTime;
             }
-
-            foreach (var ex in exceptions)
-            {
-                logger.LogWarning(ex, "{ticker}", fundHistory.Ticker);
-            }
-
-            return exceptions;
         }
 
     }
