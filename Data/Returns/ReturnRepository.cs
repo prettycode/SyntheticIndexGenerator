@@ -24,9 +24,9 @@ namespace Data.Returns
 
             cachePath = settings.Value.CacheDirPath;
 
-            dailyCache = new(cachePath, PeriodType.Daily.ToString());
-            monthlyCache = new(cachePath, PeriodType.Monthly.ToString());
-            yearlyCache = new(cachePath, PeriodType.Yearly.ToString());
+            dailyCache = new(cachePath, $"{PeriodType.Daily}");
+            monthlyCache = new(cachePath, $"{PeriodType.Monthly}");
+            yearlyCache = new(cachePath, $"{PeriodType.Yearly}");
 
             syntheticReturnsFilePath = settings.Value.SyntheticReturnsFilePath;
 
