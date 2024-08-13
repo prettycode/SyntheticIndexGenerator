@@ -7,7 +7,6 @@ namespace Data.Returns
 {
     internal class ReturnRepository : IReturnRepository
     {
-        private readonly string cachePath;
         private readonly string syntheticReturnsFilePath;
 
         private readonly TableFileCache<string, PeriodReturn> dailyCache;
@@ -18,15 +17,17 @@ namespace Data.Returns
 
         public ReturnRepository(IOptions<ReturnRepositorySettings> settings, ILogger<ReturnRepository> logger)
         {
-            ArgumentNullException.ThrowIfNull(settings);
             ArgumentNullException.ThrowIfNull(logger);
 
-            cachePath = settings.Value.CacheDirPath;
-            syntheticReturnsFilePath = settings.Value.SyntheticReturnsFilePath;
+            var cachePath = settings?.Value?.CacheDirPath ??
+                throw new ArgumentNullException($"{nameof(settings.Value.CacheDirPath)}");
 
             dailyCache = new(cachePath, $"{PeriodType.Daily}");
             monthlyCache = new(cachePath, $"{PeriodType.Monthly}");
             yearlyCache = new(cachePath, $"{PeriodType.Yearly}");
+
+            syntheticReturnsFilePath = settings.Value.SyntheticReturnsFilePath ??
+                throw new ArgumentNullException($"{nameof(settings.Value.SyntheticReturnsFilePath)}");
 
             if (!File.Exists(syntheticReturnsFilePath))
             {
