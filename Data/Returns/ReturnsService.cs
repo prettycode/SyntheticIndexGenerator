@@ -31,7 +31,7 @@ namespace Data.Returns
                 .ToAsyncEnumerable()
                 .ToDictionaryAwaitAsync(
                     keySelector: pair => ValueTask.FromResult(pair.Key),
-                    elementSelector: async pair => await GetReturns(pair.Key, pair.Value)
+                    elementSelector: async pair => await GetReturnsByPeriodType(pair.Key, pair.Value)
                 );
         }
 
@@ -40,34 +40,18 @@ namespace Data.Returns
             return returnRepository.Get(ticker, period, startDate, endDate);
         }
 
-        private async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker, IEnumerable<QuotePrice> dailyPriceHistory)
+        private async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturnsByPeriodType(string ticker, IEnumerable<QuotePrice> dailyPriceHistory)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             var periodTypes = Enum.GetValues<PeriodType>();
 
             return await periodTypes
                 .ToAsyncEnumerable()
-                .SelectAwait(async periodType => (periodType, returns: await GetReturns(ticker, dailyPriceHistory, periodType)))
+                .SelectAwait(async periodType => (periodType, returns: await GetReturnsForPeriodType(ticker, dailyPriceHistory, periodType)))
                 .ToDictionaryAsync(pair => pair.periodType, pair => pair.returns);
         }
 
-        private async Task<PeriodReturn[]> GetReturns(string ticker, IEnumerable<QuotePrice> dailyPriceHistory, PeriodType periodType)
-        {
-            var returns = GetPeriodReturns(ticker, dailyPriceHistory.ToList(), periodType);
-
-            if (returns.Count == 0)
-            {
-                logger.LogWarning("{ticker} has no computable return history for {periodType}", ticker, periodType);
-            }
-            else
-            {
-                await returnRepository.Put(ticker, returns, periodType);
-            }
-
-            return [.. returns];
-        }
-
-        private static List<PeriodReturn> GetPeriodReturns(string ticker, IEnumerable<QuotePrice> dailyPrices, PeriodType periodType)
+        private async Task<PeriodReturn[]> GetReturnsForPeriodType(string ticker, IEnumerable<QuotePrice> dailyPrices, PeriodType periodType)
         {
             var groupedPrices = periodType switch
             {
@@ -79,13 +63,25 @@ namespace Data.Returns
 
             var periodReturns = CalculateReturns(ticker, groupedPrices, periodType);
 
-            return periodType switch
+            var returnsForPeriodType = periodType switch
             {
                 PeriodType.Daily => periodReturns,
                 PeriodType.Monthly => GetPeriodOnlyReturns(periodReturns, d => new DateTime(d.Year, d.Month, 1)),
                 PeriodType.Yearly => GetPeriodOnlyReturns(periodReturns, d => new DateTime(d.Year, 1, 1)),
                 _ => throw new NotImplementedException()
             };
+
+            if (returnsForPeriodType.Count == 0)
+            {
+                logger.LogWarning("{ticker} has no computable return history for {periodType}", ticker, periodType);
+            }
+            else
+            {
+                await returnRepository.Put(ticker, returnsForPeriodType, periodType);
+            }
+
+            return [.. returnsForPeriodType];
+
         }
 
         private static List<PeriodReturn> GetPeriodOnlyReturns(List<PeriodReturn> returns, Func<DateTime, DateTime> adjustDate)
