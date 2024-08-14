@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Text.Json;
-using Data.Returns;
-using Data.TableFileCache;
+﻿using Data.TableFileCache;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -221,6 +218,7 @@ namespace Data.Quotes
             }
 
             // Check volume of non-mutual funds
+
             if (fundHistory.Prices.Any(tick => tick.Volume != 0))
             {
                 foreach (var price in fundHistory.Prices)

@@ -8,6 +8,7 @@ namespace Data.Returns
     internal class ReturnRepository : IReturnRepository
     {
         private readonly string syntheticReturnsFilePath;
+        private static bool havePutSyntheticsInRepository = false;
 
         private readonly TableFileCache<string, PeriodReturn> dailyCache;
         private readonly TableFileCache<string, PeriodReturn> monthlyCache;
@@ -35,6 +36,15 @@ namespace Data.Returns
             }
 
             this.logger = logger;
+
+            logger.LogInformation("Synthetic returns have been put in repository: {syntheticsLoaded}",
+                havePutSyntheticsInRepository.ToString().ToLower());
+
+            if (!havePutSyntheticsInRepository)
+            {
+                PutSyntheticsInRepository().Wait();
+                havePutSyntheticsInRepository = true;
+            }
         }
 
         public bool Has(string ticker, PeriodType periodType) => GetCache(periodType).Has(ticker);
@@ -90,7 +100,40 @@ namespace Data.Returns
             await cache.Set(ticker, returns);
         }
 
-        public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticMonthlyReturns()
+        private async Task PutSyntheticsInRepository()
+        {
+            var monthlyReturnsTask = CreateSyntheticMonthlyReturns();
+            var yearlyReturnsTask = CreateSyntheticYearlyReturns();
+            var allPutTasks = new List<Task>();
+
+            logger.LogInformation("Getting synthetic monthly and yearly returns...");
+
+            await Task.WhenAll(monthlyReturnsTask, yearlyReturnsTask);
+
+            logger.LogInformation("Got synthetic monthly and yearly returns. Adding to returns repository...");
+
+            foreach (var (ticker, returns) in monthlyReturnsTask.Result)
+            {
+                if (!Has(ticker, PeriodType.Monthly))
+                {
+                    allPutTasks.Add(Put(ticker, returns, PeriodType.Monthly));
+                }
+            }
+
+            foreach (var (ticker, returns) in yearlyReturnsTask.Result)
+            {
+                if (!Has(ticker, PeriodType.Yearly))
+                {
+                    allPutTasks.Add(Put(ticker, returns, PeriodType.Yearly));
+                }
+            }
+
+            await Task.WhenAll(allPutTasks);
+
+            logger.LogInformation("Synthetic monthly and yearly returns added to repository.");
+        }
+
+        private async Task<Dictionary<string, List<PeriodReturn>>> CreateSyntheticMonthlyReturns()
         {
             var columnIndexToCategory = new Dictionary<int, string>
             {
@@ -141,7 +184,7 @@ namespace Data.Returns
             return returns;
         }
 
-        public async Task<Dictionary<string, List<PeriodReturn>>> GetSyntheticYearlyReturns()
+        private async Task<Dictionary<string, List<PeriodReturn>>> CreateSyntheticYearlyReturns()
         {
             static List<PeriodReturn> CalculateYearlyFromMonthly(string ticker, List<PeriodReturn> monthlyReturns)
             {
@@ -174,7 +217,7 @@ namespace Data.Returns
                 return result;
             }
 
-            var monthlyReturns = await GetSyntheticMonthlyReturns();
+            var monthlyReturns = await CreateSyntheticMonthlyReturns();
             var yearlyReturns = monthlyReturns.ToDictionary(pair => pair.Key, pair => CalculateYearlyFromMonthly(pair.Key, pair.Value));
 
             return yearlyReturns;
