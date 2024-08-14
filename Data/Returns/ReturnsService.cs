@@ -40,7 +40,7 @@ namespace Data.Returns
             return returnRepository.Get(ticker, period, startDate, endDate);
         }
 
-        public async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker, IEnumerable<QuotePrice> dailyPriceHistory)
+        private async Task<Dictionary<PeriodType, PeriodReturn[]>> GetReturns(string ticker, IEnumerable<QuotePrice> dailyPriceHistory)
         {
             ArgumentNullException.ThrowIfNull(ticker);
             var periodTypes = Enum.GetValues<PeriodType>();
