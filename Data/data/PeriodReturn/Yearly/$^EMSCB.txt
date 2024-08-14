@@ -23,4 +23,4 @@
 {"Ticker":"DEMSX","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":14.603459002115217120816224960,"PeriodType":2}
 {"Ticker":"DEMSX","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-15.293550530471148709975810690,"PeriodType":2}
 {"Ticker":"DEMSX","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":16.314707435491230498690086180,"PeriodType":2}
-{"Ticker":"AVEE","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":2.0013465524297350460072080200,"PeriodType":2}
+{"Ticker":"AVEE","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":3.2696329795961474267458504900,"PeriodType":2}

@@ -1,3 +1,3 @@
 {"Ticker":"AVLV","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-5.5307422573478755602343889100,"PeriodType":2}
 {"Ticker":"AVLV","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":17.423305091689746152963733800,"PeriodType":2}
-{"Ticker":"AVLV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":7.8637807624606828407094621100,"PeriodType":2}
+{"Ticker":"AVLV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":8.474363380394715494667869220,"PeriodType":2}

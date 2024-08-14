@@ -8326,3 +8326,5 @@
 {"Ticker":"DFALX","PeriodStart":"2024-08-07T00:00:00","ReturnPercentage":0.2259887005649717514124293800,"PeriodType":0}
 {"Ticker":"DFALX","PeriodStart":"2024-08-08T00:00:00","ReturnPercentage":1.6535137166478767380683953400,"PeriodType":0}
 {"Ticker":"DFALX","PeriodStart":"2024-08-09T00:00:00","ReturnPercentage":0.2957486136783733826247689500,"PeriodType":0}
+{"Ticker":"DFALX","PeriodStart":"2024-08-12T00:00:00","ReturnPercentage":0,"PeriodType":0}
+{"Ticker":"DFALX","PeriodStart":"2024-08-13T00:00:00","ReturnPercentage":1.6218208625138223368964246200,"PeriodType":0}

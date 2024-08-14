@@ -95,4 +95,4 @@
 {"Ticker":"VMVAX","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":28.763914632394420482058577230,"PeriodType":2}
 {"Ticker":"VMVAX","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-7.8925205479824813227989066500,"PeriodType":2}
 {"Ticker":"VMVAX","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":9.727051691487758834112777670,"PeriodType":2}
-{"Ticker":"AVMV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":6.850697322426033370571912500,"PeriodType":2}
+{"Ticker":"AVMV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":7.2290893365526685646329597500,"PeriodType":2}

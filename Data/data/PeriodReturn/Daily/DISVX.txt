@@ -7452,3 +7452,5 @@
 {"Ticker":"DISVX","PeriodStart":"2024-08-07T00:00:00","ReturnPercentage":0,"PeriodType":0}
 {"Ticker":"DISVX","PeriodStart":"2024-08-08T00:00:00","ReturnPercentage":1.0531135531135531135531135500,"PeriodType":0}
 {"Ticker":"DISVX","PeriodStart":"2024-08-09T00:00:00","ReturnPercentage":0.7702763932940643407340280900,"PeriodType":0}
+{"Ticker":"DISVX","PeriodStart":"2024-08-12T00:00:00","ReturnPercentage":0.449640287769784172661870500,"PeriodType":0}
+{"Ticker":"DISVX","PeriodStart":"2024-08-13T00:00:00","ReturnPercentage":1.3876454789615040286481647300,"PeriodType":0}

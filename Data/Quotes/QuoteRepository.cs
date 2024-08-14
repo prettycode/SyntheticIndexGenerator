@@ -108,7 +108,9 @@ namespace Data.Quotes
                     ? Task.FromResult(0)
                     : splitsCache.Put(ticker, fundHistory.Splits, append));
 
-            return fundHistory;
+            return !append
+                ? fundHistory
+                : await Get(ticker);
         }
 
         private void Inspect(Quote fundHistory)

@@ -11,4 +11,4 @@
 {"Ticker":"VOO","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":28.794460254034923204667064750,"PeriodType":2}
 {"Ticker":"VOO","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-18.174016650183891543895603640,"PeriodType":2}
 {"Ticker":"VOO","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":26.323871572235885899832027510,"PeriodType":2}
-{"Ticker":"VOO","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":12.898638310858248155733831930,"PeriodType":2}
+{"Ticker":"VOO","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":14.832449864955877288939104990,"PeriodType":2}
