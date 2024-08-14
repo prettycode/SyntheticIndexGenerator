@@ -11,6 +11,7 @@ namespace Data.BackTest
             DateTime firstPeriod = default,
             DateTime? lastPeriod = null,
             BackTestRebalanceStrategy rebalanceStrategy = BackTestRebalanceStrategy.None,
-            decimal? rebalanceBandThreshold = null);
+            decimal? rebalanceBandThreshold = null,
+            bool includeIncompleteEndingPeriod = true);
     }
 }

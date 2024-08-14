@@ -12,7 +12,8 @@ namespace Data.BackTest
             DateTime firstPeriod = default,
             DateTime? lastPeriod = null,
             BackTestRebalanceStrategy rebalanceStrategy = BackTestRebalanceStrategy.None,
-            decimal? rebalanceBandThreshold = null)
+            decimal? rebalanceBandThreshold = null,
+            bool includeIncompleteEndingPeriod = true)
         {
             ArgumentNullException.ThrowIfNull(portfolioConstituents);
 
@@ -59,7 +60,8 @@ namespace Data.BackTest
                 firstPeriod,
                 lastPeriod.Value,
                 rebalanceStrategy,
-                rebalanceBandThreshold);
+                rebalanceBandThreshold,
+                includeIncompleteEndingPeriod);
 
             var aggregated = AggregateDecomposedPortfolioBackTest(decomposed);
             var backtest = new BackTest()
@@ -105,7 +107,8 @@ namespace Data.BackTest
             HashSet<string> tickers,
             PeriodType periodType,
             DateTime firstPeriod,
-            DateTime lastPeriod)
+            DateTime lastPeriod,
+            bool includeIncompletePeriod)
         {
             var constituentReturns = await Task.WhenAll(
                 tickers.Select(ticker => returnsService.Get(ticker, periodType, firstPeriod, lastPeriod)));
@@ -119,6 +122,23 @@ namespace Data.BackTest
                 .Select(history => history.Last().PeriodStart)
                 .Append(lastPeriod)
                 .Min();
+
+            if (!includeIncompletePeriod)
+            {
+                switch (periodType)
+                {
+                    case PeriodType.Daily:
+                        break;
+                    case PeriodType.Monthly:
+                        lastSharedLastPeriod = lastSharedLastPeriod.AddDays((lastSharedLastPeriod.Day * -1) + 1).AddMonths(-1);
+                        break;
+                    case PeriodType.Yearly:
+                        lastSharedLastPeriod = lastSharedLastPeriod.AddDays((lastSharedLastPeriod.DayOfYear * -1) + 1).AddYears(-1);
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
 
             var dateFilteredReturnsByTicker = tickers
                 .Zip(constituentReturns, (ticker, returns) => new { ticker, returns })
@@ -139,7 +159,8 @@ namespace Data.BackTest
             DateTime firstPeriod,
             DateTime lastPeriod,
             BackTestRebalanceStrategy rebalanceStrategy,
-            decimal? rebalanceBandThreshold)
+            decimal? rebalanceBandThreshold,
+            bool includeIncompleteEndingPeriod)
         {
             static void ConfirmAlignment(IEnumerable<PeriodReturn[]> dateFilteredConstituentReturns)
             {
@@ -181,7 +202,8 @@ namespace Data.BackTest
                 new(dedupedPortfolioConstituents.Keys),
                 periodType,
                 firstPeriod,
-                lastPeriod);
+                lastPeriod,
+                includeIncompleteEndingPeriod);
 
             ConfirmAlignment(dateFilteredReturnsByTicker.Values);
 
