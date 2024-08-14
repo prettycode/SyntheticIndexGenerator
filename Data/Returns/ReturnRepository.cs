@@ -137,16 +137,16 @@ namespace Data.Returns
         {
             var columnIndexToCategory = new Dictionary<int, string>
             {
-                [1] = "$TSM",
-                [3] = "$LCB",
-                [4] = "$LCV",
-                [5] = "$LCG",
-                [6] = "$MCB",
-                [7] = "$MCV",
-                [8] = "$MCG",
-                [9] = "$SCB",
-                [10] = "$SCV",
-                [11] = "$SCG"
+                [1] = "$USTSM",
+                [3] = "$USLCB",
+                [4] = "$USLCV",
+                [5] = "$USLCG",
+                [6] = "$USMCB",
+                [7] = "$USMCV",
+                [8] = "$USMCG",
+                [9] = "$USSCB",
+                [10] = "$USSCV",
+                [11] = "$USSCG"
             };
 
             const int headerLinesCount = 1;

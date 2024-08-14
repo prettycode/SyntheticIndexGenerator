@@ -13,7 +13,7 @@ namespace WebService.Controllers
             {
                 new() { Ticker = "#1X", Percentage = 25 },
                 new() { Ticker = "#3X", Percentage = 25 },
-                new() { Ticker = "$LCB", Percentage = 25 },
+                new() { Ticker = "$USLCB", Percentage = 25 },
                 new() { Ticker = "$^USLCV", Percentage = 12.5m },
                 new() { Ticker = "AVMC", Percentage = 12.5m }
             };
