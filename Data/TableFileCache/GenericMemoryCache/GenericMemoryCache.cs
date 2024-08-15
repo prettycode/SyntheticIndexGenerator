@@ -5,11 +5,11 @@ namespace Data.TableFileCache.GenericMemoryCache;
 public class GenericMemoryCache<TKey, TValue>(MemoryCacheOptions? cacheOptions, MemoryCacheEntryOptions? entryOptions)
     : IGenericMemoryCache<TKey, TValue> where TKey : notnull
 {
-    private readonly IMemoryCache cache = new MemoryCache(cacheOptions ?? new MemoryCacheOptions());
+    protected readonly IMemoryCache cache = new MemoryCache(cacheOptions ?? new MemoryCacheOptions());
 
     private readonly MemoryCacheEntryOptions entryOptions = entryOptions ?? new MemoryCacheEntryOptions();
 
-    public TValue Set(TKey key, TValue value) => cache.Set(key, value, entryOptions);
+    public virtual TValue Set(TKey key, TValue value) => cache.Set(key, value, entryOptions);
 
     public TValue? Get(TKey key) => cache.Get<TValue>(key);
 
