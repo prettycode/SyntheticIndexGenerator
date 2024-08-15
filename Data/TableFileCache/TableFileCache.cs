@@ -49,8 +49,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         var fileLines = await File.ReadAllLinesAsync(filePath);
         var values = fileLines
             .Select(line => JsonSerializer.Deserialize<TValue>(line))
-            .Where(value => value != null)
-            .Select(value => value!)
+            .Select(value => value ?? throw new InvalidOperationException("Deserialzing record failed."))
             .ToList();
 
         return memoryCache[cacheInstanceKey][key] = values;
