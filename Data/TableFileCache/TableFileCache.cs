@@ -29,8 +29,12 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         this.cacheRelativePath = cacheNamespace ?? String.Empty;
         this.cacheInstanceKey = cacheRootPath + cacheNamespace;
 
-        memoryCache[cacheInstanceKey] = new DailyAbsoluteExpiryCache<TKey, IEnumerable<TValue>>(() 
-            => GetNextMidnightInNewYork());
+        var newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
+        var timeOfDay = new TimeOnly(0, 0);
+
+        memoryCache[cacheInstanceKey] = new DailyAbsoluteExpiryCache<TKey, IEnumerable<TValue>>(
+            newYorkTimeZone, 
+            timeOfDay);
     }
 
     public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _) ||
@@ -78,15 +82,6 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         => !append
             ? Set(key, value)
             : Append(key, value);
-    
-    private static DateTimeOffset GetNextMidnightInNewYork()
-    {
-        var newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
-        var currentTimeInNY = TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, newYorkTimeZone);
-        var nextMidnight = currentTimeInNY.Date.AddDays(1);
-
-        return new DateTimeOffset(nextMidnight, newYorkTimeZone.GetUtcOffset(nextMidnight));
-    }
 
     private string GetCacheFilePath(TKey keyValue)
         => Path.Combine(cacheRootPath, cacheTableName, cacheRelativePath, $"{keyValue}.{CACHE_FILE_EXTENSION}");
