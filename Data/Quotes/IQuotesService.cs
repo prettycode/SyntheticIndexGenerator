@@ -1,7 +1,6 @@
-﻿namespace Data.Quotes
+﻿namespace Data.Quotes;
+
+internal interface IQuotesService
 {
-    internal interface IQuotesService
-    {
-        Task<Dictionary<string, IEnumerable<QuotePrice>>> GetPrices(HashSet<string> tickers, bool skipRefresh = false);
-    }
+    Task<Dictionary<string, IEnumerable<QuotePrice>>> GetPrices(HashSet<string> tickers, bool skipRefresh = false);
 }

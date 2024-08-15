@@ -1,7 +1,6 @@
-﻿namespace Data.Quotes.QuoteProvider
+﻿namespace Data.Quotes.QuoteProvider;
+
+public interface IQuoteProvider
 {
-    public interface IQuoteProvider
-    {
-        Task<Quote?> GetQuote(string ticker, DateTime? startDate, DateTime? endDate);
-    }
+    Task<Quote?> GetQuote(string ticker, DateTime? startDate, DateTime? endDate);
 }

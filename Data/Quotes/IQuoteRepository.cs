@@ -1,13 +1,12 @@
-﻿namespace Data.Quotes
+﻿namespace Data.Quotes;
+
+internal interface IQuoteRepository
 {
-    internal interface IQuoteRepository
-    {
-        Task<Quote> Append(Quote fundHistory);
+    Task<Quote> Append(Quote fundHistory);
 
-        Task<Quote> Get(string ticker, bool skipPastZeroVolume = false);
+    Task<Quote> Get(string ticker, bool skipPastZeroVolume = false);
 
-        bool Has(string ticker);
+    bool Has(string ticker);
 
-        Task<Quote> Replace(Quote fundHistory);
-    }
+    Task<Quote> Replace(Quote fundHistory);
 }

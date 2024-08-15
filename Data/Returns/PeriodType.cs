@@ -1,9 +1,8 @@
-﻿namespace Data.Returns
+﻿namespace Data.Returns;
+
+public enum PeriodType
 {
-    public enum PeriodType
-    {
-        Daily,
-        Monthly,
-        Yearly
-    }
+    Daily,
+    Monthly,
+    Yearly
 }

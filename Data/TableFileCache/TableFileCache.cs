@@ -1,8 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Text.Json;
 using Data.TableFileCache.GenericMemoryCache;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache;
 
@@ -18,7 +16,6 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private readonly string cacheInstanceKey;
 
-    // TODO setup DI config
     private static readonly ConcurrentDictionary<string, IGenericMemoryCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
     public TableFileCache(string cacheRootPath, string? cacheNamespace = null)
@@ -33,7 +30,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         var timeOfDay = new TimeOnly(0, 0);
 
         memoryCache[cacheInstanceKey] = new DailyAbsoluteExpiryCache<TKey, IEnumerable<TValue>>(
-            newYorkTimeZone, 
+            newYorkTimeZone,
             timeOfDay);
     }
 
@@ -51,7 +48,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         var fileLines = await File.ReadAllLinesAsync(filePath);
         var values = fileLines
             .Select(line => JsonSerializer.Deserialize<TValue>(line))
-            .Select(value => value ?? throw new InvalidOperationException("Deserialzing record failed."))
+            .Select(value => value ?? throw new InvalidOperationException("Deserializing record failed."))
             .ToList();
 
         return memoryCache[cacheInstanceKey][key] = values;

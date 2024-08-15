@@ -1,7 +1,6 @@
-﻿namespace Data.Quotes
+﻿namespace Data.Quotes;
+
+public class QuoteRepositorySettings
 {
-    public class QuoteRepositorySettings
-    {
-        public required string CacheDirPath { get; init; }
-    }
+    public required string CacheDirPath { get; init; }
 }
