@@ -1,31 +1,23 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 
-namespace Data.TableFileCache;
+namespace Data.TableFileCache.GenericMemoryCache;
 
-public class GenericMemoryCache<TKey, TValue>(MemoryCacheEntryOptions entryOptions) where TKey : notnull
+public class GenericMemoryCache<TKey, TValue>(MemoryCacheEntryOptions entryOptions) : IGenericMemoryCache<TKey, TValue> where TKey : notnull
 {
     private readonly IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
     private readonly MemoryCacheEntryOptions entryOptions = entryOptions;
 
-    public void Set(TKey key, TValue value)
+    public TValue Set(TKey key, TValue value) => cache.Set(key, value, entryOptions);
+
+    public TValue? Get(TKey key) => cache.Get<TValue>(key);
+
+    public TValue? this[TKey key]
     {
-        cache.Set(key, value, entryOptions);
+        get => Get(key);
+        set => Set(key, value ?? throw new ArgumentNullException(nameof(value)));
     }
 
-    public TValue? Get(TKey key)
-    {
-        return cache.Get<TValue>(key);
-    }
-
-    public bool TryGetValue(TKey key, out TValue? value)
-    {
-        return cache.TryGetValue(key, out value);
-    }
-
-    public void Remove(TKey key)
-    {
-        cache.Remove(key);
-    }
+    public bool TryGet(TKey key, out TValue? value) => cache.TryGetValue(key, out value);
 }
 
 
