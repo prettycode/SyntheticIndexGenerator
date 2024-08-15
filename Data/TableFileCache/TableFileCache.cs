@@ -1,12 +1,13 @@
 ﻿using System.Collections.Concurrent;
 using System.Text.Json;
+using Data.TableFileCache.GenericMemoryCache;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache;
 
 public class TableFileCache<TKey, TValue> where TKey : notnull
 {
-    // TODO cache invalidation/expired entry and expungement
-
     private const string CACHE_FILE_EXTENSION = "txt";
 
     private readonly string cacheRootPath;
@@ -14,36 +15,45 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
     private readonly string cacheTableName = typeof(TValue).Name;
     private readonly string cacheInstanceKey;
 
-    private static readonly ConcurrentDictionary<string, ConcurrentDictionary<TKey, IEnumerable<TValue>>> memoryCache = [];
+    // TODO setup DI config
+    private static readonly ConcurrentDictionary<string, IGenericMemoryCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
-    public TableFileCache(string cacheRootPath, string? cacheNamespace = null)
+    public TableFileCache( 
+        string cacheRootPath, 
+        string? cacheNamespace = null,
+        IOptions<MemoryCacheEntryOptions>? memoryCacheEntryOptions = null,
+        IOptions<MemoryCacheOptions>? memoryCacheOptions = null)
     {
         ArgumentException.ThrowIfNullOrEmpty(cacheRootPath);
 
         this.cacheRootPath = cacheRootPath;
         this.cacheNamespace = cacheNamespace ?? String.Empty;
-        cacheInstanceKey = cacheRootPath + cacheNamespace;
+        this.cacheInstanceKey = cacheRootPath + cacheNamespace;
 
-        memoryCache[cacheInstanceKey] = [];
+        memoryCache[cacheInstanceKey] = new GenericMemoryCache<TKey, IEnumerable<TValue>>(
+            memoryCacheOptions?.Value!, 
+            memoryCacheEntryOptions?.Value!);
     }
 
-    public bool Has(TKey key) => memoryCache[cacheInstanceKey].ContainsKey(key) || File.Exists(GetCacheFilePath(key));
+    public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _) || 
+        File.Exists(GetCacheFilePath(key));
 
     public Task<IEnumerable<TValue>> Get(TKey key)
-        => memoryCache[cacheInstanceKey].TryGetValue(key, out var value)
-            ? Task.FromResult(value)
-            : GetFromFile(key);
+        => memoryCache[cacheInstanceKey].TryGet(key, out var value)
+            ? Task.FromResult(value ?? throw new InvalidOperationException($"{nameof(value)} should not be null."))
+            : GetAndCacheFromFile(key);
 
-    private async Task<IEnumerable<TValue>> GetFromFile(TKey key)
+    private async Task<IEnumerable<TValue>> GetAndCacheFromFile(TKey key)
     {
         var filePath = GetCacheFilePath(key);
         var fileLines = await File.ReadAllLinesAsync(filePath);
         var values = fileLines
             .Select(line => JsonSerializer.Deserialize<TValue>(line))
             .Where(value => value != null)
+            .Select(value => value!)
             .ToList();
 
-        return memoryCache[cacheInstanceKey][key] = values!;
+        return memoryCache[cacheInstanceKey][key] = values;
     }
 
     public async Task<IEnumerable<TValue>> Set(TKey key, IEnumerable<TValue> value)
@@ -63,7 +73,8 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
         await AppendToFileAsync(key, value);
 
-        return memoryCache[cacheInstanceKey][key] = memoryCache[cacheInstanceKey][key].Concat(value);
+        return memoryCache[cacheInstanceKey][key] = (memoryCache[cacheInstanceKey][key] ?? 
+            throw new KeyNotFoundException()).Concat(value);
     }
 
     public Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append)

@@ -2,10 +2,10 @@
 
 namespace Data.TableFileCache.GenericMemoryCache;
 
-public class GenericMemoryCache<TKey, TValue>(MemoryCacheEntryOptions entryOptions) : IGenericMemoryCache<TKey, TValue> where TKey : notnull
+public class GenericMemoryCache<TKey, TValue>(MemoryCacheOptions cacheOptions, MemoryCacheEntryOptions entryOptions) : IGenericMemoryCache<TKey, TValue> where TKey : notnull
 {
-    private readonly IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
-    private readonly MemoryCacheEntryOptions entryOptions = entryOptions;
+    private readonly IMemoryCache cache = new MemoryCache(cacheOptions ?? new MemoryCacheOptions());
+    private readonly MemoryCacheEntryOptions entryOptions = entryOptions ?? new MemoryCacheEntryOptions();
 
     public TValue Set(TKey key, TValue value) => cache.Set(key, value, entryOptions);
 
@@ -20,7 +20,7 @@ public class GenericMemoryCache<TKey, TValue>(MemoryCacheEntryOptions entryOptio
     public bool TryGet(TKey key, out TValue? value) => cache.TryGetValue(key, out value);
 }
 
-
+/*
 // Usage example
 class Program
 {
@@ -39,4 +39,4 @@ class Program
         cache.Set("key1", "value1");
         Console.WriteLine(cache.Get("key1"));
     }
-}
+}*/
