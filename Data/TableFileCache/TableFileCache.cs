@@ -31,8 +31,8 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         this.cacheInstanceKey = cacheRootPath + cacheNamespace;
 
         memoryCache[cacheInstanceKey] = new GenericMemoryCache<TKey, IEnumerable<TValue>>(
-            memoryCacheOptions?.Value!, 
-            memoryCacheEntryOptions?.Value!);
+            memoryCacheOptions?.Value, 
+            memoryCacheEntryOptions?.Value);
     }
 
     public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _) || 
