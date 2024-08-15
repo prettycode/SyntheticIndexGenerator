@@ -11,15 +11,18 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
     private const string CACHE_FILE_EXTENSION = "txt";
 
     private readonly string cacheRootPath;
-    private readonly string cacheNamespace;
+
+    private readonly string cacheRelativePath;
+
     private readonly string cacheTableName = typeof(TValue).Name;
+
     private readonly string cacheInstanceKey;
 
     // TODO setup DI config
     private static readonly ConcurrentDictionary<string, IGenericMemoryCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
-    public TableFileCache( 
-        string cacheRootPath, 
+    public TableFileCache(
+        string cacheRootPath,
         string? cacheNamespace = null,
         IOptions<MemoryCacheEntryOptions>? memoryCacheEntryOptions = null,
         IOptions<MemoryCacheOptions>? memoryCacheOptions = null)
@@ -27,15 +30,15 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         ArgumentException.ThrowIfNullOrEmpty(cacheRootPath);
 
         this.cacheRootPath = cacheRootPath;
-        this.cacheNamespace = cacheNamespace ?? String.Empty;
+        this.cacheRelativePath = cacheNamespace ?? String.Empty;
         this.cacheInstanceKey = cacheRootPath + cacheNamespace;
 
         memoryCache[cacheInstanceKey] = new GenericMemoryCache<TKey, IEnumerable<TValue>>(
-            memoryCacheOptions?.Value, 
+            memoryCacheOptions?.Value,
             memoryCacheEntryOptions?.Value);
     }
 
-    public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _) || 
+    public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _) ||
         File.Exists(GetCacheFilePath(key));
 
     public Task<IEnumerable<TValue>> Get(TKey key)
@@ -72,7 +75,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
         await AppendToFileAsync(key, value);
 
-        return memoryCache[cacheInstanceKey][key] = (memoryCache[cacheInstanceKey][key] ?? 
+        return memoryCache[cacheInstanceKey][key] = (memoryCache[cacheInstanceKey][key] ??
             throw new KeyNotFoundException()).Concat(value);
     }
 
@@ -80,6 +83,9 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         => !append
             ? Set(key, value)
             : Append(key, value);
+
+    private string GetCacheFilePath(TKey keyValue)
+        => Path.Combine(cacheRootPath, cacheTableName, cacheRelativePath, $"{keyValue}.{CACHE_FILE_EXTENSION}");
 
     private async Task WriteToFileAsync(TKey key, IEnumerable<TValue> value)
     {
@@ -112,7 +118,4 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
         await File.AppendAllLinesAsync(fullFilePath, cacheFileLines);
     }
-
-    private string GetCacheFilePath(TKey keyValue)
-        => Path.Combine(cacheRootPath, cacheTableName, cacheNamespace, $"{keyValue}.{CACHE_FILE_EXTENSION}");
 }
