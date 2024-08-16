@@ -20,11 +20,14 @@ internal class ReturnRepository : IReturnRepository
     {
         ArgumentNullException.ThrowIfNull(logger);
 
-        dailyCache = new(returnRepositoryOptions.Value.TableCacheOptions, $"{PeriodType.Daily}");
-        monthlyCache = new(returnRepositoryOptions.Value.TableCacheOptions, $"{PeriodType.Monthly}");
-        yearlyCache = new(returnRepositoryOptions.Value.TableCacheOptions, $"{PeriodType.Yearly}");
+        var options = returnRepositoryOptions.Value;
+        var tableCacheOptions = options.TableCacheOptions;
 
-        syntheticReturnsFilePath = returnRepositoryOptions.Value.SyntheticReturnsFilePath;
+        dailyCache = new(tableCacheOptions, $"{PeriodType.Daily}");
+        monthlyCache = new(tableCacheOptions, $"{PeriodType.Monthly}");
+        yearlyCache = new(tableCacheOptions, $"{PeriodType.Yearly}");
+
+        syntheticReturnsFilePath = options.SyntheticReturnsFilePath;
 
         if (!File.Exists(syntheticReturnsFilePath))
         {
@@ -43,7 +46,7 @@ internal class ReturnRepository : IReturnRepository
         }
     }
 
-    public bool Has(string ticker, PeriodType periodType) => GetCache(periodType).Has(ticker);
+    public bool Has(string ticker, PeriodType periodType) => GetPeriodTypeCache(periodType).Has(ticker);
 
     public async Task<List<PeriodReturn>> Get(
         string ticker,
@@ -54,7 +57,7 @@ internal class ReturnRepository : IReturnRepository
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(periodType);
 
-        var cache = GetCache(periodType);
+        var cache = GetPeriodTypeCache(periodType);
 
         if (!cache.Has(ticker))
         {
@@ -70,7 +73,7 @@ internal class ReturnRepository : IReturnRepository
             .ToList();
     }
 
-    private TableFileCache<string, PeriodReturn> GetCache(PeriodType periodType) => periodType switch
+    private TableFileCache<string, PeriodReturn> GetPeriodTypeCache(PeriodType periodType) => periodType switch
     {
         PeriodType.Daily => dailyCache,
         PeriodType.Monthly => monthlyCache,
@@ -89,7 +92,7 @@ internal class ReturnRepository : IReturnRepository
             throw new ArgumentException("Cannot be empty.", nameof(returns));
         }
 
-        var cache = GetCache(periodType);
+        var cache = GetPeriodTypeCache(periodType);
 
         logger.LogInformation("{ticker}: Writing returns for period type {periodType}.", ticker, periodType);
 
