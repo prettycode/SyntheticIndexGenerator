@@ -1,5 +1,4 @@
 ﻿using Data.TableFileCache;
-using Data.TableFileCache.DaylongCache;
 using Microsoft.Extensions.Options;
 
 namespace Data.Quotes;
