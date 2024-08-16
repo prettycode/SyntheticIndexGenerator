@@ -11,8 +11,8 @@ namespace Data.Extensions;
 public static class IServiceCollectionExtensions
 {
     public static IServiceCollection AddDataLibraryConfiguration(this IServiceCollection serviceCollection, IConfiguration configuration) => serviceCollection
-        .Configure<QuoteRepositorySettings>(configuration.GetSection("QuoteRepositorySettings"))
-        .Configure<ReturnRepositorySettings>(configuration.GetSection("ReturnRepositorySettings"))
+        .Configure<QuoteRepositoryOptions>(configuration.GetSection("QuoteRepositorySettings"))
+        .Configure<ReturnRepositoryOptions>(configuration.GetSection("ReturnRepositorySettings"))
         .AddTransient<IQuoteRepository, QuoteRepository>()
         .AddTransient<IReturnRepository, ReturnRepository>()
         .AddTransient<IQuoteProvider, YahooFinanceApiQuoteProvider>()

@@ -16,23 +16,20 @@ internal class ReturnRepository : IReturnRepository
 
     private readonly ILogger<ReturnRepository> logger;
 
-    public ReturnRepository(IOptions<ReturnRepositorySettings> settings, ILogger<ReturnRepository> logger)
+    public ReturnRepository(IOptions<ReturnRepositoryOptions> returnRepositoryOptions, ILogger<ReturnRepository> logger)
     {
         ArgumentNullException.ThrowIfNull(logger);
 
-        var cachePath = settings?.Value?.CacheDirPath ??
-            throw new ArgumentNullException($"{nameof(settings.Value.CacheDirPath)}");
+        dailyCache = new(returnRepositoryOptions.Value.TableCacheOptions, $"{PeriodType.Daily}");
+        monthlyCache = new(returnRepositoryOptions.Value.TableCacheOptions, $"{PeriodType.Monthly}");
+        yearlyCache = new(returnRepositoryOptions.Value.TableCacheOptions, $"{PeriodType.Yearly}");
 
-        dailyCache = new(cachePath, $"{PeriodType.Daily}");
-        monthlyCache = new(cachePath, $"{PeriodType.Monthly}");
-        yearlyCache = new(cachePath, $"{PeriodType.Yearly}");
-
-        syntheticReturnsFilePath = settings.Value.SyntheticReturnsFilePath ??
-            throw new ArgumentNullException($"{nameof(settings.Value.SyntheticReturnsFilePath)}");
+        syntheticReturnsFilePath = returnRepositoryOptions.Value.SyntheticReturnsFilePath ??
+            throw new ArgumentNullException($"{nameof(returnRepositoryOptions.Value.SyntheticReturnsFilePath)}");
 
         if (!File.Exists(syntheticReturnsFilePath))
         {
-            throw new ArgumentException($"{syntheticReturnsFilePath} file does not exist.", nameof(settings));
+            throw new ArgumentException($"{syntheticReturnsFilePath} file does not exist.", nameof(returnRepositoryOptions));
         }
 
         this.logger = logger;

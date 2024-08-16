@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Text.Json;
-using Data.TableFileCache.GenericMemoryCache;
+using Data.TableFileCache.DaylongCache;
+using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache;
 
@@ -16,22 +17,19 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private readonly string cacheInstanceKey;
 
-    private static readonly ConcurrentDictionary<string, IGenericMemoryCache<TKey, IEnumerable<TValue>>> memoryCache = [];
+    private static readonly ConcurrentDictionary<string, DaylongCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
-    public TableFileCache(string cacheRootPath, string? cacheNamespace = null)
+    public TableFileCache(IOptions<TableCacheOptions> tableCacheOptions, string? cacheNamespace = null)
     {
-        ArgumentException.ThrowIfNullOrEmpty(cacheRootPath);
+        ArgumentNullException.ThrowIfNull(tableCacheOptions, nameof(tableCacheOptions));
 
-        this.cacheRootPath = cacheRootPath;
-        this.cacheRelativePath = cacheNamespace ?? String.Empty;
-        this.cacheInstanceKey = cacheRootPath + cacheNamespace;
+        this.cacheRootPath = tableCacheOptions.Value.CacheRootPath
+            ?? throw new ArgumentNullException(nameof(tableCacheOptions.Value.CacheRootPath));
 
-        var newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
-        var timeOfDay = new TimeOnly(0, 0);
+        this.cacheRelativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? String.Empty;
+        this.cacheInstanceKey = cacheRootPath + cacheRelativePath;
 
-        memoryCache[cacheInstanceKey] = new DailyAbsoluteExpiryCache<TKey, IEnumerable<TValue>>(
-            newYorkTimeZone,
-            timeOfDay);
+        memoryCache[cacheInstanceKey] = new DaylongCache<TKey, IEnumerable<TValue>>(tableCacheOptions.Value.DaylongCacheOptions);
     }
 
     public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _) ||

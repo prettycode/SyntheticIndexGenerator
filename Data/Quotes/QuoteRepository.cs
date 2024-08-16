@@ -12,16 +12,13 @@ internal class QuoteRepository : IQuoteRepository
 
     private readonly ILogger<QuoteRepository> logger;
 
-    public QuoteRepository(IOptions<QuoteRepositorySettings> settings, ILogger<QuoteRepository> logger)
+    public QuoteRepository(IOptions<QuoteRepositoryOptions> quoteRepositoryOptions, ILogger<QuoteRepository> logger)
     {
-        ArgumentNullException.ThrowIfNull(settings);
+        ArgumentNullException.ThrowIfNull(quoteRepositoryOptions);
 
-        var cachePath = settings?.Value?.CacheDirPath ??
-            throw new ArgumentNullException($"{nameof(settings.Value.CacheDirPath)}");
-
-        dividendsCache = new(cachePath);
-        pricesCache = new(cachePath);
-        splitsCache = new(cachePath);
+        dividendsCache = new(quoteRepositoryOptions.Value.TableCacheOptions);
+        pricesCache = new(quoteRepositoryOptions.Value.TableCacheOptions);
+        splitsCache = new(quoteRepositoryOptions.Value.TableCacheOptions);
 
         this.logger = logger;
     }
