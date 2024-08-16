@@ -24,8 +24,7 @@ internal class ReturnRepository : IReturnRepository
         monthlyCache = new(returnRepositoryOptions.Value.TableCacheOptions, $"{PeriodType.Monthly}");
         yearlyCache = new(returnRepositoryOptions.Value.TableCacheOptions, $"{PeriodType.Yearly}");
 
-        syntheticReturnsFilePath = returnRepositoryOptions.Value.SyntheticReturnsFilePath ??
-            throw new ArgumentNullException($"{nameof(returnRepositoryOptions.Value.SyntheticReturnsFilePath)}");
+        syntheticReturnsFilePath = returnRepositoryOptions.Value.SyntheticReturnsFilePath;
 
         if (!File.Exists(syntheticReturnsFilePath))
         {

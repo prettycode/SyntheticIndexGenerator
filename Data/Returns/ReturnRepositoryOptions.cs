@@ -7,7 +7,7 @@ public class ReturnRepositoryOptions : IOptions<ReturnRepositoryOptions>
 {
     public required string SyntheticReturnsFilePath { get; init; }
 
-    public required TableCacheOptions TableCacheOptions { get; init; }
+    public required TableFileCacheOptions TableCacheOptions { get; init; }
 
     ReturnRepositoryOptions IOptions<ReturnRepositoryOptions>.Value
     {

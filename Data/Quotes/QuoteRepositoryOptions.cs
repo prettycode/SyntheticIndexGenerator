@@ -5,7 +5,7 @@ namespace Data.Quotes;
 
 public class QuoteRepositoryOptions : IOptions<QuoteRepositoryOptions>
 {
-    public required TableCacheOptions TableCacheOptions { get; init; }
+    public required TableFileCacheOptions TableCacheOptions { get; init; }
 
     QuoteRepositoryOptions IOptions<QuoteRepositoryOptions>.Value
     {

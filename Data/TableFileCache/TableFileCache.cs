@@ -19,17 +19,16 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private static readonly ConcurrentDictionary<string, DaylongCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
-    public TableFileCache(IOptions<TableCacheOptions> tableCacheOptions, string? cacheNamespace = null)
+    public TableFileCache(IOptions<TableFileCacheOptions> tableCacheOptions, string? cacheNamespace = null)
     {
         ArgumentNullException.ThrowIfNull(tableCacheOptions, nameof(tableCacheOptions));
 
-        this.cacheRootPath = tableCacheOptions.Value.CacheRootPath
-            ?? throw new ArgumentNullException(nameof(tableCacheOptions.Value.CacheRootPath));
-
+        this.cacheRootPath = tableCacheOptions.Value.CacheRootPath;
         this.cacheRelativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? String.Empty;
         this.cacheInstanceKey = cacheRootPath + cacheRelativePath;
 
-        memoryCache[cacheInstanceKey] = new DaylongCache<TKey, IEnumerable<TValue>>(tableCacheOptions.Value.DaylongCacheOptions);
+        memoryCache[cacheInstanceKey] = new DaylongCache<TKey, IEnumerable<TValue>>(
+            tableCacheOptions.Value.DaylongCacheOptions);
     }
 
     public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _) ||

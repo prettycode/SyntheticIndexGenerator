@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache;
 
-public class TableCacheOptions : IOptions<TableCacheOptions>
+public class TableFileCacheOptions : IOptions<TableFileCacheOptions>
 {
     public required string CacheRootPath { get; init; } = "./";
 
@@ -11,7 +11,7 @@ public class TableCacheOptions : IOptions<TableCacheOptions>
 
     public required DaylongCacheOptions DaylongCacheOptions { get; init; }
 
-    TableCacheOptions IOptions<TableCacheOptions>.Value
+    TableFileCacheOptions IOptions<TableFileCacheOptions>.Value
     {
         get { return this; }
     }

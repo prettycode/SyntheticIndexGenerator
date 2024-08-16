@@ -3,12 +3,14 @@ using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache.DaylongCache.GenericMemoryCache;
 
-public class GenericMemoryCache<TKey, TValue>(IOptions<GenericMemoryCacheOptions>? genericMemoryCacheOptions)
-    : IGenericMemoryCache<TKey, TValue> where TKey : notnull
+public class GenericMemoryCache<TKey, TValue>(IOptions<GenericMemoryCacheOptions>? genericMemoryCacheOptions) where TKey
+    : notnull
 {
-    private readonly MemoryCacheEntryOptions? memoryCacheEntryOptions = genericMemoryCacheOptions?.Value.MemoryCacheEntryOptions ?? new MemoryCacheEntryOptions();
+    private readonly MemoryCacheEntryOptions? memoryCacheEntryOptions
+        = genericMemoryCacheOptions?.Value.MemoryCacheEntryOptions ?? new MemoryCacheEntryOptions();
 
-    protected readonly IMemoryCache cache = new MemoryCache(genericMemoryCacheOptions?.Value.MemoryCacheOptions ?? new MemoryCacheOptions());
+    protected readonly IMemoryCache cache = new MemoryCache(genericMemoryCacheOptions?.Value.MemoryCacheOptions
+        ?? new MemoryCacheOptions());
 
     public TValue Set(TKey key, TValue value, MemoryCacheEntryOptions? options = null)
         => cache.Set(key, value, options ?? memoryCacheEntryOptions);
