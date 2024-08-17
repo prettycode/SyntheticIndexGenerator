@@ -1,64 +1,108 @@
 ﻿using Data.Quotes;
+using Data.SyntheticIndex;
 using Microsoft.Extensions.Logging;
 
 namespace Data.Returns;
 
-internal class ReturnsService : IReturnsService
-{
-    private readonly IQuotesService quotesService;
-    private readonly IReturnRepository returnRepository;
-    private readonly ILogger<ReturnsService> logger;
-
-    public ReturnsService(
+internal class ReturnsService(
         IQuotesService quotesService,
+        ISyntheticIndexService syntheticIndexService,
         IReturnRepository returnRepository,
         ILogger<ReturnsService> logger)
-    {
-        ArgumentNullException.ThrowIfNull(nameof(quotesService));
-        ArgumentNullException.ThrowIfNull(nameof(returnRepository));
-        ArgumentNullException.ThrowIfNull(nameof(logger));
-
-        this.quotesService = quotesService;
-        this.returnRepository = returnRepository;
-        this.logger = logger;
-    }
-
-    public Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate)
-    {
-        return returnRepository.Get(ticker, period, startDate, endDate);
-    }
-
-    public async Task<Dictionary<string, Dictionary<PeriodType, PeriodReturn[]>>> GetReturns(
+            : IReturnsService
+{
+    public async Task<Dictionary<string, List<PeriodReturn>>> GetReturnsHistory(
         HashSet<string> tickers,
-        bool skipRefresh = false)
+        PeriodType periodType,
+        DateTime startDate,
+        DateTime endDate)
     {
-        async Task<Dictionary<PeriodType, PeriodReturn[]>> ReturnsByPeriodType(
-            string ticker,
-            IEnumerable<QuotePrice> dailyPriceHistory)
-        {
-            ArgumentNullException.ThrowIfNull(ticker);
-            var periodTypes = Enum.GetValues<PeriodType>();
-
-            return await periodTypes
-                .ToAsyncEnumerable()
-                .SelectAwait(async periodType
-                    => (periodType, returns: await GetReturnsForPeriodType(ticker, dailyPriceHistory, periodType)))
-                .ToDictionaryAsync(pair => pair.periodType, pair => pair.returns);
-        }
-
         ArgumentNullException.ThrowIfNull(tickers);
 
-        var dailyPricesByTicker = await quotesService.GetPrices(tickers, skipRefresh);
-
-        return await dailyPricesByTicker
+        // TODO this is not parallelized; don't have awaits in here
+        return await tickers
             .ToAsyncEnumerable()
-            .ToDictionaryAwaitAsync(
-                keySelector: pair => ValueTask.FromResult(pair.Key),
-                elementSelector: async pair => await ReturnsByPeriodType(pair.Key, pair.Value)
-            );
+            .SelectAwait(async ticker => new { ticker, returns = await GetReturnsHistory(ticker, periodType, startDate, endDate) })
+            .ToDictionaryAsync(pair => pair.ticker, pair => pair.returns);
     }
 
-    private async Task<PeriodReturn[]> GetReturnsForPeriodType(
+    public async Task<List<PeriodReturn>> GetReturnsHistory(
+        string ticker,
+        PeriodType periodType,
+        DateTime startDate,
+        DateTime endDate)
+    {
+        ArgumentNullException.ThrowIfNull(ticker);
+
+        bool IsSyntheticReturnTicker(string ticker) => !IsSyntheticIndexTicker(ticker) && ticker.StartsWith('$');
+        bool IsSyntheticIndexTicker(string ticker) => ticker.StartsWith("$^");
+        bool IsQuoteTicker(string ticker) => !IsSyntheticIndexTicker(ticker) && !IsSyntheticReturnTicker(ticker);
+
+        // Get previously-computed and -saved results, and return them
+
+        if (returnRepository.Has(ticker, periodType))
+        {
+            return await returnRepository.Get(ticker, periodType, startDate, endDate);
+        }
+
+        // Compute, save results, and return them
+
+        if (IsSyntheticReturnTicker(ticker))
+        {
+            // Daily synthetic returns do not exist; only monthly and yearly exist
+            // TODO this will be a huge problem when generating synthetic returns for things like RSSB
+
+            if (periodType == PeriodType.Daily)
+            {
+                return [];
+            }
+
+            // Synthetic returns are pre-generated put in the repo by returnRepository during its startup
+
+            throw new InvalidOperationException(
+                "Synthetic returns should already have been calculated and put in returns repository.");
+        }
+
+        if (IsSyntheticIndexTicker(ticker))
+        {
+            var backfillTickers = syntheticIndexService.GetIndexBackfillTickers(ticker).ToList();
+            var backfillReturnTasks = backfillTickers.Select(ticker => GetReturnsHistory(ticker, periodType, startDate, endDate));
+            var backfillReturns = await Task.WhenAll(backfillReturnTasks);
+
+            return await CollateBackfillReturns(backfillTickers, periodType);
+        }
+
+        if (IsQuoteTicker(ticker))
+        {
+            var dailyPricesByTicker = await quotesService.GetDailyQuoteHistory(ticker, false);
+            var returns = await CalculateAndPutReturnsForPeriodType(ticker, dailyPricesByTicker, periodType);
+
+            return [.. returns];
+
+        }
+
+        throw new InvalidOperationException("All scenarios should have been handled.");
+    }
+
+    public HashSet<string> GetSyntheticIndexTickers() => syntheticIndexService.GetIndexTickers();
+
+    private async Task<List<PeriodReturn>> CollateBackfillReturns(List<string> backfillTickers, PeriodType period)
+    {
+        var availableBackfillTickers = backfillTickers.Where(ticker => returnRepository.Has(ticker, period));
+        var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => returnRepository.Get(ticker, period)));
+        var collatedReturns = backfillReturns
+            .Select((returns, index) =>
+                (returns, nextStartDate: index < backfillReturns.Length - 1
+                    ? backfillReturns[index + 1]?.First().PeriodStart
+                    : DateTime.MaxValue
+                )
+            )
+            .SelectMany(item => item.returns!.TakeWhile(pair => pair.PeriodStart < item.nextStartDate));
+
+        return collatedReturns.ToList();
+    }
+
+    private async Task<PeriodReturn[]> CalculateAndPutReturnsForPeriodType(
         string ticker,
         IEnumerable<QuotePrice> dailyPrices,
         PeriodType periodType)

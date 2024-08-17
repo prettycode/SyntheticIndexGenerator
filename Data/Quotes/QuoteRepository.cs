@@ -16,9 +16,11 @@ internal class QuoteRepository : IQuoteRepository
     {
         ArgumentNullException.ThrowIfNull(quoteRepositoryOptions);
 
-        dividendsCache = new(quoteRepositoryOptions.Value.TableCacheOptions);
-        pricesCache = new(quoteRepositoryOptions.Value.TableCacheOptions);
-        splitsCache = new(quoteRepositoryOptions.Value.TableCacheOptions);
+        var tableCacheOptions = quoteRepositoryOptions.Value.TableCacheOptions;
+
+        dividendsCache = new(tableCacheOptions);
+        pricesCache = new(tableCacheOptions);
+        splitsCache = new(tableCacheOptions);
 
         this.logger = logger;
     }

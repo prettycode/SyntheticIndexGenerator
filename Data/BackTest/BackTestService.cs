@@ -111,7 +111,7 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
         bool includeIncompletePeriod)
     {
         var constituentReturns = await Task.WhenAll(
-            tickers.Select(ticker => returnsService.Get(ticker, periodType, firstPeriod, lastPeriod)));
+            tickers.Select(ticker => returnsService.GetReturnsHistory(ticker, periodType, firstPeriod, lastPeriod)));
 
         var firstSharedFirstPeriod = constituentReturns
             .Select(history => history.First().PeriodStart)

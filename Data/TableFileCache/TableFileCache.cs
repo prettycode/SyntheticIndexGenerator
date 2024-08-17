@@ -31,9 +31,12 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
             tableCacheOptions.Value.DaylongCacheOptions);
     }
 
-    public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _) ||
-        File.Exists(GetCacheFilePath(key));
+    public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _);
 
+    public Task<IEnumerable<TValue>> Get(TKey key)
+        => Task.FromResult(memoryCache[cacheInstanceKey].Get(key) ?? throw new KeyNotFoundException());
+
+    /*
     public Task<IEnumerable<TValue>> Get(TKey key)
         => memoryCache[cacheInstanceKey].TryGet(key, out var value)
             ? Task.FromResult(value ?? throw new InvalidOperationException($"{nameof(value)} should not be null."))
@@ -50,6 +53,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
         return memoryCache[cacheInstanceKey][key] = values;
     }
+    */
 
     public async Task<IEnumerable<TValue>> Set(TKey key, IEnumerable<TValue> value)
     {

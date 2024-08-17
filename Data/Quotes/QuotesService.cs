@@ -1,23 +1,30 @@
-﻿using Data.Quotes.QuoteProvider;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
+using Data.Quotes.QuoteProvider;
 using Microsoft.Extensions.Logging;
 
 namespace Data.Quotes;
 
-internal class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider quoteProvider, ILogger<QuotesService> logger) : IQuotesService
+internal class QuotesService(
+    IQuoteRepository quoteRepository,
+    IQuoteProvider quoteProvider,
+    ILogger<QuotesService> logger)
+        : IQuotesService
 {
-    public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetPrices(
+    public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(
         HashSet<string> tickers,
         bool skipRefresh = false)
     {
         ArgumentNullException.ThrowIfNull(tickers);
 
+        // TODO this is not parallelized; don't have awaits in here
         return await tickers
             .ToAsyncEnumerable()
-            .SelectAwait(async ticker => new { ticker, quote = await GetQuotePrices(ticker, skipRefresh) })
+            .SelectAwait(async ticker => new { ticker, quote = await GetDailyQuoteHistory(ticker, skipRefresh) })
             .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
     }
 
-    private async Task<IEnumerable<QuotePrice>> GetQuotePrices(string ticker, bool skipRefresh)
+    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker, bool skipRefresh)
         => (await GetQuote(ticker, skipRefresh)).Prices;
 
     private async Task<Quote> GetQuote(string ticker, bool skipRefresh)
