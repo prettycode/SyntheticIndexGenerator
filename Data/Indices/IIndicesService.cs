@@ -1,8 +1,10 @@
-﻿namespace Data.Indices;
+﻿namespace Data.SyntheticIndex;
 
-public interface IIndicesService
+public interface ISyntheticIndexService
 {
-    Task PutSyntheticIndicesInReturnsRepository();
+    HashSet<string> GetIndexBackfillTickers(string indexTicker);
 
-    HashSet<string> GetIndexBackfillTickers(bool filterSynthetic = true);
+    HashSet<string> GetAllIndexBackfillTickers(bool filterSynthetic = false);
+
+    HashSet<string> GetIndexTickers();
 }

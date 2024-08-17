@@ -1,9 +1,9 @@
 ﻿using Data.Returns;
 using Microsoft.Extensions.Logging;
 
-namespace Data.Indices;
+namespace Data.SyntheticIndex;
 
-internal class IndicesService(IReturnRepository returnRepository, ILogger<IndicesService> logger) : IIndicesService
+internal class SyntheticIndexService(IReturnRepository returnRepository, ILogger<SyntheticIndexService> logger) : ISyntheticIndexService
 {
     public class Index(IndexRegion region, IndexMarketCap marketCap, IndexStyle style, List<string> backfillTickers)
     {
@@ -74,28 +74,33 @@ internal class IndicesService(IReturnRepository returnRepository, ILogger<Indice
         Growth
     }
 
-    public Task PutSyntheticIndicesInReturnsRepository()
+    /*public Task PutSyntheticIndicesInReturnsRepository()
     {
         var refreshTasks = GetIndices()
             .Where(index => index.BackfillTickers != null)
             .Select(index => RefreshIndex(index));
 
         return Task.WhenAll(refreshTasks);
-    }
+    }*/
 
-    public HashSet<string> GetIndexBackfillTickers(bool filterSynthetic = true)
+    public HashSet<string> GetIndexBackfillTickers(string ticker)
+        => [.. GetIndices().Single(index => index.Ticker == ticker).BackfillTickers];
+
+    public HashSet<string> GetAllIndexBackfillTickers(bool filterSynthetic = true)
     {
-        var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []);
+        var indices = GetIndices().SelectMany(index => index.BackfillTickers);
 
         if (!filterSynthetic)
         {
-            return indices.ToHashSet();
+            return [.. indices];
         }
 
-        return indices.Where(ticker => !ticker.StartsWith('$')).ToHashSet();
+        return [.. indices.Where(ticker => !ticker.StartsWith('$'))];
     }
 
-    public static HashSet<Index> GetIndices() => [
+    public HashSet<string> GetIndexTickers() => GetIndices().Select(index => index.Ticker).ToHashSet();
+
+    private static HashSet<Index> GetIndices() => [
         new (IndexRegion.Us, IndexMarketCap.Total, IndexStyle.Blend, ["$USTSM", "VTSMX", "VTI", "AVUS"]),
         new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Blend, ["$USLCB", "VFINX", "VOO"]),
         new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Value, ["$USLCV", "DFLVX", "AVLV"]),
