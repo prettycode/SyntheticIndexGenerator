@@ -67,7 +67,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
             ? Set(key, value)
             : Append(key, value);
 
-    public async Task<IEnumerable<TValue>> Set(TKey key, IEnumerable<TValue> value)
+    private async Task<IEnumerable<TValue>> Set(TKey key, IEnumerable<TValue> value)
     {
         ArgumentNullException.ThrowIfNull(key);
         ArgumentNullException.ThrowIfNull(value);
@@ -77,7 +77,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         return memoryCache[cacheInstanceKey][key] = value;
     }
 
-    public async Task<IEnumerable<TValue>> Append(TKey key, IEnumerable<TValue> value)
+    private async Task<IEnumerable<TValue>> Append(TKey key, IEnumerable<TValue> value)
     {
         ArgumentNullException.ThrowIfNull(key);
         ArgumentNullException.ThrowIfNull(value);

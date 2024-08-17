@@ -6,8 +6,5 @@ internal interface IQuoteRepository
 
     Task<Quote> Get(string ticker, bool skipPastZeroVolume = false);
 
-
-    Task<Quote> Append(Quote fundHistory);
-
-    Task<Quote> Replace(Quote fundHistory);
+    Task<Quote> Put(Quote fundHistory, bool append = false);
 }

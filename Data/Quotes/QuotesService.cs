@@ -63,7 +63,7 @@ internal class QuotesService(
                 $"{allHistory.Prices[0].DateTime:yyyy-MM-dd}",
                 $"{allHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-            return await quoteRepository.Replace(allHistory);
+            return await quoteRepository.Put(allHistory);
         }
         else
         {
@@ -108,9 +108,7 @@ internal class QuotesService(
                 $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
                 $"{newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-        return replaceExistingHistory
-            ? await quoteRepository.Replace(newHistory)
-            : await quoteRepository.Append(newHistory);
+        return await quoteRepository.Put(newHistory, replaceExistingHistory == false);
     }
 
     private async Task<Quote> GetAllHistory(string ticker)
