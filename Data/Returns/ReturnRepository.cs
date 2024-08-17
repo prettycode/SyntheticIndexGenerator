@@ -127,28 +127,25 @@ internal class ReturnRepository : IReturnRepository
             }
         }
 
-        allPutTasks.AddRange(CreateFakeDailySyntheticReturnsPutTasks());
-        allPutTasks.AddRange(CreateFakeMonthlySyntheticReturnsPutTasks());
+        allPutTasks.AddRange(CreateFakeSyntheticReturnsPutTasks());
 
         await Task.WhenAll(allPutTasks);
 
         logger.LogInformation("Synthetic monthly and yearly returns added to repository.");
     }
 
-    private IEnumerable<Task> CreateFakeDailySyntheticReturnsPutTasks()
+    private IEnumerable<Task> CreateFakeSyntheticReturnsPutTasks()
     {
-        IEnumerable<PeriodReturn> GenerateReturns(string ticker, IEnumerable<DateTime> dates, decimal returnPercentage)
-        {
-            return dates.Select(date => new PeriodReturn
+        IEnumerable<PeriodReturn> GetReturns(string ticker, IEnumerable<DateTime> dates, decimal returnPercentage, PeriodType periodType)
+            => dates.Select(date => new PeriodReturn
             {
                 Ticker = ticker,
                 PeriodStart = date,
                 ReturnPercentage = returnPercentage,
-                PeriodType = PeriodType.Daily
+                PeriodType = periodType
             });
-        }
 
-        var dates = new[]
+        var dailyDates = new[]
         {
             new DateTime(2023, 1, 3),
             new DateTime(2023, 1, 4),
@@ -177,61 +174,37 @@ internal class ReturnRepository : IReturnRepository
             new DateTime(2023, 2, 7)
         };
 
+        var monthlyDates = Enumerable
+            .Range(1, 12)
+            .Select(month => new DateTime(2023, month, 1));
+
         var tickerData = new[]
         {
-            ("#1X", 0m),
-            ("#2X", 100m),
-            ("#3X", 200m)
+            (Ticker: "#1X", ReturnPercentage: 0m),
+            (Ticker: "#2X", ReturnPercentage: 100m),
+            (Ticker: "#3X", ReturnPercentage: 200m)
         };
 
-        var allReturns = tickerData.SelectMany(td =>
-            GenerateReturns(td.Item1, dates, td.Item2));
-
-        return tickerData.Select(td =>
-            this.Put(td.Item1, allReturns.Where(r => r.Ticker == td.Item1), PeriodType.Daily));
-    }
-
-    private IEnumerable<Task> CreateFakeMonthlySyntheticReturnsPutTasks()
-    {
-        IEnumerable<PeriodReturn> GenerateReturns(string ticker, IEnumerable<DateTime> dates, decimal returnPercentage)
-        {
-            return dates.Select(date => new PeriodReturn
+        var allReturns = tickerData
+            .SelectMany(td => new[]
             {
-                Ticker = ticker,
-                PeriodStart = date,
-                ReturnPercentage = returnPercentage,
-                PeriodType = PeriodType.Monthly
+                GetReturns(td.Ticker, dailyDates, td.ReturnPercentage, PeriodType.Daily),
+                GetReturns(td.Ticker, monthlyDates, td.ReturnPercentage, PeriodType.Monthly)
+            }
+            .SelectMany(x => x));
+
+        return tickerData
+            .SelectMany(td => new[]
+            {
+                Put(
+                    td.Ticker,
+                    allReturns.Where(r => r.Ticker == td.Ticker && r.PeriodType == PeriodType.Daily),
+                    PeriodType.Daily),
+                Put(
+                    td.Ticker,
+                    allReturns.Where(r => r.Ticker == td.Ticker && r.PeriodType == PeriodType.Monthly),
+                    PeriodType.Monthly)
             });
-        }
-
-        var dates = new[]
-        {
-            new DateTime(2023, 1, 1),
-            new DateTime(2023, 2, 1),
-            new DateTime(2023, 3, 1),
-            new DateTime(2023, 4, 1),
-            new DateTime(2023, 5, 1),
-            new DateTime(2023, 6, 1),
-            new DateTime(2023, 7, 1),
-            new DateTime(2023, 8, 1),
-            new DateTime(2023, 9, 1),
-            new DateTime(2023, 10, 1),
-            new DateTime(2023, 11, 1),
-            new DateTime(2023, 12, 1)
-        };
-
-        var tickerData = new[]
-        {
-            ("#1X", 0m),
-            ("#2X", 100m),
-            ("#3X", 200m)
-        };
-
-        var allReturns = tickerData.SelectMany(td =>
-            GenerateReturns(td.Item1, dates, td.Item2));
-
-        return tickerData.Select(td =>
-            this.Put(td.Item1, allReturns.Where(r => r.Ticker == td.Item1), PeriodType.Monthly));
     }
 
     private async Task<Dictionary<string, List<PeriodReturn>>> CreateSyntheticMonthlyReturns()
