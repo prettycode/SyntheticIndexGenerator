@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Data.Extensions;
-using Data.Indices;
 using Data.Returns;
+using Data.SyntheticIndex;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -51,8 +51,48 @@ class Program
 
     static async Task UpdateReturnsRepository(IServiceProvider provider)
     {
-        static async Task UpdateReturnsRepositoryWithIndexBackfillTickers(
-            IIndicesService indicesService,
+        /*static async Task UpdateReturnsRepositoryWithIndexBackfillTickers(
+            ISyntheticIndexService syntheticIndexService,
+            IReturnsService returnsService)
+        {
+
+            var allIndexBackfillTickers = syntheticIndexService.GetAllIndexBackfillTickers(true);
+
+            await returnsService.GetReturnsHistory(allIndexBackfillTickers, PeriodType.Daily, DateTime.MinValue, DateTime.MaxValue);
+            await returnsService.GetReturnsHistory(allIndexBackfillTickers, PeriodType.Monthly, DateTime.MinValue, DateTime.MaxValue);
+            await returnsService.GetReturnsHistory(allIndexBackfillTickers, PeriodType.Yearly, DateTime.MinValue, DateTime.MaxValue);
+
+            await Task.WhenAll(
+                returnsService.GetReturnsHistory(allIndexBackfillTickers, PeriodType.Daily, DateTime.MinValue, DateTime.MaxValue),
+                returnsService.GetReturnsHistory(allIndexBackfillTickers, PeriodType.Monthly, DateTime.MinValue, DateTime.MaxValue),
+                returnsService.GetReturnsHistory(allIndexBackfillTickers, PeriodType.Yearly, DateTime.MinValue, DateTime.MaxValue));
+        }
+
+        static async Task UpdateReturnsRepositoryWithSyntheticIndexTickers(
+            ISyntheticIndexService syntheticIndexService,
+            IReturnsService returnsService)
+        {
+            var syntheticIndexTickers = returnsService.GetSyntheticIndexTickers();
+
+            await returnsService.GetReturnsHistory(syntheticIndexTickers, PeriodType.Daily, DateTime.MinValue, DateTime.MaxValue);
+            await returnsService.GetReturnsHistory(syntheticIndexTickers, PeriodType.Monthly, DateTime.MinValue, DateTime.MaxValue);
+            await returnsService.GetReturnsHistory(syntheticIndexTickers, PeriodType.Yearly, DateTime.MinValue, DateTime.MaxValue);
+
+            await Task.WhenAll(
+                returnsService.GetReturnsHistory(syntheticIndexTickers, PeriodType.Daily, DateTime.MinValue, DateTime.MaxValue),
+                returnsService.GetReturnsHistory(syntheticIndexTickers, PeriodType.Monthly, DateTime.MinValue, DateTime.MaxValue),
+                returnsService.GetReturnsHistory(syntheticIndexTickers, PeriodType.Yearly, DateTime.MinValue, DateTime.MaxValue));
+        }
+
+        var returnsService = provider.GetRequiredService<IReturnsService>();
+        var syntheticIndexService = provider.GetRequiredService<ISyntheticIndexService>();
+
+        await UpdateReturnsRepositoryWithIndexBackfillTickers(syntheticIndexService, returnsService);
+        await UpdateReturnsRepositoryWithSyntheticIndexTickers(syntheticIndexService, returnsService);
+        */
+
+        /*static async Task UpdateReturnsRepositoryWithIndexBackfillTickers(
+            ISyntheticIndexService indicesService,
             IReturnsService returnsService)
         {
             var tickersNeeded = indicesService.GetIndexBackfillTickers();
@@ -60,17 +100,35 @@ class Program
         }
 
         static async Task UpdateReturnsRepositoryWithSyntheticIndexTickers(
-            IIndicesService indicesService,
+            ISyntheticIndexService indicesService,
             IReturnsService returnsService)
         {
             await indicesService.PutSyntheticIndicesInReturnsRepository();
         }
 
         var returnsService = provider.GetRequiredService<IReturnsService>();
-        var indicesService = provider.GetRequiredService<IIndicesService>();
+        var indicesService = provider.GetRequiredService<ISyntheticIndexService>();
 
         await UpdateReturnsRepositoryWithIndexBackfillTickers(indicesService, returnsService);
-        await UpdateReturnsRepositoryWithSyntheticIndexTickers(indicesService, returnsService);
+        await UpdateReturnsRepositoryWithSyntheticIndexTickers(indicesService, returnsService);\
+        */
+
+        var returnsService = provider.GetRequiredService<IReturnsService>();
+        var indicesService = provider.GetRequiredService<ISyntheticIndexService>();
+
+        foreach (var ticker in indicesService.GetAllIndexBackfillTickers(true))
+        {
+            Console.WriteLine($"\nCLIENT: {ticker}: Fetching returns history…");
+
+            Console.WriteLine($"\nCLIENT: {ticker}: Fetching Daily returns history…");
+            await returnsService.GetReturnsHistory("AVUV", PeriodType.Daily, DateTime.MinValue, DateTime.MaxValue);
+
+            Console.WriteLine($"\nCLIENT: {ticker}: Fetching Monthly returns history…");
+            await returnsService.GetReturnsHistory("AVUV", PeriodType.Monthly, DateTime.MinValue, DateTime.MaxValue);
+
+            Console.WriteLine($"\nCLIENT: {ticker}: Fetching Yearly returns history…");
+            await returnsService.GetReturnsHistory("AVUV", PeriodType.Yearly, DateTime.MinValue, DateTime.MaxValue);
+        }
     }
 
     // TODO test

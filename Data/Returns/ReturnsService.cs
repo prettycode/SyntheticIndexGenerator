@@ -74,7 +74,7 @@ internal class ReturnsService(
 
         if (IsQuoteTicker(ticker))
         {
-            var dailyPricesByTicker = await quotesService.GetDailyQuoteHistory(ticker, false);
+            var dailyPricesByTicker = await quotesService.GetDailyQuoteHistory(ticker);
             var returns = await CalculateAndPutReturnsForPeriodType(ticker, dailyPricesByTicker, periodType);
 
             return [.. returns];

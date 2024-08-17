@@ -2,7 +2,7 @@
 
 internal interface IQuotesService
 {
-    Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(HashSet<string> tickers, bool skipRefresh);
+    Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(HashSet<string> tickers);
 
-    Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker, bool skipRefresh);
+    Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker);
 }
