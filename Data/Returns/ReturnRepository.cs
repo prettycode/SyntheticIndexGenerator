@@ -99,10 +99,157 @@ internal class ReturnRepository : IReturnRepository
         await cache.Put(ticker, returns);
     }
 
+    private async Task CreateAndPutTestTickerReturns()
+    {
+        var daily1x = new List<PeriodReturn>
+        {
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 3), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 4), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 5), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 6), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 9), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 10), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 11), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 12), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 13), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 17), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 18), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 19), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 20), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 23), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 24), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 25), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 26), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 27), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 30), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 31), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 2, 2), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 2, 3), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 2, 6), ReturnPercentage = 0, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 2, 7), ReturnPercentage = 0, PeriodType = PeriodType.Daily }
+        };
+
+        var daily2x = new List<PeriodReturn>
+        {
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 3), ReturnPercentage  = 100, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 4), ReturnPercentage  = 100, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 5), ReturnPercentage  = 100, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 6), ReturnPercentage  = 100, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 9), ReturnPercentage  = 100, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 10), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 11), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 12), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 13), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 17), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 18), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 19), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 20), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 23), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 24), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 25), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 26), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 27), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 30), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 31), ReturnPercentage = 100,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage  = 100, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 2, 2), ReturnPercentage  = 100, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 2, 3), ReturnPercentage  = 100, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 2, 6), ReturnPercentage  = 100, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 2, 7), ReturnPercentage  = 100, PeriodType = PeriodType.Daily }
+        };
+
+        var daily3x = new List<PeriodReturn>
+        {
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 3), ReturnPercentage  = 200, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 4), ReturnPercentage  = 200, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 5), ReturnPercentage  = 200, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 6), ReturnPercentage  = 200, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 9), ReturnPercentage  = 200, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 10), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 11), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 12), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 13), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 17), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 18), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 19), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 20), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 23), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 24), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 25), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 26), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 27), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 30), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 31), ReturnPercentage = 200,  PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage  = 200, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 2, 2), ReturnPercentage  = 200, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 2, 3), ReturnPercentage  = 200, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 2, 6), ReturnPercentage  = 200, PeriodType = PeriodType.Daily },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 2, 7), ReturnPercentage  = 200, PeriodType = PeriodType.Daily }
+        };
+
+        var monthly1x = new List<PeriodReturn>
+        {
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 3, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 4, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 5, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 6, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 7, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 8, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 9, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 10, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#1X", PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 0, PeriodType = PeriodType.Monthly }
+        };
+
+        var monthly2x = new List<PeriodReturn>
+        {
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage  = 100, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage  = 100, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 3, 1), ReturnPercentage  = 100, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 4, 1), ReturnPercentage  = 100, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 5, 1), ReturnPercentage  = 100, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 6, 1), ReturnPercentage  = 100, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 7, 1), ReturnPercentage  = 100, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 8, 1), ReturnPercentage  = 100, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 9, 1), ReturnPercentage  = 100, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 10, 1), ReturnPercentage = 100,  PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 100,  PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#2X", PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 100,  PeriodType = PeriodType.Monthly }
+        };
+
+        var monthly3x = new List<PeriodReturn>
+        {
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 1, 1), ReturnPercentage  = 200, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 2, 1), ReturnPercentage  = 200, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 3, 1), ReturnPercentage  = 200, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 4, 1), ReturnPercentage  = 200, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 5, 1), ReturnPercentage  = 200, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 6, 1), ReturnPercentage  = 200, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 7, 1), ReturnPercentage  = 200, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 8, 1), ReturnPercentage  = 200, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 9, 1), ReturnPercentage  = 200, PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 10, 1), ReturnPercentage = 200,  PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 11, 1), ReturnPercentage = 200,  PeriodType = PeriodType.Monthly },
+            new PeriodReturn { Ticker = "#3X", PeriodStart = new DateTime(2023, 12, 1), ReturnPercentage = 200,  PeriodType = PeriodType.Monthly }
+        };
+
+        await Task.WhenAll(
+            this.Put("#1X", daily1x, PeriodType.Daily),
+            this.Put("#2X", daily2x, PeriodType.Daily),
+            this.Put("#3X", daily3x, PeriodType.Daily),
+            this.Put("#1X", monthly1x, PeriodType.Monthly),
+            this.Put("#2X", monthly2x, PeriodType.Monthly),
+            this.Put("#3X", monthly3x, PeriodType.Monthly));
+    }
+
     private async Task PutSyntheticsInRepository()
     {
         var monthlyReturnsTask = CreateSyntheticMonthlyReturns();
         var yearlyReturnsTask = CreateSyntheticYearlyReturns();
+        var putTestTickers = CreateAndPutTestTickerReturns();
         var allPutTasks = new List<Task>();
 
         logger.LogInformation("Getting synthetic monthly and yearly returns...");

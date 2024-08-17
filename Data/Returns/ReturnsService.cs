@@ -34,7 +34,8 @@ internal class ReturnsService(
     {
         ArgumentNullException.ThrowIfNull(ticker);
 
-        bool IsSyntheticReturnTicker(string ticker) => !IsSyntheticIndexTicker(ticker) && ticker.StartsWith('$');
+        bool IsSyntheticReturnTicker(string ticker) => !IsSyntheticIndexTicker(ticker) &&
+            (ticker.StartsWith('$') || ticker.StartsWith('#'));
         bool IsSyntheticIndexTicker(string ticker) => ticker.StartsWith("$^");
         bool IsQuoteTicker(string ticker) => !IsSyntheticIndexTicker(ticker) && !IsSyntheticReturnTicker(ticker);
 
