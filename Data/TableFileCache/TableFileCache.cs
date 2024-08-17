@@ -17,6 +17,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private readonly string cacheInstanceKey;
 
+    // TODO can we decouple TableFileCache from using a DaylongCache, i.e. use IGenericMemoryCache instead, and have the consumers of TableFileCache instances inject the IGenericMemoryCache?
     private static readonly ConcurrentDictionary<string, DaylongCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
     public TableFileCache(IOptions<TableFileCacheOptions> tableCacheOptions, string? cacheNamespace = null)
@@ -37,6 +38,12 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         => Task.FromResult(memoryCache[cacheInstanceKey].Get(key) ?? throw new KeyNotFoundException());
 
     /*
+     * TODO what to do about this? old logic related to priming the cache. Problem is we only want to prime
+     * the cache with this data if we know it's current. But we know it's not current during first run unless
+     * the files have been written as of last trading day close.
+     *
+     * E.g. have option to prime cache
+     *
     public Task<IEnumerable<TValue>> Get(TKey key)
         => memoryCache[cacheInstanceKey].TryGet(key, out var value)
             ? Task.FromResult(value ?? throw new InvalidOperationException($"{nameof(value)} should not be null."))
@@ -54,6 +61,11 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         return memoryCache[cacheInstanceKey][key] = values;
     }
     */
+
+    public Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append = false)
+        => !append
+            ? Set(key, value)
+            : Append(key, value);
 
     public async Task<IEnumerable<TValue>> Set(TKey key, IEnumerable<TValue> value)
     {
@@ -75,11 +87,6 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         return memoryCache[cacheInstanceKey][key] = (memoryCache[cacheInstanceKey][key] ??
             throw new KeyNotFoundException()).Concat(value);
     }
-
-    public Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append)
-        => !append
-            ? Set(key, value)
-            : Append(key, value);
 
     private string GetCacheFilePath(TKey keyValue)
         => Path.Combine(cacheRootPath, cacheTableName, cacheRelativePath, $"{keyValue}.{CACHE_FILE_EXTENSION}");

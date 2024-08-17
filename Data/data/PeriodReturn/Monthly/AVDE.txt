@@ -16,8 +16,8 @@
 {"Ticker":"AVDE","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":-0.926695696155433727304966600,"PeriodType":1}
 {"Ticker":"AVDE","PeriodStart":"2021-02-01T00:00:00","ReturnPercentage":3.5652182417431955324746452300,"PeriodType":1}
 {"Ticker":"AVDE","PeriodStart":"2021-03-01T00:00:00","ReturnPercentage":3.1100794754019098271485555400,"PeriodType":1}
-{"Ticker":"AVDE","PeriodStart":"2021-04-01T00:00:00","ReturnPercentage":3.0822124816142462802620805600,"PeriodType":1}
-{"Ticker":"AVDE","PeriodStart":"2021-05-01T00:00:00","ReturnPercentage":3.7999808090751751171890270600,"PeriodType":1}
+{"Ticker":"AVDE","PeriodStart":"2021-04-01T00:00:00","ReturnPercentage":3.0823956522615163965204903800,"PeriodType":1}
+{"Ticker":"AVDE","PeriodStart":"2021-05-01T00:00:00","ReturnPercentage":3.7997963633262078266849335500,"PeriodType":1}
 {"Ticker":"AVDE","PeriodStart":"2021-06-01T00:00:00","ReturnPercentage":-1.5050902934344030909816126300,"PeriodType":1}
 {"Ticker":"AVDE","PeriodStart":"2021-07-01T00:00:00","ReturnPercentage":0.9512321872083342747745320700,"PeriodType":1}
 {"Ticker":"AVDE","PeriodStart":"2021-08-01T00:00:00","ReturnPercentage":1.2879800011018676656933502300,"PeriodType":1}
@@ -56,4 +56,4 @@
 {"Ticker":"AVDE","PeriodStart":"2024-05-01T00:00:00","ReturnPercentage":5.2836941901260625258274242400,"PeriodType":1}
 {"Ticker":"AVDE","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-2.6411671800966395096092198500,"PeriodType":1}
 {"Ticker":"AVDE","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":3.5496305814327015740443302300,"PeriodType":1}
-{"Ticker":"AVDE","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-2.5748410113230960136497595800,"PeriodType":1}
+{"Ticker":"AVDE","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-0.4963548937490305568481464200,"PeriodType":1}

@@ -10,8 +10,8 @@
 {"Ticker":"DGS","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":37.469526382686123478055522760,"PeriodType":2}
 {"Ticker":"DGS","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":-16.513872714090473892822768280,"PeriodType":2}
 {"Ticker":"DGS","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":18.901352279569957546470426260,"PeriodType":2}
-{"Ticker":"DGS","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":4.0583391017549574494075491700,"PeriodType":2}
-{"Ticker":"DGS","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":15.328779552496875695478746170,"PeriodType":2}
+{"Ticker":"DGS","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":4.0585935909442566879758947800,"PeriodType":2}
+{"Ticker":"DGS","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":15.328497500562495720141259790,"PeriodType":2}
 {"Ticker":"DGS","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-12.347079642639783361501710250,"PeriodType":2}
 {"Ticker":"DGS","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":19.083136564217697607803669580,"PeriodType":2}
-{"Ticker":"DGS","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":4.302318258187853879237662600,"PeriodType":2}
+{"Ticker":"DGS","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":5.8869658670968240005038366800,"PeriodType":2}

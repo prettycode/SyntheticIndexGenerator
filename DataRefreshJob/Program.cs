@@ -118,16 +118,14 @@ class Program
 
         foreach (var ticker in indicesService.GetAllIndexBackfillTickers(true))
         {
-            Console.WriteLine($"\nCLIENT: {ticker}: Fetching returns history…");
+            Console.WriteLine($"\nCLIENT: {ticker}: Fetching {PeriodType.Daily.ToString().ToUpper()} returns history…");
+            await returnsService.GetReturnsHistory(ticker, PeriodType.Daily, DateTime.MinValue, DateTime.MaxValue);
 
-            Console.WriteLine($"\nCLIENT: {ticker}: Fetching Daily returns history…");
-            await returnsService.GetReturnsHistory("AVUV", PeriodType.Daily, DateTime.MinValue, DateTime.MaxValue);
+            Console.WriteLine($"\nCLIENT: {ticker}: Fetching {PeriodType.Monthly.ToString().ToUpper()} returns history…");
+            await returnsService.GetReturnsHistory(ticker, PeriodType.Monthly, DateTime.MinValue, DateTime.MaxValue);
 
-            Console.WriteLine($"\nCLIENT: {ticker}: Fetching Monthly returns history…");
-            await returnsService.GetReturnsHistory("AVUV", PeriodType.Monthly, DateTime.MinValue, DateTime.MaxValue);
-
-            Console.WriteLine($"\nCLIENT: {ticker}: Fetching Yearly returns history…");
-            await returnsService.GetReturnsHistory("AVUV", PeriodType.Yearly, DateTime.MinValue, DateTime.MaxValue);
+            Console.WriteLine($"\nCLIENT: {ticker}: Fetching {PeriodType.Yearly.ToString().ToUpper()} returns history…");
+            await returnsService.GetReturnsHistory(ticker, PeriodType.Yearly, DateTime.MinValue, DateTime.MaxValue);
         }
     }
 
