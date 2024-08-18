@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache.DaylongCache;
 
+// TODO do not inherit from GenericMemoryCache; have it privately inside here instead
 public class DaylongCache<TKey, TValue>(IOptions<DaylongCacheOptions> daylongCacheOptions)
         : GenericMemoryCache<TKey, TValue>(daylongCacheOptions.Value?.GenericMemoryCacheOptions) where TKey : notnull
 {
@@ -11,6 +12,12 @@ public class DaylongCache<TKey, TValue>(IOptions<DaylongCacheOptions> daylongCac
 
     public TValue Set(TKey key, TValue value)
         => cache.Set(key, value, GetNextExpirationDateTimeOffset());
+
+    public new TValue? this[TKey key]
+    {
+        get => Get(key);
+        set => Set(key, value ?? throw new ArgumentNullException(nameof(value)));
+    }
 
     private DateTimeOffset GetNextExpirationDateTimeOffset()
     {
