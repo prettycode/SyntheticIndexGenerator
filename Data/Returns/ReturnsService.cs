@@ -59,10 +59,12 @@ internal class ReturnsService(
         if (IsSyntheticIndexTicker(ticker))
         {
             var backfillTickers = syntheticIndexService.GetIndexBackfillTickers(ticker).ToList();
+            // TODO how to handle synthetics when (intentionally) there's no data for periodType
             var backfillReturnTasks = backfillTickers.Select(ticker => GetReturnsHistory(ticker, periodType, startDate, endDate));
             var backfillReturns = await Task.WhenAll(backfillReturnTasks);
+            var syntheticIndexReturns =  await CollateBackfillReturns(backfillTickers, periodType);
 
-            return await CollateBackfillReturns(backfillTickers, periodType);
+            return [.. await returnRepository.Put(ticker, syntheticIndexReturns, periodType)];
         }
 
         if (IsQuoteTicker(ticker))
