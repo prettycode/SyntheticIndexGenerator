@@ -28,8 +28,11 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         this.cacheRelativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? String.Empty;
         this.cacheInstanceKey = cacheRootPath + cacheRelativePath;
 
-        memoryCache[cacheInstanceKey] = new DaylongCache<TKey, IEnumerable<TValue>>(
-            tableCacheOptions.Value.DaylongCacheOptions);
+        if (!memoryCache.ContainsKey(cacheInstanceKey))
+        {
+            memoryCache[cacheInstanceKey] = new DaylongCache<TKey, IEnumerable<TValue>>(
+                tableCacheOptions.Value.DaylongCacheOptions);
+        }
     }
 
     public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _);
