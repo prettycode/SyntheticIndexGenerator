@@ -12,6 +12,12 @@ public class DaylongCache<TKey, TValue>(IOptions<DaylongCacheOptions> daylongCac
     public TValue Set(TKey key, TValue value)
         => cache.Set(key, value, GetNextExpirationDateTimeOffset());
 
+    public new TValue? this[TKey key]
+    {
+        get => Get(key);
+        set => Set(key, value ?? throw new ArgumentNullException(nameof(value)));
+    }
+
     private DateTimeOffset GetNextExpirationDateTimeOffset()
     {
         var destinationTimeZone = daylongCacheOptions.TimeZone;

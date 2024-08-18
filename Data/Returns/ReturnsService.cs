@@ -50,14 +50,6 @@ internal class ReturnsService(
 
         if (IsSyntheticReturnTicker(ticker))
         {
-            // Daily synthetic returns do not exist; only monthly and yearly exist
-            // TODO this will be a huge problem when generating synthetic returns for things like RSSB
-
-            if (periodType == PeriodType.Daily)
-            {
-                return [];
-            }
-
             // Synthetic returns are pre-generated put in the repo by returnRepository during its startup
 
             throw new InvalidOperationException(
