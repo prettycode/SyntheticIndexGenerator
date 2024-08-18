@@ -81,7 +81,7 @@ internal class ReturnRepository : IReturnRepository
         _ => throw new NotImplementedException()
     };
 
-    public async Task Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType periodType)
+    public async Task<List<PeriodReturn>> Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType periodType)
     {
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(returns);
@@ -96,7 +96,7 @@ internal class ReturnRepository : IReturnRepository
 
         logger.LogInformation("{ticker}: Writing returns for period type {periodType}.", ticker, periodType);
 
-        await cache.Put(ticker, returns);
+        return [.. await cache.Put(ticker, returns)];
     }
 
     private async Task PutSyntheticsInRepository()

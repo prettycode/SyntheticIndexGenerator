@@ -6,5 +6,5 @@ internal interface IReturnRepository
 
     bool Has(string ticker, PeriodType period);
 
-    Task Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType period);
+    Task<List<PeriodReturn>> Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType period);
 }
