@@ -56,7 +56,7 @@ class Program
             IReturnsService returnsService)
         {
             var tickersNeeded = indicesService.GetIndexBackfillTickers();
-            var returnsByTicker = await returnsService.GetReturns(tickersNeeded, false);
+            var returnsByTicker = await returnsService.GetReturns(tickersNeeded, true);
         }
 
         static async Task UpdateReturnsRepositoryWithSyntheticIndexTickers(
