@@ -1,4 +1,4 @@
-{"Ticker":"#2X","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":100,"PeriodType":1}
+﻿{"Ticker":"#2X","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":100,"PeriodType":1}
 {"Ticker":"#2X","PeriodStart":"2023-02-01T00:00:00","ReturnPercentage":100,"PeriodType":1}
 {"Ticker":"#2X","PeriodStart":"2023-03-01T00:00:00","ReturnPercentage":100,"PeriodType":1}
 {"Ticker":"#2X","PeriodStart":"2023-04-01T00:00:00","ReturnPercentage":100,"PeriodType":1}

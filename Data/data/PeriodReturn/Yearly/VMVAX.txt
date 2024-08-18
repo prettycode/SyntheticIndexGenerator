@@ -4,10 +4,10 @@
 {"Ticker":"VMVAX","PeriodStart":"2015-01-01T00:00:00","ReturnPercentage":-1.8170387675783383192457997100,"PeriodType":2}
 {"Ticker":"VMVAX","PeriodStart":"2016-01-01T00:00:00","ReturnPercentage":15.252733537726890414303931410,"PeriodType":2}
 {"Ticker":"VMVAX","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":17.039598669450807110387088120,"PeriodType":2}
-{"Ticker":"VMVAX","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":-12.439633203196498574931260800,"PeriodType":2}
-{"Ticker":"VMVAX","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":27.988642915720051547931076470,"PeriodType":2}
+{"Ticker":"VMVAX","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":-12.439432064348340302794422020,"PeriodType":2}
+{"Ticker":"VMVAX","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":27.988348907939833319550495720,"PeriodType":2}
 {"Ticker":"VMVAX","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":2.4477532647479018744929679600,"PeriodType":2}
 {"Ticker":"VMVAX","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":28.763914632394420482058577230,"PeriodType":2}
 {"Ticker":"VMVAX","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-7.8925205479824813227989066500,"PeriodType":2}
 {"Ticker":"VMVAX","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":9.727051691487758834112777670,"PeriodType":2}
-{"Ticker":"VMVAX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":10.712035626013020510804654640,"PeriodType":2}
+{"Ticker":"VMVAX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":8.733111837464392833872713470,"PeriodType":2}

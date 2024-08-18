@@ -61,8 +61,8 @@
 {"Ticker":"DISMX","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":5.4647631088018994465086878100,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2018-02-01T00:00:00","ReturnPercentage":-3.8118279962868482797435878700,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2018-03-01T00:00:00","ReturnPercentage":-0.4194656372534119578102677900,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2018-04-01T00:00:00","ReturnPercentage":-0.1861970025335001984066420400,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2018-05-01T00:00:00","ReturnPercentage":0.7484709480122324159021406700,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2018-04-01T00:00:00","ReturnPercentage":-0.1869601050028997893837184500,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2018-05-01T00:00:00","ReturnPercentage":0.7492412021498635310667512700,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2018-06-01T00:00:00","ReturnPercentage":-1.6436609778492779577929715700,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2018-07-01T00:00:00","ReturnPercentage":0.3819061359585844012560468500,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2018-08-01T00:00:00","ReturnPercentage":-0.5072708826513358133243151800,"PeriodType":1}
@@ -99,8 +99,8 @@
 {"Ticker":"DISMX","PeriodStart":"2021-03-01T00:00:00","ReturnPercentage":2.3505986233571255900352430800,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2021-04-01T00:00:00","ReturnPercentage":5.4851481456159215359657900800,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2021-05-01T00:00:00","ReturnPercentage":2.0481515962148084424384552800,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2021-06-01T00:00:00","ReturnPercentage":-0.332005312084993359893758300,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2021-07-01T00:00:00","ReturnPercentage":2.4939895142368855545578310100,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2021-06-01T00:00:00","ReturnPercentage":-0.3314279115422368497026387200,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2021-07-01T00:00:00","ReturnPercentage":2.493395745469713120452333500,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2021-08-01T00:00:00","ReturnPercentage":2.7368302057427085688446755600,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2021-09-01T00:00:00","ReturnPercentage":-4.3386406399577469438056359400,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2021-10-01T00:00:00","ReturnPercentage":3.6198210218776599415675538900,"PeriodType":1}
@@ -130,11 +130,11 @@
 {"Ticker":"DISMX","PeriodStart":"2023-10-01T00:00:00","ReturnPercentage":-5.181596605783408058255348600,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2023-11-01T00:00:00","ReturnPercentage":9.913998286312716194344831960,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2023-12-01T00:00:00","ReturnPercentage":7.2491699148260430200664068100,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":-1.8030326484187289259201927500,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2024-02-01T00:00:00","ReturnPercentage":2.2439412216251781993639653500,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":-1.8023596239139067053431415400,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2024-02-01T00:00:00","ReturnPercentage":2.2432404646859257736198211200,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2024-03-01T00:00:00","ReturnPercentage":1.8487980801458660124146992200,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2024-04-01T00:00:00","ReturnPercentage":-3.8542544229149115417017691700,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2024-05-01T00:00:00","ReturnPercentage":5.0951533406352683461117196100,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-2.2296333448408381805983468300,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":4.3970686209193870752831445700,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-1.2125079770261646458200382900,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-2.8079132099553286534779834100,"PeriodType":1}

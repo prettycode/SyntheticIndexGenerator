@@ -1,4 +1,4 @@
-{"Ticker":"#3X","PeriodStart":"2023-01-03T00:00:00","ReturnPercentage":200,"PeriodType":0}
+﻿{"Ticker":"#3X","PeriodStart":"2023-01-03T00:00:00","ReturnPercentage":200,"PeriodType":0}
 {"Ticker":"#3X","PeriodStart":"2023-01-04T00:00:00","ReturnPercentage":200,"PeriodType":0}
 {"Ticker":"#3X","PeriodStart":"2023-01-05T00:00:00","ReturnPercentage":200,"PeriodType":0}
 {"Ticker":"#3X","PeriodStart":"2023-01-06T00:00:00","ReturnPercentage":200,"PeriodType":0}

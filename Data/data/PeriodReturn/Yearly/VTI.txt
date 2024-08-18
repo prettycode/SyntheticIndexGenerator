@@ -12,12 +12,12 @@
 {"Ticker":"VTI","PeriodStart":"2013-01-01T00:00:00","ReturnPercentage":33.449746016294430422514480500,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2014-01-01T00:00:00","ReturnPercentage":12.549319429473842528764444890,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2015-01-01T00:00:00","ReturnPercentage":0.3550166706385177497199288200,"PeriodType":2}
-{"Ticker":"VTI","PeriodStart":"2016-01-01T00:00:00","ReturnPercentage":12.817835401376426749995006510,"PeriodType":2}
-{"Ticker":"VTI","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":21.213355169005149087475471750,"PeriodType":2}
-{"Ticker":"VTI","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":-5.2347613274714003560653641200,"PeriodType":2}
+{"Ticker":"VTI","PeriodStart":"2016-01-01T00:00:00","ReturnPercentage":12.817724435014769622736563640,"PeriodType":2}
+{"Ticker":"VTI","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":21.213572752202257535281365690,"PeriodType":2}
+{"Ticker":"VTI","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":-5.2348382249003739981612500900,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":30.668657795070758412703033870,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":21.076139736961094619301315190,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":25.681817935803303035124921930,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-19.523456811389494173477912620,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":26.047021101489850586854083260,"PeriodType":2}
-{"Ticker":"VTI","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":15.969211293041635056774691480,"PeriodType":2}
+{"Ticker":"VTI","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":13.400797015035624542832871800,"PeriodType":2}

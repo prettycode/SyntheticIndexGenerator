@@ -22,7 +22,7 @@
 {"Ticker":"AVLV","DateTime":"2021-10-22T00:00:00","Open":53.0100,"High":53.0100,"Low":52.8790,"Close":52.9040,"Volume":12500,"AdjustedClose":50.2844}
 {"Ticker":"AVLV","DateTime":"2021-10-25T00:00:00","Open":53.2800,"High":53.2800,"Low":53.2070,"Close":53.2200,"Volume":4500,"AdjustedClose":50.5847}
 {"Ticker":"AVLV","DateTime":"2021-10-26T00:00:00","Open":53.4000,"High":53.4500,"Low":53.1010,"Close":53.1840,"Volume":21800,"AdjustedClose":50.5505}
-{"Ticker":"AVLV","DateTime":"2021-10-27T00:00:00","Open":52.7700,"High":52.8800,"Low":52.3650,"Close":52.3650,"Volume":9500,"AdjustedClose":49.7721}
+{"Ticker":"AVLV","DateTime":"2021-10-27T00:00:00","Open":52.7700,"High":52.8800,"Low":52.3650,"Close":52.3650,"Volume":9500,"AdjustedClose":49.7720}
 {"Ticker":"AVLV","DateTime":"2021-10-28T00:00:00","Open":52.9700,"High":53.0630,"Low":52.9000,"Close":53.0630,"Volume":16500,"AdjustedClose":50.4355}
 {"Ticker":"AVLV","DateTime":"2021-10-29T00:00:00","Open":53.0800,"High":53.1700,"Low":52.9900,"Close":53.1100,"Volume":10700,"AdjustedClose":50.4802}
 {"Ticker":"AVLV","DateTime":"2021-11-01T00:00:00","Open":53.5600,"High":53.5600,"Low":53.2700,"Close":53.4000,"Volume":7700,"AdjustedClose":50.7558}
@@ -47,7 +47,7 @@
 {"Ticker":"AVLV","DateTime":"2021-11-29T00:00:00","Open":53.9700,"High":54.0200,"Low":53.5000,"Close":53.7500,"Volume":10100,"AdjustedClose":51.0885}
 {"Ticker":"AVLV","DateTime":"2021-11-30T00:00:00","Open":53.4500,"High":53.4500,"Low":52.4800,"Close":52.4870,"Volume":15500,"AdjustedClose":49.8880}
 {"Ticker":"AVLV","DateTime":"2021-12-01T00:00:00","Open":53.4980,"High":53.5180,"Low":51.8100,"Close":51.8100,"Volume":6100,"AdjustedClose":49.2445}
-{"Ticker":"AVLV","DateTime":"2021-12-02T00:00:00","Open":52.0900,"High":52.7900,"Low":51.9800,"Close":52.6800,"Volume":20200,"AdjustedClose":50.0715}
+{"Ticker":"AVLV","DateTime":"2021-12-02T00:00:00","Open":52.0900,"High":52.7900,"Low":51.9800,"Close":52.6800,"Volume":20200,"AdjustedClose":50.0714}
 {"Ticker":"AVLV","DateTime":"2021-12-03T00:00:00","Open":53.2400,"High":53.2400,"Low":52.1900,"Close":52.4000,"Volume":14200,"AdjustedClose":49.8053}
 {"Ticker":"AVLV","DateTime":"2021-12-06T00:00:00","Open":52.7200,"High":53.1800,"Low":52.6400,"Close":52.8610,"Volume":13700,"AdjustedClose":50.2435}
 {"Ticker":"AVLV","DateTime":"2021-12-07T00:00:00","Open":53.3400,"High":54.1300,"Low":53.3400,"Close":53.9300,"Volume":10500,"AdjustedClose":51.2596}
@@ -55,7 +55,7 @@
 {"Ticker":"AVLV","DateTime":"2021-12-09T00:00:00","Open":53.6700,"High":53.7800,"Low":53.4800,"Close":53.4900,"Volume":9000,"AdjustedClose":50.8413}
 {"Ticker":"AVLV","DateTime":"2021-12-10T00:00:00","Open":53.5500,"High":53.8000,"Low":53.2600,"Close":53.8000,"Volume":10100,"AdjustedClose":51.1360}
 {"Ticker":"AVLV","DateTime":"2021-12-13T00:00:00","Open":53.5000,"High":53.5800,"Low":53.1270,"Close":53.1300,"Volume":28500,"AdjustedClose":50.4992}
-{"Ticker":"AVLV","DateTime":"2021-12-14T00:00:00","Open":53.2700,"High":53.2700,"Low":52.9800,"Close":53.1000,"Volume":13900,"AdjustedClose":50.4706}
+{"Ticker":"AVLV","DateTime":"2021-12-14T00:00:00","Open":53.2700,"High":53.2700,"Low":52.9800,"Close":53.1000,"Volume":13900,"AdjustedClose":50.4707}
 {"Ticker":"AVLV","DateTime":"2021-12-15T00:00:00","Open":53.4000,"High":53.7000,"Low":52.6900,"Close":53.7000,"Volume":17900,"AdjustedClose":51.0409}
 {"Ticker":"AVLV","DateTime":"2021-12-16T00:00:00","Open":54.0900,"High":54.0900,"Low":53.3100,"Close":53.3400,"Volume":17900,"AdjustedClose":50.8455}
 {"Ticker":"AVLV","DateTime":"2021-12-17T00:00:00","Open":52.7000,"High":53.0900,"Low":52.6400,"Close":52.7400,"Volume":17900,"AdjustedClose":50.2736}
@@ -78,7 +78,7 @@
 {"Ticker":"AVLV","DateTime":"2022-01-12T00:00:00","Open":55.0300,"High":55.0900,"Low":54.5300,"Close":54.7700,"Volume":26500,"AdjustedClose":52.2087}
 {"Ticker":"AVLV","DateTime":"2022-01-13T00:00:00","Open":54.9000,"High":54.9000,"Low":54.4100,"Close":54.4500,"Volume":11900,"AdjustedClose":51.9036}
 {"Ticker":"AVLV","DateTime":"2022-01-14T00:00:00","Open":54.2590,"High":54.4800,"Low":53.8600,"Close":54.4800,"Volume":15200,"AdjustedClose":51.9322}
-{"Ticker":"AVLV","DateTime":"2022-01-18T00:00:00","Open":54.0500,"High":54.0500,"Low":53.2900,"Close":53.5000,"Volume":78500,"AdjustedClose":50.9980}
+{"Ticker":"AVLV","DateTime":"2022-01-18T00:00:00","Open":54.0500,"High":54.0500,"Low":53.2900,"Close":53.5000,"Volume":78500,"AdjustedClose":50.9981}
 {"Ticker":"AVLV","DateTime":"2022-01-19T00:00:00","Open":53.9900,"High":53.9900,"Low":52.8400,"Close":52.8600,"Volume":57100,"AdjustedClose":50.3880}
 {"Ticker":"AVLV","DateTime":"2022-01-20T00:00:00","Open":52.9400,"High":53.5500,"Low":52.0900,"Close":52.0900,"Volume":28200,"AdjustedClose":49.6540}
 {"Ticker":"AVLV","DateTime":"2022-01-21T00:00:00","Open":52.0000,"High":52.1000,"Low":51.1500,"Close":51.2100,"Volume":67700,"AdjustedClose":48.8151}
@@ -123,7 +123,7 @@
 {"Ticker":"AVLV","DateTime":"2022-03-18T00:00:00","Open":53.7700,"High":54.0700,"Low":53.4300,"Close":54.0300,"Volume":36100,"AdjustedClose":51.5033}
 {"Ticker":"AVLV","DateTime":"2022-03-21T00:00:00","Open":54.4300,"High":54.4600,"Low":53.9170,"Close":54.2800,"Volume":30600,"AdjustedClose":51.7416}
 {"Ticker":"AVLV","DateTime":"2022-03-22T00:00:00","Open":54.2800,"High":54.4900,"Low":54.1200,"Close":54.3400,"Volume":47800,"AdjustedClose":52.0096}
-{"Ticker":"AVLV","DateTime":"2022-03-23T00:00:00","Open":54.3800,"High":54.3800,"Low":53.9250,"Close":53.9300,"Volume":58800,"AdjustedClose":51.6171}
+{"Ticker":"AVLV","DateTime":"2022-03-23T00:00:00","Open":54.3800,"High":54.3800,"Low":53.9250,"Close":53.9300,"Volume":58800,"AdjustedClose":51.6172}
 {"Ticker":"AVLV","DateTime":"2022-03-24T00:00:00","Open":54.3800,"High":54.5050,"Low":54.2370,"Close":54.5000,"Volume":31600,"AdjustedClose":52.1627}
 {"Ticker":"AVLV","DateTime":"2022-03-25T00:00:00","Open":54.5500,"High":54.9500,"Low":54.5500,"Close":54.9300,"Volume":209800,"AdjustedClose":52.5743}
 {"Ticker":"AVLV","DateTime":"2022-03-28T00:00:00","Open":54.4450,"High":54.7600,"Low":54.2000,"Close":54.7500,"Volume":40600,"AdjustedClose":52.4020}
@@ -138,7 +138,7 @@
 {"Ticker":"AVLV","DateTime":"2022-04-08T00:00:00","Open":53.4790,"High":54.0100,"Low":53.3700,"Close":53.7800,"Volume":43600,"AdjustedClose":51.4736}
 {"Ticker":"AVLV","DateTime":"2022-04-11T00:00:00","Open":53.4000,"High":53.7900,"Low":53.0800,"Close":53.1300,"Volume":37000,"AdjustedClose":50.8515}
 {"Ticker":"AVLV","DateTime":"2022-04-12T00:00:00","Open":53.6400,"High":54.0900,"Low":53.1450,"Close":53.2800,"Volume":27600,"AdjustedClose":50.9950}
-{"Ticker":"AVLV","DateTime":"2022-04-13T00:00:00","Open":53.6100,"High":53.9500,"Low":53.3800,"Close":53.9300,"Volume":39900,"AdjustedClose":51.6171}
+{"Ticker":"AVLV","DateTime":"2022-04-13T00:00:00","Open":53.6100,"High":53.9500,"Low":53.3800,"Close":53.9300,"Volume":39900,"AdjustedClose":51.6172}
 {"Ticker":"AVLV","DateTime":"2022-04-14T00:00:00","Open":54.0200,"High":54.0860,"Low":53.6900,"Close":53.6900,"Volume":36700,"AdjustedClose":51.3874}
 {"Ticker":"AVLV","DateTime":"2022-04-18T00:00:00","Open":53.6400,"High":54.1400,"Low":53.6400,"Close":53.8900,"Volume":41000,"AdjustedClose":51.5789}
 {"Ticker":"AVLV","DateTime":"2022-04-19T00:00:00","Open":54.0700,"High":54.6800,"Low":54.0700,"Close":54.6200,"Volume":21900,"AdjustedClose":52.2776}
@@ -146,7 +146,7 @@
 {"Ticker":"AVLV","DateTime":"2022-04-21T00:00:00","Open":55.3700,"High":55.3700,"Low":53.7000,"Close":53.7450,"Volume":54900,"AdjustedClose":51.4401}
 {"Ticker":"AVLV","DateTime":"2022-04-22T00:00:00","Open":53.3000,"High":53.3800,"Low":52.0100,"Close":52.0500,"Volume":39200,"AdjustedClose":49.8178}
 {"Ticker":"AVLV","DateTime":"2022-04-25T00:00:00","Open":51.4600,"High":52.1200,"Low":50.6400,"Close":52.0500,"Volume":46400,"AdjustedClose":49.8178}
-{"Ticker":"AVLV","DateTime":"2022-04-26T00:00:00","Open":51.8600,"High":51.9800,"Low":50.9500,"Close":50.9500,"Volume":117400,"AdjustedClose":48.7649}
+{"Ticker":"AVLV","DateTime":"2022-04-26T00:00:00","Open":51.8600,"High":51.9800,"Low":50.9500,"Close":50.9500,"Volume":117400,"AdjustedClose":48.7650}
 {"Ticker":"AVLV","DateTime":"2022-04-27T00:00:00","Open":51.2000,"High":51.6600,"Low":50.8600,"Close":51.1000,"Volume":186900,"AdjustedClose":48.9085}
 {"Ticker":"AVLV","DateTime":"2022-04-28T00:00:00","Open":51.9200,"High":52.6800,"Low":51.0800,"Close":52.4000,"Volume":56600,"AdjustedClose":50.1528}
 {"Ticker":"AVLV","DateTime":"2022-04-29T00:00:00","Open":52.3800,"High":52.5800,"Low":50.7500,"Close":50.8500,"Volume":41700,"AdjustedClose":48.6692}
@@ -164,7 +164,7 @@
 {"Ticker":"AVLV","DateTime":"2022-05-17T00:00:00","Open":51.5500,"High":51.9200,"Low":51.3600,"Close":51.8700,"Volume":134200,"AdjustedClose":49.6455}
 {"Ticker":"AVLV","DateTime":"2022-05-18T00:00:00","Open":51.4900,"High":51.4900,"Low":49.4900,"Close":49.7100,"Volume":109200,"AdjustedClose":47.5781}
 {"Ticker":"AVLV","DateTime":"2022-05-19T00:00:00","Open":49.0300,"High":50.0800,"Low":49.0200,"Close":49.3900,"Volume":67200,"AdjustedClose":47.2719}
-{"Ticker":"AVLV","DateTime":"2022-05-20T00:00:00","Open":49.5500,"High":49.8000,"Low":48.1300,"Close":49.2200,"Volume":133200,"AdjustedClose":47.1092}
+{"Ticker":"AVLV","DateTime":"2022-05-20T00:00:00","Open":49.5500,"High":49.8000,"Low":48.1300,"Close":49.2200,"Volume":133200,"AdjustedClose":47.1091}
 {"Ticker":"AVLV","DateTime":"2022-05-23T00:00:00","Open":49.7500,"High":50.4800,"Low":49.5890,"Close":50.3200,"Volume":897100,"AdjustedClose":48.1620}
 {"Ticker":"AVLV","DateTime":"2022-05-24T00:00:00","Open":49.6700,"High":50.1000,"Low":49.1100,"Close":49.9300,"Volume":899600,"AdjustedClose":47.7887}
 {"Ticker":"AVLV","DateTime":"2022-05-25T00:00:00","Open":50.2900,"High":50.9300,"Low":50.1600,"Close":50.7500,"Volume":67000,"AdjustedClose":48.5735}
@@ -256,7 +256,7 @@
 {"Ticker":"AVLV","DateTime":"2022-09-28T00:00:00","Open":44.6600,"High":45.7550,"Low":44.5100,"Close":45.5800,"Volume":231600,"AdjustedClose":44.0772}
 {"Ticker":"AVLV","DateTime":"2022-09-29T00:00:00","Open":45.1600,"High":45.1600,"Low":44.4300,"Close":44.9100,"Volume":184100,"AdjustedClose":43.4292}
 {"Ticker":"AVLV","DateTime":"2022-09-30T00:00:00","Open":44.8900,"High":45.2700,"Low":44.3700,"Close":44.4200,"Volume":181800,"AdjustedClose":42.9554}
-{"Ticker":"AVLV","DateTime":"2022-10-03T00:00:00","Open":45.2000,"High":46.1300,"Low":45.1200,"Close":45.9200,"Volume":163900,"AdjustedClose":44.4059}
+{"Ticker":"AVLV","DateTime":"2022-10-03T00:00:00","Open":45.2000,"High":46.1300,"Low":45.1200,"Close":45.9200,"Volume":163900,"AdjustedClose":44.4060}
 {"Ticker":"AVLV","DateTime":"2022-10-04T00:00:00","Open":46.7400,"High":47.5700,"Low":46.7400,"Close":47.5700,"Volume":286700,"AdjustedClose":46.0015}
 {"Ticker":"AVLV","DateTime":"2022-10-05T00:00:00","Open":47.2200,"High":47.8700,"Low":46.8600,"Close":47.5900,"Volume":185400,"AdjustedClose":46.0209}
 {"Ticker":"AVLV","DateTime":"2022-10-06T00:00:00","Open":47.4500,"High":47.7700,"Low":47.2320,"Close":47.3700,"Volume":113300,"AdjustedClose":45.8081}
@@ -283,7 +283,7 @@
 {"Ticker":"AVLV","DateTime":"2022-11-04T00:00:00","Open":50.2700,"High":50.4300,"Low":49.4800,"Close":50.1700,"Volume":65900,"AdjustedClose":48.5158}
 {"Ticker":"AVLV","DateTime":"2022-11-07T00:00:00","Open":50.5300,"High":50.8600,"Low":50.1400,"Close":50.7800,"Volume":82200,"AdjustedClose":49.1057}
 {"Ticker":"AVLV","DateTime":"2022-11-08T00:00:00","Open":51.0000,"High":51.3500,"Low":50.5400,"Close":51.1000,"Volume":172100,"AdjustedClose":49.4152}
-{"Ticker":"AVLV","DateTime":"2022-11-09T00:00:00","Open":50.8400,"High":50.9200,"Low":49.7200,"Close":49.7900,"Volume":98400,"AdjustedClose":48.1483}
+{"Ticker":"AVLV","DateTime":"2022-11-09T00:00:00","Open":50.8400,"High":50.9200,"Low":49.7200,"Close":49.7900,"Volume":98400,"AdjustedClose":48.1484}
 {"Ticker":"AVLV","DateTime":"2022-11-10T00:00:00","Open":51.3100,"High":52.0900,"Low":51.0800,"Close":52.0900,"Volume":97200,"AdjustedClose":50.3725}
 {"Ticker":"AVLV","DateTime":"2022-11-11T00:00:00","Open":52.5100,"High":52.9000,"Low":52.2530,"Close":52.7800,"Volume":128400,"AdjustedClose":51.0398}
 {"Ticker":"AVLV","DateTime":"2022-11-14T00:00:00","Open":52.7240,"High":53.2200,"Low":52.4700,"Close":52.4900,"Volume":71900,"AdjustedClose":50.7593}
@@ -355,7 +355,7 @@
 {"Ticker":"AVLV","DateTime":"2023-02-21T00:00:00","Open":52.9000,"High":52.9000,"Low":52.1500,"Close":52.1900,"Volume":91200,"AdjustedClose":50.7621}
 {"Ticker":"AVLV","DateTime":"2023-02-22T00:00:00","Open":52.1300,"High":52.4060,"Low":51.8700,"Close":52.0500,"Volume":115000,"AdjustedClose":50.6259}
 {"Ticker":"AVLV","DateTime":"2023-02-23T00:00:00","Open":52.5000,"High":52.5000,"Low":51.6700,"Close":52.2700,"Volume":94700,"AdjustedClose":50.8399}
-{"Ticker":"AVLV","DateTime":"2023-02-24T00:00:00","Open":51.7900,"High":52.1200,"Low":51.4900,"Close":52.0300,"Volume":163600,"AdjustedClose":50.6065}
+{"Ticker":"AVLV","DateTime":"2023-02-24T00:00:00","Open":51.7900,"High":52.1200,"Low":51.4900,"Close":52.0300,"Volume":163600,"AdjustedClose":50.6064}
 {"Ticker":"AVLV","DateTime":"2023-02-27T00:00:00","Open":52.5900,"High":52.6900,"Low":52.1310,"Close":52.2300,"Volume":126600,"AdjustedClose":50.8010}
 {"Ticker":"AVLV","DateTime":"2023-02-28T00:00:00","Open":52.2800,"High":52.4300,"Low":52.0400,"Close":52.0500,"Volume":76300,"AdjustedClose":50.6259}
 {"Ticker":"AVLV","DateTime":"2023-03-01T00:00:00","Open":52.1100,"High":52.5200,"Low":51.9800,"Close":52.3100,"Volume":137200,"AdjustedClose":50.8788}
@@ -394,7 +394,7 @@
 {"Ticker":"AVLV","DateTime":"2023-04-18T00:00:00","Open":51.9700,"High":51.9700,"Low":51.6150,"Close":51.8400,"Volume":161100,"AdjustedClose":50.7120}
 {"Ticker":"AVLV","DateTime":"2023-04-19T00:00:00","Open":51.6100,"High":51.8100,"Low":51.4600,"Close":51.7190,"Volume":110700,"AdjustedClose":50.5937}
 {"Ticker":"AVLV","DateTime":"2023-04-20T00:00:00","Open":51.4700,"High":51.7100,"Low":51.3000,"Close":51.5300,"Volume":1346200,"AdjustedClose":50.4088}
-{"Ticker":"AVLV","DateTime":"2023-04-21T00:00:00","Open":51.6200,"High":51.6200,"Low":51.1800,"Close":51.3700,"Volume":60100,"AdjustedClose":50.2522}
+{"Ticker":"AVLV","DateTime":"2023-04-21T00:00:00","Open":51.6200,"High":51.6200,"Low":51.1800,"Close":51.3700,"Volume":60100,"AdjustedClose":50.2523}
 {"Ticker":"AVLV","DateTime":"2023-04-24T00:00:00","Open":51.4000,"High":51.5760,"Low":51.3300,"Close":51.5500,"Volume":84800,"AdjustedClose":50.4283}
 {"Ticker":"AVLV","DateTime":"2023-04-25T00:00:00","Open":51.2500,"High":51.2500,"Low":50.3800,"Close":50.4000,"Volume":71200,"AdjustedClose":49.3034}
 {"Ticker":"AVLV","DateTime":"2023-04-26T00:00:00","Open":50.4500,"High":50.4500,"Low":49.7000,"Close":49.8400,"Volume":142600,"AdjustedClose":48.7555}
@@ -724,6 +724,3 @@
 {"Ticker":"AVLV","DateTime":"2024-08-09T00:00:00","Open":61.5400,"High":61.9800,"Low":61.2900,"Close":61.8300,"Volume":234700,"AdjustedClose":61.8300}
 {"Ticker":"AVLV","DateTime":"2024-08-12T00:00:00","Open":62.0200,"High":62.0200,"Low":61.5400,"Close":61.7000,"Volume":200600,"AdjustedClose":61.7000}
 {"Ticker":"AVLV","DateTime":"2024-08-13T00:00:00","Open":61.9400,"High":62.1800,"Low":61.5000,"Close":62.1800,"Volume":316200,"AdjustedClose":62.1800}
-{"Ticker":"AVLV","DateTime":"2024-08-14T00:00:00","Open":62.3000,"High":62.3300,"Low":61.9300,"Close":62.2000,"Volume":205100,"AdjustedClose":62.2000}
-{"Ticker":"AVLV","DateTime":"2024-08-15T00:00:00","Open":63.1000,"High":63.5030,"Low":62.9500,"Close":63.4100,"Volume":186100,"AdjustedClose":63.4100}
-{"Ticker":"AVLV","DateTime":"2024-08-16T00:00:00","Open":63.1500,"High":63.5650,"Low":63.1500,"Close":63.4800,"Volume":152400,"AdjustedClose":63.4800}
