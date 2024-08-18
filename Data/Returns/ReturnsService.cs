@@ -52,8 +52,8 @@ internal class ReturnsService(
         {
             // Synthetic returns are pre-generated put in the repo by returnRepository during its startup
 
-            throw new InvalidOperationException(
-                "Synthetic returns should already have been calculated and put in returns repository.");
+            throw new KeyNotFoundException(
+                $"No synthetic returns for ticker '{ticker}' and period '{periodType}' in repository.");
         }
 
         if (IsSyntheticIndexTicker(ticker))
