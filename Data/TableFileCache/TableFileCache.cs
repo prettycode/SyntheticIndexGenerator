@@ -28,10 +28,22 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         this.cacheRelativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? String.Empty;
         this.cacheInstanceKey = cacheRootPath + cacheRelativePath;
 
-        if (!memoryCache.ContainsKey(cacheInstanceKey))
+        if (memoryCache.ContainsKey(cacheInstanceKey))
         {
-            memoryCache[cacheInstanceKey] = new DaylongCache<TKey, IEnumerable<TValue>>(
-                tableCacheOptions.Value.DaylongCacheOptions);
+            return;
+        }
+
+        memoryCache[cacheInstanceKey] = new DaylongCache<TKey, IEnumerable<TValue>>(
+            tableCacheOptions.Value.DaylongCacheOptions);
+
+        if (!tableCacheOptions.Value.PrimeCacheFromFiles)
+        {
+            return;
+        }
+
+        foreach(var ticker in GetAllTickers())
+        {
+            GetAndCacheFromFile((TKey)Convert.ChangeType(ticker, typeof(TKey))).Wait();
         }
     }
 
@@ -40,17 +52,19 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
     public Task<IEnumerable<TValue>> Get(TKey key)
         => Task.FromResult(memoryCache[cacheInstanceKey].Get(key) ?? throw new KeyNotFoundException());
 
-    /*
-     * TODO what to do about this? old logic related to priming the cache. Problem is we only want to prime
-     * the cache with this data if we know it's current. But we know it's not current during first run unless
-     * the files have been written as of last trading day close.
-     *
-     * E.g. have option to prime cache
-     *
-    public Task<IEnumerable<TValue>> Get(TKey key)
-        => memoryCache[cacheInstanceKey].TryGet(key, out var value)
-            ? Task.FromResult(value ?? throw new InvalidOperationException($"{nameof(value)} should not be null."))
-            : GetAndCacheFromFile(key);
+    private HashSet<string> GetAllTickers()
+    {
+        var cacheFilePath = GetCacheFilePath("*");
+        var dirNameOnly = Path.GetDirectoryName(cacheFilePath);
+        var fileNameOnly = Path.GetFileName(cacheFilePath);
+        var matchingFiles = Directory.GetFiles(
+            dirNameOnly ?? throw new InvalidOperationException("Could not get directory name from cache file path."),
+            fileNameOnly);
+
+        return matchingFiles
+            .Select(file => Path.GetFileNameWithoutExtension(file))
+            .ToHashSet();
+    }
 
     private async Task<IEnumerable<TValue>> GetAndCacheFromFile(TKey key)
     {
@@ -63,7 +77,6 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
         return memoryCache[cacheInstanceKey][key] = values;
     }
-    */
 
     public Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append = false)
         => !append
@@ -91,8 +104,10 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
             throw new KeyNotFoundException()).Concat(value);
     }
 
-    private string GetCacheFilePath(TKey keyValue)
-        => Path.Combine(cacheRootPath, cacheTableName, cacheRelativePath, $"{keyValue}.{CACHE_FILE_EXTENSION}");
+    private string GetCacheFilePath(TKey keyValue) => GetCacheFilePath($"{keyValue}");
+
+    private string GetCacheFilePath(string key)
+        => Path.Combine(cacheRootPath, cacheTableName, cacheRelativePath, $"{key}.{CACHE_FILE_EXTENSION}");
 
     private async Task WriteToFileAsync(TKey key, IEnumerable<TValue> value)
     {

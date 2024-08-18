@@ -9,6 +9,8 @@ public class TableFileCacheOptions : IOptions<TableFileCacheOptions>
 
     public string? CacheNamespace { get; init; }
 
+    public required bool PrimeCacheFromFiles { get; init; } = false;
+
     public required DaylongCacheOptions DaylongCacheOptions { get; init; }
 
     TableFileCacheOptions IOptions<TableFileCacheOptions>.Value
