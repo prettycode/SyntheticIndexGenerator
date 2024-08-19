@@ -16,9 +16,11 @@ internal class QuoteRepository : IQuoteRepository
     {
         ArgumentNullException.ThrowIfNull(quoteRepositoryOptions);
 
-        dividendsCache = new(quoteRepositoryOptions.Value.TableCacheOptions);
-        pricesCache = new(quoteRepositoryOptions.Value.TableCacheOptions);
-        splitsCache = new(quoteRepositoryOptions.Value.TableCacheOptions);
+        var tableCacheOptions = quoteRepositoryOptions.Value.TableCacheOptions;
+
+        dividendsCache = new(tableCacheOptions);
+        pricesCache = new(tableCacheOptions);
+        splitsCache = new(tableCacheOptions);
 
         this.logger = logger;
     }
@@ -81,11 +83,7 @@ internal class QuoteRepository : IQuoteRepository
         return filteredQuote;
     }
 
-    public Task<Quote> Append(Quote fundHistory) => Put(fundHistory, true);
-
-    public Task<Quote> Replace(Quote fundHistory) => Put(fundHistory, false);
-
-    private async Task<Quote> Put(Quote fundHistory, bool append)
+    public async Task<Quote> Put(Quote fundHistory, bool append = false)
     {
         var ticker = fundHistory.Ticker;
         var operation = append ? "Appending" : "Replacing";
@@ -109,6 +107,10 @@ internal class QuoteRepository : IQuoteRepository
             ? fundHistory
             : await Get(ticker);
     }
+
+    private Task<Quote> Append(Quote fundHistory) => Put(fundHistory, true);
+
+    private Task<Quote> Replace(Quote fundHistory) => Put(fundHistory, false);
 
     private void Inspect(Quote fundHistory)
     {

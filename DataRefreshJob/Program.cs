@@ -59,9 +59,7 @@ class Program
             var returnsByTicker = await returnsService.GetReturns(tickersNeeded, true);
         }
 
-        static async Task UpdateReturnsRepositoryWithSyntheticIndexTickers(
-            ISyntheticIndicesService indicesService,
-            IReturnsService returnsService)
+        static async Task UpdateReturnsRepositoryWithSyntheticIndexTickers(ISyntheticIndicesService indicesService)
         {
             await indicesService.PutSyntheticIndicesInReturnsRepository();
         }
@@ -70,7 +68,7 @@ class Program
         var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
 
         await UpdateReturnsRepositoryWithIndexBackfillTickers(indicesService, returnsService);
-        await UpdateReturnsRepositoryWithSyntheticIndexTickers(indicesService, returnsService);
+        await UpdateReturnsRepositoryWithSyntheticIndexTickers(indicesService);
     }
 
     // TODO test

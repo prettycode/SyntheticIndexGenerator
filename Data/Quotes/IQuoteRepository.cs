@@ -2,11 +2,9 @@
 
 internal interface IQuoteRepository
 {
-    Task<Quote> Append(Quote fundHistory);
+    bool Has(string ticker);
 
     Task<Quote> Get(string ticker, bool skipPastZeroVolume = false);
 
-    bool Has(string ticker);
-
-    Task<Quote> Replace(Quote fundHistory);
+    Task<Quote> Put(Quote fundHistory, bool append = false);
 }

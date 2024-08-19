@@ -3,7 +3,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Quotes;
 
-internal class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider quoteProvider, ILogger<QuotesService> logger) : IQuotesService
+internal class QuotesService(
+    IQuoteRepository quoteRepository,
+    IQuoteProvider quoteProvider,
+    ILogger<QuotesService> logger)
+        : IQuotesService
 {
     public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(
         HashSet<string> tickers,
@@ -11,18 +15,21 @@ internal class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider qu
     {
         ArgumentNullException.ThrowIfNull(tickers);
 
+        // TODO this is not parallelized; don't have awaits in here
         return await tickers
             .ToAsyncEnumerable()
-            .SelectAwait(async ticker => new { ticker, quote = await GetDailyQuoteHistory(ticker, skipRefresh) })
+            .SelectAwait(async ticker => new { ticker, quote = await GetDailyQuoteHistory(ticker) })
             .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
     }
 
-    private async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker, bool skipRefresh)
-        => (await GetQuote(ticker, skipRefresh)).Prices;
+    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker)
+        => (await GetQuote(ticker)).Prices;
 
-    private async Task<Quote> GetQuote(string ticker, bool skipRefresh)
+    private async Task<Quote> GetQuote(string ticker, bool skipRefresh = false, bool isNonGreedy = false)
     {
         ArgumentNullException.ThrowIfNull(ticker);
+
+        logger.LogInformation("{ticker}: Request for quote history.", ticker);
 
         // Check the cache for an entry
 
@@ -58,7 +65,7 @@ internal class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider qu
                 $"{allHistory.Prices[0].DateTime:yyyy-MM-dd}",
                 $"{allHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-            return await quoteRepository.Replace(allHistory);
+            return await quoteRepository.Put(allHistory);
         }
         else
         {
@@ -67,6 +74,11 @@ internal class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider qu
                 knownHistory.Prices.Count,
                 $"{knownHistory.Prices[0].DateTime:yyyy-MM-dd}",
                 $"{knownHistory.Prices[^1].DateTime:yyyy-MM-dd}");
+        }
+
+        if (!isNonGreedy)
+        {
+            return knownHistory;
         }
 
         // It's in the cache, but may be outdated, so check for new data
@@ -98,9 +110,7 @@ internal class QuotesService(IQuoteRepository quoteRepository, IQuoteProvider qu
                 $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
                 $"{newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-        return replaceExistingHistory
-            ? await quoteRepository.Replace(newHistory)
-            : await quoteRepository.Append(newHistory);
+        return await quoteRepository.Put(newHistory, !replaceExistingHistory);
     }
 
     private async Task<Quote> GetAllHistory(string ticker)
