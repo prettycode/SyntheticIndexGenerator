@@ -18,18 +18,20 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "AVMC", Percentage = 12.5m }
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller1 = base.GetController<BackTestController>();
 
         // LCB has no daily
-        await Assert.ThrowsAsync<KeyNotFoundException>(() => controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
+        await Assert.ThrowsAsync<KeyNotFoundException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
 
         // No overlapping period because $LCB ends before AVMC starts
-        var foo1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly);
+        var foo1 = await controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly);
         Assert.Empty(foo1.AggregatePerformance);
 
         // AVMC has no yearly
-        await Assert.ThrowsAsync<KeyNotFoundException>(() => controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
+        await Assert.ThrowsAsync<KeyNotFoundException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
 
+
+        var controller2 = base.GetController<BackTestController>();
 
         var portfolio2 = new List<BackTestAllocation>()
         {
@@ -39,16 +41,16 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "VOO", Percentage = 25 }
         };
 
-        var controller2 = base.GetController<BackTestController>();
-
-        var foo2 = await controller.GetPortfolioBackTest(portfolio2, 100, PeriodType.Daily);
+        var foo2 = await controller2.GetPortfolioBackTest(portfolio2, 100, PeriodType.Daily);
         Assert.NotEmpty(foo2.AggregatePerformance);
 
-        var foo3 = await controller.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly);
+        var foo3 = await controller2.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly);
         Assert.NotEmpty(foo3.AggregatePerformance);
 
-        await Assert.ThrowsAsync<KeyNotFoundException>(() => controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
+        await Assert.ThrowsAsync<KeyNotFoundException>(() => controller2.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
 
+
+        var controller3 = base.GetController<BackTestController>();
 
         var portfolio3 = new List<BackTestAllocation>()
         {
@@ -56,13 +58,13 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "VOO", Percentage = 50 }
         };
 
-        var foo4 = await controller.GetPortfolioBackTest(portfolio3, 100, PeriodType.Daily);
+        var foo4 = await controller3.GetPortfolioBackTest(portfolio3, 100, PeriodType.Daily);
         Assert.NotEmpty(foo4.AggregatePerformance);
 
-        var foo5 = await controller.GetPortfolioBackTest(portfolio3, 100, PeriodType.Monthly);
+        var foo5 = await controller3.GetPortfolioBackTest(portfolio3, 100, PeriodType.Monthly);
         Assert.NotEmpty(foo5.AggregatePerformance);
 
-        var foo6 = await controller.GetPortfolioBackTest(portfolio3, 100, PeriodType.Yearly);
+        var foo6 = await controller3.GetPortfolioBackTest(portfolio3, 100, PeriodType.Yearly);
         Assert.NotEmpty(foo6.AggregatePerformance);
 
     }

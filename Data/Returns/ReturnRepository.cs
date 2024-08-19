@@ -81,7 +81,7 @@ internal class ReturnRepository : IReturnRepository
         _ => throw new NotImplementedException()
     };
 
-    public async Task Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType periodType)
+    public async Task<List<PeriodReturn>> Put(string ticker, IEnumerable<PeriodReturn> returns, PeriodType periodType)
     {
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(returns);
@@ -96,7 +96,7 @@ internal class ReturnRepository : IReturnRepository
 
         logger.LogInformation("{ticker}: Writing returns for period type {periodType}.", ticker, periodType);
 
-        await cache.Set(ticker, returns);
+        return [.. await cache.Set(ticker, returns)];
     }
 
     private async Task PutSyntheticsInRepository()
@@ -127,9 +127,84 @@ internal class ReturnRepository : IReturnRepository
             }
         }
 
+        allPutTasks.AddRange(CreateFakeSyntheticReturnsPutTasks());
+
         await Task.WhenAll(allPutTasks);
 
         logger.LogInformation("Synthetic monthly and yearly returns added to repository.");
+    }
+
+    private IEnumerable<Task> CreateFakeSyntheticReturnsPutTasks()
+    {
+        IEnumerable<PeriodReturn> GetReturns(string ticker, IEnumerable<DateTime> dates, decimal returnPercentage, PeriodType periodType)
+            => dates.Select(date => new PeriodReturn
+            {
+                Ticker = ticker,
+                PeriodStart = date,
+                ReturnPercentage = returnPercentage,
+                PeriodType = periodType
+            });
+
+        var dailyDates = new[]
+        {
+            new DateTime(2023, 1, 3),
+            new DateTime(2023, 1, 4),
+            new DateTime(2023, 1, 5),
+            new DateTime(2023, 1, 6),
+            new DateTime(2023, 1, 9),
+            new DateTime(2023, 1, 10),
+            new DateTime(2023, 1, 11),
+            new DateTime(2023, 1, 12),
+            new DateTime(2023, 1, 13),
+            new DateTime(2023, 1, 17),
+            new DateTime(2023, 1, 18),
+            new DateTime(2023, 1, 19),
+            new DateTime(2023, 1, 20),
+            new DateTime(2023, 1, 23),
+            new DateTime(2023, 1, 24),
+            new DateTime(2023, 1, 25),
+            new DateTime(2023, 1, 26),
+            new DateTime(2023, 1, 27),
+            new DateTime(2023, 1, 30),
+            new DateTime(2023, 1, 31),
+            new DateTime(2023, 2, 1),
+            new DateTime(2023, 2, 2),
+            new DateTime(2023, 2, 3),
+            new DateTime(2023, 2, 6),
+            new DateTime(2023, 2, 7)
+        };
+
+        var monthlyDates = Enumerable
+            .Range(1, 12)
+            .Select(month => new DateTime(2023, month, 1));
+
+        var tickerData = new[]
+        {
+            (Ticker: "#1X", ReturnPercentage: 0m),
+            (Ticker: "#2X", ReturnPercentage: 100m),
+            (Ticker: "#3X", ReturnPercentage: 200m)
+        };
+
+        var allReturns = tickerData
+            .SelectMany(td => new[]
+            {
+                GetReturns(td.Ticker, dailyDates, td.ReturnPercentage, PeriodType.Daily),
+                GetReturns(td.Ticker, monthlyDates, td.ReturnPercentage, PeriodType.Monthly)
+            }
+            .SelectMany(x => x));
+
+        return tickerData
+            .SelectMany(td => new[]
+            {
+                Put(
+                    td.Ticker,
+                    allReturns.Where(r => r.Ticker == td.Ticker && r.PeriodType == PeriodType.Daily),
+                    PeriodType.Daily),
+                Put(
+                    td.Ticker,
+                    allReturns.Where(r => r.Ticker == td.Ticker && r.PeriodType == PeriodType.Monthly),
+                    PeriodType.Monthly)
+            });
     }
 
     private async Task<Dictionary<string, List<PeriodReturn>>> CreateSyntheticMonthlyReturns()
