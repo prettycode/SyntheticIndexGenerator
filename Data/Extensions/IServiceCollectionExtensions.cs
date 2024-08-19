@@ -18,9 +18,9 @@ public static class IServiceCollectionExtensions
         .AddTransient<IQuoteProvider, YahooFinanceApiQuoteProvider>()
         .AddTransient<IQuotesService, QuotesService>()
         .AddTransient<IReturnsService, ReturnsService>()
-        .AddTransient<ISyntheticIndexService, SyntheticIndexService>()
+        .AddTransient<ISyntheticIndicesService, SyntheticIndicesService>()
         .AddTransient<IBackTestService, BackTestService>()
         .AddTransient<QuotesService>()
         .AddTransient<ReturnsService>()
-        .AddTransient<SyntheticIndexService>();
+        .AddTransient<SyntheticIndicesService>();
 }

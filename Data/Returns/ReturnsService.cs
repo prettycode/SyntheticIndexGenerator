@@ -6,7 +6,7 @@ namespace Data.Returns;
 
 internal class ReturnsService(
         IQuotesService quotesService,
-        ISyntheticIndexService syntheticIndexService,
+        ISyntheticIndicesService syntheticIndexService,
         IReturnRepository returnRepository,
         ILogger<ReturnsService> logger)
             : IReturnsService

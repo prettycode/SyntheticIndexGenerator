@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.SyntheticIndices;
 
-internal class SyntheticIndexService(ILogger<SyntheticIndexService> logger) : ISyntheticIndexService
+internal class SyntheticIndicesService(ILogger<SyntheticIndicesService> logger) : ISyntheticIndicesService
 {
     public class Index(IndexRegion region, IndexMarketCap marketCap, IndexStyle style, List<string> backfillTickers)
     {

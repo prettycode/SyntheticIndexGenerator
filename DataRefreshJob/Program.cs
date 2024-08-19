@@ -114,7 +114,7 @@ class Program
         */
 
         var returnsService = provider.GetRequiredService<IReturnsService>();
-        var indicesService = provider.GetRequiredService<ISyntheticIndexService>();
+        var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
 
         Console.WriteLine("\n\nQUOTE TICKERS:");
 
