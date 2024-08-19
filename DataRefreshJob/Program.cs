@@ -69,8 +69,40 @@ class Program
             }
         }
     }
+    /* TODO:
+     * This demonstrates the FileTableCache is not thread-safe becasue both ITSM and ILCB use AVDE.
+     * If AVDE doesn't exist in file cache, both threads will try to create it at same time.
+     *
+    static async Task UpdateReturnsRepository(IServiceProvider provider, ILogger<Program> logger)
+    {
+        var returnsService = provider.GetRequiredService<IReturnsService>();
+        var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
+        var returnsHistoryTasks = new List<Task>();
 
-    // TODO test
+        logger.LogInformation("Requesting returns for synthetic indices…");
+
+        foreach (var ticker in new[] { "$^ITSM", "$^ILCB" })
+        {
+            foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
+            {
+                logger.LogInformation(
+                    "{ticker}: Requesting entire return history for period {periodType}…",
+                    ticker,
+                    periodType);
+
+                returnsHistoryTasks.Add(returnsService.GetReturnsHistory(
+                    ticker,
+                    periodType,
+                    DateTime.MinValue,
+                    DateTime.MaxValue,
+                    true));
+            }
+        }
+
+        await Task.WhenAll(returnsHistoryTasks);
+    }
+    */
+
     static async Task WaitUntilNextMarketDataUpdate(ILogger<Program> logger)
     {
         var newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
