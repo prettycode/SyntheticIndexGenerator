@@ -48,7 +48,7 @@ internal class ReturnsService : IReturnsService
 
         ArgumentNullException.ThrowIfNull(tickers);
 
-        var dailyPricesByTicker = await quotesService.GetPrices(tickers, skipRefresh);
+        var dailyPricesByTicker = await quotesService.GetDailyQuoteHistory(tickers, skipRefresh);
 
         return await dailyPricesByTicker
             .ToAsyncEnumerable()
