@@ -96,7 +96,7 @@ internal class ReturnRepository : IReturnRepository
 
         logger.LogInformation("{ticker}: Writing returns for period type {periodType}.", ticker, periodType);
 
-        return [.. await cache.Set(ticker, returns)];
+        return [.. await cache.Put(ticker, returns)];
     }
 
     private async Task PutSyntheticsInRepository()

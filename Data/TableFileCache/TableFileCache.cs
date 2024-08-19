@@ -17,6 +17,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private readonly string cacheInstanceKey;
 
+    // TODO can we decouple TableFileCache from using a DaylongCache, i.e. use IGenericMemoryCache instead, and have the consumers of TableFileCache instances inject the IGenericMemoryCache?
     private static readonly ConcurrentDictionary<string, DaylongCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
     public TableFileCache(IOptions<TableFileCacheOptions> tableCacheOptions, string? cacheNamespace = null)
@@ -51,7 +52,12 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         return memoryCache[cacheInstanceKey][key] = values;
     }
 
-    public async Task<IEnumerable<TValue>> Set(TKey key, IEnumerable<TValue> value)
+    public Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append = false)
+        => !append
+            ? Set(key, value)
+            : Append(key, value);
+
+    private async Task<IEnumerable<TValue>> Set(TKey key, IEnumerable<TValue> value)
     {
         ArgumentNullException.ThrowIfNull(key);
         ArgumentNullException.ThrowIfNull(value);
@@ -61,7 +67,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         return memoryCache[cacheInstanceKey][key] = value;
     }
 
-    public async Task<IEnumerable<TValue>> Append(TKey key, IEnumerable<TValue> value)
+    private async Task<IEnumerable<TValue>> Append(TKey key, IEnumerable<TValue> value)
     {
         ArgumentNullException.ThrowIfNull(key);
         ArgumentNullException.ThrowIfNull(value);
@@ -72,13 +78,10 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
             throw new KeyNotFoundException()).Concat(value);
     }
 
-    public Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append)
-        => !append
-            ? Set(key, value)
-            : Append(key, value);
+    private string GetCacheFilePath(TKey keyValue) => GetCacheFilePath($"{keyValue}");
 
-    private string GetCacheFilePath(TKey keyValue)
-        => Path.Combine(cacheRootPath, cacheTableName, cacheRelativePath, $"{keyValue}.{CACHE_FILE_EXTENSION}");
+    private string GetCacheFilePath(string key)
+        => Path.Combine(cacheRootPath, cacheTableName, cacheRelativePath, $"{key}.{CACHE_FILE_EXTENSION}");
 
     private async Task WriteToFileAsync(TKey key, IEnumerable<TValue> value)
     {
