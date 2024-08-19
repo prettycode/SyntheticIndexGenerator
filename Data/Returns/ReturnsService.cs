@@ -23,7 +23,7 @@ internal class ReturnsService : IReturnsService
         this.logger = logger;
     }
 
-    public Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime startDate, DateTime endDate)
+    public Task<List<PeriodReturn>> GetReturnsHistory(string ticker, PeriodType period, DateTime startDate, DateTime endDate)
     {
         return returnRepository.Get(ticker, period, startDate, endDate);
     }
