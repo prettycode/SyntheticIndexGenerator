@@ -22,8 +22,8 @@ internal class QuotesService(
             .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
     }
 
-    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker)
-        => (await GetQuote(ticker)).Prices;
+    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker, bool skipRefresh = false)
+        => (await GetQuote(ticker, skipRefresh)).Prices;
 
     private async Task<Quote> GetQuote(string ticker, bool skipRefresh = false, bool isNonGreedy = false)
     {

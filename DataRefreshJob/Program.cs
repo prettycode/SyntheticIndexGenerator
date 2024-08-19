@@ -56,7 +56,16 @@ class Program
             IReturnsService returnsService)
         {
             var tickersNeeded = indicesService.GetIndexBackfillTickers();
-            var returnsByTicker = await returnsService.GetReturns(tickersNeeded, true);
+
+            foreach (var periodType in Enum.GetValues<PeriodType>())
+            {
+                var returnsByTicker = await returnsService.GetReturnsHistory(
+                    tickersNeeded,
+                    periodType,
+                    DateTime.MinValue,
+                    DateTime.MaxValue,
+                    true);
+            }
         }
 
         static async Task UpdateReturnsRepositoryWithSyntheticIndexTickers(ISyntheticIndicesService indicesService)

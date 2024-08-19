@@ -74,6 +74,7 @@ internal class SyntheticIndicesService(IReturnRepository returnRepository, ILogg
         Growth
     }
 
+    [Obsolete]
     public Task PutSyntheticIndicesInReturnsRepository()
     {
         var refreshTasks = GetIndices()
@@ -83,6 +84,7 @@ internal class SyntheticIndicesService(IReturnRepository returnRepository, ILogg
         return Task.WhenAll(refreshTasks);
     }
 
+    [Obsolete]
     public HashSet<string> GetIndexBackfillTickers(bool filterSynthetic = true)
     {
         var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []);
@@ -133,7 +135,7 @@ internal class SyntheticIndicesService(IReturnRepository returnRepository, ILogg
         return Task.WhenAll(tasks);
     }
 
-    // TODO test
+    [Obsolete]
     private async Task<List<PeriodReturn>> CollateReturnsA(List<string> backfillTickers, PeriodType period)
     {
         var availableBackfillTickers = backfillTickers.Where(ticker => returnRepository.Has(ticker, period));
