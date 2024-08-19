@@ -2,7 +2,7 @@
 using Data.Quotes;
 using Data.Quotes.QuoteProvider;
 using Data.Returns;
-using Data.SyntheticIndex;
+using Data.SyntheticIndices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,5 +1,5 @@
 ﻿using Data.Quotes;
-using Data.SyntheticIndex;
+using Data.SyntheticIndices;
 using Microsoft.Extensions.Logging;
 
 namespace Data.Returns;

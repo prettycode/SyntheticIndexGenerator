@@ -1,4 +1,4 @@
-﻿namespace Data.SyntheticIndex;
+﻿namespace Data.SyntheticIndices;
 
 public interface ISyntheticIndexService
 {

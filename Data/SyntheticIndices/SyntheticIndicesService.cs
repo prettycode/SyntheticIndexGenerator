@@ -1,7 +1,7 @@
 ﻿using Data.Returns;
 using Microsoft.Extensions.Logging;
 
-namespace Data.SyntheticIndex;
+namespace Data.SyntheticIndices;
 
 internal class SyntheticIndexService(ILogger<SyntheticIndexService> logger) : ISyntheticIndexService
 {

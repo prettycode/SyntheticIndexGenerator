@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Data.Extensions;
 using Data.Returns;
-using Data.SyntheticIndex;
+using Data.SyntheticIndices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
