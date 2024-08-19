@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Data.Extensions;
-using Data.Indices;
 using Data.Returns;
+using Data.SyntheticIndices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -52,7 +52,7 @@ class Program
     static async Task UpdateReturnsRepository(IServiceProvider provider)
     {
         static async Task UpdateReturnsRepositoryWithIndexBackfillTickers(
-            IIndicesService indicesService,
+            ISyntheticIndicesService indicesService,
             IReturnsService returnsService)
         {
             var tickersNeeded = indicesService.GetIndexBackfillTickers();
@@ -60,14 +60,14 @@ class Program
         }
 
         static async Task UpdateReturnsRepositoryWithSyntheticIndexTickers(
-            IIndicesService indicesService,
+            ISyntheticIndicesService indicesService,
             IReturnsService returnsService)
         {
             await indicesService.PutSyntheticIndicesInReturnsRepository();
         }
 
         var returnsService = provider.GetRequiredService<IReturnsService>();
-        var indicesService = provider.GetRequiredService<IIndicesService>();
+        var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
 
         await UpdateReturnsRepositoryWithIndexBackfillTickers(indicesService, returnsService);
         await UpdateReturnsRepositoryWithSyntheticIndexTickers(indicesService, returnsService);

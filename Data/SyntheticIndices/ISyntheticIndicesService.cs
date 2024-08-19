@@ -1,6 +1,6 @@
-﻿namespace Data.Indices;
+﻿namespace Data.SyntheticIndices;
 
-public interface IIndicesService
+public interface ISyntheticIndicesService
 {
     Task PutSyntheticIndicesInReturnsRepository();
 

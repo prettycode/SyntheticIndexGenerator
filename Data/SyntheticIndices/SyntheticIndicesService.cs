@@ -1,9 +1,9 @@
 ﻿using Data.Returns;
 using Microsoft.Extensions.Logging;
 
-namespace Data.Indices;
+namespace Data.SyntheticIndices;
 
-internal class IndicesService(IReturnRepository returnRepository, ILogger<IndicesService> logger) : IIndicesService
+internal class SyntheticIndicesService(IReturnRepository returnRepository, ILogger<SyntheticIndicesService> logger) : ISyntheticIndicesService
 {
     public class Index(IndexRegion region, IndexMarketCap marketCap, IndexStyle style, List<string> backfillTickers)
     {
