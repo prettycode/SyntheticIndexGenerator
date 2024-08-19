@@ -4,6 +4,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Returns;
 
+// TODO: rename all start and end to first and last
+
 internal class ReturnsService(
         IQuotesService quotesService,
         ISyntheticIndicesService syntheticIndexService,
@@ -60,15 +62,16 @@ internal class ReturnsService(
 
         if (IsSyntheticIndexTicker(ticker))
         {
-            throw new NotImplementedException();
+            var neededQuoteTickers = syntheticIndexService.GetSyntheticIndexBackfillTickers(ticker);
 
-            var backfillTickers = syntheticIndexService.GetIndexBackfillTickers().ToList();
-            // TODO how to handle synthetics when (intentionally) there's no data for periodType
-            var backfillReturnTasks = backfillTickers.Select(ticker => GetReturnsHistory(ticker, periodType, startDate, endDate));
-            var backfillReturns = await Task.WhenAll(backfillReturnTasks);
-            var syntheticIndexReturns =  await CollateBackfillReturns(backfillTickers, periodType);
+            await Task.WhenAll(neededQuoteTickers.Select(quoteTicker
+                => GetReturnsHistory(quoteTicker, periodType, startDate, endDate)));
 
-            return [.. await returnRepository.Put(ticker, syntheticIndexReturns, periodType)];
+            var backfillTickers = syntheticIndexService.GetSyntheticIndexBackfillTickers(ticker, false);
+
+            await CalculateAndPutReturnsForSyntheticIndexByPeriod(ticker, backfillTickers, periodType);
+
+            return await GetReturnsHistory(ticker, periodType, startDate, endDate, skipRefresh);
         }
 
         if (IsQuoteTicker(ticker))
@@ -83,10 +86,14 @@ internal class ReturnsService(
         throw new InvalidOperationException("All scenarios should have been handled.");
     }
 
-    private async Task<List<PeriodReturn>> CollateBackfillReturns(List<string> backfillTickers, PeriodType period)
+    private async Task<List<PeriodReturn>> CalculateAndPutReturnsForSyntheticIndexByPeriod(
+        string syntheticIndexTicker,
+        HashSet<string> backfillTickers,
+        PeriodType period)
     {
         var availableBackfillTickers = backfillTickers.Where(ticker => returnRepository.Has(ticker, period));
-        var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => returnRepository.Get(ticker, period)));
+        var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker
+            => returnRepository.Get(ticker, period)));
         var collatedReturns = backfillReturns
             .Select((returns, index) =>
                 (returns, nextStartDate: index < backfillReturns.Length - 1
@@ -96,7 +103,7 @@ internal class ReturnsService(
             )
             .SelectMany(item => item.returns!.TakeWhile(pair => pair.PeriodStart < item.nextStartDate));
 
-        return collatedReturns.ToList();
+        return [.. await returnRepository.Put(syntheticIndexTicker, collatedReturns.ToList(), period)];
     }
 
     private async Task<PeriodReturn[]> CalculateAndPutReturnsForPeriodType(

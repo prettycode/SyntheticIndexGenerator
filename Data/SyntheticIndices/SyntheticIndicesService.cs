@@ -97,6 +97,15 @@ internal class SyntheticIndicesService(IReturnRepository returnRepository, ILogg
         return indices.Where(ticker => !ticker.StartsWith('$')).ToHashSet();
     }
 
+    public HashSet<string> GetSyntheticIndexTickers() => GetIndices().Select(index => index.Ticker).ToHashSet();
+
+    public HashSet<string> GetSyntheticIndexBackfillTickers(string syntheticIndexTicker, bool filterSynthetic = true)
+        => GetIndices()
+            .Single(index => index.Ticker == syntheticIndexTicker)
+            .BackfillTickers
+            .Where(backfillTicker => !filterSynthetic || !backfillTicker.StartsWith('$'))
+            .ToHashSet();
+
     public static HashSet<Index> GetIndices() => [
         new (IndexRegion.Us, IndexMarketCap.Total, IndexStyle.Blend, ["$USTSM", "VTSMX", "VTI", "AVUS"]),
         new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Blend, ["$USLCB", "VFINX", "VOO"]),

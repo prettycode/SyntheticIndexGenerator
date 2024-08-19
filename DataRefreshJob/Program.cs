@@ -51,33 +51,22 @@ class Program
 
     static async Task UpdateReturnsRepository(IServiceProvider provider)
     {
-        static async Task UpdateReturnsRepositoryWithIndexBackfillTickers(
-            ISyntheticIndicesService indicesService,
-            IReturnsService returnsService)
-        {
-            var tickersNeeded = indicesService.GetIndexBackfillTickers();
-
-            foreach (var periodType in Enum.GetValues<PeriodType>())
-            {
-                var returnsByTicker = await returnsService.GetReturnsHistory(
-                    tickersNeeded,
-                    periodType,
-                    DateTime.MinValue,
-                    DateTime.MaxValue,
-                    true);
-            }
-        }
-
-        static async Task UpdateReturnsRepositoryWithSyntheticIndexTickers(ISyntheticIndicesService indicesService)
-        {
-            await indicesService.PutSyntheticIndicesInReturnsRepository();
-        }
-
         var returnsService = provider.GetRequiredService<IReturnsService>();
         var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
 
-        await UpdateReturnsRepositoryWithIndexBackfillTickers(indicesService, returnsService);
-        await UpdateReturnsRepositoryWithSyntheticIndexTickers(indicesService);
+        Console.WriteLine("\n\nSYNTHETIC INDEX TICKERS:");
+
+        foreach (var ticker in indicesService.GetSyntheticIndexTickers())
+        {
+            Console.WriteLine($"\nCLIENT: {ticker}: Fetching {PeriodType.Yearly.ToString().ToUpper()} returns history…");
+            await returnsService.GetReturnsHistory(ticker, PeriodType.Yearly, DateTime.MinValue, DateTime.MaxValue, true);
+
+            Console.WriteLine($"\nCLIENT: {ticker}: Fetching {PeriodType.Monthly.ToString().ToUpper()} returns history…");
+            await returnsService.GetReturnsHistory(ticker, PeriodType.Monthly, DateTime.MinValue, DateTime.MaxValue, true);
+
+            Console.WriteLine($"\nCLIENT: {ticker}: Fetching {PeriodType.Daily.ToString().ToUpper()} returns history…");
+            await returnsService.GetReturnsHistory(ticker, PeriodType.Daily, DateTime.MinValue, DateTime.MaxValue, true);
+        }
     }
 
     // TODO test
