@@ -22,7 +22,7 @@ class Program
 
             try
             {
-                await UpdateReturnsRepository(serviceProvider);
+                await UpdateReturnsRepository(serviceProvider, logger);
             }
             catch (Exception ex)
             {
@@ -49,23 +49,24 @@ class Program
             .BuildServiceProvider();
     }
 
-    static async Task UpdateReturnsRepository(IServiceProvider provider)
+    static async Task UpdateReturnsRepository(IServiceProvider provider, ILogger<Program> logger)
     {
         var returnsService = provider.GetRequiredService<IReturnsService>();
         var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
 
-        Console.WriteLine("\n\nSYNTHETIC INDEX TICKERS:");
+        logger.LogInformation("Requesting returns for synthetic indices…");
 
         foreach (var ticker in indicesService.GetSyntheticIndexTickers())
         {
-            Console.WriteLine($"\nCLIENT: {ticker}: Fetching {PeriodType.Yearly.ToString().ToUpper()} returns history…");
-            await returnsService.GetReturnsHistory(ticker, PeriodType.Yearly, DateTime.MinValue, DateTime.MaxValue, true);
+            foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
+            {
+                logger.LogInformation(
+                    "{ticker}: Requesting entire return history for period {periodType}…",
+                    ticker,
+                    periodType);
 
-            Console.WriteLine($"\nCLIENT: {ticker}: Fetching {PeriodType.Monthly.ToString().ToUpper()} returns history…");
-            await returnsService.GetReturnsHistory(ticker, PeriodType.Monthly, DateTime.MinValue, DateTime.MaxValue, true);
-
-            Console.WriteLine($"\nCLIENT: {ticker}: Fetching {PeriodType.Daily.ToString().ToUpper()} returns history…");
-            await returnsService.GetReturnsHistory(ticker, PeriodType.Daily, DateTime.MinValue, DateTime.MaxValue, true);
+                await returnsService.GetReturnsHistory(ticker, periodType, DateTime.MinValue, DateTime.MaxValue, true);
+            }
         }
     }
 

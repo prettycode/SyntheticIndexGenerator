@@ -1,9 +1,8 @@
-﻿using Data.Returns;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 namespace Data.SyntheticIndices;
 
-internal class SyntheticIndicesService(IReturnRepository returnRepository, ILogger<SyntheticIndicesService> logger) : ISyntheticIndicesService
+internal class SyntheticIndicesService(ILogger<SyntheticIndicesService> logger) : ISyntheticIndicesService
 {
     public class Index(IndexRegion region, IndexMarketCap marketCap, IndexStyle style, List<string> backfillTickers)
     {
@@ -61,40 +60,19 @@ internal class SyntheticIndicesService(IReturnRepository returnRepository, ILogg
         Mid,
         Small
     }
+
     public enum IndexRegion
     {
         Us,
         IntlDeveloped,
         Emerging
     }
+
     public enum IndexStyle
     {
         Blend,
         Value,
         Growth
-    }
-
-    [Obsolete]
-    public Task PutSyntheticIndicesInReturnsRepository()
-    {
-        var refreshTasks = GetIndices()
-            .Where(index => index.BackfillTickers != null)
-            .Select(index => RefreshIndex(index));
-
-        return Task.WhenAll(refreshTasks);
-    }
-
-    [Obsolete]
-    public HashSet<string> GetIndexBackfillTickers(bool filterSynthetic = true)
-    {
-        var indices = GetIndices().SelectMany(index => index.BackfillTickers ?? []);
-
-        if (!filterSynthetic)
-        {
-            return indices.ToHashSet();
-        }
-
-        return indices.Where(ticker => !ticker.StartsWith('$')).ToHashSet();
     }
 
     public HashSet<string> GetSyntheticIndexTickers() => GetIndices().Select(index => index.Ticker).ToHashSet();
@@ -106,7 +84,7 @@ internal class SyntheticIndicesService(IReturnRepository returnRepository, ILogg
             .Where(backfillTicker => !filterSynthetic || !backfillTicker.StartsWith('$'))
             .ToHashSet();
 
-    public static HashSet<Index> GetIndices() => [
+    private static HashSet<Index> GetIndices() => [
         new (IndexRegion.Us, IndexMarketCap.Total, IndexStyle.Blend, ["$USTSM", "VTSMX", "VTI", "AVUS"]),
         new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Blend, ["$USLCB", "VFINX", "VOO"]),
         new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Value, ["$USLCV", "DFLVX", "AVLV"]),
@@ -131,58 +109,4 @@ internal class SyntheticIndicesService(IReturnRepository returnRepository, ILogg
         new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Blend, ["DEMSX", "AVEE"]),
         new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Value, ["DGS"])
     ];
-
-    private Task RefreshIndex(Index index)
-    {
-        var periods = Enum.GetValues<PeriodType>();
-        var tasks = periods.Select(async period =>
-        {
-            var returns = await CollateReturnsA(index.BackfillTickers, period);
-            await returnRepository.Put(index.Ticker, returns, period);
-        });
-
-        return Task.WhenAll(tasks);
-    }
-
-    [Obsolete]
-    private async Task<List<PeriodReturn>> CollateReturnsA(List<string> backfillTickers, PeriodType period)
-    {
-        var availableBackfillTickers = backfillTickers.Where(ticker => returnRepository.Has(ticker, period));
-        var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => returnRepository.Get(ticker, period)));
-        var collatedReturns = backfillReturns
-            .Select((returns, index) =>
-                (returns, nextStartDate: index < backfillReturns.Length - 1
-                    ? backfillReturns[index + 1]?.First().PeriodStart
-                    : DateTime.MaxValue
-                )
-            )
-            .SelectMany(item => item.returns!.TakeWhile(pair => pair.PeriodStart < item.nextStartDate));
-
-        return collatedReturns.ToList();
-    }
-
-    // TODO test
-    private async Task<List<PeriodReturn>> CollateReturnsB(List<string> backfillTickers, PeriodType period)
-    {
-        var collatedReturns = new List<PeriodReturn>();
-        var availableBackfillTickers = backfillTickers.Where(ticker => returnRepository.Has(ticker, period));
-        var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker => returnRepository.Get(ticker, period)));
-
-        for (var i = 0; i < backfillReturns.Length; i++)
-        {
-            var currentTickerReturns = backfillReturns[i]!;
-            int nextTickerIndex = i + 1;
-            DateTime startDateOfNextTicker = DateTime.MaxValue;
-
-            if (nextTickerIndex < backfillReturns.Length)
-            {
-                var nextTickerReturns = backfillReturns[nextTickerIndex]!;
-                startDateOfNextTicker = nextTickerReturns.First().PeriodStart;
-            }
-
-            collatedReturns.AddRange(currentTickerReturns.TakeWhile(pair => pair.PeriodStart < startDateOfNextTicker));
-        }
-
-        return collatedReturns;
-    }
 }

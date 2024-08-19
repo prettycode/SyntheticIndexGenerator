@@ -4,8 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Returns;
 
-// TODO: rename all start and end to first and last
-
+// TODO: rename all startDate and endDate to firstPeriod and lastPeriod
 internal class ReturnsService(
         IQuotesService quotesService,
         ISyntheticIndicesService syntheticIndexService,
@@ -80,7 +79,6 @@ internal class ReturnsService(
             var returns = await CalculateAndPutReturnsForPeriodType(ticker, dailyPricesByTicker, periodType);
 
             return [.. returns];
-
         }
 
         throw new InvalidOperationException("All scenarios should have been handled.");
