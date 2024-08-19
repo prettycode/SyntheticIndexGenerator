@@ -28,6 +28,12 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         this.cacheRelativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? String.Empty;
         this.cacheInstanceKey = cacheRootPath + cacheRelativePath;
 
+        // Cache instances are static; do not blow away existing cache each new TableFileCache instantiation
+        if (memoryCache.ContainsKey(cacheInstanceKey))
+        {
+            return;
+        }
+
         memoryCache[cacheInstanceKey] = new DaylongCache<TKey, IEnumerable<TValue>>(
             tableCacheOptions.Value.DaylongCacheOptions);
     }
