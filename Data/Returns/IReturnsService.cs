@@ -7,12 +7,12 @@ public interface IReturnsService
         PeriodType periodType,
         DateTime startDate,
         DateTime endDate,
-        bool skipRefresh = false);
+        bool fromCacheOnly = false);
 
     Task<List<PeriodReturn>> GetReturnsHistory(
         string ticker,
         PeriodType periodType,
         DateTime startDate,
         DateTime endDate,
-        bool skipRefresh = false);
+        bool fromCacheOnly = false);
 }

@@ -11,7 +11,7 @@ internal class QuotesService(
 {
     public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(
         HashSet<string> tickers,
-        bool skipRefresh = false)
+        bool fromCacheOnly = false)
     {
         ArgumentNullException.ThrowIfNull(tickers);
 
@@ -22,10 +22,10 @@ internal class QuotesService(
             .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
     }
 
-    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker, bool skipRefresh = false)
-        => (await GetQuote(ticker, skipRefresh)).Prices;
+    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker, bool fromCacheOnly = false)
+        => (await GetQuote(ticker, fromCacheOnly)).Prices;
 
-    private async Task<Quote> GetQuote(string ticker, bool skipRefresh = false, bool isNonGreedy = false)
+    private async Task<Quote> GetQuote(string ticker, bool fromCacheOnly = false, bool updateCachedEntry = false)
     {
         ArgumentNullException.ThrowIfNull(ticker);
 
@@ -35,7 +35,7 @@ internal class QuotesService(
 
         var knownHistory = quoteRepository.Has(ticker) ? await quoteRepository.Get(ticker) : null;
 
-        if (skipRefresh)
+        if (fromCacheOnly)
         {
             if (knownHistory == null)
             {
@@ -76,7 +76,7 @@ internal class QuotesService(
                 $"{knownHistory.Prices[^1].DateTime:yyyy-MM-dd}");
         }
 
-        if (!isNonGreedy)
+        if (!updateCachedEntry)
         {
             return knownHistory;
         }
