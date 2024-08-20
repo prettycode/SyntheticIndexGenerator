@@ -1,4 +1,4 @@
-﻿using Data.TableFileCache.DaylongCache.GenericMemoryCache;
+﻿using Data.TableFileCache.GenericMemoryCache;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
@@ -10,7 +10,7 @@ public class DaylongCache<TKey, TValue>(IOptions<DaylongCacheOptions> daylongCac
 {
     private readonly DaylongCacheOptions daylongCacheOptions = daylongCacheOptions.Value ?? new();
 
-    public TValue Set(TKey key, TValue value)
+    public new TValue Set(TKey key, TValue value)
         => cache.Set(key, value, GetNextExpirationDateTimeOffset());
 
     public new TValue? this[TKey key]

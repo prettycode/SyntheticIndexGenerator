@@ -1,19 +1,26 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
-namespace Data.TableFileCache.DaylongCache.GenericMemoryCache;
+namespace Data.TableFileCache.GenericMemoryCache;
 
 public class GenericMemoryCache<TKey, TValue>(IOptions<GenericMemoryCacheOptions>? genericMemoryCacheOptions) where TKey
     : notnull
 {
-    private readonly MemoryCacheEntryOptions? memoryCacheEntryOptions
-        = genericMemoryCacheOptions?.Value.MemoryCacheEntryOptions ?? new MemoryCacheEntryOptions();
+    public readonly MemoryCacheEntryOptions? MemoryCacheEntryOptions = genericMemoryCacheOptions?
+        .Value
+        .MemoryCacheEntryOptions;
 
     protected readonly IMemoryCache cache = new MemoryCache(genericMemoryCacheOptions?.Value.MemoryCacheOptions
         ?? new MemoryCacheOptions());
 
-    public TValue Set(TKey key, TValue value, MemoryCacheEntryOptions? options = null)
-        => cache.Set(key, value, options ?? memoryCacheEntryOptions);
+    public TValue Set(TKey key, TValue value)
+        => cache.Set(key, value);
+
+    public TValue Set(TKey key, TValue value, MemoryCacheEntryOptions? options)
+        => cache.Set(key, value, options);
+
+    public TValue Set(TKey key, TValue value, TimeSpan absoluteExpirationRelativeToNow)
+        => cache.Set(key, value, absoluteExpirationRelativeToNow);
 
     public TValue Set(TKey key, TValue value, DateTimeOffset absoluteExpiration)
         => cache.Set(key, value, absoluteExpiration);

@@ -1,4 +1,4 @@
-﻿using Data.TableFileCache.DaylongCache.GenericMemoryCache;
+﻿using Data.TableFileCache.GenericMemoryCache;
 using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache.DaylongCache;
