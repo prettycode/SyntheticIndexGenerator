@@ -65,12 +65,12 @@ class Program
                     ticker,
                     periodType);
 
-                await returnsService.GetReturnsHistory(ticker, periodType, DateTime.MinValue, DateTime.MaxValue, true);
+                await returnsService.GetReturnsHistory(ticker, periodType, DateTime.MinValue, DateTime.MaxValue);
             }
         }
     }
     /* TODO:
-     * This demonstrates the FileTableCache is not thread-safe becasue both ITSM and ILCB use AVDE.
+     * This demonstrates the FileTableCache is not thread-safe because both ITSM and ILCB use AVDE.
      * If AVDE doesn't exist in file cache, both threads will try to create it at same time.
      *
     static async Task UpdateReturnsRepository(IServiceProvider provider, ILogger<Program> logger)

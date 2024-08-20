@@ -1,17 +1,19 @@
 ﻿using Data.Quotes.QuoteProvider;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Data.Quotes;
 
 internal class QuotesService(
     IQuoteRepository quoteRepository,
     IQuoteProvider quoteProvider,
+    IOptions<QuotesServiceOptions> quoteServiceOptions,
     ILogger<QuotesService> logger)
         : IQuotesService
 {
-    public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(
-        HashSet<string> tickers,
-        bool fromCacheOnly = false)
+    private readonly bool fromCacheOnly = quoteServiceOptions.Value.GetQuotesFromCacheOnly;
+
+    public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(HashSet<string> tickers)
     {
         ArgumentNullException.ThrowIfNull(tickers);
 
@@ -22,10 +24,10 @@ internal class QuotesService(
             .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
     }
 
-    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker, bool fromCacheOnly = false)
-        => (await GetQuote(ticker, fromCacheOnly)).Prices;
+    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker)
+        => (await GetQuote(ticker)).Prices;
 
-    private async Task<Quote> GetQuote(string ticker, bool fromCacheOnly = false, bool updateCachedEntry = false)
+    private async Task<Quote> GetQuote(string ticker)
     {
         ArgumentNullException.ThrowIfNull(ticker);
 
@@ -74,11 +76,6 @@ internal class QuotesService(
                 knownHistory.Prices.Count,
                 $"{knownHistory.Prices[0].DateTime:yyyy-MM-dd}",
                 $"{knownHistory.Prices[^1].DateTime:yyyy-MM-dd}");
-        }
-
-        if (!updateCachedEntry)
-        {
-            return knownHistory;
         }
 
         // It's in the cache, but may be outdated, so check for new data

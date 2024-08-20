@@ -5,11 +5,11 @@ namespace Data.TableFileCache;
 
 public class TableFileCacheOptions : IOptions<TableFileCacheOptions>
 {
-    public required string CacheRootPath { get; init; } = "./";
+    public required string CacheRootPath { get; init; }
 
     public string? CacheNamespace { get; init; }
 
-    public required bool PrimeCacheFromFiles { get; init; } = false;
+    public required bool CacheMissReadsFileCache { get; init; }
 
     public required DaylongCacheOptions DaylongCacheOptions { get; init; }
 

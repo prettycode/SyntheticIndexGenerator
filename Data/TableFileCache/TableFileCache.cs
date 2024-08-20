@@ -17,6 +17,8 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private readonly string cacheInstanceKey;
 
+    private readonly bool cacheMissReadsFileCache;
+
     // TODO can we decouple TableFileCache from using a DaylongCache, i.e. use IGenericMemoryCache instead, and have the consumers of TableFileCache instances inject the IGenericMemoryCache?
     private static readonly ConcurrentDictionary<string, DaylongCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
@@ -27,6 +29,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         this.cacheRootPath = tableCacheOptions.Value.CacheRootPath;
         this.cacheRelativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? String.Empty;
         this.cacheInstanceKey = cacheRootPath + cacheRelativePath;
+        this.cacheMissReadsFileCache = tableCacheOptions.Value.CacheMissReadsFileCache;
 
         // Cache instances are static; do not blow away existing cache each new TableFileCache instantiation
         if (memoryCache.ContainsKey(cacheInstanceKey))
@@ -39,15 +42,24 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
     }
 
     public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _) ||
-        File.Exists(GetCacheFilePath(key));
+        cacheMissReadsFileCache
+            ? File.Exists(GetCacheFilePath(key))
+            : false;
 
     public Task<IEnumerable<TValue>> Get(TKey key)
         => memoryCache[cacheInstanceKey].TryGet(key, out var value)
             ? Task.FromResult(value ?? throw new InvalidOperationException($"{nameof(value)} should not be null."))
-            : GetAndCacheFromFile(key);
+            : cacheMissReadsFileCache
+                ? GetAndCacheFromFile(key)
+                : throw new KeyNotFoundException();
 
     private async Task<IEnumerable<TValue>> GetAndCacheFromFile(TKey key)
     {
+        if (!cacheMissReadsFileCache)
+        {
+            throw new InvalidOperationException($"{nameof(TableFileCache)} configured file cache entries as write-only.");
+        }
+
         var filePath = GetCacheFilePath(key);
         var fileLines = await File.ReadAllLinesAsync(filePath);
         var values = fileLines

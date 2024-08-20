@@ -6,13 +6,11 @@ public interface IReturnsService
         HashSet<string> tickers,
         PeriodType periodType,
         DateTime startDate,
-        DateTime endDate,
-        bool fromCacheOnly = false);
+        DateTime endDate);
 
     Task<List<PeriodReturn>> GetReturnsHistory(
         string ticker,
         PeriodType periodType,
         DateTime startDate,
-        DateTime endDate,
-        bool fromCacheOnly = false);
+        DateTime endDate);
 }

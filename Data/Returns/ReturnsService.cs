@@ -16,15 +16,14 @@ internal class ReturnsService(
         HashSet<string> tickers,
         PeriodType periodType,
         DateTime startDate,
-        DateTime endDate,
-        bool fromCacheOnly = false)
+        DateTime endDate)
     {
         ArgumentNullException.ThrowIfNull(tickers);
 
         // TODO this is not parallelized; don't have awaits in here
         return await tickers
             .ToAsyncEnumerable()
-            .SelectAwait(async ticker => new { ticker, returns = await GetReturnsHistory(ticker, periodType, startDate, endDate, fromCacheOnly) })
+            .SelectAwait(async ticker => new { ticker, returns = await GetReturnsHistory(ticker, periodType, startDate, endDate) })
             .ToDictionaryAsync(pair => pair.ticker, pair => pair.returns);
     }
 
@@ -32,8 +31,7 @@ internal class ReturnsService(
         string ticker,
         PeriodType periodType,
         DateTime startDate,
-        DateTime endDate,
-        bool fromCacheOnly = false)
+        DateTime endDate)
     {
         ArgumentNullException.ThrowIfNull(ticker);
 
@@ -70,12 +68,12 @@ internal class ReturnsService(
 
             await CalculateAndPutReturnsForSyntheticIndexByPeriod(ticker, backfillTickers, periodType);
 
-            return await GetReturnsHistory(ticker, periodType, startDate, endDate, fromCacheOnly);
+            return await GetReturnsHistory(ticker, periodType, startDate, endDate);
         }
 
         if (IsQuoteTicker(ticker))
         {
-            var dailyPricesByTicker = await quotesService.GetDailyQuoteHistory(ticker, fromCacheOnly);
+            var dailyPricesByTicker = await quotesService.GetDailyQuoteHistory(ticker);
             var returns = await CalculateAndPutReturnsForPeriodType(ticker, dailyPricesByTicker, periodType);
 
             return [.. returns];
