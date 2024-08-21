@@ -1,4 +1,5 @@
 ﻿using Data.TableFileCache.GenericMemoryCache;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache;
@@ -9,7 +10,7 @@ public class DaylongCacheOptions : IOptions<DaylongCacheOptions>
 
     public TimeOnly TimeOfDay { get; init; } = new TimeOnly();
 
-    public GenericMemoryCacheOptions? GenericMemoryCacheOptions { get; init; }
+    public MemoryCacheOptions? MemoryCacheOptions { get; init; }
 
     DaylongCacheOptions IOptions<DaylongCacheOptions>.Value
     {

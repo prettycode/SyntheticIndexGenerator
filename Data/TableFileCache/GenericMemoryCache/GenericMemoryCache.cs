@@ -7,7 +7,7 @@ namespace Data.TableFileCache.GenericMemoryCache;
 public class GenericMemoryCache<TKey, TValue>(IOptions<DaylongCacheOptions> daylongCacheOptions) where TKey
     : notnull
 {
-    protected readonly IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
+    protected readonly IMemoryCache cache = new MemoryCache(daylongCacheOptions.Value.MemoryCacheOptions ?? new MemoryCacheOptions());
 
     public TValue Set(TKey key, TValue value)
         => cache.Set(key, value, GetNextExpirationDateTimeOffset());
