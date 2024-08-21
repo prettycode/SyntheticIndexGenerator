@@ -108,7 +108,6 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         finally
         {
             fileLock.Release();
-            fileLocks.Remove(filePath, out _);
         }
     }
 
@@ -165,7 +164,6 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         finally
         {
             fileLock.Release();
-            fileLocks.Remove(fullFilePath, out _);
         }
     }
 }
