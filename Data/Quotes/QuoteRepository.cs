@@ -25,30 +25,35 @@ internal class QuoteRepository : IQuoteRepository
         this.logger = logger;
     }
 
-    public bool Has(string ticker) => pricesCache.Has(ticker);
-
-    private async Task<Quote> Get(string ticker)
+    public async Task<Quote?> TryGetValue(string ticker)
     {
-        ArgumentNullException.ThrowIfNull(ticker);
+        var prices = await pricesCache.TryGetValue(ticker);
 
-        if (!Has(ticker))
+        if (prices == null)
         {
-            throw new KeyNotFoundException($"No record for {nameof(ticker)} \"{ticker}\".");
+            return null;
         }
 
         var history = new Quote(ticker)
         {
-            Dividends = dividendsCache.Has(ticker)
-                ? (await dividendsCache.Get(ticker)).ToList()
-                : Enumerable.Empty<QuoteDividend>().ToList(),
+            Dividends = (await dividendsCache.TryGetValue(ticker) ?? []).ToList(),
+            Prices = prices.ToList(),
+            Splits = (await splitsCache.TryGetValue(ticker) ?? []).ToList(),
+        };
 
-            Prices = pricesCache.Has(ticker)
-                ? (await pricesCache.Get(ticker)).ToList()
-                : Enumerable.Empty<QuotePrice>().ToList(),
+        Inspect(history);
 
-            Splits = splitsCache.Has(ticker)
-                ? (await splitsCache.Get(ticker)).ToList()
-                : Enumerable.Empty<QuoteSplit>().ToList(),
+        return history;
+    }
+
+    private async Task<Quote> Get(string ticker)
+    {
+        var history = new Quote(ticker)
+        {
+            Dividends = (await dividendsCache.TryGetValue(ticker) ?? []).ToList(),
+            // Intentionally cause exception if ticker not found
+            Prices = (await pricesCache.Get(ticker)).ToList(),
+            Splits = (await splitsCache.TryGetValue(ticker) ?? []).ToList(),
         };
 
         Inspect(history);
@@ -107,10 +112,6 @@ internal class QuoteRepository : IQuoteRepository
             ? fundHistory
             : await Get(ticker);
     }
-
-    private Task<Quote> Append(Quote fundHistory) => Put(fundHistory, true);
-
-    private Task<Quote> Replace(Quote fundHistory) => Put(fundHistory, false);
 
     private void Inspect(Quote fundHistory)
     {

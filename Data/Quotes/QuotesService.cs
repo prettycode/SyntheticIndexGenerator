@@ -35,7 +35,7 @@ internal class QuotesService(
 
         // Check the cache for an entry
 
-        var knownHistory = quoteRepository.Has(ticker) ? await quoteRepository.Get(ticker) : null;
+        var knownHistory = await quoteRepository.TryGetValue(ticker);
 
         if (fromCacheOnly)
         {

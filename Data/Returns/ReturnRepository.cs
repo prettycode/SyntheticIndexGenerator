@@ -46,7 +46,7 @@ internal class ReturnRepository : IReturnRepository
         }
     }
 
-    public bool Has(string ticker, PeriodType periodType) => GetPeriodTypeCache(periodType).Has(ticker);
+    public Task<IEnumerable<PeriodReturn>?> TryGetValue(string ticker, PeriodType periodType) => GetPeriodTypeCache(periodType).TryGetValue(ticker);
 
     public async Task<List<PeriodReturn>> Get(
         string ticker,
@@ -58,12 +58,6 @@ internal class ReturnRepository : IReturnRepository
         ArgumentNullException.ThrowIfNull(periodType);
 
         var cache = GetPeriodTypeCache(periodType);
-
-        if (!cache.Has(ticker))
-        {
-            throw new KeyNotFoundException($"No record for {nameof(ticker)} \"{ticker}\".");
-        }
-
         var cacheRecords = await cache.Get(ticker);
 
         return cacheRecords
@@ -113,18 +107,12 @@ internal class ReturnRepository : IReturnRepository
 
         foreach (var (ticker, returns) in monthlyReturnsTask.Result)
         {
-            if (!Has(ticker, PeriodType.Monthly))
-            {
-                allPutTasks.Add(Put(ticker, returns, PeriodType.Monthly));
-            }
+            allPutTasks.Add(Put(ticker, returns, PeriodType.Monthly));
         }
 
         foreach (var (ticker, returns) in yearlyReturnsTask.Result)
         {
-            if (!Has(ticker, PeriodType.Yearly))
-            {
-                allPutTasks.Add(Put(ticker, returns, PeriodType.Yearly));
-            }
+            allPutTasks.Add(Put(ticker, returns, PeriodType.Yearly));
         }
 
         allPutTasks.AddRange(CreateFakeSyntheticReturnsPutTasks());

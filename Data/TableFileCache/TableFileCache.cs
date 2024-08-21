@@ -7,6 +7,8 @@ namespace Data.TableFileCache;
 
 public class TableFileCache<TKey, TValue> where TKey : notnull
 {
+    private static readonly object fileLock = new object();
+
     private const string CACHE_FILE_EXTENSION = "txt";
 
     private readonly string cacheRootPath;
@@ -20,7 +22,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
     private readonly bool cacheMissReadsFileCache;
 
     // TODO can we decouple TableFileCache from using a DaylongCache, i.e. use IGenericMemoryCache instead, and have the consumers of TableFileCache instances inject the IGenericMemoryCache?
-    private static readonly ConcurrentDictionary<string, DaylongCache<TKey, IEnumerable<TValue>>> memoryCache = [];
+    private static readonly ConcurrentDictionary<string, ConcurrentDictionary<TKey, IEnumerable<TValue>>> memoryCache = [];
 
     public TableFileCache(IOptions<TableFileCacheOptions> tableCacheOptions, string? cacheNamespace = null)
     {
@@ -32,26 +34,36 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         this.cacheMissReadsFileCache = tableCacheOptions.Value.CacheMissReadsFileCache;
 
         // Cache instances are static; do not blow away existing cache each new TableFileCache instantiation
-        if (memoryCache.ContainsKey(cacheInstanceKey))
+        if (!memoryCache.ContainsKey(cacheInstanceKey))
         {
-            return;
+            memoryCache[cacheInstanceKey] = new ConcurrentDictionary<TKey, IEnumerable<TValue>>();
         }
-
-        memoryCache[cacheInstanceKey] = new DaylongCache<TKey, IEnumerable<TValue>>(
-            tableCacheOptions.Value.DaylongCacheOptions);
     }
 
-    public bool Has(TKey key) => memoryCache[cacheInstanceKey].TryGet(key, out IEnumerable<TValue>? _) ||
-        cacheMissReadsFileCache
-            ? File.Exists(GetCacheFilePath(key))
-            : false;
+    public async Task<IEnumerable<TValue>?> TryGetValue(TKey key)
+    {
+        if (memoryCache[cacheInstanceKey].TryGetValue(key, out IEnumerable<TValue>? value))
+        {
+            return value;
+        }
 
-    public Task<IEnumerable<TValue>> Get(TKey key)
-        => memoryCache[cacheInstanceKey].TryGet(key, out var value)
-            ? Task.FromResult(value ?? throw new InvalidOperationException($"{nameof(value)} should not be null."))
-            : cacheMissReadsFileCache
-                ? GetAndCacheFromFile(key)
-                : throw new KeyNotFoundException();
+        if (!cacheMissReadsFileCache)
+        {
+            return null;
+        }
+
+        lock (fileLock)
+        {
+            if (!File.Exists(GetCacheFilePath(key)))
+            {
+                return null;
+            }
+        }
+
+        return await GetAndCacheFromFile(key);
+    }
+
+    public async Task<IEnumerable<TValue>> Get(TKey key) => await TryGetValue(key) ?? throw new KeyNotFoundException();
 
     private async Task<IEnumerable<TValue>> GetAndCacheFromFile(TKey key)
     {

@@ -2,7 +2,7 @@
 
 internal interface IQuoteRepository
 {
-    bool Has(string ticker);
+    Task<Quote?> TryGetValue(string ticker);
 
     Task<Quote> Get(string ticker, bool skipPastZeroVolume = false);
 

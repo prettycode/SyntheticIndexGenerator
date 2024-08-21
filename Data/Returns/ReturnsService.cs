@@ -42,7 +42,9 @@ internal class ReturnsService(
 
         // Get previously-computed and -saved results, and return them
 
-        if (returnRepository.Has(ticker, periodType))
+        var cachedReturns = await returnRepository.TryGetValue(ticker, periodType);
+
+        if (cachedReturns != null)
         {
             return await returnRepository.Get(ticker, periodType, startDate, endDate);
         }
@@ -87,9 +89,15 @@ internal class ReturnsService(
         HashSet<string> backfillTickers,
         PeriodType period)
     {
-        var availableBackfillTickers = backfillTickers.Where(ticker => returnRepository.Has(ticker, period));
+        // <TODO:hacky inefficient quick fix>
+        var availableBackfillTickers = await backfillTickers
+            .ToAsyncEnumerable()
+            .WhereAwait(async (ticker) => await returnRepository.TryGetValue(ticker, period) != null)
+            .ToListAsync();
         var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker
             => returnRepository.Get(ticker, period)));
+        // </TODO>
+
         var collatedReturns = backfillReturns
             .Select((returns, index) =>
                 (returns, nextStartDate: index < backfillReturns.Length - 1
