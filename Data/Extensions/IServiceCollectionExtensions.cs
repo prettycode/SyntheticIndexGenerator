@@ -12,10 +12,10 @@ public static class IServiceCollectionExtensions
 {
     public static IServiceCollection AddDataLibraryConfiguration(this IServiceCollection serviceCollection, IConfiguration configuration) => serviceCollection
         .Configure<QuoteRepositoryOptions>(configuration.GetSection("QuoteRepositoryOptions"))
-        .Configure<ReturnRepositoryOptions>(configuration.GetSection("ReturnRepositoryOptions"))
+        .Configure<ReturnsCacheOptions>(configuration.GetSection("ReturnsCacheOptions"))
         .Configure<QuotesServiceOptions>(configuration.GetSection("QuotesServiceOptions"))
         .AddTransient<IQuoteRepository, QuoteRepository>()
-        .AddTransient<IReturnRepository, ReturnRepository>()
+        .AddTransient<IReturnsCache, ReturnsCache>()
         .AddTransient<IQuoteProvider, YahooFinanceApiQuoteProvider>()
         .AddTransient<IQuotesService, QuotesService>()
         .AddTransient<IReturnsService, ReturnsService>()

@@ -2,9 +2,9 @@
 
 internal interface IQuoteRepository
 {
-    Task<Quote?> TryGetValue(string ticker);
+    Task<Quote?> TryGetQuote(string ticker);
 
-    Task<Quote> Get(string ticker, bool skipPastZeroVolume = false);
+    Task<Quote> GetQuote(string ticker, bool skipPastZeroVolume = false);
 
-    Task<Quote> Put(Quote fundHistory, bool append = false);
+    Task<Quote> PutQuote(Quote fundHistory, bool append = false);
 }

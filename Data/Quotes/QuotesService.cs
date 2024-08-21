@@ -35,7 +35,7 @@ internal class QuotesService(
 
         // Check the cache for an entry
 
-        var knownHistory = await quoteRepository.TryGetValue(ticker);
+        var knownHistory = await quoteRepository.TryGetQuote(ticker);
 
         if (fromCacheOnly)
         {
@@ -67,7 +67,7 @@ internal class QuotesService(
                 $"{allHistory.Prices[0].DateTime:yyyy-MM-dd}",
                 $"{allHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-            return await quoteRepository.Put(allHistory);
+            return await quoteRepository.PutQuote(allHistory);
         }
         else
         {
@@ -107,7 +107,7 @@ internal class QuotesService(
                 $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
                 $"{newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-        return await quoteRepository.Put(newHistory, !replaceExistingHistory);
+        return await quoteRepository.PutQuote(newHistory, !replaceExistingHistory);
     }
 
     private async Task<Quote> GetAllHistory(string ticker)

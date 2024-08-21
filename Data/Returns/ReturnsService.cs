@@ -8,7 +8,7 @@ namespace Data.Returns;
 internal class ReturnsService(
         IQuotesService quotesService,
         ISyntheticIndicesService syntheticIndexService,
-        IReturnRepository returnRepository,
+        IReturnsCache returnRepository,
         ILogger<ReturnsService> logger)
             : IReturnsService
 {

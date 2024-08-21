@@ -3,13 +3,13 @@ using Microsoft.Extensions.Options;
 
 namespace Data.Returns;
 
-public class ReturnRepositoryOptions : IOptions<ReturnRepositoryOptions>
+public class ReturnsCacheOptions : IOptions<ReturnsCacheOptions>
 {
     public required string SyntheticReturnsFilePath { get; init; }
 
     public required TableFileCacheOptions TableCacheOptions { get; init; }
 
-    ReturnRepositoryOptions IOptions<ReturnRepositoryOptions>.Value
+    ReturnsCacheOptions IOptions<ReturnsCacheOptions>.Value
     {
         get { return this; }
     }

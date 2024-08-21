@@ -1,6 +1,6 @@
 ﻿namespace Data.Returns;
 
-internal interface IReturnRepository
+internal interface IReturnsCache
 {
     Task<List<PeriodReturn>> Get(string ticker, PeriodType period, DateTime? start = null, DateTime? end = null);
 

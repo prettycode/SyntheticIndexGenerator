@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace Data.Returns;
 
-internal class ReturnRepository : IReturnRepository
+internal class ReturnsCache : IReturnsCache
 {
     private readonly string syntheticReturnsFilePath;
     private static bool havePutSyntheticsInRepository = false;
@@ -14,9 +14,9 @@ internal class ReturnRepository : IReturnRepository
     private readonly TableFileCache<string, PeriodReturn> monthlyCache;
     private readonly TableFileCache<string, PeriodReturn> yearlyCache;
 
-    private readonly ILogger<ReturnRepository> logger;
+    private readonly ILogger<ReturnsCache> logger;
 
-    public ReturnRepository(IOptions<ReturnRepositoryOptions> returnRepositoryOptions, ILogger<ReturnRepository> logger)
+    public ReturnsCache(IOptions<ReturnsCacheOptions> returnRepositoryOptions, ILogger<ReturnsCache> logger)
     {
         ArgumentNullException.ThrowIfNull(logger);
 

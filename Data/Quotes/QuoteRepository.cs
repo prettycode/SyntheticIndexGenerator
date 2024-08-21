@@ -25,7 +25,7 @@ internal class QuoteRepository : IQuoteRepository
         this.logger = logger;
     }
 
-    public async Task<Quote?> TryGetValue(string ticker)
+    public async Task<Quote?> TryGetQuote(string ticker)
     {
         var prices = await pricesCache.TryGetValue(ticker);
 
@@ -61,7 +61,7 @@ internal class QuoteRepository : IQuoteRepository
         return history;
     }
 
-    public async Task<Quote> Get(string ticker, bool skipPastZeroVolume = false)
+    public async Task<Quote> GetQuote(string ticker, bool skipPastZeroVolume = false)
     {
         var unfilteredQuote = await Get(ticker);
 
@@ -88,7 +88,7 @@ internal class QuoteRepository : IQuoteRepository
         return filteredQuote;
     }
 
-    public async Task<Quote> Put(Quote fundHistory, bool append = false)
+    public async Task<Quote> PutQuote(Quote fundHistory, bool append = false)
     {
         var ticker = fundHistory.Ticker;
         var operation = append ? "Appending" : "Replacing";
