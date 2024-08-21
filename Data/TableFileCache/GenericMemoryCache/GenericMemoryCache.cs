@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache.GenericMemoryCache;
 
-public class GenericMemoryCache<TKey, TValue>(IOptions<GenericMemoryCacheOptions>? genericMemoryCacheOptions) where TKey
+public class GenericMemoryCache<TKey, TValue>(IOptions<GenericMemoryCacheOptions>? genericMemoryCacheOptions = null) where TKey
     : notnull
 {
     public readonly MemoryCacheEntryOptions? MemoryCacheEntryOptions = genericMemoryCacheOptions?
@@ -33,5 +33,5 @@ public class GenericMemoryCache<TKey, TValue>(IOptions<GenericMemoryCacheOptions
         set => Set(key, value ?? throw new ArgumentNullException(nameof(value)));
     }
 
-    public bool TryGet(TKey key, out TValue? value) => cache.TryGetValue(key, out value);
+    public bool TryGetValue(TKey key, out TValue? value) => cache.TryGetValue(key, out value);
 }

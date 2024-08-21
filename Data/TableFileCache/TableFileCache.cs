@@ -1,6 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Text.Json;
-using Data.TableFileCache.DaylongCache;
+using Data.TableFileCache.GenericMemoryCache;
 using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache;
@@ -21,8 +21,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private readonly bool cacheMissReadsFileCache;
 
-    // TODO can we decouple TableFileCache from using a DaylongCache, i.e. use IGenericMemoryCache instead, and have the consumers of TableFileCache instances inject the IGenericMemoryCache?
-    private static readonly ConcurrentDictionary<string, ConcurrentDictionary<TKey, IEnumerable<TValue>>> memoryCache = [];
+    private static readonly ConcurrentDictionary<string, GenericMemoryCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
     public TableFileCache(IOptions<TableFileCacheOptions> tableCacheOptions, string? cacheNamespace = null)
     {
@@ -36,7 +35,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         // Cache instances are static; do not blow away existing cache each new TableFileCache instantiation
         if (!memoryCache.ContainsKey(cacheInstanceKey))
         {
-            memoryCache[cacheInstanceKey] = new ConcurrentDictionary<TKey, IEnumerable<TValue>>();
+            memoryCache[cacheInstanceKey] = new GenericMemoryCache<TKey, IEnumerable<TValue>>();
         }
     }
 
