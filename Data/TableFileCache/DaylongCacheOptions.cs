@@ -1,7 +1,7 @@
 ﻿using Data.TableFileCache.GenericMemoryCache;
 using Microsoft.Extensions.Options;
 
-namespace Data.TableFileCache.DaylongCache;
+namespace Data.TableFileCache;
 
 public class DaylongCacheOptions : IOptions<DaylongCacheOptions>
 {

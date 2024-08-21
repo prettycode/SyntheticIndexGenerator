@@ -7,8 +7,6 @@ namespace Data.TableFileCache;
 
 public class TableFileCache<TKey, TValue> where TKey : notnull
 {
-    private static readonly object fileLock = new object();
-
     private const string CACHE_FILE_EXTENSION = "txt";
 
     private readonly string cacheRootPath;
@@ -51,12 +49,9 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
             return null;
         }
 
-        lock (fileLock)
+        if (!File.Exists(GetCacheFilePath(key)))
         {
-            if (!File.Exists(GetCacheFilePath(key)))
-            {
-                return null;
-            }
+            return null;
         }
 
         return await GetAndCacheFromFile(key);
