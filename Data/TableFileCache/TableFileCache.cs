@@ -33,7 +33,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         // Cache instances are static; do not blow away existing cache each new TableFileCache instantiation
         if (!memoryCache.ContainsKey(cacheInstanceKey))
         {
-            memoryCache[cacheInstanceKey] = new GenericMemoryCache<TKey, IEnumerable<TValue>>();
+            memoryCache[cacheInstanceKey] = new GenericMemoryCache<TKey, IEnumerable<TValue>>(tableCacheOptions.Value.DaylongCacheOptions);
         }
     }
 
