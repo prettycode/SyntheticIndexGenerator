@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Text.Json;
-using Data.TableFileCache.GenericMemoryCache;
 using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache;
@@ -21,6 +20,8 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private static readonly ConcurrentDictionary<string, GenericMemoryCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
+    private readonly DailyExpirationCacheOptions dailyExpirationCacheOptions;
+
     public TableFileCache(IOptions<TableFileCacheOptions> tableCacheOptions, string? cacheNamespace = null)
     {
         ArgumentNullException.ThrowIfNull(tableCacheOptions, nameof(tableCacheOptions));
@@ -29,11 +30,12 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         this.cacheRelativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? String.Empty;
         this.cacheInstanceKey = cacheRootPath + cacheRelativePath;
         this.cacheMissReadsFileCache = tableCacheOptions.Value.CacheMissReadsFileCache;
+        this.dailyExpirationCacheOptions = tableCacheOptions.Value.DailyExpirationOptions;
 
         // Cache instances are static; do not blow away existing cache each new TableFileCache instantiation
         if (!memoryCache.ContainsKey(cacheInstanceKey))
         {
-            memoryCache[cacheInstanceKey] = new GenericMemoryCache<TKey, IEnumerable<TValue>>(tableCacheOptions.Value.DaylongCacheOptions);
+            memoryCache[cacheInstanceKey] = new GenericMemoryCache<TKey, IEnumerable<TValue>>(GetNextExpirationDateTimeOffset, dailyExpirationCacheOptions.MemoryCacheOptions);
         }
     }
 
@@ -59,6 +61,24 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     public async Task<IEnumerable<TValue>> Get(TKey key) => await TryGetValue(key) ?? throw new KeyNotFoundException();
 
+    public Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append = false)
+        => !append
+            ? Set(key, value)
+            : Append(key, value);
+
+    private DateTimeOffset GetNextExpirationDateTimeOffset()
+    {
+        var destinationTimeZone = dailyExpirationCacheOptions.TimeZone;
+        var zonedDateTimeOffset = TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, destinationTimeZone);
+        var zonedDateTimeOffsetMidnight = zonedDateTimeOffset.Date;
+        var zonedTodayAtTimeOfDay = zonedDateTimeOffsetMidnight.Add(dailyExpirationCacheOptions.TimeOfDay.ToTimeSpan());
+        var nextExpiration = zonedTodayAtTimeOfDay > zonedDateTimeOffset
+            ? zonedTodayAtTimeOfDay
+            : zonedTodayAtTimeOfDay.AddDays(1);
+
+        return new DateTimeOffset(nextExpiration, destinationTimeZone.GetUtcOffset(nextExpiration));
+    }
+
     private async Task<IEnumerable<TValue>> GetAndCacheFromFile(TKey key)
     {
         if (!cacheMissReadsFileCache)
@@ -75,11 +95,6 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
         return memoryCache[cacheInstanceKey][key] = values;
     }
-
-    public Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append = false)
-        => !append
-            ? Set(key, value)
-            : Append(key, value);
 
     private async Task<IEnumerable<TValue>> Set(TKey key, IEnumerable<TValue> value)
     {

@@ -1,10 +1,9 @@
-﻿using Data.TableFileCache.GenericMemoryCache;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
 namespace Data.TableFileCache;
 
-public class DaylongCacheOptions : IOptions<DaylongCacheOptions>
+public class DailyExpirationCacheOptions : IOptions<DailyExpirationCacheOptions>
 {
     public TimeZoneInfo TimeZone { get; init; } = TimeZoneInfo.Utc;
 
@@ -12,7 +11,7 @@ public class DaylongCacheOptions : IOptions<DaylongCacheOptions>
 
     public MemoryCacheOptions? MemoryCacheOptions { get; init; }
 
-    DaylongCacheOptions IOptions<DaylongCacheOptions>.Value
+    DailyExpirationCacheOptions IOptions<DailyExpirationCacheOptions>.Value
     {
         get { return this; }
     }

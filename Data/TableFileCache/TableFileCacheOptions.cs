@@ -10,7 +10,7 @@ public class TableFileCacheOptions : IOptions<TableFileCacheOptions>
 
     public required bool CacheMissReadsFileCache { get; init; }
 
-    public required DaylongCacheOptions DaylongCacheOptions { get; init; }
+    public required DailyExpirationCacheOptions DailyExpirationOptions { get; init; }
 
     TableFileCacheOptions IOptions<TableFileCacheOptions>.Value
     {
