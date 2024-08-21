@@ -7,16 +7,50 @@ namespace Data.Returns;
 
 internal class ReturnsCache : IReturnsCache
 {
-    private readonly string syntheticReturnsFilePath;
+    private static readonly SemaphoreSlim semaphoreSlim = new(1, 1);
+
     private static bool havePutSyntheticsInRepository = false;
 
+    private readonly string syntheticReturnsFilePath;
+
     private readonly TableFileCache<string, PeriodReturn> dailyCache;
+
     private readonly TableFileCache<string, PeriodReturn> monthlyCache;
+
     private readonly TableFileCache<string, PeriodReturn> yearlyCache;
 
     private readonly ILogger<ReturnsCache> logger;
 
-    public ReturnsCache(IOptions<ReturnsCacheOptions> returnRepositoryOptions, ILogger<ReturnsCache> logger)
+    public static async Task<ReturnsCache> Create(
+        IOptions<ReturnsCacheOptions> options,
+        ILogger<ReturnsCache> logger)
+    {
+        var instance = new ReturnsCache(options, logger);
+
+        await semaphoreSlim.WaitAsync();
+
+        try
+        {
+            logger.LogInformation(
+                "Synthetic returns have been put in repository: {syntheticsLoaded}",
+                havePutSyntheticsInRepository);
+
+            if (!havePutSyntheticsInRepository)
+            {
+                await instance.PutSyntheticsInRepository();
+
+                havePutSyntheticsInRepository = true;
+            }
+        }
+        finally
+        {
+            semaphoreSlim.Release();
+        }
+
+        return instance;
+    }
+
+    private ReturnsCache(IOptions<ReturnsCacheOptions> returnRepositoryOptions, ILogger<ReturnsCache> logger)
     {
         ArgumentNullException.ThrowIfNull(logger);
 
@@ -35,15 +69,6 @@ internal class ReturnsCache : IReturnsCache
         }
 
         this.logger = logger;
-
-        logger.LogInformation("Synthetic returns have been put in repository: {syntheticsLoaded}",
-            havePutSyntheticsInRepository.ToString().ToLower());
-
-        if (!havePutSyntheticsInRepository)
-        {
-            PutSyntheticsInRepository().Wait();
-            havePutSyntheticsInRepository = true;
-        }
     }
 
     public Task<IEnumerable<PeriodReturn>?> TryGetValue(string ticker, PeriodType periodType) => GetPeriodTypeCache(periodType).TryGetValue(ticker);

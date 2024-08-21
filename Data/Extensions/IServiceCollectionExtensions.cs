@@ -5,6 +5,8 @@ using Data.Returns;
 using Data.SyntheticIndices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Data.Extensions;
 
@@ -15,7 +17,13 @@ public static class IServiceCollectionExtensions
         .Configure<ReturnsCacheOptions>(configuration.GetSection("ReturnsCacheOptions"))
         .Configure<QuotesServiceOptions>(configuration.GetSection("QuotesServiceOptions"))
         .AddTransient<IQuoteRepository, QuoteRepository>()
-        .AddTransient<IReturnsCache, ReturnsCache>()
+        .AddSingleton<IReturnsCache>(sp =>
+        {
+            var options = sp.GetRequiredService<IOptions<ReturnsCacheOptions>>();
+            var logger = sp.GetRequiredService<ILogger<ReturnsCache>>();
+
+            return ReturnsCache.Create(options, logger).GetAwaiter().GetResult();
+        })
         .AddTransient<IQuoteProvider, YahooFinanceApiQuoteProvider>()
         .AddTransient<IQuotesService, QuotesService>()
         .AddTransient<IReturnsService, ReturnsService>()

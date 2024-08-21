@@ -53,35 +53,11 @@ class Program
     {
         var returnsService = provider.GetRequiredService<IReturnsService>();
         var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
-
-        logger.LogInformation("Requesting returns for synthetic indices…");
-
-        foreach (var ticker in indicesService.GetSyntheticIndexTickers())
-        {
-            foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
-            {
-                logger.LogInformation(
-                    "{ticker}: Requesting entire return history for period {periodType}…",
-                    ticker,
-                    periodType);
-
-                await returnsService.GetReturnsHistory(ticker, periodType, DateTime.MinValue, DateTime.MaxValue);
-            }
-        }
-    }
-    /* TODO:
-     * This demonstrates the FileTableCache is not thread-safe because both ITSM and ILCB use AVDE.
-     * If AVDE doesn't exist in file cache, both threads will try to create it at same time.
-     *
-    static async Task UpdateReturnsRepository(IServiceProvider provider, ILogger<Program> logger)
-    {
-        var returnsService = provider.GetRequiredService<IReturnsService>();
-        var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
         var returnsHistoryTasks = new List<Task>();
 
         logger.LogInformation("Requesting returns for synthetic indices…");
 
-        foreach (var ticker in new[] { "$^ITSM", "$^ILCB" })
+        foreach (var ticker in indicesService.GetSyntheticIndexTickers()/* TODO test case because they both share same underlying backfillticker: new[] { "$^ITSM", "$^ILCB" }*/)
         {
             foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
             {
@@ -94,14 +70,12 @@ class Program
                     ticker,
                     periodType,
                     DateTime.MinValue,
-                    DateTime.MaxValue,
-                    true));
+                    DateTime.MaxValue));
             }
         }
 
         await Task.WhenAll(returnsHistoryTasks);
     }
-    */
 
     static async Task WaitUntilNextMarketDataUpdate(ILogger<Program> logger)
     {
