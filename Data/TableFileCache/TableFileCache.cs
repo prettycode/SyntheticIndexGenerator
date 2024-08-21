@@ -118,10 +118,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         var filePathDirectory = Path.GetDirectoryName(fullFilePath)
             ?? throw new InvalidOperationException("No directory path found in full cache file path.");
 
-        if (!Directory.Exists(filePathDirectory))
-        {
-            Directory.CreateDirectory(filePathDirectory);
-        }
+        Directory.CreateDirectory(filePathDirectory);
 
         var cacheFileLines = value.Select(item => JsonSerializer.Serialize(item));
 
@@ -134,10 +131,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         var filePathDirectory = Path.GetDirectoryName(fullFilePath)
             ?? throw new InvalidOperationException("No directory path found in full cache file path.");
 
-        if (!Directory.Exists(filePathDirectory))
-        {
-            Directory.CreateDirectory(filePathDirectory);
-        }
+        Directory.CreateDirectory(filePathDirectory);
 
         var cacheFileLines = value.Select(item => JsonSerializer.Serialize(item));
 
