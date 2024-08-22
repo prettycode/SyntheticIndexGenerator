@@ -6,19 +6,19 @@ namespace TableFileCache;
 
 public class TableFileCache<TKey, TValue> where TKey : notnull
 {
-    private const string CACHE_FILE_EXTENSION = "txt";
+    private const string fileExtensionSansDot = "txt";
 
-    private readonly string cacheRootPath;
+    private readonly string rootPath;
 
-    private readonly string cacheRelativePath;
+    private readonly string relativePath;
 
-    private readonly string cacheTableName = typeof(TValue).Name;
+    private readonly string tableName = typeof(TValue).Name;
 
-    private readonly string cacheInstanceKey;
+    private readonly string instanceKey;
 
-    private readonly bool cacheMissReadsFileCache;
+    private readonly bool missReadsFileCache;
 
-    private static readonly ConcurrentDictionary<string, DailyExpirationCache<TKey, IEnumerable<TValue>>> memoryCache = [];
+    private static readonly ConcurrentDictionary<string, DailyExpirationCache<TKey, IEnumerable<TValue>>> cacheInstances = [];
 
     private readonly DailyExpirationCacheOptions dailyExpirationCacheOptions;
 
@@ -39,16 +39,15 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
         ArgumentNullException.ThrowIfNull(tableCacheOptions, nameof(tableCacheOptions));
 
-        cacheRootPath = tableCacheOptions.Value.CacheRootPath;
-        cacheRelativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? string.Empty;
-        cacheInstanceKey = cacheRootPath + cacheRelativePath;
-        cacheMissReadsFileCache = tableCacheOptions.Value.CacheMissReadsFileCache;
+        rootPath = tableCacheOptions.Value.CacheRootPath;
+        relativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? string.Empty;
+        instanceKey = rootPath + relativePath;
+        missReadsFileCache = tableCacheOptions.Value.CacheMissReadsFileCache;
         dailyExpirationCacheOptions = tableCacheOptions.Value.DailyExpirationOptions;
 
-        // Cache instances are static; do not blow away existing cache each new TableFileCache instantiation
-        if (!memoryCache.ContainsKey(cacheInstanceKey))
+        if (!cacheInstances.ContainsKey(instanceKey))
         {
-            memoryCache[cacheInstanceKey] = new DailyExpirationCache<TKey, IEnumerable<TValue>>(
+            cacheInstances[instanceKey] = new DailyExpirationCache<TKey, IEnumerable<TValue>>(
                 GetNextExpirationDateTimeOffset,
                 memoryCacheOptions: dailyExpirationCacheOptions.MemoryCacheOptions);
         }
@@ -60,12 +59,12 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
     {
         ArgumentNullException.ThrowIfNull(key);
 
-        if (memoryCache[cacheInstanceKey].TryGetValue(key, out IEnumerable<TValue>? value))
+        if (cacheInstances[instanceKey].TryGetValue(key, out IEnumerable<TValue>? value))
         {
             return value;
         }
 
-        if (!cacheMissReadsFileCache)
+        if (!missReadsFileCache)
         {
             return null;
         }
@@ -81,7 +80,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         var values = fileLines.Select(line => JsonSerializer.Deserialize<TValue>(line)
             ?? throw new InvalidOperationException("Deserializing record failed."));
 
-        return memoryCache[cacheInstanceKey][key] = values;
+        return cacheInstances[instanceKey][key] = values;
     }
 
     public async Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append = false)
@@ -101,17 +100,17 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         {
             await ThreadSafeFile.AppendAllLinesAsync(fullFilePath, cacheFileLines);
 
-            return memoryCache[cacheInstanceKey][key]
-                = (memoryCache[cacheInstanceKey][key] ?? throw new KeyNotFoundException()).Concat(value);
+            return cacheInstances[instanceKey][key]
+                = (cacheInstances[instanceKey][key] ?? throw new KeyNotFoundException()).Concat(value);
         }
 
         await ThreadSafeFile.WriteAllLinesAsync(fullFilePath, cacheFileLines);
 
-        return memoryCache[cacheInstanceKey][key] = value;
+        return cacheInstances[instanceKey][key] = value;
     }
 
     private string GetCacheFilePath(TKey keyValue) => GetCacheFilePath($"{keyValue}");
 
     private string GetCacheFilePath(string key)
-        => Path.Combine(cacheRootPath, cacheTableName, cacheRelativePath, $"{key}.{CACHE_FILE_EXTENSION}");
+        => Path.Combine(rootPath, tableName, relativePath, $"{key}.{fileExtensionSansDot}");
 }
