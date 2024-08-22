@@ -26,6 +26,19 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     public TableFileCache(IOptions<TableFileCacheOptions> tableCacheOptions, string? cacheNamespace = null)
     {
+        DateTimeOffset GetNextExpirationDateTimeOffset()
+        {
+            var destinationTimeZone = dailyExpirationCacheOptions.TimeZone;
+            var zonedDateTimeOffset = TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, destinationTimeZone);
+            var zonedDateTimeOffsetMidnight = zonedDateTimeOffset.Date;
+            var zonedTodayAtTimeOfDay = zonedDateTimeOffsetMidnight.Add(dailyExpirationCacheOptions.TimeOfDay.ToTimeSpan());
+            var nextExpiration = zonedTodayAtTimeOfDay > zonedDateTimeOffset
+                ? zonedTodayAtTimeOfDay
+                : zonedTodayAtTimeOfDay.AddDays(1);
+
+            return new DateTimeOffset(nextExpiration, destinationTimeZone.GetUtcOffset(nextExpiration));
+        }
+
         ArgumentNullException.ThrowIfNull(tableCacheOptions, nameof(tableCacheOptions));
 
         this.cacheRootPath = tableCacheOptions.Value.CacheRootPath;
@@ -45,6 +58,34 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     public async Task<IEnumerable<TValue>?> TryGetValue(TKey key)
     {
+        async Task<IEnumerable<TValue>> GetAndCacheFromFile(TKey key)
+        {
+            if (!cacheMissReadsFileCache)
+            {
+                throw new InvalidOperationException($"{nameof(TableFileCache)} configured file cache entries as write-only.");
+            }
+
+            var filePath = GetCacheFilePath(key);
+            var fileLock = fileLocks.GetOrAdd(filePath, _ => new SemaphoreSlim(1, 1));
+
+            await fileLock.WaitAsync();
+
+            try
+            {
+                var fileLines = await File.ReadAllLinesAsync(filePath);
+                var values = fileLines
+                    .Select(line => JsonSerializer.Deserialize<TValue>(line))
+                    .Select(value => value ?? throw new InvalidOperationException("Deserializing record failed."))
+                    .ToList();
+
+                return memoryCache[cacheInstanceKey][key] = values;
+            }
+            finally
+            {
+                fileLock.Release();
+            }
+        }
+
         if (memoryCache[cacheInstanceKey].TryGetValue(key, out IEnumerable<TValue>? value))
         {
             return value;
@@ -65,105 +106,54 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     public async Task<IEnumerable<TValue>> Get(TKey key) => await TryGetValue(key) ?? throw new KeyNotFoundException();
 
-    public Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append = false)
-        => !append
-            ? Set(key, value)
-            : Append(key, value);
-
-    private DateTimeOffset GetNextExpirationDateTimeOffset()
+    public async Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append = false)
     {
-        var destinationTimeZone = dailyExpirationCacheOptions.TimeZone;
-        var zonedDateTimeOffset = TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, destinationTimeZone);
-        var zonedDateTimeOffsetMidnight = zonedDateTimeOffset.Date;
-        var zonedTodayAtTimeOfDay = zonedDateTimeOffsetMidnight.Add(dailyExpirationCacheOptions.TimeOfDay.ToTimeSpan());
-        var nextExpiration = zonedTodayAtTimeOfDay > zonedDateTimeOffset
-            ? zonedTodayAtTimeOfDay
-            : zonedTodayAtTimeOfDay.AddDays(1);
-
-        return new DateTimeOffset(nextExpiration, destinationTimeZone.GetUtcOffset(nextExpiration));
-    }
-
-    private async Task<IEnumerable<TValue>> GetAndCacheFromFile(TKey key)
-    {
-        if (!cacheMissReadsFileCache)
+        async Task WriteToFileAsync(TKey key, IEnumerable<TValue> value, bool append)
         {
-            throw new InvalidOperationException($"{nameof(TableFileCache)} configured file cache entries as write-only.");
+            var fullFilePath = GetCacheFilePath(key);
+            var filePathDirectory = Path.GetDirectoryName(fullFilePath)
+                ?? throw new InvalidOperationException("No directory path found in full cache file path.");
+
+            Directory.CreateDirectory(filePathDirectory);
+
+            var cacheFileLines = value.Select(item => JsonSerializer.Serialize(item));
+            var fileLock = fileLocks.GetOrAdd(fullFilePath, _ => new SemaphoreSlim(1, 1));
+
+            await fileLock.WaitAsync();
+
+            try
+            {
+                if (append)
+                {
+                    await File.AppendAllLinesAsync(fullFilePath, cacheFileLines);
+                }
+                else
+                {
+                    await File.WriteAllLinesAsync(fullFilePath, cacheFileLines);
+                }
+            }
+            finally
+            {
+                fileLock.Release();
+            }
         }
 
-        var filePath = GetCacheFilePath(key);
-        var fileLock = fileLocks.GetOrAdd(filePath, _ => new SemaphoreSlim(1, 1));
-
-        await fileLock.WaitAsync();
-
-        try
-        {
-            var fileLines = await File.ReadAllLinesAsync(filePath);
-            var values = fileLines
-                .Select(line => JsonSerializer.Deserialize<TValue>(line))
-                .Select(value => value ?? throw new InvalidOperationException("Deserializing record failed."))
-                .ToList();
-
-            return memoryCache[cacheInstanceKey][key] = values;
-        }
-        finally
-        {
-            fileLock.Release();
-        }
-    }
-
-    private async Task<IEnumerable<TValue>> Set(TKey key, IEnumerable<TValue> value)
-    {
         ArgumentNullException.ThrowIfNull(key);
         ArgumentNullException.ThrowIfNull(value);
 
-        await WriteToFileAsync(key, value, false);
+        await WriteToFileAsync(key, value, append);
+
+        if (append)
+        {
+            return memoryCache[cacheInstanceKey][key] = (memoryCache[cacheInstanceKey][key] ??
+                throw new KeyNotFoundException()).Concat(value);
+        }
 
         return memoryCache[cacheInstanceKey][key] = value;
-    }
-
-    private async Task<IEnumerable<TValue>> Append(TKey key, IEnumerable<TValue> value)
-    {
-        ArgumentNullException.ThrowIfNull(key);
-        ArgumentNullException.ThrowIfNull(value);
-
-        await WriteToFileAsync(key, value, true);
-
-        return memoryCache[cacheInstanceKey][key] = (memoryCache[cacheInstanceKey][key] ??
-            throw new KeyNotFoundException()).Concat(value);
     }
 
     private string GetCacheFilePath(TKey keyValue) => GetCacheFilePath($"{keyValue}");
 
     private string GetCacheFilePath(string key)
         => Path.Combine(cacheRootPath, cacheTableName, cacheRelativePath, $"{key}.{CACHE_FILE_EXTENSION}");
-
-    private async Task WriteToFileAsync(TKey key, IEnumerable<TValue> value, bool append)
-    {
-        var fullFilePath = GetCacheFilePath(key);
-        var filePathDirectory = Path.GetDirectoryName(fullFilePath)
-            ?? throw new InvalidOperationException("No directory path found in full cache file path.");
-
-        Directory.CreateDirectory(filePathDirectory);
-
-        var cacheFileLines = value.Select(item => JsonSerializer.Serialize(item));
-        var fileLock = fileLocks.GetOrAdd(fullFilePath, _ => new SemaphoreSlim(1, 1));
-
-        await fileLock.WaitAsync();
-
-        try
-        {
-            if (append)
-            {
-                await File.AppendAllLinesAsync(fullFilePath, cacheFileLines);
-            }
-            else
-            {
-                await File.WriteAllLinesAsync(fullFilePath, cacheFileLines);
-            }
-        }
-        finally
-        {
-            fileLock.Release();
-        }
-    }
 }
