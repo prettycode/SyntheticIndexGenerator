@@ -67,23 +67,24 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
             var filePath = GetCacheFilePath(key);
             var fileLock = fileLocks.GetOrAdd(filePath, _ => new SemaphoreSlim(1, 1));
+            string[] fileLines;
 
             await fileLock.WaitAsync();
 
             try
             {
-                var fileLines = await File.ReadAllLinesAsync(filePath);
-                var values = fileLines
-                    .Select(line => JsonSerializer.Deserialize<TValue>(line))
-                    .Select(value => value ?? throw new InvalidOperationException("Deserializing record failed."))
-                    .ToList();
-
-                return memoryCache[cacheInstanceKey][key] = values;
+                fileLines = await File.ReadAllLinesAsync(filePath);
             }
             finally
             {
                 fileLock.Release();
             }
+
+            var values = fileLines
+                .Select(line => JsonSerializer.Deserialize<TValue>(line)
+                    ?? throw new InvalidOperationException("Deserializing record failed."));
+
+            return memoryCache[cacheInstanceKey][key] = values;
         }
 
         if (memoryCache[cacheInstanceKey].TryGetValue(key, out IEnumerable<TValue>? value))
@@ -145,8 +146,8 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
         if (append)
         {
-            return memoryCache[cacheInstanceKey][key] = (memoryCache[cacheInstanceKey][key] ??
-                throw new KeyNotFoundException()).Concat(value);
+            return memoryCache[cacheInstanceKey][key]
+                = (memoryCache[cacheInstanceKey][key] ?? throw new KeyNotFoundException()).Concat(value);
         }
 
         return memoryCache[cacheInstanceKey][key] = value;
