@@ -2,7 +2,7 @@
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 
-namespace Data.TableFileCache;
+namespace TableFileCache;
 
 public class TableFileCache<TKey, TValue> where TKey : notnull
 {
@@ -41,11 +41,11 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
         ArgumentNullException.ThrowIfNull(tableCacheOptions, nameof(tableCacheOptions));
 
-        this.cacheRootPath = tableCacheOptions.Value.CacheRootPath;
-        this.cacheRelativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? String.Empty;
-        this.cacheInstanceKey = cacheRootPath + cacheRelativePath;
-        this.cacheMissReadsFileCache = tableCacheOptions.Value.CacheMissReadsFileCache;
-        this.dailyExpirationCacheOptions = tableCacheOptions.Value.DailyExpirationOptions;
+        cacheRootPath = tableCacheOptions.Value.CacheRootPath;
+        cacheRelativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? string.Empty;
+        cacheInstanceKey = cacheRootPath + cacheRelativePath;
+        cacheMissReadsFileCache = tableCacheOptions.Value.CacheMissReadsFileCache;
+        dailyExpirationCacheOptions = tableCacheOptions.Value.DailyExpirationOptions;
 
         // Cache instances are static; do not blow away existing cache each new TableFileCache instantiation
         if (!memoryCache.ContainsKey(cacheInstanceKey))

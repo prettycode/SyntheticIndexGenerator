@@ -1,6 +1,6 @@
-﻿using Data.TableFileCache;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using TableFileCache;
 
 namespace Data.Quotes;
 

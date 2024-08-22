@@ -1,5 +1,5 @@
-﻿using Data.TableFileCache;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
+using TableFileCache;
 
 namespace Data.Quotes;
 

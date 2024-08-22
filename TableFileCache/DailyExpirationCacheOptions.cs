@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
-namespace Data.TableFileCache;
+namespace TableFileCache;
 
 public class DailyExpirationCacheOptions : IOptions<DailyExpirationCacheOptions>
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 
-namespace Data.TableFileCache;
+namespace TableFileCache;
 
 public class TableFileCacheOptions : IOptions<TableFileCacheOptions>
 {

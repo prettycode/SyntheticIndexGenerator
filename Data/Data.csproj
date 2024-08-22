@@ -23,4 +23,8 @@
     <Folder Include="data\PeriodReturn\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TableFileCache\TableFileCache.csproj" />
+  </ItemGroup>
+
 </Project>

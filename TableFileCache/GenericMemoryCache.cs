@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 
-namespace Data.TableFileCache;
+namespace TableFileCache;
 
 // TODO doesn't dispose of the MemoryCache; should take IMemoryCache in ctor instead.
-public class GenericMemoryCache<TKey, TValue>(Func<DateTimeOffset> getAbsoluteExpiration, IOptions<MemoryCacheOptions>? memoryCacheOptions = null) where TKey
-    : notnull
+public class GenericMemoryCache<TKey, TValue>(
+    Func<DateTimeOffset> getAbsoluteExpiration,
+    IOptions<MemoryCacheOptions>? memoryCacheOptions = null) where TKey : notnull
 {
     protected readonly IMemoryCache cache = new MemoryCache(memoryCacheOptions?.Value ?? new MemoryCacheOptions());
 
