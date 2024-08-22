@@ -54,23 +54,11 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         }
     }
 
+    public async Task<IEnumerable<TValue>> Get(TKey key) => await TryGetValue(key) ?? throw new KeyNotFoundException();
+
     public async Task<IEnumerable<TValue>?> TryGetValue(TKey key)
     {
-        async Task<IEnumerable<TValue>> GetAndCacheFromFile(TKey key)
-        {
-            if (!cacheMissReadsFileCache)
-            {
-                throw new InvalidOperationException($"{nameof(TableFileCache)} configured file cache entries as write-only.");
-            }
-
-            var filePath = GetCacheFilePath(key);
-            var fileLines = await ThreadSafeFile.ReadAllLinesAsync(filePath);
-
-            var values = fileLines.Select(line => JsonSerializer.Deserialize<TValue>(line)
-                ?? throw new InvalidOperationException("Deserializing record failed."));
-
-            return memoryCache[cacheInstanceKey][key] = values;
-        }
+        ArgumentNullException.ThrowIfNull(key);
 
         if (memoryCache[cacheInstanceKey].TryGetValue(key, out IEnumerable<TValue>? value))
         {
@@ -87,43 +75,37 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
             return null;
         }
 
-        return await GetAndCacheFromFile(key);
-    }
+        var filePath = GetCacheFilePath(key);
+        var fileLines = await ThreadSafeFile.ReadAllLinesAsync(filePath);
 
-    public async Task<IEnumerable<TValue>> Get(TKey key) => await TryGetValue(key) ?? throw new KeyNotFoundException();
+        var values = fileLines.Select(line => JsonSerializer.Deserialize<TValue>(line)
+            ?? throw new InvalidOperationException("Deserializing record failed."));
+
+        return memoryCache[cacheInstanceKey][key] = values;
+    }
 
     public async Task<IEnumerable<TValue>> Put(TKey key, IEnumerable<TValue> value, bool append = false)
     {
-        async Task WriteToFileAsync(TKey key, IEnumerable<TValue> value, bool append)
-        {
-            var fullFilePath = GetCacheFilePath(key);
-            var filePathDirectory = Path.GetDirectoryName(fullFilePath)
-                ?? throw new InvalidOperationException("No directory path found in full cache file path.");
-
-            Directory.CreateDirectory(filePathDirectory);
-
-            var cacheFileLines = value.Select(item => JsonSerializer.Serialize(item));
-
-            if (append)
-            {
-                await ThreadSafeFile.AppendAllLinesAsync(fullFilePath, cacheFileLines);
-            }
-            else
-            {
-                await ThreadSafeFile.WriteAllLinesAsync(fullFilePath, cacheFileLines);
-            }
-        }
-
         ArgumentNullException.ThrowIfNull(key);
         ArgumentNullException.ThrowIfNull(value);
 
-        await WriteToFileAsync(key, value, append);
+        var fullFilePath = GetCacheFilePath(key);
+        var filePathDirectory = Path.GetDirectoryName(fullFilePath)
+            ?? throw new InvalidOperationException("No directory path found in full cache file path.");
+
+        Directory.CreateDirectory(filePathDirectory);
+
+        var cacheFileLines = value.Select(item => JsonSerializer.Serialize(item));
 
         if (append)
         {
+            await ThreadSafeFile.AppendAllLinesAsync(fullFilePath, cacheFileLines);
+
             return memoryCache[cacheInstanceKey][key]
                 = (memoryCache[cacheInstanceKey][key] ?? throw new KeyNotFoundException()).Concat(value);
         }
+
+        await ThreadSafeFile.WriteAllLinesAsync(fullFilePath, cacheFileLines);
 
         return memoryCache[cacheInstanceKey][key] = value;
     }
