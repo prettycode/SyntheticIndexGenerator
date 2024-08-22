@@ -18,7 +18,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private readonly bool cacheMissReadsFileCache;
 
-    private static readonly ConcurrentDictionary<string, GenericMemoryCache<TKey, IEnumerable<TValue>>> memoryCache = [];
+    private static readonly ConcurrentDictionary<string, DailyExpirationCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
     private readonly DailyExpirationCacheOptions dailyExpirationCacheOptions;
 
@@ -48,9 +48,9 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         // Cache instances are static; do not blow away existing cache each new TableFileCache instantiation
         if (!memoryCache.ContainsKey(cacheInstanceKey))
         {
-            memoryCache[cacheInstanceKey] = new GenericMemoryCache<TKey, IEnumerable<TValue>>(
+            memoryCache[cacheInstanceKey] = new DailyExpirationCache<TKey, IEnumerable<TValue>>(
                 GetNextExpirationDateTimeOffset,
-                dailyExpirationCacheOptions.MemoryCacheOptions);
+                memoryCacheOptions: dailyExpirationCacheOptions.MemoryCacheOptions);
         }
     }
 

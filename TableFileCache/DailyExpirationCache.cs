@@ -3,12 +3,13 @@ using Microsoft.Extensions.Options;
 
 namespace TableFileCache;
 
-// TODO doesn't dispose of the MemoryCache; should take IMemoryCache in ctor instead.
-public class GenericMemoryCache<TKey, TValue>(
+public class DailyExpirationCache<TKey, TValue>(
     Func<DateTimeOffset> getAbsoluteExpiration,
+    IMemoryCache? memoryCache = null,
     IOptions<MemoryCacheOptions>? memoryCacheOptions = null) where TKey : notnull
 {
-    protected readonly IMemoryCache cache = new MemoryCache(memoryCacheOptions?.Value ?? new MemoryCacheOptions());
+    protected readonly IMemoryCache cache = memoryCache
+        ?? new MemoryCache(memoryCacheOptions?.Value ?? new MemoryCacheOptions());
 
     public TValue Set(TKey key, TValue value)
         => cache.Set(key, value, getAbsoluteExpiration());
