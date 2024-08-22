@@ -3,16 +3,27 @@ using Microsoft.Extensions.Options;
 
 namespace TableFileCache;
 
-public class DailyExpirationCache<TKey, TValue>(
-    Func<DateTimeOffset> getAbsoluteExpiration,
-    IMemoryCache? memoryCache = null,
-    IOptions<MemoryCacheOptions>? memoryCacheOptions = null) where TKey : notnull
+public class DailyExpirationCache<TKey, TValue> : IDisposable where TKey : notnull
 {
-    protected readonly IMemoryCache cache = memoryCache
-        ?? new MemoryCache(memoryCacheOptions?.Value ?? new MemoryCacheOptions());
+    protected readonly IMemoryCache cache;
 
-    public TValue Set(TKey key, TValue value)
-        => cache.Set(key, value, getAbsoluteExpiration());
+    private readonly bool shouldDisposeCache;
+
+    private bool disposed = false;
+
+    public DailyExpirationCache(
+        Func<DateTimeOffset> createAbsoluteExpiration,
+        IMemoryCache? memoryCache = null,
+        IOptions<MemoryCacheOptions>? memoryCacheOptions = null)
+    {
+        cache = memoryCache ?? new MemoryCache(memoryCacheOptions?.Value ?? new MemoryCacheOptions());
+        shouldDisposeCache = memoryCache == null;
+        CreateAbsoluteExpiration = createAbsoluteExpiration;
+    }
+
+    private Func<DateTimeOffset> CreateAbsoluteExpiration { get; }
+
+    public TValue Set(TKey key, TValue value) => cache.Set(key, value, CreateAbsoluteExpiration());
 
     public TValue? Get(TKey key) => cache.Get<TValue>(key);
 
@@ -23,4 +34,23 @@ public class DailyExpirationCache<TKey, TValue>(
     }
 
     public bool TryGetValue(TKey key, out TValue? value) => cache.TryGetValue(key, out value);
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposed)
+        {
+            if (disposing && shouldDisposeCache)
+            {
+                cache.Dispose();
+            }
+
+            disposed = true;
+        }
+    }
 }
