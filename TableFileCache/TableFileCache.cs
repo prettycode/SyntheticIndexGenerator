@@ -20,8 +20,6 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private static readonly ConcurrentDictionary<string, GenericMemoryCache<TKey, IEnumerable<TValue>>> memoryCache = [];
 
-    private static readonly ConcurrentDictionary<string, SemaphoreSlim> fileLocks = new();
-
     private readonly DailyExpirationCacheOptions dailyExpirationCacheOptions;
 
     public TableFileCache(IOptions<TableFileCacheOptions> tableCacheOptions, string? cacheNamespace = null)
@@ -66,23 +64,10 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
             }
 
             var filePath = GetCacheFilePath(key);
-            var fileLock = fileLocks.GetOrAdd(filePath, _ => new SemaphoreSlim(1, 1));
-            string[] fileLines;
+            var fileLines = await ThreadSafeFile.ReadAllLinesAsync(filePath);
 
-            await fileLock.WaitAsync();
-
-            try
-            {
-                fileLines = await File.ReadAllLinesAsync(filePath);
-            }
-            finally
-            {
-                fileLock.Release();
-            }
-
-            var values = fileLines
-                .Select(line => JsonSerializer.Deserialize<TValue>(line)
-                    ?? throw new InvalidOperationException("Deserializing record failed."));
+            var values = fileLines.Select(line => JsonSerializer.Deserialize<TValue>(line)
+                ?? throw new InvalidOperationException("Deserializing record failed."));
 
             return memoryCache[cacheInstanceKey][key] = values;
         }
@@ -118,24 +103,14 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
             Directory.CreateDirectory(filePathDirectory);
 
             var cacheFileLines = value.Select(item => JsonSerializer.Serialize(item));
-            var fileLock = fileLocks.GetOrAdd(fullFilePath, _ => new SemaphoreSlim(1, 1));
 
-            await fileLock.WaitAsync();
-
-            try
+            if (append)
             {
-                if (append)
-                {
-                    await File.AppendAllLinesAsync(fullFilePath, cacheFileLines);
-                }
-                else
-                {
-                    await File.WriteAllLinesAsync(fullFilePath, cacheFileLines);
-                }
+                await ThreadSafeFile.AppendAllLinesAsync(fullFilePath, cacheFileLines);
             }
-            finally
+            else
             {
-                fileLock.Release();
+                await ThreadSafeFile.WriteAllLinesAsync(fullFilePath, cacheFileLines);
             }
         }
 
