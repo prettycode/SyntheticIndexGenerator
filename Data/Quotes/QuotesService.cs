@@ -11,6 +11,8 @@ internal class QuotesService(
     ILogger<QuotesService> logger)
         : IQuotesService
 {
+    private static readonly object downloadLocker = new();
+
     private readonly bool fromCacheOnly = quoteServiceOptions.Value.GetQuotesFromCacheOnly;
 
     public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(HashSet<string> tickers)
@@ -24,8 +26,7 @@ internal class QuotesService(
             .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
     }
 
-    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker)
-        => (await GetQuote(ticker)).Prices;
+    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker) => (await GetQuote(ticker)).Prices;
 
     private async Task<Quote> GetQuote(string ticker)
     {
@@ -181,6 +182,18 @@ internal class QuotesService(
 
     private async Task<Quote?> DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
     {
-        return await quoteProvider.GetQuote(ticker, startDate, endDate);
+        // Across all the threads that want to download a get, only allow one thread at a time.
+        // Temporary measure to avoid rate-limiting aginst quote provider or accidentally DoS'ing.
+
+        Quote? downloadedQuote;
+
+        lock (downloadLocker)
+        {
+            downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
+        }
+
+        await Task.Delay(1000);
+
+        return downloadedQuote;
     }
 }

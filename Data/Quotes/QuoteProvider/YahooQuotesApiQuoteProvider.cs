@@ -23,7 +23,7 @@ public class YahooQuotesApiQuoteProvider : QuoteProvider, IQuoteProvider
             .WithPriceHistoryFrequency(Frequency.Daily)
             .Build();
 
-        var allHistory = await Throttle(() => yahooQuotes.GetAsync(ticker, Histories.All))
+        var allHistory = await yahooQuotes.GetAsync(ticker, Histories.All)
             ?? throw new InvalidOperationException($"Could not fetch history for '{ticker}'.");
 
         var divs = allHistory.DividendHistory.Value.Select(div => new QuoteDividend(ticker, div)).ToList();

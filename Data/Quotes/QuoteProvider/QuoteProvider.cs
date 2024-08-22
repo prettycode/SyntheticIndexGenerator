@@ -2,12 +2,6 @@
 
 public abstract class QuoteProvider
 {
-    protected static async Task<T> Throttle<T>(Func<Task<T>> operation)
-    {
-        await Task.Delay(1000);
-        return await operation();
-    }
-
     protected Quote? GetQuote(string ticker, List<QuoteDividend> dividends, List<QuotePrice> prices, List<QuoteSplit> splits)
     {
         // API sometimes returns a record with 0s when record is today and not yet updated after market close.

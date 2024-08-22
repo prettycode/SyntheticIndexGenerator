@@ -7,9 +7,9 @@ public class YahooFinanceApiQuoteProvider : QuoteProvider, IQuoteProvider
         DateTime? startDate,
         DateTime? endDate)
     {
-        var libDivs = await Throttle(() => YahooFinanceApi.Yahoo.GetDividendsAsync(ticker, startDate, endDate));
-        var libPrices = await Throttle(() => YahooFinanceApi.Yahoo.GetHistoricalAsync(ticker, startDate, endDate));
-        var libSplits = await Throttle(() => YahooFinanceApi.Yahoo.GetSplitsAsync(ticker, startDate, endDate));
+        var libDivs = await YahooFinanceApi.Yahoo.GetDividendsAsync(ticker, startDate, endDate);
+        var libPrices = await YahooFinanceApi.Yahoo.GetHistoricalAsync(ticker, startDate, endDate);
+        var libSplits = await YahooFinanceApi.Yahoo.GetSplitsAsync(ticker, startDate, endDate);
 
         var divs = libDivs.Select(div => new QuoteDividend(ticker, div)).ToList();
         var prices = libPrices.Select(price => new QuotePrice(ticker, price)).ToList();
