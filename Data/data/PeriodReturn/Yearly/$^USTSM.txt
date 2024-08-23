@@ -90,9 +90,9 @@
 {"Ticker":"VTI","PeriodStart":"2016-01-01T00:00:00","ReturnPercentage":12.817724435014769622736563640,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":21.213572752202257535281365690,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":-5.2348382249003739981612500900,"PeriodType":2}
-{"Ticker":"VTI","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":30.668657795070758412703033870,"PeriodType":2}
+{"Ticker":"VTI","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":30.668572167415765935092524960,"PeriodType":2}
 {"Ticker":"AVUS","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":17.57754308384688965203619200,"PeriodType":2}
 {"Ticker":"AVUS","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":28.731684790853606693751531650,"PeriodType":2}
 {"Ticker":"AVUS","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-13.814770496304008868306681790,"PeriodType":2}
 {"Ticker":"AVUS","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":21.772259553546742958804649650,"PeriodType":2}
-{"Ticker":"AVUS","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":10.783567309839846299831319740,"PeriodType":2}
+{"Ticker":"AVUS","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":14.510080712331674500159795860,"PeriodType":2}

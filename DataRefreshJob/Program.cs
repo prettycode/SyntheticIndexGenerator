@@ -55,12 +55,14 @@ class Program
         var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
         var returnsHistoryTasks = new List<Task>();
 
-        logger.LogInformation("Requesting returns for synthetic indices…");
+        logger.LogInformation("CLIENT: CONCURRENT: Requesting returns for synthetic indices…");
 
         foreach (var ticker in indicesService.GetSyntheticIndexTickers()/* TODO test case because they both share same underlying backfillticker: new[] { "$^ITSM", "$^ILCB" }*/)
         {
             foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
             {
+                Console.WriteLine("\n<CLIENT>");
+
                 logger.LogInformation(
                     "{ticker}: Requesting entire return history for period {periodType}…",
                     ticker,
@@ -71,10 +73,35 @@ class Program
                     periodType,
                     DateTime.MinValue,
                     DateTime.MaxValue));
+
+                Console.WriteLine("</CLIENT>\n");
             }
         }
 
         await Task.WhenAll(returnsHistoryTasks);
+
+        logger.LogInformation("CLIENT: SERIAL: Requesting returns for synthetic indices…");
+
+        foreach (var ticker in indicesService.GetSyntheticIndexTickers()/* TODO test case because they both share same underlying backfillticker: new[] { "$^ITSM", "$^ILCB" }*/)
+        {
+            foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
+            {
+                Console.WriteLine("\n<CLIENT>");
+
+                logger.LogInformation(
+                    "{ticker}: Requesting entire return history for period {periodType}…",
+                    ticker,
+                    periodType);
+
+                await returnsService.GetReturnsHistory(
+                    ticker,
+                    periodType,
+                    DateTime.MinValue,
+                    DateTime.MaxValue);
+
+                Console.WriteLine("</CLIENT>\n");
+            }
+        }
     }
 
     static async Task WaitUntilNextMarketDataUpdate(ILogger<Program> logger)

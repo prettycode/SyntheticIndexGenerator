@@ -5,9 +5,9 @@
 {"Ticker":"AVDV","PeriodStart":"2020-02-01T00:00:00","ReturnPercentage":-10.434186689034645866751987820,"PeriodType":1}
 {"Ticker":"AVDV","PeriodStart":"2020-03-01T00:00:00","ReturnPercentage":-22.193767333412180998839008350,"PeriodType":1}
 {"Ticker":"AVDV","PeriodStart":"2020-04-01T00:00:00","ReturnPercentage":12.349543356330967389685809300,"PeriodType":1}
-{"Ticker":"AVDV","PeriodStart":"2020-05-01T00:00:00","ReturnPercentage":6.6879095209036864819790093400,"PeriodType":1}
-{"Ticker":"AVDV","PeriodStart":"2020-06-01T00:00:00","ReturnPercentage":1.9682593909654176436790533700,"PeriodType":1}
-{"Ticker":"AVDV","PeriodStart":"2020-07-01T00:00:00","ReturnPercentage":1.507917773936703495292991900,"PeriodType":1}
+{"Ticker":"AVDV","PeriodStart":"2020-05-01T00:00:00","ReturnPercentage":6.6876334006146437634090915400,"PeriodType":1}
+{"Ticker":"AVDV","PeriodStart":"2020-06-01T00:00:00","ReturnPercentage":1.9687821088511081031417176300,"PeriodType":1}
+{"Ticker":"AVDV","PeriodStart":"2020-07-01T00:00:00","ReturnPercentage":1.5076601317806633704579834900,"PeriodType":1}
 {"Ticker":"AVDV","PeriodStart":"2020-08-01T00:00:00","ReturnPercentage":6.982756896241323438218879400,"PeriodType":1}
 {"Ticker":"AVDV","PeriodStart":"2020-09-01T00:00:00","ReturnPercentage":-2.051400711457646767355219300,"PeriodType":1}
 {"Ticker":"AVDV","PeriodStart":"2020-10-01T00:00:00","ReturnPercentage":-3.0674553840940924937422001200,"PeriodType":1}
@@ -56,4 +56,4 @@
 {"Ticker":"AVDV","PeriodStart":"2024-05-01T00:00:00","ReturnPercentage":5.8778656095268930988462540800,"PeriodType":1}
 {"Ticker":"AVDV","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-3.1133506670187105349127572600,"PeriodType":1}
 {"Ticker":"AVDV","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":4.6651270207852193995381062400,"PeriodType":1}
-{"Ticker":"AVDV","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-3.3245072080023536334215945900,"PeriodType":1}
+{"Ticker":"AVDV","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":0.7796410709032068255369226200,"PeriodType":1}

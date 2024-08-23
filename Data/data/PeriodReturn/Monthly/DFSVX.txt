@@ -93,8 +93,8 @@
 {"Ticker":"DFSVX","PeriodStart":"2000-11-01T00:00:00","ReturnPercentage":-5.4353537892115424158651100100,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2000-12-01T00:00:00","ReturnPercentage":7.8231456873640976081179028800,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2001-01-01T00:00:00","ReturnPercentage":10.314152549968629559917540560,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2001-02-01T00:00:00","ReturnPercentage":-1.9195222522394426276126830700,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2001-03-01T00:00:00","ReturnPercentage":-2.4582694776953982520813486300,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2001-02-01T00:00:00","ReturnPercentage":-1.9174910117608823708638865800,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2001-03-01T00:00:00","ReturnPercentage":-2.460289518918135315923540500,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2001-04-01T00:00:00","ReturnPercentage":6.1211490689823563132975222400,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2001-05-01T00:00:00","ReturnPercentage":6.1562162378456244247929254500,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2001-06-01T00:00:00","ReturnPercentage":0.6407960949132098230271961400,"PeriodType":1}
@@ -176,8 +176,8 @@
 {"Ticker":"DFSVX","PeriodStart":"2007-10-01T00:00:00","ReturnPercentage":1.1155328549493936640240654300,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2007-11-01T00:00:00","ReturnPercentage":-8.718119557470017664011899970,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2007-12-01T00:00:00","ReturnPercentage":-1.2281133564753910526807159900,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2008-01-01T00:00:00","ReturnPercentage":-3.9432529043789097408400357500,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2008-02-01T00:00:00","ReturnPercentage":-2.83843380715109985955433100,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2008-01-01T00:00:00","ReturnPercentage":-3.9423936206778029834330102400,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2008-02-01T00:00:00","ReturnPercentage":-2.8393029663291229827888503200,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2008-03-01T00:00:00","ReturnPercentage":0.8387500690518717660706722900,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2008-04-01T00:00:00","ReturnPercentage":1.6553298333713763980826295400,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2008-05-01T00:00:00","ReturnPercentage":4.1369523433149508703228008400,"PeriodType":1}
@@ -271,8 +271,8 @@
 {"Ticker":"DFSVX","PeriodStart":"2015-09-01T00:00:00","ReturnPercentage":-4.5115685051531082004217529500,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2015-10-01T00:00:00","ReturnPercentage":5.2830482115085536547433903600,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2015-11-01T00:00:00","ReturnPercentage":3.1739466544553919179087207200,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2015-12-01T00:00:00","ReturnPercentage":-6.1554761211623722779270486800,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2016-01-01T00:00:00","ReturnPercentage":-7.1827053636359013217113593900,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2015-12-01T00:00:00","ReturnPercentage":-6.1559533638450488457885719500,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2016-01-01T00:00:00","ReturnPercentage":-7.1822333424872100001017097400,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2016-02-01T00:00:00","ReturnPercentage":1.1659315672684436895597622100,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2016-03-01T00:00:00","ReturnPercentage":8.768271746017991475441798500,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2016-04-01T00:00:00","ReturnPercentage":1.8019946921073727923199872500,"PeriodType":1}
@@ -286,8 +286,8 @@
 {"Ticker":"DFSVX","PeriodStart":"2016-12-01T00:00:00","ReturnPercentage":3.4479648397782806913968972400,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":-0.5346343164686392783823844100,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2017-02-01T00:00:00","ReturnPercentage":0.322345431580289513214568900,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2017-03-01T00:00:00","ReturnPercentage":-1.135506112430594720829924300,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2017-04-01T00:00:00","ReturnPercentage":0.4607850620472997673979503700,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2017-03-01T00:00:00","ReturnPercentage":-1.1359032814101087448665909400,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2017-04-01T00:00:00","ReturnPercentage":0.4611886454391335438410425800,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2017-05-01T00:00:00","ReturnPercentage":-3.5098172511696724917023233500,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2017-06-01T00:00:00","ReturnPercentage":2.587725296631066794312309100,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2017-07-01T00:00:00","ReturnPercentage":0.7651381409647850624351107100,"PeriodType":1}
@@ -338,8 +338,8 @@
 {"Ticker":"DFSVX","PeriodStart":"2021-04-01T00:00:00","ReturnPercentage":2.2774450927294316638333860100,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2021-05-01T00:00:00","ReturnPercentage":4.6110456844877652214343186300,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2021-06-01T00:00:00","ReturnPercentage":-2.7910034252135102982623761500,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2021-07-01T00:00:00","ReturnPercentage":-2.0842915653678515890224938100,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2021-08-01T00:00:00","ReturnPercentage":2.1966038759321446246676154700,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2021-07-01T00:00:00","ReturnPercentage":-2.0840177847865606588255908200,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2021-08-01T00:00:00","ReturnPercentage":2.1963181264050284640592320900,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2021-09-01T00:00:00","ReturnPercentage":-0.8303716289237453454045017900,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2021-10-01T00:00:00","ReturnPercentage":3.8323805950384038138960007100,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2021-11-01T00:00:00","ReturnPercentage":-2.3095215953023076616492407400,"PeriodType":1}
@@ -355,8 +355,8 @@
 {"Ticker":"DFSVX","PeriodStart":"2022-09-01T00:00:00","ReturnPercentage":-9.429266113138035859664319330,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2022-10-01T00:00:00","ReturnPercentage":14.656247351791097175647373580,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2022-11-01T00:00:00","ReturnPercentage":5.1177548186823919458977188100,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2022-12-01T00:00:00","ReturnPercentage":-5.9039339470551897666149372500,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":8.628157399623714022657219490,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2022-12-01T00:00:00","ReturnPercentage":-5.9036828333659781129308483100,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":8.627867504990446097844767770,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2023-02-01T00:00:00","ReturnPercentage":-0.9369948359644855863956407900,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2023-03-01T00:00:00","ReturnPercentage":-7.1259225458296960558685818600,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2023-04-01T00:00:00","ReturnPercentage":-1.8408643036811945591164705800,"PeriodType":1}
@@ -375,4 +375,4 @@
 {"Ticker":"DFSVX","PeriodStart":"2024-05-01T00:00:00","ReturnPercentage":5.4212344536461771223906056100,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-2.4225458786166593869080534200,"PeriodType":1}
 {"Ticker":"DFSVX","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":10.187431091510474090407938260,"PeriodType":1}
-{"Ticker":"DFSVX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-7.6445867520512307384430658400,"PeriodType":1}
+{"Ticker":"DFSVX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-5.1230738443065839503702221300,"PeriodType":1}

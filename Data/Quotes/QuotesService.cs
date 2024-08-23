@@ -1,6 +1,8 @@
-﻿using Data.Quotes.QuoteProvider;
+﻿using System.Collections.Concurrent;
+using Data.Quotes.QuoteProvider;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using TableFileCache;
 
 namespace Data.Quotes;
 
@@ -14,6 +16,9 @@ internal class QuotesService(
     private static readonly object downloadLocker = new();
 
     private readonly bool fromCacheOnly = quoteServiceOptions.Value.GetQuotesFromCacheOnly;
+
+    private readonly DailyExpirationCache<string, Task<Quote>> downloadTasks = new(()
+        => DateTimeOffset.Now.AddMinutes(1));
 
     public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(HashSet<string> tickers)
     {
@@ -32,93 +37,64 @@ internal class QuotesService(
     {
         ArgumentNullException.ThrowIfNull(ticker);
 
-        logger.LogInformation("{ticker}: Request for quote history.", ticker);
-
-        // Check the cache for an entry
+        logger.LogInformation("{ticker}: Getting quote from repository…", ticker);
 
         var knownHistory = await quoteRepository.TryGetQuote(ticker);
 
+        if (knownHistory != null)
+        {
+            logger.LogInformation("{ticker}: {recordCount} record(s) in cache, {firstPeriod} to {lastPeriod}.",
+                ticker,
+                knownHistory.Prices.Count,
+                $"{knownHistory.Prices[0].DateTime:yyyy-MM-dd}",
+                $"{knownHistory.Prices[^1].DateTime:yyyy-MM-dd}");
+
+            return knownHistory;
+        }
+
         if (fromCacheOnly)
         {
-            if (knownHistory == null)
-            {
-                throw new InvalidOperationException($"{ticker} quote not found in cache.");
-            }
-
-            logger.LogInformation("{ticker}: {recordCount} record(s) in cache, {firstPeriod} to {lastPeriod}.",
-                ticker,
-                knownHistory.Prices.Count,
-                $"{knownHistory.Prices[0].DateTime:yyyy-MM-dd}",
-                $"{knownHistory.Prices[^1].DateTime:yyyy-MM-dd}");
-
-            return knownHistory;
+            throw new InvalidOperationException($"{ticker} quote not found in cache.");
         }
 
-        if (knownHistory == null)
-        {
-            // Not in cache, so download the entire history and cache it
+        logger.LogInformation("{ticker}: No quote in cache. Downloading entire history…", ticker);
 
-            logger.LogInformation("{ticker}: No history found in cache.", ticker);
+        var entireHistory = await DownloadEntireHistory(ticker);
 
-            var allHistory = await GetAllHistory(ticker);
+        logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {firstPeriod} to {lastPeriod}.",
+            ticker,
+            entireHistory.Prices.Count,
+            $"{entireHistory.Prices[0].DateTime:yyyy-MM-dd}",
+            $"{entireHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-            logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {firstPeriod} to {lastPeriod}.",
-                ticker,
-                allHistory.Prices.Count,
-                $"{allHistory.Prices[0].DateTime:yyyy-MM-dd}",
-                $"{allHistory.Prices[^1].DateTime:yyyy-MM-dd}");
-
-            return await quoteRepository.PutQuote(allHistory);
-        }
-        else
-        {
-            logger.LogInformation("{ticker}: {recordCount} record(s) in cache, {firstPeriod} to {lastPeriod}.",
-                ticker,
-                knownHistory.Prices.Count,
-                $"{knownHistory.Prices[0].DateTime:yyyy-MM-dd}",
-                $"{knownHistory.Prices[^1].DateTime:yyyy-MM-dd}");
-        }
-
-        // It's in the cache, but may be outdated, so check for new data
-
-        var (replaceExistingHistory, newHistory) = await GetNewQuote(knownHistory);
-
-        // It's not outdated
-
-        if (newHistory == null)
-        {
-            logger.LogInformation("{ticker}: No new history found.", ticker);
-
-            return knownHistory;
-        }
-
-        // It's outdated; there's either new records to append, or the entire history has changed and needs replacing
-
-        if (!replaceExistingHistory)
-        {
-            logger.LogInformation("{ticker}: Missing history identified as {firstPeriod} to {lastPeriod}",
-                ticker,
-                $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
-                $"{newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
-        }
-
-        logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {firstPeriod} to {lastPeriod}",
-                ticker,
-                newHistory.Prices.Count,
-                $"{newHistory.Prices[0].DateTime:yyyy-MM-dd}",
-                $"{newHistory.Prices[^1].DateTime:yyyy-MM-dd}");
-
-        return await quoteRepository.PutQuote(newHistory, !replaceExistingHistory);
+        return await quoteRepository.PutQuote(entireHistory);
     }
 
-    private async Task<Quote> GetAllHistory(string ticker)
+    private Task<Quote> DownloadEntireHistory(string ticker)
     {
-        logger.LogInformation("{ticker}: Downloading all history...", ticker);
+        if (downloadTasks.TryGetValue(ticker, out Task<Quote>? downloadTask))
+        {
+            return downloadTask ?? throw new InvalidOperationException();
+        }
 
-        var allHistory = await DownloadQuote(ticker)
-            ?? throw new InvalidOperationException($"{ticker}: No history found."); ;
+        return downloadTasks[ticker] = Task.Run(() => DownloadQuote(ticker)).ContinueWith(quote
+            => quote.Result ?? throw new KeyNotFoundException($"{ticker}: No history found."));
+    }
 
-        return allHistory;
+    private Quote? DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
+    {
+        // Across all the threads that want to download a quote, only allow one thread to do so at a time.
+        // Temporary measure to avoid rate-limiting against quote provider or accidentally DoSing.
+
+        Quote? downloadedQuote;
+
+        lock (downloadLocker)
+        {
+            Task.Delay(1000).GetAwaiter().GetResult();
+            downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
+        }
+
+        return downloadedQuote;
     }
 
     /// <summary>
@@ -135,7 +111,7 @@ internal class QuotesService(
             ticker,
             $"{staleHistoryLastTickDate:yyyy-MM-dd}");
 
-        var freshHistory = await DownloadQuote(ticker, staleHistoryLastTickDate);
+        var freshHistory = DownloadQuote(ticker, staleHistoryLastTickDate);
 
         if (freshHistory == null)
         {
@@ -155,7 +131,7 @@ internal class QuotesService(
         {
             logger.LogWarning("{ticker}: All history has been recomputed.", ticker);
 
-            return (true, await GetAllHistory(ticker));
+            return (true, await DownloadEntireHistory(ticker));
         }
 
         freshHistory.Prices.RemoveAt(0);
@@ -178,22 +154,5 @@ internal class QuotesService(
         }
 
         return (false, freshHistory);
-    }
-
-    private async Task<Quote?> DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
-    {
-        // Across all the threads that want to download a get, only allow one thread at a time.
-        // Temporary measure to avoid rate-limiting aginst quote provider or accidentally DoS'ing.
-
-        Quote? downloadedQuote;
-
-        lock (downloadLocker)
-        {
-            downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
-        }
-
-        await Task.Delay(1000);
-
-        return downloadedQuote;
     }
 }

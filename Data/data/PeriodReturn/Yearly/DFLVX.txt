@@ -23,9 +23,9 @@
 {"Ticker":"DFLVX","PeriodStart":"2016-01-01T00:00:00","ReturnPercentage":18.921914693205712491555902310,"PeriodType":2}
 {"Ticker":"DFLVX","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":19.025045903488665138550529840,"PeriodType":2}
 {"Ticker":"DFLVX","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":-11.680782415809639040129058280,"PeriodType":2}
-{"Ticker":"DFLVX","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":25.457693551762847955553018630,"PeriodType":2}
-{"Ticker":"DFLVX","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":-0.5841957753485155482219337300,"PeriodType":2}
+{"Ticker":"DFLVX","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":25.457313012538767433453203190,"PeriodType":2}
+{"Ticker":"DFLVX","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":-0.5838942256652602651638088700,"PeriodType":2}
 {"Ticker":"DFLVX","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":28.103966951226209581459491450,"PeriodType":2}
 {"Ticker":"DFLVX","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-5.8051163333500051206203810200,"PeriodType":2}
 {"Ticker":"DFLVX","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":11.516395826011322462622978180,"PeriodType":2}
-{"Ticker":"DFLVX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":9.082087048004280752033810690,"PeriodType":2}
+{"Ticker":"DFLVX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":11.916271392423431675751172220,"PeriodType":2}

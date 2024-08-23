@@ -212,8 +212,8 @@
 {"Ticker":"DFEMX","PeriodStart":"2011-12-01T00:00:00","ReturnPercentage":-2.9913724684104443949593746600,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2012-01-01T00:00:00","ReturnPercentage":10.728201626858468021989664390,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2012-02-01T00:00:00","ReturnPercentage":5.3948172757475083056478405300,"PeriodType":1}
-{"Ticker":"DFEMX","PeriodStart":"2012-03-01T00:00:00","ReturnPercentage":-2.6312073191643886742588539100,"PeriodType":1}
-{"Ticker":"DFEMX","PeriodStart":"2012-04-01T00:00:00","ReturnPercentage":-1.8144900210818566537343893300,"PeriodType":1}
+{"Ticker":"DFEMX","PeriodStart":"2012-03-01T00:00:00","ReturnPercentage":-2.6317116717270040449075521800,"PeriodType":1}
+{"Ticker":"DFEMX","PeriodStart":"2012-04-01T00:00:00","ReturnPercentage":-1.8139814354384220122658710400,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2012-05-01T00:00:00","ReturnPercentage":-10.784262004494761387256401870,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2012-06-01T00:00:00","ReturnPercentage":4.8890676001703013387577463500,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2012-07-01T00:00:00","ReturnPercentage":0.8112526778667268012177246600,"PeriodType":1}
@@ -361,4 +361,4 @@
 {"Ticker":"DFEMX","PeriodStart":"2024-05-01T00:00:00","ReturnPercentage":1.981470210319875566375870700,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":2.7153427334915538182325841100,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":0.8834522595990485898742779500,"PeriodType":1}
-{"Ticker":"DFEMX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-1.0441226002020882452004041800,"PeriodType":1}
+{"Ticker":"DFEMX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":0.9430784776018861569552037700,"PeriodType":1}
