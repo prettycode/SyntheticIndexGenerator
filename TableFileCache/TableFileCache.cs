@@ -26,15 +26,18 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
     {
         DateTimeOffset GetNextExpirationDateTimeOffset()
         {
-            var destinationTimeZone = dailyExpirationCacheOptions.TimeZone;
-            var zonedDateTimeOffset = TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, destinationTimeZone);
-            var zonedDateTimeOffsetMidnight = zonedDateTimeOffset.Date;
-            var zonedTodayAtTimeOfDay = zonedDateTimeOffsetMidnight.Add(dailyExpirationCacheOptions.TimeOfDay.ToTimeSpan());
-            var nextExpiration = zonedTodayAtTimeOfDay > zonedDateTimeOffset
-                ? zonedTodayAtTimeOfDay
-                : zonedTodayAtTimeOfDay.AddDays(1);
+            var now = TimeZoneInfo.ConvertTime(DateTimeOffset.UtcNow, dailyExpirationCacheOptions.TimeZone);
 
-            return new DateTimeOffset(nextExpiration, destinationTimeZone.GetUtcOffset(nextExpiration));
+            var todayAtSpecifiedTime = new DateTimeOffset(
+                now.Date.Add(dailyExpirationCacheOptions.TimeOfDay.ToTimeSpan()),
+                dailyExpirationCacheOptions.TimeZone.GetUtcOffset(now.DateTime));
+
+            if (now >= todayAtSpecifiedTime)
+            {
+                return todayAtSpecifiedTime.AddDays(1);
+            }
+
+            return todayAtSpecifiedTime;
         }
 
         ArgumentNullException.ThrowIfNull(tableCacheOptions, nameof(tableCacheOptions));
