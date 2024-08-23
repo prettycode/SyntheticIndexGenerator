@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using Data.Quotes.QuoteProvider;
+﻿using Data.Quotes.QuoteProvider;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TableFileCache;
@@ -17,7 +16,7 @@ internal class QuotesService(
 
     private readonly bool fromCacheOnly = quoteServiceOptions.Value.GetQuotesFromCacheOnly;
 
-    private readonly DailyExpirationCache<string, Task<Quote>> downloadTasks = new(()
+    private readonly DailyExpirationCache<string, Task<Quote>> getQuoteTasks = new(()
         => DateTimeOffset.Now.AddMinutes(1));
 
     public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(HashSet<string> tickers)
@@ -31,12 +30,25 @@ internal class QuotesService(
             .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
     }
 
-    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker) => (await GetQuote(ticker)).Prices;
+    public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker)
+        => (await GetQuoteTask(ticker)).Prices;
 
-    private async Task<Quote> GetQuote(string ticker)
+    private Task<Quote> GetQuoteTask(string ticker)
     {
         ArgumentNullException.ThrowIfNull(ticker);
 
+        if (getQuoteTasks.TryGetValue(ticker, out Task<Quote>? getQuoteTask))
+        {
+            return getQuoteTask ?? throw new InvalidOperationException(
+                $"{ticker}: Trying to get quote task was successful but task was, and should not be, null.");
+        }
+
+        return getQuoteTasks[ticker] = Task.Run(() => GetQuote(ticker)).ContinueWith(quote
+            => quote.Result ?? throw new KeyNotFoundException($"{ticker}: No history found."));
+    }
+
+    private async Task<Quote> GetQuote(string ticker)
+    {
         logger.LogInformation("{ticker}: Getting quote from repository…", ticker);
 
         var knownHistory = await quoteRepository.TryGetQuote(ticker);
@@ -70,16 +82,8 @@ internal class QuotesService(
         return await quoteRepository.PutQuote(entireHistory);
     }
 
-    private Task<Quote> DownloadEntireHistory(string ticker)
-    {
-        if (downloadTasks.TryGetValue(ticker, out Task<Quote>? downloadTask))
-        {
-            return downloadTask ?? throw new InvalidOperationException();
-        }
-
-        return downloadTasks[ticker] = Task.Run(() => DownloadQuote(ticker)).ContinueWith(quote
-            => quote.Result ?? throw new KeyNotFoundException($"{ticker}: No history found."));
-    }
+    private async Task<Quote> DownloadEntireHistory(string ticker)
+        => await DownloadQuote(ticker) ?? throw new KeyNotFoundException($"{ticker}: No history found.");
 
     private Task<Quote?> DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
     {
