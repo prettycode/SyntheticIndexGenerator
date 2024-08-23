@@ -19,17 +19,6 @@ internal class QuotesService(
     private readonly AbsoluteExpirationCache<string, Task<Quote>> getQuoteTasks = new(()
         => DateTimeOffset.Now.AddMinutes(1));
 
-    public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(HashSet<string> tickers)
-    {
-        ArgumentNullException.ThrowIfNull(tickers);
-
-        // TODO this is not parallelized; don't have awaits in here
-        return await tickers
-            .ToAsyncEnumerable()
-            .SelectAwait(async ticker => new { ticker, quote = await GetDailyQuoteHistory(ticker) })
-            .ToDictionaryAsync(pair => pair.ticker, pair => pair.quote);
-    }
-
     public async Task<IEnumerable<QuotePrice>> GetDailyQuoteHistory(string ticker)
         => (await GetQuoteTask(ticker)).Prices;
 
