@@ -57,7 +57,7 @@ internal class QuotesService(
             throw new InvalidOperationException($"{ticker} quote not found in cache.");
         }
 
-        logger.LogInformation("{ticker}: No quote in cache. Downloading entire history…", ticker);
+        logger.LogInformation("{ticker}: No quote in cache.", ticker);
 
         var entireHistory = await DownloadEntireHistory(ticker);
 
@@ -81,12 +81,14 @@ internal class QuotesService(
             => quote.Result ?? throw new KeyNotFoundException($"{ticker}: No history found."));
     }
 
-    private Quote? DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
+    private Task<Quote?> DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
     {
         // Across all the threads that want to download a quote, only allow one thread to do so at a time.
         // Temporary measure to avoid rate-limiting against quote provider or accidentally DoSing.
 
         Quote? downloadedQuote;
+
+        logger.LogInformation("{ticker}: Downloading entire history…", ticker);
 
         lock (downloadLocker)
         {
@@ -94,7 +96,11 @@ internal class QuotesService(
             downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
         }
 
-        return downloadedQuote;
+        logger.LogInformation("{ticker}: …done downloading entire history.", ticker);
+
+        // Make sure function is still a Task; when Yahoo Finance is replaced with an actual data provider, we'll
+        // be able to eliminate the locker in this function.
+        return Task.FromResult(downloadedQuote);
     }
 
     /// <summary>
@@ -111,7 +117,7 @@ internal class QuotesService(
             ticker,
             $"{staleHistoryLastTickDate:yyyy-MM-dd}");
 
-        var freshHistory = DownloadQuote(ticker, staleHistoryLastTickDate);
+        var freshHistory = await DownloadQuote(ticker, staleHistoryLastTickDate);
 
         if (freshHistory == null)
         {
