@@ -13,27 +13,7 @@ class Program
         using var serviceProvider = BuildServiceProvider();
         var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 
-        while (true)
-        {
-            if (!Debugger.IsAttached)
-            {
-                await WaitUntilNextMarketDataUpdate(logger);
-            }
-
-            try
-            {
-                await UpdateReturnsRepository(serviceProvider, logger);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "An error occurred during data refresh.");
-            }
-
-            if (Debugger.IsAttached)
-            {
-                break;
-            }
-        }
+        await PrimeReturnsCache(serviceProvider, logger);
     }
 
     static ServiceProvider BuildServiceProvider()
@@ -49,7 +29,7 @@ class Program
             .BuildServiceProvider();
     }
 
-    static async Task UpdateReturnsRepository(IServiceProvider provider, ILogger<Program> logger)
+    static async Task PrimeReturnsCache(IServiceProvider provider, ILogger<Program> logger)
     {
         var returnsService = provider.GetRequiredService<IReturnsService>();
         var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
@@ -102,33 +82,5 @@ class Program
                 Console.WriteLine("</CLIENT>\n");
             }
         }
-    }
-
-    static async Task WaitUntilNextMarketDataUpdate(ILogger<Program> logger)
-    {
-        var newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
-        var currentTimeNewYork = TimeZoneInfo.ConvertTime(DateTime.UtcNow, newYorkTimeZone);
-        var nextMarketClosedTime = currentTimeNewYork.Date.AddHours(21);
-
-        if (currentTimeNewYork >= nextMarketClosedTime)
-        {
-            nextMarketClosedTime = nextMarketClosedTime.AddDays(1);
-        }
-
-        nextMarketClosedTime = nextMarketClosedTime.DayOfWeek switch
-        {
-            DayOfWeek.Saturday => nextMarketClosedTime.AddDays(2),
-            DayOfWeek.Sunday => nextMarketClosedTime.AddDays(1),
-            _ => nextMarketClosedTime
-        };
-
-        var timeToWait = nextMarketClosedTime - currentTimeNewYork;
-        var futureDateTime = currentTimeNewYork.Add(timeToWait);
-
-        logger.LogInformation("Waiting until {futureDateTimeDay} {timeZone}",
-            $"{futureDateTime:F}",
-            newYorkTimeZone.DisplayName);
-
-        await Task.Delay(timeToWait);
     }
 }
