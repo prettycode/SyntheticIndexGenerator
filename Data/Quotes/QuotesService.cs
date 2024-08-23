@@ -16,7 +16,7 @@ internal class QuotesService(
 
     private readonly bool fromCacheOnly = quoteServiceOptions.Value.GetQuotesFromCacheOnly;
 
-    private readonly DailyExpirationCache<string, Task<Quote>> getQuoteTasks = new(()
+    private readonly AbsoluteExpirationCache<string, Task<Quote>> getQuoteTasks = new(()
         => DateTimeOffset.Now.AddMinutes(1));
 
     public async Task<Dictionary<string, IEnumerable<QuotePrice>>> GetDailyQuoteHistory(HashSet<string> tickers)

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace TableFileCache;
 
-public class DailyExpirationCache<TKey, TValue> : IDisposable where TKey : notnull
+public class AbsoluteExpirationCache<TKey, TValue> : IDisposable where TKey : notnull
 {
     protected readonly IMemoryCache cache;
 
@@ -11,7 +11,7 @@ public class DailyExpirationCache<TKey, TValue> : IDisposable where TKey : notnu
 
     private bool disposed = false;
 
-    public DailyExpirationCache(
+    public AbsoluteExpirationCache(
         Func<DateTimeOffset> createAbsoluteExpiration,
         IMemoryCache? memoryCache = null,
         IOptions<MemoryCacheOptions>? memoryCacheOptions = null)
