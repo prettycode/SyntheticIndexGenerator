@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Data.Returns;
 
-// TODO: rename all startDate and endDate to firstPeriod and lastPeriod
 internal class ReturnsService(
         IQuotesService quotesService,
         ISyntheticIndicesService syntheticIndexService,
@@ -15,23 +14,29 @@ internal class ReturnsService(
     public async Task<Dictionary<string, List<PeriodReturn>>> GetReturnsHistory(
         HashSet<string> tickers,
         PeriodType periodType,
-        DateTime startDate,
-        DateTime endDate)
+        DateTime firstPeriod,
+        DateTime lastPeriod)
     {
         ArgumentNullException.ThrowIfNull(tickers);
 
-        // TODO this is not parallelized; don't have awaits in here
-        return await tickers
-            .ToAsyncEnumerable()
-            .SelectAwait(async ticker => new { ticker, returns = await GetReturnsHistory(ticker, periodType, startDate, endDate) })
-            .ToDictionaryAsync(pair => pair.ticker, pair => pair.returns);
+        var getReturnsHistoryTasks = tickers.ToDictionary(
+            ticker => ticker,
+            ticker => GetReturnsHistory(ticker, periodType, firstPeriod, lastPeriod)
+        );
+
+        var results = await Task.WhenAll(getReturnsHistoryTasks.Values);
+
+        return getReturnsHistoryTasks
+            .Keys
+            .Zip(results, (ticker, returns) => new { ticker, returns })
+            .ToDictionary(pair => pair.ticker, pair => pair.returns);
     }
 
     public async Task<List<PeriodReturn>> GetReturnsHistory(
         string ticker,
         PeriodType periodType,
-        DateTime startDate,
-        DateTime endDate)
+        DateTime firstPeriod,
+        DateTime lastPeriod)
     {
         ArgumentNullException.ThrowIfNull(ticker);
 
@@ -40,16 +45,12 @@ internal class ReturnsService(
         bool IsSyntheticIndexTicker(string ticker) => ticker.StartsWith("$^");
         bool IsQuoteTicker(string ticker) => !IsSyntheticIndexTicker(ticker) && !IsSyntheticReturnTicker(ticker);
 
-        // Get previously-computed and -saved results, and return them
-
         var cachedReturns = await returnRepository.TryGetValue(ticker, periodType);
 
         if (cachedReturns != null)
         {
-            return await returnRepository.Get(ticker, periodType, startDate, endDate);
+            return await returnRepository.Get(ticker, periodType, firstPeriod, lastPeriod);
         }
-
-        // Compute, save results, and return them
 
         if (IsSyntheticReturnTicker(ticker))
         {
@@ -64,13 +65,13 @@ internal class ReturnsService(
             var neededQuoteTickers = syntheticIndexService.GetSyntheticIndexBackfillTickers(ticker);
 
             await Task.WhenAll(neededQuoteTickers.Select(quoteTicker
-                => GetReturnsHistory(quoteTicker, periodType, startDate, endDate)));
+                => GetReturnsHistory(quoteTicker, periodType, firstPeriod, lastPeriod)));
 
             var backfillTickers = syntheticIndexService.GetSyntheticIndexBackfillTickers(ticker, false);
 
             await CalculateAndPutReturnsForSyntheticIndexByPeriod(ticker, backfillTickers, periodType);
 
-            return await GetReturnsHistory(ticker, periodType, startDate, endDate);
+            return await GetReturnsHistory(ticker, periodType, firstPeriod, lastPeriod);
         }
 
         if (IsQuoteTicker(ticker))
@@ -87,15 +88,15 @@ internal class ReturnsService(
     private async Task<List<PeriodReturn>> CalculateAndPutReturnsForSyntheticIndexByPeriod(
         string syntheticIndexTicker,
         HashSet<string> backfillTickers,
-        PeriodType period)
+        PeriodType periodType)
     {
         // <TODO:hacky inefficient quick fix>
         var availableBackfillTickers = await backfillTickers
             .ToAsyncEnumerable()
-            .WhereAwait(async (ticker) => await returnRepository.TryGetValue(ticker, period) != null)
+            .WhereAwait(async (ticker) => await returnRepository.TryGetValue(ticker, periodType) != null)
             .ToListAsync();
         var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker
-            => returnRepository.Get(ticker, period)));
+            => returnRepository.Get(ticker, periodType)));
         // </TODO>
 
         var collatedReturns = backfillReturns
@@ -107,7 +108,7 @@ internal class ReturnsService(
             )
             .SelectMany(item => item.returns!.TakeWhile(pair => pair.PeriodStart < item.nextStartDate));
 
-        return [.. await returnRepository.Put(syntheticIndexTicker, collatedReturns.ToList(), period)];
+        return [.. await returnRepository.Put(syntheticIndexTicker, collatedReturns.ToList(), periodType)];
     }
 
     private async Task<PeriodReturn[]> CalculateAndPutReturnsForPeriodType(
