@@ -175,42 +175,23 @@ internal class QuotesService(
 
     private static bool IsNewDataLikelyAvailable(DateTime lastDataPoint)
     {
-        // Define the New York time zone
-        TimeZoneInfo newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
+        var newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
+        var lastDataPointDateNewYork = TimeZoneInfo.ConvertTime(lastDataPoint, newYorkTimeZone).Date;
+        var currentDateNewYork = TimeZoneInfo.ConvertTime(DateTime.UtcNow, newYorkTimeZone).Date;
 
-        // Convert the last data point to New York time
-        DateTime lastDataPointNY = TimeZoneInfo.ConvertTime(lastDataPoint, newYorkTimeZone).Date;
-
-        // Get the current date and time in New York
-        DateTime currentDateNY = TimeZoneInfo.ConvertTime(DateTime.UtcNow, newYorkTimeZone).Date;
-
-        if (currentDateNY <= lastDataPointNY)
+        if (currentDateNewYork <= lastDataPointDateNewYork)
         {
-            throw new InvalidOperationException("Last data point should not be more recent than right now.");
+            throw new InvalidOperationException("Last date should not be more recent than right now.");
         }
 
-        int businessDays = 0;
-        DateTime date = lastDataPointNY.AddDays(1);
+        var nextBusinessDay = lastDataPointDateNewYork.AddDays(1);
 
-        while (date <= currentDateNY)
+        while (nextBusinessDay.DayOfWeek == DayOfWeek.Saturday || nextBusinessDay.DayOfWeek == DayOfWeek.Sunday)
         {
-            // Check if it's a weekday (Monday to Friday)
-            if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
-            {
-                businessDays++;
-
-                // If we find at least one business day, new data is likely available
-                if (businessDays > 0)
-                {
-                    return true;
-                }
-            }
-
-            date = date.AddDays(1);
+            nextBusinessDay = nextBusinessDay.AddDays(1);
         }
 
-        // If we've gone through all days and found no business days, no new data is likely available
-        return false;
+        return nextBusinessDay <= currentDateNewYork;
     }
 
     private async Task<Quote> DownloadFreshQuote(string ticker)
