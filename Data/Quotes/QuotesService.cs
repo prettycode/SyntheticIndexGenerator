@@ -66,7 +66,7 @@ internal class QuotesService(
             return await quoteRepository.PutQuote(freshQuote);
         }
 
-        (bool isChanged, Quote upToDateQuote) = await UpdateStaleQuote(fileCacheQuote);
+        (bool isChanged, Quote upToDateQuote) = await GetUpdatedQuoteFromStale(fileCacheQuote);
 
         if (!isChanged)
         {
@@ -76,7 +76,7 @@ internal class QuotesService(
         return await quoteRepository.PutQuote(upToDateQuote);
     }
 
-    private async Task<(bool IsChanged, Quote UpToDateQuopte)> UpdateStaleQuote(Quote staleQuote)
+    private async Task<(bool IsChanged, Quote UpToDateQuopte)> GetUpdatedQuoteFromStale(Quote staleQuote)
     {
         var ticker = staleQuote.Ticker;
         var staleHistoryLastTick = staleQuote.Prices[^1];
