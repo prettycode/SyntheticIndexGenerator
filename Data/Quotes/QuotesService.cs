@@ -57,7 +57,7 @@ internal class QuotesService(
                 throw new InvalidOperationException($"{ticker} quote not found in cache.");
             }
 
-            return await quoteRepository.PutQuote(fileCacheQuote);
+            return fileCacheQuote;
         }
 
         if (fileCacheQuote == null)
