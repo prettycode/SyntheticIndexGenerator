@@ -35,52 +35,33 @@ class Program
         var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
         var returnsHistoryTasks = new List<Task>();
 
-        logger.LogInformation("CLIENT: CONCURRENT: Requesting returns for synthetic indices…");
-
-        foreach (var ticker in indicesService.GetSyntheticIndexTickers()/* TODO test case because they both share same underlying backfillticker: new[] { "$^ITSM", "$^ILCB" }*/)
+        foreach (var ticker in indicesService.GetSyntheticIndexTickers().Take(1))
         {
             foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
             {
-                Console.WriteLine("\n<CLIENT>");
-
-                logger.LogInformation(
-                    "{ticker}: Requesting entire return history for period {periodType}…",
-                    ticker,
-                    periodType);
+                Console.WriteLine();
 
                 returnsHistoryTasks.Add(returnsService.GetReturnsHistory(
                     ticker,
                     periodType,
                     DateTime.MinValue,
                     DateTime.MaxValue));
-
-                Console.WriteLine("</CLIENT>\n");
             }
         }
 
         await Task.WhenAll(returnsHistoryTasks);
 
-        logger.LogInformation("CLIENT: SERIAL: Requesting returns for synthetic indices…");
-
-        foreach (var ticker in indicesService.GetSyntheticIndexTickers()/* TODO test case because they both share same underlying backfillticker: new[] { "$^ITSM", "$^ILCB" }*/)
+        /*
+        foreach (var ticker in indicesService.GetSyntheticIndexTickers())
         {
             foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
             {
-                Console.WriteLine("\n<CLIENT>");
-
-                logger.LogInformation(
-                    "{ticker}: Requesting entire return history for period {periodType}…",
-                    ticker,
-                    periodType);
-
                 await returnsService.GetReturnsHistory(
                     ticker,
                     periodType,
                     DateTime.MinValue,
                     DateTime.MaxValue);
-
-                Console.WriteLine("</CLIENT>\n");
             }
-        }
+        }*/
     }
 }

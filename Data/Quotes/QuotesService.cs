@@ -14,7 +14,7 @@ internal class QuotesService(
 {
     private static readonly object downloadLocker = new();
 
-    private readonly bool fromCacheOnly = quoteServiceOptions.Value.GetQuotesFromCacheOnly;
+    private readonly bool skipDownloadingUncachedQuotes = quoteServiceOptions.Value.SkipDownloadingUncachedQuotes;
 
     private readonly AbsoluteExpirationCache<string, Task<Quote>> getQuoteTasks = new(()
         => DateTimeOffset.Now.AddMinutes(1));
@@ -38,40 +38,121 @@ internal class QuotesService(
 
     private async Task<Quote> GetQuote(string ticker)
     {
-        logger.LogInformation("{ticker}: Getting quote from repository…", ticker);
+        logger.LogInformation("{ticker}: Getting quote from repository...", ticker);
 
-        var knownHistory = await quoteRepository.TryGetQuote(ticker);
+        var memoryCacheQuote = await quoteRepository.TryGetMemoryCacheQuote(ticker);
 
-        if (knownHistory != null)
+        if (memoryCacheQuote != null)
         {
-            logger.LogInformation("{ticker}: {recordCount} record(s) in cache, {firstPeriod} to {lastPeriod}.",
-                ticker,
-                knownHistory.Prices.Count,
-                $"{knownHistory.Prices[0].DateTime:yyyy-MM-dd}",
-                $"{knownHistory.Prices[^1].DateTime:yyyy-MM-dd}");
-
-            return knownHistory;
+            return memoryCacheQuote;
         }
 
-        if (fromCacheOnly)
+        var fileCacheQuote = await quoteRepository.TryGetFileCacheQuote(ticker);
+
+
+        if (skipDownloadingUncachedQuotes)
         {
-            throw new InvalidOperationException($"{ticker} quote not found in cache.");
+            if (fileCacheQuote == null)
+            {
+                throw new InvalidOperationException($"{ticker} quote not found in cache.");
+            }
+
+            return await quoteRepository.PutQuote(fileCacheQuote);
         }
 
-        logger.LogInformation("{ticker}: No quote in cache.", ticker);
+        if (fileCacheQuote == null)
+        {
+            var freshQuote = await DownloadFreshQuote(ticker);
 
-        var entireHistory = await DownloadEntireHistory(ticker);
+            return await quoteRepository.PutQuote(freshQuote);
+        }
 
-        logger.LogInformation("{ticker}: Writing {recordCount} record(s) to cache, {firstPeriod} to {lastPeriod}.",
-            ticker,
-            entireHistory.Prices.Count,
-            $"{entireHistory.Prices[0].DateTime:yyyy-MM-dd}",
-            $"{entireHistory.Prices[^1].DateTime:yyyy-MM-dd}");
+        var upToDateQuote = await UpdateStaleQuote(fileCacheQuote);
 
-        return await quoteRepository.PutQuote(entireHistory);
+        return await quoteRepository.PutQuote(upToDateQuote);
     }
 
-    private async Task<Quote> DownloadEntireHistory(string ticker)
+    private async Task<Quote> UpdateStaleQuote(Quote staleQuote)
+    {
+        var ticker = staleQuote.Ticker;
+        var staleHistoryLastTick = staleQuote.Prices[^1];
+        var staleHistoryLastTickDate = staleHistoryLastTick.DateTime;
+
+        logger.LogInformation("{ticker}: Downloading history starting at {staleHistoryLastTickDate}...",
+            ticker,
+            $"{staleHistoryLastTickDate:yyyy-MM-dd}");
+
+        var deltaQuote = await DownloadQuote(ticker, staleHistoryLastTickDate);
+
+        if (deltaQuote == null)
+        {
+            return new Quote(ticker)
+            {
+                Dividends = staleQuote.Dividends,
+                Prices = staleQuote.Prices,
+                Splits = staleQuote.Splits
+            };
+        }
+
+        if (deltaQuote.Dividends == null)
+        {
+            throw new InvalidOperationException("Expected an empty enumerable for dividends.");
+        }
+
+        if (deltaQuote.Prices == null)
+        {
+            throw new InvalidOperationException("Expected an empty enumerable for prices.");
+        }
+
+        if (deltaQuote.Splits == null)
+        {
+            throw new InvalidOperationException("Expected an empty enumerable for splits.");
+        }
+
+        if (deltaQuote.Prices[0].DateTime != staleHistoryLastTickDate)
+        {
+            throw new InvalidOperationException($"{ticker}: Fresh history should start on last date of existing history.");
+        }
+
+        var firstDeltaPrice = deltaQuote.Prices[0];
+
+        if (firstDeltaPrice.Open != staleHistoryLastTick.Open ||
+            firstDeltaPrice.Close != staleHistoryLastTick.Close ||
+            firstDeltaPrice.AdjustedClose != staleHistoryLastTick.AdjustedClose)
+        {
+            logger.LogWarning("{ticker}: All history has changed.", ticker);
+
+            return await DownloadFreshQuote(ticker);
+        }
+
+        deltaQuote.Prices.RemoveAt(0);
+
+        if (deltaQuote.Prices.Count == 0)
+        {
+            return staleQuote;
+        }
+
+        if (deltaQuote.Dividends.Count > 0 &&
+            deltaQuote.Dividends[0].DateTime == staleQuote.Dividends[^1].DateTime)
+        {
+            deltaQuote.Dividends.RemoveAt(0);
+        }
+
+        if (deltaQuote.Splits.Count > 0 &&
+            deltaQuote.Splits[0].DateTime == staleQuote.Splits[^1].DateTime)
+        {
+            deltaQuote.Splits.RemoveAt(0);
+        }
+
+        return new Quote(ticker)
+        {
+            Dividends = [.. staleQuote.Dividends, .. deltaQuote.Dividends],
+            Prices = [.. staleQuote.Prices, .. deltaQuote.Prices],
+            Splits = [.. staleQuote.Splits, .. deltaQuote.Splits]
+        };
+    }
+
+    private async Task<Quote> DownloadFreshQuote(string ticker)
         => await DownloadQuote(ticker) ?? throw new KeyNotFoundException($"{ticker}: No history found.");
 
     private Task<Quote?> DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
@@ -81,7 +162,11 @@ internal class QuotesService(
 
         Quote? downloadedQuote;
 
-        logger.LogInformation("{ticker}: Downloading entire history…", ticker);
+
+        logger.LogInformation("{ticker}: Downloading history {startDate} to {endDate}...",
+            ticker,
+            $"{startDate:yyyy-MM-dd}",
+            $"{endDate:yyyy-MM-dd}");
 
         lock (downloadLocker)
         {
@@ -89,7 +174,7 @@ internal class QuotesService(
             downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
         }
 
-        logger.LogInformation("{ticker}: …done downloading entire history.", ticker);
+        logger.LogInformation("{ticker}: ...done downloading history.", ticker);
 
         // Make sure function is still a Task; when Yahoo Finance is replaced with an actual data provider, we'll
         // be able to eliminate the locker in this function.
@@ -105,10 +190,6 @@ internal class QuotesService(
         var ticker = fundHistory.Ticker;
         var staleHistoryLastTick = fundHistory.Prices[^1];
         var staleHistoryLastTickDate = staleHistoryLastTick.DateTime;
-
-        logger.LogInformation("{ticker}: Downloading history starting at {staleHistoryLastTickDate}...",
-            ticker,
-            $"{staleHistoryLastTickDate:yyyy-MM-dd}");
 
         var freshHistory = await DownloadQuote(ticker, staleHistoryLastTickDate);
 
@@ -130,7 +211,7 @@ internal class QuotesService(
         {
             logger.LogWarning("{ticker}: All history has been recomputed.", ticker);
 
-            return (true, await DownloadEntireHistory(ticker));
+            return (true, await DownloadFreshQuote(ticker));
         }
 
         freshHistory.Prices.RemoveAt(0);

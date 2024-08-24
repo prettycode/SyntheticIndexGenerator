@@ -16,8 +16,6 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private readonly string instanceKey;
 
-    private readonly bool missReadsFileCache;
-
     private static readonly ConcurrentDictionary<string, AbsoluteExpirationCache<TKey, IEnumerable<TValue>>> cacheInstances = [];
 
     private readonly DailyExpirationCacheOptions dailyExpirationCacheOptions;
@@ -45,7 +43,6 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
         rootPath = tableCacheOptions.Value.CacheRootPath;
         relativePath = cacheNamespace ?? tableCacheOptions.Value.CacheNamespace ?? string.Empty;
         instanceKey = rootPath + relativePath;
-        missReadsFileCache = tableCacheOptions.Value.CacheMissReadsFileCache;
         dailyExpirationCacheOptions = tableCacheOptions.Value.DailyExpirationOptions;
 
         if (!cacheInstances.ContainsKey(instanceKey))
@@ -58,7 +55,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     public async Task<IEnumerable<TValue>> Get(TKey key) => await TryGetValue(key) ?? throw new KeyNotFoundException();
 
-    public async Task<IEnumerable<TValue>?> TryGetValue(TKey key)
+    public async Task<IEnumerable<TValue>?> TryGetValue(TKey key, bool cacheMissReadsFromFile = false)
     {
         ArgumentNullException.ThrowIfNull(key);
 
@@ -67,7 +64,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
             return value;
         }
 
-        if (!missReadsFileCache)
+        if (!cacheMissReadsFromFile)
         {
             return null;
         }

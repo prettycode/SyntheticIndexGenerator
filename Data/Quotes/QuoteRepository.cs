@@ -25,12 +25,14 @@ internal class QuoteRepository : IQuoteRepository
         this.logger = logger;
     }
 
-    public async Task<Quote?> TryGetQuote(string ticker)
+    public async Task<Quote?> TryGetMemoryCacheQuote(string ticker)
     {
         var prices = await pricesCache.TryGetValue(ticker);
 
         if (prices == null)
         {
+            logger.LogInformation("{ticker}: No quote in memory cache.", ticker);
+
             return null;
         }
 
@@ -42,6 +44,41 @@ internal class QuoteRepository : IQuoteRepository
         };
 
         Inspect(history);
+
+        logger.LogInformation("{ticker}: {recordCount} record(s) in memory cache, {firstPeriod} to {lastPeriod}.",
+            ticker,
+            history.Prices.Count,
+            $"{history.Prices[0].DateTime:yyyy-MM-dd}",
+            $"{history.Prices[^1].DateTime:yyyy-MM-dd}");
+
+        return history;
+    }
+
+    public async Task<Quote?> TryGetFileCacheQuote(string ticker)
+    {
+        var prices = await pricesCache.TryGetValue(ticker, true);
+
+        if (prices == null)
+        {
+            logger.LogInformation("{ticker}: No quote in file cache.", ticker);
+
+            return null;
+        }
+
+        var history = new Quote(ticker)
+        {
+            Dividends = (await dividendsCache.TryGetValue(ticker, true) ?? []).ToList(),
+            Prices = prices.ToList(),
+            Splits = (await splitsCache.TryGetValue(ticker, true) ?? []).ToList(),
+        };
+
+        Inspect(history);
+
+        logger.LogInformation("{ticker}: {recordCount} record(s) in file cache, {firstPeriod} to {lastPeriod}.",
+            ticker,
+            history.Prices.Count,
+            $"{history.Prices[0].DateTime:yyyy-MM-dd}",
+            $"{history.Prices[^1].DateTime:yyyy-MM-dd}");
 
         return history;
     }
@@ -93,7 +130,13 @@ internal class QuoteRepository : IQuoteRepository
         var ticker = fundHistory.Ticker;
         var operation = append ? "Appending" : "Replacing";
 
-        logger.LogInformation("{ticker}: {operation} quotes.", ticker, operation);
+        logger.LogInformation(
+            "{ticker}: {operation} {recordCount} records in quote cache, {firstPeriod} to {lastPeriod}.",
+            ticker,
+            operation,
+            fundHistory.Prices.Count,
+            $"{fundHistory.Prices[0].DateTime:yyyy-MM-dd}",
+            $"{fundHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
         await Task.WhenAll(
             fundHistory.Dividends.Count == 0

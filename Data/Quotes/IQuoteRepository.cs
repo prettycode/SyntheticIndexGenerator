@@ -2,7 +2,9 @@
 
 internal interface IQuoteRepository
 {
-    Task<Quote?> TryGetQuote(string ticker);
+    Task<Quote?> TryGetMemoryCacheQuote(string ticker);
+
+    Task<Quote?> TryGetFileCacheQuote(string ticker);
 
     Task<Quote> GetQuote(string ticker, bool skipPastZeroVolume = false);
 
