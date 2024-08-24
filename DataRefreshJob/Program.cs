@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Data.Extensions;
+﻿using Data.Extensions;
 using Data.Returns;
 using Data.SyntheticIndices;
 using Microsoft.Extensions.Configuration;

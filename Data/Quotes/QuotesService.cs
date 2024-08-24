@@ -49,7 +49,6 @@ internal class QuotesService(
 
         var fileCacheQuote = await quoteRepository.TryGetFileCacheQuote(ticker);
 
-
         if (skipDownloadingUncachedQuotes)
         {
             if (fileCacheQuote == null)
@@ -67,31 +66,33 @@ internal class QuotesService(
             return await quoteRepository.PutQuote(freshQuote);
         }
 
-        var upToDateQuote = await UpdateStaleQuote(fileCacheQuote);
+        (bool isChanged, Quote upToDateQuote) = await UpdateStaleQuote(fileCacheQuote);
+
+        if (!isChanged)
+        {
+            return fileCacheQuote;
+        }
 
         return await quoteRepository.PutQuote(upToDateQuote);
     }
 
-    private async Task<Quote> UpdateStaleQuote(Quote staleQuote)
+    private async Task<(bool IsChanged, Quote UpToDateQuopte)> UpdateStaleQuote(Quote staleQuote)
     {
         var ticker = staleQuote.Ticker;
         var staleHistoryLastTick = staleQuote.Prices[^1];
         var staleHistoryLastTickDate = staleHistoryLastTick.DateTime;
-
-        logger.LogInformation("{ticker}: Downloading history starting at {staleHistoryLastTickDate}...",
-            ticker,
-            $"{staleHistoryLastTickDate:yyyy-MM-dd}");
-
         var deltaQuote = await DownloadQuote(ticker, staleHistoryLastTickDate);
 
         if (deltaQuote == null)
         {
-            return new Quote(ticker)
+            logger.LogInformation("{ticker}: Download had no new history.", ticker);
+
+            return (false, new Quote(ticker)
             {
                 Dividends = staleQuote.Dividends,
                 Prices = staleQuote.Prices,
                 Splits = staleQuote.Splits
-            };
+            });
         }
 
         if (deltaQuote.Dividends == null)
@@ -120,16 +121,18 @@ internal class QuotesService(
             firstDeltaPrice.Close != staleHistoryLastTick.Close ||
             firstDeltaPrice.AdjustedClose != staleHistoryLastTick.AdjustedClose)
         {
-            logger.LogWarning("{ticker}: All history has changed.", ticker);
+            logger.LogWarning("{ticker}: All history has changed. Downloading entire history...", ticker);
 
-            return await DownloadFreshQuote(ticker);
+            return (true, await DownloadFreshQuote(ticker));
         }
 
         deltaQuote.Prices.RemoveAt(0);
 
         if (deltaQuote.Prices.Count == 0)
         {
-            return staleQuote;
+            logger.LogInformation("{ticker}: Download had no new history.", ticker);
+
+            return (false, staleQuote);
         }
 
         if (deltaQuote.Dividends.Count > 0 &&
@@ -144,12 +147,18 @@ internal class QuotesService(
             deltaQuote.Splits.RemoveAt(0);
         }
 
-        return new Quote(ticker)
+        logger.LogInformation("{ticker}: Download had {newRecords}, {startDate} to {endDate}.",
+            ticker,
+            $"{deltaQuote.Prices.Count}",
+            $"{deltaQuote.Prices[0].DateTime:yyyy-MM-dd}",
+            $"{deltaQuote.Prices[^1].DateTime:yyyy-MM-dd}");
+
+        return (true, new Quote(ticker)
         {
             Dividends = [.. staleQuote.Dividends, .. deltaQuote.Dividends],
             Prices = [.. staleQuote.Prices, .. deltaQuote.Prices],
             Splits = [.. staleQuote.Splits, .. deltaQuote.Splits]
-        };
+        });
     }
 
     private async Task<Quote> DownloadFreshQuote(string ticker)
@@ -162,7 +171,6 @@ internal class QuotesService(
 
         Quote? downloadedQuote;
 
-
         logger.LogInformation("{ticker}: Downloading history {startDate} to {endDate}...",
             ticker,
             $"{startDate:yyyy-MM-dd}",
@@ -174,65 +182,8 @@ internal class QuotesService(
             downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
         }
 
-        logger.LogInformation("{ticker}: ...done downloading history.", ticker);
-
         // Make sure function is still a Task; when Yahoo Finance is replaced with an actual data provider, we'll
         // be able to eliminate the locker in this function.
         return Task.FromResult(downloadedQuote);
-    }
-
-    /// <summary>
-    /// Check for new records to add to the history and return that if there are any, or get the entire history
-    /// because historical records have changed (e.g. adjusted close has been recalculated).
-    /// <exception cref="InvalidOperationException"></exception>
-    private async Task<(bool ReplaceExistingData, Quote? NewHistory)> GetNewQuote(Quote fundHistory)
-    {
-        var ticker = fundHistory.Ticker;
-        var staleHistoryLastTick = fundHistory.Prices[^1];
-        var staleHistoryLastTickDate = staleHistoryLastTick.DateTime;
-
-        var freshHistory = await DownloadQuote(ticker, staleHistoryLastTickDate);
-
-        if (freshHistory == null)
-        {
-            return (false, null);
-        }
-
-        if (freshHistory.Prices[0].DateTime != staleHistoryLastTickDate)
-        {
-            throw new InvalidOperationException($"{ticker}: Fresh history should start on last date of existing history.");
-        }
-
-        var firstFresh = freshHistory.Prices[0];
-
-        if (firstFresh.Open != staleHistoryLastTick.Open ||
-            firstFresh.Close != staleHistoryLastTick.Close ||
-            firstFresh.AdjustedClose != staleHistoryLastTick.AdjustedClose)
-        {
-            logger.LogWarning("{ticker}: All history has been recomputed.", ticker);
-
-            return (true, await DownloadFreshQuote(ticker));
-        }
-
-        freshHistory.Prices.RemoveAt(0);
-
-        if (freshHistory.Prices.Count == 0)
-        {
-            return (false, null);
-        }
-
-        if (freshHistory.Dividends.Count > 0 &&
-            freshHistory.Dividends[0].DateTime == fundHistory.Dividends[^1].DateTime)
-        {
-            freshHistory.Dividends.RemoveAt(0);
-        }
-
-        if (freshHistory.Splits.Count > 0 &&
-            freshHistory.Splits[0].DateTime == fundHistory.Splits[^1].DateTime)
-        {
-            freshHistory.Splits.RemoveAt(0);
-        }
-
-        return (false, freshHistory);
     }
 }
