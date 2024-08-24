@@ -293,7 +293,7 @@ internal class ReturnsCache : IReturnsCache
                 var periodReturn = new PeriodReturn()
                 {
                     PeriodStart = new DateTime(currentYear, 1, 1),
-                    ReturnPercentage = currentYearAggregateReturn,
+                    ReturnPercentage = currentYearAggregateReturn * 100,
                     Ticker = ticker,
                     PeriodType = PeriodType.Yearly
                 };
