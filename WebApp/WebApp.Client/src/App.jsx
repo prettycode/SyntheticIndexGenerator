@@ -69,9 +69,7 @@ function App() {
         ? <p>Loading&hellip;</p>
         : <>
             <div style={{maxWidth: '768px'}}>
-                All calculations are derived from adjusted close prices, meaning dividends are automatically reinvested.
-                Returns are therefore <em>pre</em>-tax&mdash;they are not adjusted for income tax on dividends or from
-                rebalance events.
+                All performance calculations assume dividends reinvested and 0% income tax on dividends.
             </div>
 
             <h3>Configuration</h3>
@@ -185,7 +183,7 @@ function App() {
                     </label>
                 </div>
 
-                <h3>Performance History</h3>
+                <h3>Portfolio Performance History</h3>
                 <table className="table table-striped" aria-labelledby="tableLabel">
                     <thead>
                         <tr>
@@ -227,9 +225,71 @@ function App() {
                     </tbody>
                 </table>
 
-                {/*Object.entries(portfolioBackTest.decomposedPerformanceByTicker).map(([ticker, performance]) => (
+                {/*<h3>Portfolio Rebalances</h3>
+                <table className="table table-striped" aria-labelledby="tableLabel">
+                    <thead>
+                        <tr>
+                            <th>Ticker</th>
+                            <th>Preceding Period Start</th>
+                            <th>Balance Before Rebalance ($)</th>
+                            <th>Balance After Rebalance ($)</th>
+                            <th>Percentage Change (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Object.entries(portfolioBackTest.rebalancesByTicker)
+                            .flatMap(([ticker, rebalances]) =>
+                                rebalances.map(rebalance => ({
+                                    ...rebalance,
+                                    ticker
+                                }))
+                            )
+                            .sort((a, b) => new Date(a.precedingCompletedPeriodStart) - new Date(b.precedingCompletedPeriodStart))
+                            .slice(0, 10)
+                            .map((rebalance, i) => (
+                                <tr key={`${rebalance.ticker}-${i}`}>
+                                    <td>{rebalance.ticker}</td>
+                                    <td>{rebalance.precedingCompletedPeriodStart.substr(0, 10)}</td>
+                                    <td>{formatNumber(rebalance.balanceBeforeRebalance)}</td>
+                                    <td>{formatNumber(rebalance.balanceAfterRebalance)}</td>
+                                    <td>{formatNumber(rebalance.percentageChange)}</td>
+                                </tr>
+                            ))
+                        }
+                        {Object.values(portfolioBackTest.rebalancesByTicker).reduce((sum, rebalances) => sum + rebalances.length, 0) > 20 && (
+                            <tr>
+                                <td colSpan="5" style={{ textAlign: 'center' }}>
+                                    &hellip;<br />
+                                    [Additional rows hidden]<br />
+                                    &hellip;
+                                </td>
+                            </tr>
+                        )}
+                        {Object.entries(portfolioBackTest.rebalancesByTicker)
+                            .flatMap(([ticker, rebalances]) =>
+                                rebalances.map(rebalance => ({
+                                    ...rebalance,
+                                    ticker
+                                }))
+                            )
+                            .sort((a, b) => new Date(a.precedingCompletedPeriodStart) - new Date(b.precedingCompletedPeriodStart))
+                            .slice(-10)
+                            .map((rebalance, i, arr) => (
+                                <tr key={`${rebalance.ticker}-${arr.length - 10 + i}`}>
+                                    <td>{rebalance.ticker}</td>
+                                    <td>{rebalance.precedingCompletedPeriodStart.substr(0, 10)}</td>
+                                    <td>{formatNumber(rebalance.balanceBeforeRebalance)}</td>
+                                    <td>{formatNumber(rebalance.balanceAfterRebalance)}</td>
+                                    <td>{formatNumber(rebalance.percentageChange)}</td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+
+                {Object.entries(portfolioBackTest.decomposedPerformanceByTicker).map(([ticker, performance]) => (
                     <div key={ticker}>
-                        <h3>{ticker} Performance</h3>
+                        <h4>Constituent {ticker} Performance History</h4>
                         <table className="table table-striped" aria-labelledby="tableLabel">
                             <thead>
                                 <tr>
