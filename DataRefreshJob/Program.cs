@@ -34,7 +34,7 @@ class Program
         var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
         var returnsHistoryTasks = new List<Task>();
 
-        foreach (var ticker in indicesService.GetSyntheticIndexTickers().Take(1))
+        foreach (var ticker in indicesService.GetSyntheticIndexTickers())
         {
             foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
             {

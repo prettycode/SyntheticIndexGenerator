@@ -7461,3 +7461,5 @@
 {"Ticker":"DISVX","DateTime":"2024-08-19T00:00:00","Open":23.4500,"High":23.4500,"Low":23.4500,"Close":23.4500,"Volume":0,"AdjustedClose":23.4500}
 {"Ticker":"DISVX","DateTime":"2024-08-20T00:00:00","Open":23.3700,"High":23.3700,"Low":23.3700,"Close":23.3700,"Volume":0,"AdjustedClose":23.3700}
 {"Ticker":"DISVX","DateTime":"2024-08-21T00:00:00","Open":23.6000,"High":23.6000,"Low":23.6000,"Close":23.6000,"Volume":0,"AdjustedClose":23.6000}
+{"Ticker":"DISVX","DateTime":"2024-08-22T00:00:00","Open":23.4300,"High":23.4300,"Low":23.4300,"Close":23.4300,"Volume":0,"AdjustedClose":23.4300}
+{"Ticker":"DISVX","DateTime":"2024-08-23T00:00:00","Open":23.8700,"High":23.8700,"Low":23.8700,"Close":23.8700,"Volume":0,"AdjustedClose":23.8700}

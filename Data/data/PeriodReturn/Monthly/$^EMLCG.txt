@@ -113,4 +113,4 @@
 {"Ticker":"XSOE","PeriodStart":"2024-05-01T00:00:00","ReturnPercentage":1.8100634586146184761009160100,"PeriodType":1}
 {"Ticker":"XSOE","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":3.2547320871749060324630450500,"PeriodType":1}
 {"Ticker":"XSOE","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":1.2406137773424746980084884100,"PeriodType":1}
-{"Ticker":"XSOE","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":1.6123831022250886810706223800,"PeriodType":1}
+{"Ticker":"XSOE","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":1.5478877781360851338277974800,"PeriodType":1}

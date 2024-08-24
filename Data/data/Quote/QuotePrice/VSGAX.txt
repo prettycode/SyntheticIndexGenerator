@@ -3244,3 +3244,5 @@
 {"Ticker":"VSGAX","DateTime":"2024-08-19T00:00:00","Open":90.6200,"High":90.6200,"Low":90.6200,"Close":90.6200,"Volume":0,"AdjustedClose":90.6200}
 {"Ticker":"VSGAX","DateTime":"2024-08-20T00:00:00","Open":89.7400,"High":89.7400,"Low":89.7400,"Close":89.7400,"Volume":0,"AdjustedClose":89.7400}
 {"Ticker":"VSGAX","DateTime":"2024-08-21T00:00:00","Open":91.1100,"High":91.1100,"Low":91.1100,"Close":91.1100,"Volume":0,"AdjustedClose":91.1100}
+{"Ticker":"VSGAX","DateTime":"2024-08-22T00:00:00","Open":90.2500,"High":90.2500,"Low":90.2500,"Close":90.2500,"Volume":0,"AdjustedClose":90.2500}
+{"Ticker":"VSGAX","DateTime":"2024-08-23T00:00:00","Open":92.3400,"High":92.3400,"Low":92.3400,"Close":92.3400,"Volume":0,"AdjustedClose":92.3400}

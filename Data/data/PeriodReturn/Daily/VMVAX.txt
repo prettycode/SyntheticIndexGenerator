@@ -3243,3 +3243,5 @@
 {"Ticker":"VMVAX","PeriodStart":"2024-08-19T00:00:00","ReturnPercentage":0.7417315175097276264591439700,"PeriodType":0}
 {"Ticker":"VMVAX","PeriodStart":"2024-08-20T00:00:00","ReturnPercentage":-0.4103802051901025950512975300,"PeriodType":0}
 {"Ticker":"VMVAX","PeriodStart":"2024-08-21T00:00:00","ReturnPercentage":0.8968609865470852017937219700,"PeriodType":0}
+{"Ticker":"VMVAX","PeriodStart":"2024-08-22T00:00:00","ReturnPercentage":0.0360360360360360360360360400,"PeriodType":0}
+{"Ticker":"VMVAX","PeriodStart":"2024-08-23T00:00:00","ReturnPercentage":1.2247838616714697406340057600,"PeriodType":0}

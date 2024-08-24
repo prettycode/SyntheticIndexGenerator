@@ -147,7 +147,7 @@ internal class QuotesService(
             deltaQuote.Splits.RemoveAt(0);
         }
 
-        logger.LogInformation("{ticker}: Download had {newRecords}, {startDate} to {endDate}.",
+        logger.LogInformation("{ticker}: Download had {newRecords} new record(s), {startDate} to {endDate}.",
             ticker,
             $"{deltaQuote.Prices.Count}",
             $"{deltaQuote.Prices[0].DateTime:yyyy-MM-dd}",

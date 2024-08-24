@@ -5977,3 +5977,5 @@
 {"Ticker":"VSMAX","DateTime":"2024-08-19T00:00:00","Open":109.5300,"High":109.5300,"Low":109.5300,"Close":109.5300,"Volume":0,"AdjustedClose":109.5300}
 {"Ticker":"VSMAX","DateTime":"2024-08-20T00:00:00","Open":108.5000,"High":108.5000,"Low":108.5000,"Close":108.5000,"Volume":0,"AdjustedClose":108.5000}
 {"Ticker":"VSMAX","DateTime":"2024-08-21T00:00:00","Open":109.9000,"High":109.9000,"Low":109.9000,"Close":109.9000,"Volume":0,"AdjustedClose":109.9000}
+{"Ticker":"VSMAX","DateTime":"2024-08-22T00:00:00","Open":109.1400,"High":109.1400,"Low":109.1400,"Close":109.1400,"Volume":0,"AdjustedClose":109.1400}
+{"Ticker":"VSMAX","DateTime":"2024-08-23T00:00:00","Open":111.8100,"High":111.8100,"Low":111.8100,"Close":111.8100,"Volume":0,"AdjustedClose":111.8100}

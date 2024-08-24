@@ -725,3 +725,5 @@
 {"Ticker":"AVIV","DateTime":"2024-08-19T00:00:00","Open":54.1250,"High":54.4300,"Low":54.1250,"Close":54.3000,"Volume":13900,"AdjustedClose":54.3000}
 {"Ticker":"AVIV","DateTime":"2024-08-20T00:00:00","Open":54.1600,"High":54.1700,"Low":53.9300,"Close":54.0200,"Volume":24200,"AdjustedClose":54.0200}
 {"Ticker":"AVIV","DateTime":"2024-08-21T00:00:00","Open":54.3400,"High":54.5300,"Low":54.2500,"Close":54.4800,"Volume":18400,"AdjustedClose":54.4800}
+{"Ticker":"AVIV","DateTime":"2024-08-22T00:00:00","Open":54.6000,"High":54.6000,"Low":54.1900,"Close":54.2500,"Volume":44300,"AdjustedClose":54.2500}
+{"Ticker":"AVIV","DateTime":"2024-08-23T00:00:00","Open":54.6300,"High":55.3200,"Low":54.6200,"Close":55.3200,"Volume":16000,"AdjustedClose":55.3200}

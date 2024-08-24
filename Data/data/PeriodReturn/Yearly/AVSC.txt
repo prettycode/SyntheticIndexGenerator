@@ -1,2 +1,2 @@
 {"Ticker":"AVSC","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":19.677598928160323061536429340,"PeriodType":2}
-{"Ticker":"AVSC","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":4.4807890162131479050626175200,"PeriodType":2}
+{"Ticker":"AVSC","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":7.4175250213849568161839776400,"PeriodType":2}
