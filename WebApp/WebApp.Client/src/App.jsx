@@ -68,6 +68,11 @@ function App() {
     const contents = portfolioBackTest === undefined
         ? <p>Loading&hellip;</p>
         : <>
+            <div style={{maxWidth: '768px'}}>
+                All calculations are derived from adjusted close prices, meaning dividends are automatically reinvested.
+                Returns are therefore <em>pre</em>-tax&mdash;they are not adjusted for income tax on dividends or from
+                rebalance events.
+            </div>
 
             <h3>Configuration</h3>
             <div style={{ textAlign: 'left', marginBottom: '20px' }}>
