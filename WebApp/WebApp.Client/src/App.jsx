@@ -116,16 +116,28 @@ function App() {
                             <td>{portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].periodStart.substr(0, 10)}</td>
                         </tr>
                         <tr>
-                            <td>CAGR (%):</td>
-                            <td>{formatNumber(portfolioBackTest.cagr * 100)}</td>
+                            <td>Period(s):</td>
+                            <td>{portfolioBackTest.aggregatePerformance.length.toLocaleString()}</td>
+                        </tr>
+                        <tr>
+                            <td>CAGR:</td>
+                            <td>{formatNumber(portfolioBackTest.cagr * 100)}%</td>
+                        </tr>
+                        <tr>
+                            <td>Time to 2x @ CAGR:</td>
+                            <td>{formatNumber(portfolioBackTest.yearsBeforeDoubling)} years</td>
                         </tr>
                         <tr>
                             <td>Rebalances:</td>
-                            <td>{portfolioBackTest.rebalancesByTicker[Object.keys(portfolioBackTest.rebalancesByTicker)[0]].length}</td>
+                            <td>
+                                {portfolioBackTest.rebalancesByTicker[Object.keys(portfolioBackTest.rebalancesByTicker)[0]].length.toLocaleString()}
+                            </td>
                         </tr>
                         <tr>
-                            <td>Years to 2x:</td>
-                            <td>{formatNumber(portfolioBackTest.yearsBeforeDoubling)}</td>
+                            <td>Rebalance Strategy:</td>
+                            <td>
+                                {rebalanceOptions.find(option => option.value === portfolioBackTest.rebalanceStrategy).name}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -150,7 +162,7 @@ function App() {
                                 tickFormatter={(value) => '$' + formatNumber(value)}
                             />
                             <Tooltip
-                                labelFormatter={(label) => new Date(label).toLocaleDateString()}
+                                labelFormatter={(label) => ['Period Start', new Date(label).toLocaleDateString()]}
                                 formatter={(value) => ['$' + formatNumber(value), 'Ending Balance']}
                             />
                             <Line type="monotone" dataKey="endingBalance" stroke="#8884d8" dot={false} />
