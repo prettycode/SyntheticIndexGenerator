@@ -81,18 +81,30 @@ internal class QuotesService(
         var ticker = staleQuote.Ticker;
         var staleHistoryLastTick = staleQuote.Prices[^1];
         var staleHistoryLastTickDate = staleHistoryLastTick.DateTime;
+        var staleQuoteCopy = new Quote(ticker)
+        {
+            Dividends = staleQuote.Dividends,
+            Prices = staleQuote.Prices,
+            Splits = staleQuote.Splits
+        };
+
+        if (!IsNewDataLikelyAvailable(staleHistoryLastTickDate))
+        {
+            logger.LogInformation(
+                "{ticker}: The market has not traded since {endDate}. Skipping new data download.",
+                ticker,
+                $"{staleHistoryLastTickDate:yyyy-MM-dd}");
+
+            return (false, staleQuoteCopy);
+        }
+
         var deltaQuote = await DownloadQuote(ticker, staleHistoryLastTickDate);
 
         if (deltaQuote == null)
         {
             logger.LogInformation("{ticker}: Download had no new history.", ticker);
 
-            return (false, new Quote(ticker)
-            {
-                Dividends = staleQuote.Dividends,
-                Prices = staleQuote.Prices,
-                Splits = staleQuote.Splits
-            });
+            return (false, staleQuoteCopy);
         }
 
         if (deltaQuote.Dividends == null)
@@ -159,6 +171,46 @@ internal class QuotesService(
             Prices = [.. staleQuote.Prices, .. deltaQuote.Prices],
             Splits = [.. staleQuote.Splits, .. deltaQuote.Splits]
         });
+    }
+
+    private static bool IsNewDataLikelyAvailable(DateTime lastDataPoint)
+    {
+        // Define the New York time zone
+        TimeZoneInfo newYorkTimeZone = TimeZoneInfo.FindSystemTimeZoneById("America/New_York");
+
+        // Convert the last data point to New York time
+        DateTime lastDataPointNY = TimeZoneInfo.ConvertTime(lastDataPoint, newYorkTimeZone).Date;
+
+        // Get the current date and time in New York
+        DateTime currentDateNY = TimeZoneInfo.ConvertTime(DateTime.UtcNow, newYorkTimeZone).Date;
+
+        if (currentDateNY <= lastDataPointNY)
+        {
+            throw new InvalidOperationException("Last data point should not be more recent than right now.");
+        }
+
+        int businessDays = 0;
+        DateTime date = lastDataPointNY.AddDays(1);
+
+        while (date <= currentDateNY)
+        {
+            // Check if it's a weekday (Monday to Friday)
+            if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
+            {
+                businessDays++;
+
+                // If we find at least one business day, new data is likely available
+                if (businessDays > 0)
+                {
+                    return true;
+                }
+            }
+
+            date = date.AddDays(1);
+        }
+
+        // If we've gone through all days and found no business days, no new data is likely available
+        return false;
     }
 
     private async Task<Quote> DownloadFreshQuote(string ticker)
