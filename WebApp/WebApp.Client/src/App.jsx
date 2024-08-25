@@ -241,7 +241,7 @@ function App() {
                     </tbody>
                 </table>
 
-                <h3>Performance Chart</h3>
+                <h3>Portfolio Value</h3>
                 <div>
                     <HighchartsReact highcharts={Highcharts} options={chartOptions} />
                 </div>
@@ -256,52 +256,11 @@ function App() {
                     </label>
                 </div>
 
-                <h3>Drawdowns Chart</h3>
+                <h3>Portfolio Drawdowns</h3>
                 <div>
                     <HighchartsReact highcharts={Highcharts} options={drawdownChartOptions} />
                 </div>
 
-                <h3>Portfolio Performance History</h3>
-                <table className="table table-striped" aria-labelledby="tableLabel">
-                    <thead>
-                        <tr>
-                            <th>Period Start Date</th>
-                            <th>Return (%)</th>
-                            <th>Start Balance ($)</th>
-                            <th>Ending Balance ($)</th>
-                            <th>Balance Increase ($)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {portfolioBackTest.aggregatePerformance.slice(0, 10).map((tick, i) => (
-                            <tr key={i}>
-                                <td>{tick.periodStart.substr(0, 10)}</td>
-                                <td>{formatNumber(tick.returnPercentage)}</td>
-                                <td>{formatNumber(tick.startingBalance)}</td>
-                                <td>{formatNumber(tick.endingBalance)}</td>
-                                <td>{formatNumber(tick.balanceIncrease)}</td>
-                            </tr>
-                        ))}
-                        {portfolioBackTest.aggregatePerformance.length > 20 && (
-                            <tr>
-                                <td colSpan="5" style={{ textAlign: 'center' }}>
-                                    &hellip;<br />
-                                    [{(portfolioBackTest.aggregatePerformance.length - 20).toLocaleString()} rows]<br />
-                                    &hellip;
-                                </td>
-                            </tr>
-                        )}
-                        {portfolioBackTest.aggregatePerformance.slice(-10).map((tick, i) => (
-                            <tr key={i + portfolioBackTest.aggregatePerformance.length - 10}>
-                                <td>{tick.periodStart.substr(0, 10)}</td>
-                                <td>{formatNumber(tick.returnPercentage)}</td>
-                                <td>{formatNumber(tick.startingBalance)}</td>
-                                <td>{formatNumber(tick.endingBalance)}</td>
-                                <td>{formatNumber(tick.balanceIncrease)}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
             </div>
         </>;
 
