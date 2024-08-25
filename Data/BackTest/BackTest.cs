@@ -6,6 +6,8 @@ public struct BackTest
 {
     public required BackTestPeriodReturn[] AggregatePerformance { get; set; }
 
+    public required BackTestPeriodReturn[] AggregatePerformanceDrawdowns { get; set; }
+
     public required Dictionary<string, BackTestPeriodReturn[]> DecomposedPerformanceByTicker { get; set; }
 
     /// <summary>

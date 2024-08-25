@@ -39,6 +39,7 @@ function App() {
     const [isLoadingBackTest, setIsLoadingBackTest] = useState(true);
     const [isLogScale, setIsLogScale] = useState(false);
     const [chartOptions, setChartOptions] = useState({});
+    const [drawdownChartOptions, setDrawdownChartOptions] = useState({});
 
     useEffect(() => {
         setIsLoadingBackTest(true);
@@ -51,6 +52,7 @@ function App() {
     useEffect(() => {
         if (portfolioBackTest) {
             updateChartOptions();
+            updateDrawdownChartOptions();
         }
     }, [portfolioBackTest, isLogScale]);
 
@@ -97,6 +99,7 @@ function App() {
                 type: isLogScale ? 'logarithmic' : 'linear'
             },
             series: [{
+                lineWidth: 1,
                 name: 'Ending Balance',
                 data: portfolioBackTest.aggregatePerformance.map(item => [
                     new Date(item.periodStart).getTime(),
@@ -106,10 +109,44 @@ function App() {
         });
     };
 
+    const updateDrawdownChartOptions = () => {
+        setDrawdownChartOptions({
+            title: {
+                text: null
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Drawdown'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value + '%';
+                    }
+                }
+            },
+            series: [{
+                lineWidth: 1,
+                name: 'Drawdown',
+                data: portfolioBackTest.aggregatePerformanceDrawdowns.map(item => [
+                    new Date(item.periodStart).getTime(),
+                    item.returnPercentage
+                ])
+            }],
+            tooltip: {
+                pointFormatter: function () {
+                    return `<span style="color:${this.color}">\u25CF</span> ${this.series.name}: <b>${this.y.toFixed(2)}%</b><br/>`;
+                }
+            }
+        });
+    };
+
     const contents = portfolioBackTest === undefined
         ? <p>Loading&hellip;</p>
         : <>
-            <div style={{ maxWidth: '768px' }}>
+            <div>
                 All performance calculations assume dividends reinvested and 0% income tax on dividends.
             </div>
 
@@ -207,6 +244,11 @@ function App() {
                         />
                         Logarithmic Scale
                     </label>
+                </div>
+
+                <h3>Drawdowns Chart</h3>
+                <div>
+                    <HighchartsReact highcharts={Highcharts} options={drawdownChartOptions} />
                 </div>
 
                 <h3>Portfolio Performance History</h3>

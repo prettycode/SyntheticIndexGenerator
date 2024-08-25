@@ -64,9 +64,11 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
             includeIncompleteEndingPeriod);
 
         var aggregated = AggregateDecomposedPortfolioBackTest(decomposed);
+        var aggregatedDrawdowns = GetBackTestPeriodReturnDrawdowns(aggregated);
         var backtest = new BackTest()
         {
             AggregatePerformance = aggregated,
+            AggregatePerformanceDrawdowns = aggregatedDrawdowns,
             DecomposedPerformanceByTicker = decomposed,
             RebalancesByTicker = rebalances,
             RebalanceStrategy = rebalanceStrategy,
@@ -74,6 +76,48 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
         };
 
         return backtest;
+    }
+
+    private static BackTestPeriodReturn[] GetBackTestPeriodReturnDrawdowns(BackTestPeriodReturn[] returns)
+    {
+        var drawdowns = new List<BackTestPeriodReturn>();
+        var inDrawdown = false;
+        var returnsCount = returns.Length;
+        var drawdownStartingBalance = 0m;
+
+        for (var i = 0; i < returnsCount; i++)
+        {
+            var currentReturn = returns[i];
+
+            inDrawdown = currentReturn.EndingBalance < drawdownStartingBalance;
+
+            if (!inDrawdown)
+            {
+                drawdownStartingBalance = currentReturn.EndingBalance;
+
+                drawdowns.Add(new BackTestPeriodReturn()
+                {
+                    PeriodStart = currentReturn.PeriodStart,
+                    PeriodType = currentReturn.PeriodType,
+                    Ticker = currentReturn.Ticker,
+                    StartingBalance = currentReturn.StartingBalance,
+                    ReturnPercentage = 0
+                });
+
+                continue;
+            }
+
+            drawdowns.Add(new BackTestPeriodReturn()
+            {
+                PeriodStart = currentReturn.PeriodStart,
+                PeriodType = currentReturn.PeriodType,
+                Ticker = currentReturn.Ticker,
+                StartingBalance = currentReturn.StartingBalance,
+                ReturnPercentage = (-1 * (1 - (currentReturn.StartingBalance / drawdownStartingBalance)) * 100)
+            });
+        }
+
+        return [.. drawdowns];
     }
 
     private static BackTestPeriodReturn[] AggregateDecomposedPortfolioBackTest(
