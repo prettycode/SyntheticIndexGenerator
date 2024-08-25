@@ -51,7 +51,7 @@ function App() {
 
     useEffect(() => {
         if (portfolioBackTest) {
-            updateChartOptions();
+            updatePerformanceChartOptions();
             updateDrawdownChartOptions();
         }
     }, [portfolioBackTest, isLogScale]);
@@ -84,7 +84,7 @@ function App() {
             currency: 'USD',
         }).format(number);
 
-    const updateChartOptions = () => {
+    const updatePerformanceChartOptions = () => {
         setChartOptions({
             title: {
                 text: null
@@ -94,7 +94,12 @@ function App() {
             },
             yAxis: {
                 title: {
-                    text: 'Ending Balance ($)'
+                    text: 'Portfolio Balance'
+                },
+                labels: {
+                    formatter: function () {
+                        return '$' + this.axis.defaultLabelFormatter.call(this);
+                    }
                 },
                 type: isLogScale ? 'logarithmic' : 'linear'
             },
@@ -125,7 +130,8 @@ function App() {
                     formatter: function () {
                         return this.value + '%';
                     }
-                }
+                },
+                max: 0
             },
             series: [{
                 lineWidth: 1,
@@ -215,6 +221,10 @@ function App() {
                         <tr>
                             <td>Time to 2x @ CAGR:</td>
                             <td>{formatNumber(portfolioBackTest.yearsBeforeDoubling)} years</td>
+                        </tr>
+                        <tr>
+                            <td>Maximum Drawdown:</td>
+                            <td>{formatNumber(portfolioBackTest.maximumDrawdownPercentage)}%</td>
                         </tr>
                         <tr>
                             <td>Rebalances:</td>

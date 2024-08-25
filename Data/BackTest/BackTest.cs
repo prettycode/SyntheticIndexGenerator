@@ -48,4 +48,6 @@ public struct BackTest
     }
 
     public readonly double YearsBeforeDoubling => Math.Log(2) / Math.Log(1 + Cagr);
+
+    public readonly decimal MaximumDrawdownPercentage => AggregatePerformanceDrawdowns.MinBy(dd => dd.ReturnPercentage).ReturnPercentage;
 }
