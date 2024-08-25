@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 import './App.css';
 
 function App() {
@@ -7,6 +8,9 @@ function App() {
         { name: 'Default ($^USSCV 50%, $^USLCB 50%)', value: 'default' },
         { name: 'Aggressive ($^USSCV 70%, $^USLCB 30%)', value: 'aggressive' },
         { name: 'Conservative ($^USSCV 30%, $^USLCB 70%)', value: 'conservative' },
+        { name: 'AVUV', value: 'AVUV' },
+        { name: 'SPY', value: 'SPY' },
+        { name: 'SPY/AVUV', value: 'SPY/AVUV' }
     ];
 
     const periodOptions = [
@@ -34,6 +38,7 @@ function App() {
     const [rebalanceFrequency, setRebalanceFrequency] = useState(annualRebalanceOptionValue);
     const [isLoadingBackTest, setIsLoadingBackTest] = useState(true);
     const [isLogScale, setIsLogScale] = useState(false);
+    const [chartOptions, setChartOptions] = useState({});
 
     useEffect(() => {
         setIsLoadingBackTest(true);
@@ -42,6 +47,12 @@ function App() {
             setIsLoadingBackTest(false);
         })();
     }, [selectedPortfolio, periodType, rebalanceFrequency]);
+
+    useEffect(() => {
+        if (portfolioBackTest) {
+            updateChartOptions();
+        }
+    }, [portfolioBackTest, isLogScale]);
 
     const handlePortfolioChange = (event) => {
         setSelectedPortfolio(event.target.value);
@@ -65,10 +76,40 @@ function App() {
             maximumFractionDigits: 2,
         });
 
+    const formatCurrency = (number) =>
+        new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        }).format(number);
+
+    const updateChartOptions = () => {
+        setChartOptions({
+            title: {
+                text: null
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Ending Balance ($)'
+                },
+                type: isLogScale ? 'logarithmic' : 'linear'
+            },
+            series: [{
+                name: 'Ending Balance',
+                data: portfolioBackTest.aggregatePerformance.map(item => [
+                    new Date(item.periodStart).getTime(),
+                    item.endingBalance
+                ])
+            }]
+        });
+    };
+
     const contents = portfolioBackTest === undefined
         ? <p>Loading&hellip;</p>
         : <>
-            <div style={{maxWidth: '768px'}}>
+            <div style={{ maxWidth: '768px' }}>
                 All performance calculations assume dividends reinvested and 0% income tax on dividends.
             </div>
 
@@ -123,6 +164,14 @@ function App() {
                             <td>{portfolioBackTest.aggregatePerformance.length.toLocaleString()}</td>
                         </tr>
                         <tr>
+                            <td>Starting Balance:</td>
+                            <td>{formatCurrency(portfolioBackTest.aggregatePerformance[0].startingBalance)}</td>
+                        </tr>
+                        <tr>
+                            <td>Ending Balance:</td>
+                            <td>{formatCurrency(portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].endingBalance)}</td>
+                        </tr>
+                        <tr>
                             <td>CAGR:</td>
                             <td>{formatNumber(portfolioBackTest.cagr * 100)}%</td>
                         </tr>
@@ -145,32 +194,9 @@ function App() {
                     </tbody>
                 </table>
 
-
                 <h3>Performance Chart</h3>
-                <div style={{ width: 750, height: 400 }}>
-                    <ResponsiveContainer>
-                        <LineChart
-                            data={portfolioBackTest.aggregatePerformance}
-                            margin={{ top: 0, right: 0, left: 20, bottom: 0 }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis
-                                dataKey="periodStart"
-                                tickFormatter={(tick) => new Date(tick).toLocaleDateString()}
-                            />
-                            <YAxis
-                                scale={isLogScale ? 'log' : 'auto'}
-                                domain={isLogScale ? ['auto', 'auto'] : [0, 'auto']}
-                                allowDataOverflow={false}
-                                tickFormatter={(value) => '$' + formatNumber(value)}
-                            />
-                            <Tooltip
-                                labelFormatter={(label) => ['Period Start', new Date(label).toLocaleDateString()]}
-                                formatter={(value) => ['$' + formatNumber(value), 'Ending Balance']}
-                            />
-                            <Line type="monotone" dataKey="endingBalance" stroke="#8884d8" dot={false} />
-                        </LineChart>
-                    </ResponsiveContainer>
+                <div>
+                    <HighchartsReact highcharts={Highcharts} options={chartOptions} />
                 </div>
                 <div style={{ marginTop: '0.5em', textAlign: 'center' }}>
                     <label>
@@ -224,115 +250,6 @@ function App() {
                         ))}
                     </tbody>
                 </table>
-
-                {/*<h3>Portfolio Rebalances</h3>
-                <table className="table table-striped" aria-labelledby="tableLabel">
-                    <thead>
-                        <tr>
-                            <th>Ticker</th>
-                            <th>Preceding Period Start</th>
-                            <th>Balance Before Rebalance ($)</th>
-                            <th>Balance After Rebalance ($)</th>
-                            <th>Percentage Change (%)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Object.entries(portfolioBackTest.rebalancesByTicker)
-                            .flatMap(([ticker, rebalances]) =>
-                                rebalances.map(rebalance => ({
-                                    ...rebalance,
-                                    ticker
-                                }))
-                            )
-                            .sort((a, b) => new Date(a.precedingCompletedPeriodStart) - new Date(b.precedingCompletedPeriodStart))
-                            .slice(0, 10)
-                            .map((rebalance, i) => (
-                                <tr key={`${rebalance.ticker}-${i}`}>
-                                    <td>{rebalance.ticker}</td>
-                                    <td>{rebalance.precedingCompletedPeriodStart.substr(0, 10)}</td>
-                                    <td>{formatNumber(rebalance.balanceBeforeRebalance)}</td>
-                                    <td>{formatNumber(rebalance.balanceAfterRebalance)}</td>
-                                    <td>{formatNumber(rebalance.percentageChange)}</td>
-                                </tr>
-                            ))
-                        }
-                        {Object.values(portfolioBackTest.rebalancesByTicker).reduce((sum, rebalances) => sum + rebalances.length, 0) > 20 && (
-                            <tr>
-                                <td colSpan="5" style={{ textAlign: 'center' }}>
-                                    &hellip;<br />
-                                    [Additional rows hidden]<br />
-                                    &hellip;
-                                </td>
-                            </tr>
-                        )}
-                        {Object.entries(portfolioBackTest.rebalancesByTicker)
-                            .flatMap(([ticker, rebalances]) =>
-                                rebalances.map(rebalance => ({
-                                    ...rebalance,
-                                    ticker
-                                }))
-                            )
-                            .sort((a, b) => new Date(a.precedingCompletedPeriodStart) - new Date(b.precedingCompletedPeriodStart))
-                            .slice(-10)
-                            .map((rebalance, i, arr) => (
-                                <tr key={`${rebalance.ticker}-${arr.length - 10 + i}`}>
-                                    <td>{rebalance.ticker}</td>
-                                    <td>{rebalance.precedingCompletedPeriodStart.substr(0, 10)}</td>
-                                    <td>{formatNumber(rebalance.balanceBeforeRebalance)}</td>
-                                    <td>{formatNumber(rebalance.balanceAfterRebalance)}</td>
-                                    <td>{formatNumber(rebalance.percentageChange)}</td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
-
-                {Object.entries(portfolioBackTest.decomposedPerformanceByTicker).map(([ticker, performance]) => (
-                    <div key={ticker}>
-                        <h4>Constituent {ticker} Performance History</h4>
-                        <table className="table table-striped" aria-labelledby="tableLabel">
-                            <thead>
-                                <tr>
-                                    <th>Period Start Date</th>
-                                    <th>Return (%)</th>
-                                    <th>Start Balance ($)</th>
-                                    <th>Ending Balance ($)</th>
-                                    <th>Balance Increase ($)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {performance.slice(0, 10).map((tick, i) => (
-                                    <tr key={i}>
-                                        <td>{tick.periodStart.substr(0, 10)}</td>
-                                        <td>{formatNumber(tick.returnPercentage)}</td>
-                                        <td>{formatNumber(tick.startingBalance)}</td>
-                                        <td>{formatNumber(tick.endingBalance)}</td>
-                                        <td>{formatNumber(tick.balanceIncrease)}</td>
-                                    </tr>
-                                ))}
-                                {performance.length > 20 && (
-                                    <tr>
-                                        <td colSpan="5" style={{ textAlign: 'center' }}>
-                                            &hellip;<br />
-                                            [{(performance.length - 20).toLocaleString()} rows]<br />
-                                            &hellip;
-                                        </td>
-                                    </tr>
-                                )}
-                                {performance.slice(-10).map((tick, i) => (
-                                    <tr key={i + performance.length - 10}>
-                                        <td>{tick.periodStart.substr(0, 10)}</td>
-                                        <td>{formatNumber(tick.returnPercentage)}</td>
-                                        <td>{formatNumber(tick.startingBalance)}</td>
-                                        <td>{formatNumber(tick.endingBalance)}</td>
-                                        <td>{formatNumber(tick.balanceIncrease)}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                ))*/}
-
             </div>
         </>;
 
@@ -342,6 +259,7 @@ function App() {
             {contents}
         </div>
     );
+
     async function fetchPortfolio(portfolioType, periodType, rebalanceFrequency) {
         let portfolioConstituents;
         switch (portfolioType) {
@@ -357,6 +275,22 @@ function App() {
                     { Ticker: '$^USLCB', Percentage: 70 }
                 ];
                 break;
+            case 'AVUV':
+                portfolioConstituents = [
+                    { Ticker: 'AVUV', Percentage: 100 }
+                ];
+                break;
+            case 'SPY':
+                portfolioConstituents = [
+                    { Ticker: 'SPY', Percentage: 100 }
+                ];
+                break;
+            case 'SPY/AVUV':
+                portfolioConstituents = [
+                    { Ticker: 'SPY', Percentage: 50 },
+                    { Ticker: 'AVUV', Percentage: 50 }
+                ];
+                break;
             default:
                 portfolioConstituents = [
                     { Ticker: '$^USSCV', Percentage: 50 },
@@ -370,7 +304,7 @@ function App() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                startingBalance: 100,
+                startingBalance: 10000,
                 periodType,
                 rebalanceStrategy: rebalanceFrequency,
                 portfolioConstituents
