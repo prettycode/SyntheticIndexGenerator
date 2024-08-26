@@ -87,6 +87,7 @@ function App() {
     const updatePerformanceChartOptions = () => {
         setChartOptions({
             chart: {
+                type: 'spline',
                 zoomType: 'x'
             },
             title: {
@@ -122,13 +123,17 @@ function App() {
                         item.endingBalance
                     ])
                 }
-            ]
+            ],
+            tooltip: {
+                shared: true
+            }
         });
     };
 
     const updateDrawdownChartOptions = () => {
         setDrawdownChartOptions({
             chart: {
+                type: 'spline',
                 zoomType: 'x'
             },
             title: {
