@@ -86,6 +86,9 @@ function App() {
 
     const updatePerformanceChartOptions = () => {
         setChartOptions({
+            chart: {
+                zoomType: 'x'
+            },
             title: {
                 text: null
             },
@@ -103,19 +106,31 @@ function App() {
                 },
                 type: isLogScale ? 'logarithmic' : 'linear'
             },
-            series: [{
-                lineWidth: 1,
-                name: 'Ending Balance',
-                data: portfolioBackTest.aggregatePerformance.map(item => [
-                    new Date(item.periodStart).getTime(),
-                    item.endingBalance
-                ])
-            }]
+            series: [
+                {
+                    lineWidth: 1,
+                    name: 'Starting Balance',
+                    data: portfolioBackTest.aggregatePerformance.map(item => [
+                        new Date(item.periodStart).getTime(),
+                        item.startingBalance
+                    ])
+                }, {
+                    lineWidth: 1,
+                    name: 'Ending Balance',
+                    data: portfolioBackTest.aggregatePerformance.map(item => [
+                        new Date(item.periodStart).getTime(),
+                        item.endingBalance
+                    ])
+                }
+            ]
         });
     };
 
     const updateDrawdownChartOptions = () => {
         setDrawdownChartOptions({
+            chart: {
+                zoomType: 'x'
+            },
             title: {
                 text: null
             },
@@ -175,9 +190,10 @@ function App() {
         if (portfolioBackTest) {
             const csvData = portfolioBackTest.aggregatePerformance.map(item => [
                 item.periodStart.substr(0, 10),
+                item.startingBalance,
                 item.endingBalance
             ]);
-            const headers = ['Date', 'Portfolio Value'];
+            const headers = ['Period Start', 'Period Starting Balance', 'Period Ending Balance'];
             const csvContent = generateCSV(csvData, headers);
             downloadCSV(csvContent, 'portfolio_value.csv');
         }
@@ -189,7 +205,7 @@ function App() {
                 item.periodStart.substr(0, 10),
                 item.returnPercentage
             ]);
-            const headers = ['Date', 'Drawdown Percentage'];
+            const headers = ['Period Start', 'Period Drawdown Percentage '];
             const csvContent = generateCSV(csvData, headers);
             downloadCSV(csvContent, 'portfolio_drawdown.csv');
         }
