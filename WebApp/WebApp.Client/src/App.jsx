@@ -3,6 +3,31 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import './App.css';
 
+function getLocaleSeparators() {
+    const format = new Intl.NumberFormat(navigator.language).formatToParts(1234.5);
+    const separators = {};
+    format.forEach(part => {
+        if (part.type === 'group') {
+            separators.thousandsSep = part.value;
+        } else if (part.type === 'decimal') {
+            separators.decimalPoint = part.value;
+        }
+    });
+    return separators;
+}
+
+const { thousandsSep, decimalPoint } = getLocaleSeparators();
+
+Highcharts.setOptions({
+    lang: {
+        thousandsSep: thousandsSep,
+        decimalPoint: decimalPoint
+    },
+    tooltip: {
+        valueDecimals: 2
+    }
+});
+
 function App() {
     const portfolioOptions = [
         { name: 'Default ($^USSCV 50%, $^USLCB 50%)', value: 'default' },
