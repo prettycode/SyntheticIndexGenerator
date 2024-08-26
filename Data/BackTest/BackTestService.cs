@@ -83,7 +83,61 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
     private static BackTestDrawdownPeriod[] GetBackTestPeriodReturnDrawdownPeriods(BackTestPeriodReturn[] returns)
     {
         var result = new List<BackTestDrawdownPeriod>();
-        var returnsEnumerator = returns.GetEnumerator();
+
+        var returnsCount = returns.Length;
+        var drawdownStartingBalance = returns[0].StartingBalance;
+        var inDrawdown = returns[0].ReturnPercentage < 0;
+        DateTime? drawdownFirstPeriodStart = !inDrawdown ? null : returns[0].PeriodStart;
+
+        for (var i = 0; i < returnsCount; i++)
+        {
+            var wasInDrawdown = inDrawdown;
+            var currentReturn = returns[i];
+
+            inDrawdown = currentReturn.EndingBalance < drawdownStartingBalance;
+
+            if (!inDrawdown)
+            {
+                drawdownStartingBalance = currentReturn.EndingBalance;
+            }
+
+            // Drawdown or positive returns continue
+            if ((wasInDrawdown && inDrawdown) || (!wasInDrawdown && !inDrawdown))
+            {
+                continue;
+            }
+
+            // Drawdown ended
+            if ((wasInDrawdown && !inDrawdown) || (inDrawdown && i == returnsCount - 1))
+            {
+                if (drawdownFirstPeriodStart == null)
+                {
+                    throw new InvalidOperationException("Drawdown first period start is null.");
+                }
+
+                result.Add(new BackTestDrawdownPeriod(currentReturn)
+                {
+                    Ticker = currentReturn.Ticker,
+                    FirstNegativePeriodStart = drawdownFirstPeriodStart.Value,
+                    FirstPositivePeriodStart = currentReturn.PeriodStart
+                });
+
+                drawdownFirstPeriodStart = null;
+
+                continue;
+            }
+
+            // Drawdown started
+            if (!wasInDrawdown && inDrawdown)
+            {
+                drawdownFirstPeriodStart = currentReturn.PeriodStart;
+
+                continue;
+            }
+
+            throw new InvalidOperationException();
+        }
+
 
         return [.. result];
     }
