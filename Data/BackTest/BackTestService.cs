@@ -64,13 +64,11 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
             includeIncompleteEndingPeriod);
 
         var aggregated = AggregateDecomposedPortfolioBackTest(decomposed);
-        var aggregatedDrawdownReturns = GetBackTestPeriodReturnDrawdownReturns(aggregated);
-        var aggregatedDrawdownPeriods = GetBackTestPeriodReturnDrawdownPeriods(aggregated);
+        var aggregatedDrawdowns = GetBackTestPeriodReturnDrawdowns(aggregated);
         var backtest = new BackTest()
         {
             AggregatePerformance = aggregated,
-            AggregatePerformanceDrawdownsReturns = aggregatedDrawdownReturns,
-            AggregatePerformanceDrawdownPeriods = aggregatedDrawdownPeriods,
+            AggregatePerformanceDrawdowns = aggregatedDrawdowns,
             DecomposedPerformanceByTicker = decomposed,
             RebalancesByTicker = rebalances,
             RebalanceStrategy = rebalanceStrategy,
@@ -80,81 +78,12 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
         return backtest;
     }
 
-    private static BackTestDrawdownPeriod[] GetBackTestPeriodReturnDrawdownPeriods(BackTestPeriodReturn[] returns)
-    {
-        var result = new List<BackTestDrawdownPeriod>();
-
-        var returnsCount = returns.Length;
-        var drawdownStartingBalance = returns[0].StartingBalance;
-        var inDrawdown = returns[0].ReturnPercentage < 0;
-        DateTime? drawdownFirstPeriodStart = !inDrawdown ? null : returns[0].PeriodStart;
-
-        for (var i = 0; i < returnsCount; i++)
-        {
-            var wasInDrawdown = inDrawdown;
-            var currentReturn = returns[i];
-
-            inDrawdown = currentReturn.EndingBalance < drawdownStartingBalance;
-
-            if (!inDrawdown)
-            {
-                drawdownStartingBalance = currentReturn.EndingBalance;
-            }
-
-            // Drawdown or positive returns continue
-            if ((wasInDrawdown && inDrawdown) || (!wasInDrawdown && !inDrawdown))
-            {
-                continue;
-            }
-
-            var drawdownIsUnfinished = inDrawdown && i == returnsCount - 1;
-
-            // Drawdown started
-            if (!wasInDrawdown && inDrawdown)
-            {
-                drawdownFirstPeriodStart = currentReturn.PeriodStart;
-
-                if (!drawdownIsUnfinished)
-                {
-                    continue;
-                }
-            }
-
-            // Drawdown ended
-            var drawdownEndsWithCurrentReturn = wasInDrawdown && !inDrawdown;
-
-            if (drawdownIsUnfinished || drawdownEndsWithCurrentReturn)
-            {
-                if (drawdownFirstPeriodStart == null)
-                {
-                    throw new InvalidOperationException("Drawdown first period start is null.");
-                }
-
-                result.Add(new BackTestDrawdownPeriod(currentReturn)
-                {
-                    Ticker = currentReturn.Ticker,
-                    FirstNegativePeriodStart = drawdownFirstPeriodStart.Value,
-                    FirstPositivePeriodStart = currentReturn.PeriodStart
-                });
-
-                drawdownFirstPeriodStart = null;
-
-                continue;
-            }
-
-            throw new InvalidOperationException();
-        }
-
-
-        return [.. result];
-    }
-
-    private static BackTestPeriodReturn[] GetBackTestPeriodReturnDrawdownReturns(BackTestPeriodReturn[] returns)
+    private static BackTestPeriodReturn[] GetBackTestPeriodReturnDrawdowns(BackTestPeriodReturn[] returns)
     {
         var drawdowns = new List<BackTestPeriodReturn>();
+        var inDrawdown = false;
         var returnsCount = returns.Length;
         var drawdownStartingBalance = returns[0].StartingBalance;
-        var inDrawdown = returns[0].ReturnPercentage < 0;
 
         for (var i = 0; i < returnsCount; i++)
         {
@@ -171,7 +100,6 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
                     PeriodStart = currentReturn.PeriodStart,
                     PeriodType = currentReturn.PeriodType,
                     Ticker = currentReturn.Ticker,
-                    // TODO StartingBalance is not appropriate, should be null
                     StartingBalance = currentReturn.StartingBalance,
                     ReturnPercentage = 0
                 });
@@ -184,9 +112,8 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
                 PeriodStart = currentReturn.PeriodStart,
                 PeriodType = currentReturn.PeriodType,
                 Ticker = currentReturn.Ticker,
-                // TODO StartingBalance is not appropriate, should be null
                 StartingBalance = currentReturn.StartingBalance,
-                ReturnPercentage = ((currentReturn.EndingBalance / drawdownStartingBalance - 1) * 100)
+                ReturnPercentage = (-1 * (1 - (currentReturn.StartingBalance / drawdownStartingBalance)) * 100)
             });
         }
 
