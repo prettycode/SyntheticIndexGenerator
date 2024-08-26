@@ -149,6 +149,52 @@ function App() {
         });
     };
 
+    const generateCSV = (data, headers) => {
+        const csvContent = [
+            headers.join(','),
+            ...data.map(row => row.join(','))
+        ].join('\n');
+        return csvContent;
+    };
+
+    const downloadCSV = (csvContent, fileName) => {
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', fileName);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    };
+
+    const handleSavePortfolioValueCSV = () => {
+        if (portfolioBackTest) {
+            const csvData = portfolioBackTest.aggregatePerformance.map(item => [
+                item.periodStart.substr(0, 10),
+                item.endingBalance
+            ]);
+            const headers = ['Date', 'Portfolio Value'];
+            const csvContent = generateCSV(csvData, headers);
+            downloadCSV(csvContent, 'portfolio_value.csv');
+        }
+    };
+
+    const handleSaveDrawdownCSV = () => {
+        if (portfolioBackTest) {
+            const csvData = portfolioBackTest.aggregatePerformanceDrawdownsReturns.map(item => [
+                item.periodStart.substr(0, 10),
+                item.returnPercentage
+            ]);
+            const headers = ['Date', 'Drawdown Percentage'];
+            const csvContent = generateCSV(csvData, headers);
+            downloadCSV(csvContent, 'portfolio_drawdown.csv');
+        }
+    };
+
     const contents = portfolioBackTest === undefined
         ? <p>Loading&hellip;</p>
         : <>
@@ -268,6 +314,12 @@ function App() {
         <div>
             <h2 id="tableLabel">Portfolio Back Test</h2>
             {contents}
+            {portfolioBackTest && (
+                <div style={{ marginTop: '20px' }}>
+                    <button onClick={handleSavePortfolioValueCSV}>Portfolio Value CSV</button>
+                    <button onClick={handleSaveDrawdownCSV} style={{ marginLeft: '10px' }}>Portfolio Drawdown CSV</button>
+                </div>
+            )}
         </div>
     );
 
