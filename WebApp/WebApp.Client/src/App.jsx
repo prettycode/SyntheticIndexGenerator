@@ -125,11 +125,6 @@ function App() {
                 title: {
                     text: 'Portfolio Balance'
                 },
-                labels: {
-                    formatter: function () {
-                        return '$' + this.axis.defaultLabelFormatter.call(this);
-                    }
-                },
                 type: isLogScale ? 'logarithmic' : 'linear'
             },
             series: [
@@ -150,6 +145,7 @@ function App() {
                 }
             ],
             tooltip: {
+                valuePrefix: '$',
                 shared: true
             }
         });
@@ -187,9 +183,7 @@ function App() {
                 ])
             }],
             tooltip: {
-                pointFormatter: function () {
-                    return `<span style="color:${this.color}">\u25CF</span> ${this.series.name}: <b>${this.y.toFixed(2)}%</b><br/>`;
-                }
+                valueSuffix: '%'
             }
         });
     };
