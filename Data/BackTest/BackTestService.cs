@@ -164,6 +164,7 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
                     PeriodStart = currentReturn.PeriodStart,
                     PeriodType = currentReturn.PeriodType,
                     Ticker = currentReturn.Ticker,
+                    // TODO StartingBalance is not appropriate, should be null
                     StartingBalance = currentReturn.StartingBalance,
                     ReturnPercentage = 0
                 });
@@ -176,8 +177,9 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
                 PeriodStart = currentReturn.PeriodStart,
                 PeriodType = currentReturn.PeriodType,
                 Ticker = currentReturn.Ticker,
+                // TODO StartingBalance is not appropriate, should be null
                 StartingBalance = currentReturn.StartingBalance,
-                ReturnPercentage = (-1 * (1 - (currentReturn.EndingBalance / drawdownStartingBalance)) * 100)
+                ReturnPercentage = ((currentReturn.EndingBalance / drawdownStartingBalance - 1) * 100)
             });
         }
 
