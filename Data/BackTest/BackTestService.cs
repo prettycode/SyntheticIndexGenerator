@@ -123,7 +123,7 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
                 PeriodType = currentReturn.PeriodType,
                 Ticker = currentReturn.Ticker,
                 StartingBalance = currentReturn.StartingBalance,
-                ReturnPercentage = (-1 * (1 - (currentReturn.StartingBalance / drawdownStartingBalance)) * 100)
+                ReturnPercentage = (-1 * (1 - (currentReturn.EndingBalance / drawdownStartingBalance)) * 100)
             });
         }
 
