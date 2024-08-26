@@ -4,11 +4,13 @@ namespace Data.BackTest;
 
 public struct BackTest
 {
+    public required Dictionary<string, BackTestPeriodReturn[]> DecomposedPerformanceByTicker { get; set; }
+
     public required BackTestPeriodReturn[] AggregatePerformance { get; set; }
 
-    public required BackTestPeriodReturn[] AggregatePerformanceDrawdowns { get; set; }
+    public required BackTestPeriodReturn[] AggregatePerformanceDrawdownsReturns { get; set; }
 
-    public required Dictionary<string, BackTestPeriodReturn[]> DecomposedPerformanceByTicker { get; set; }
+    public required BackTestDrawdownPeriod[] AggregatePerformanceDrawdownPeriods { get; set; }
 
     /// <summary>
     /// List of of the periods, after completing, that triggered rebalances.
@@ -49,5 +51,5 @@ public struct BackTest
 
     public readonly double YearsBeforeDoubling => Math.Log(2) / Math.Log(1 + Cagr);
 
-    public readonly decimal MaximumDrawdownPercentage => AggregatePerformanceDrawdowns.MinBy(dd => dd.ReturnPercentage).ReturnPercentage;
+    public readonly decimal MaximumDrawdownPercentage => AggregatePerformanceDrawdownsReturns.MinBy(dd => dd.ReturnPercentage).ReturnPercentage;
 }

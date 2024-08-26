@@ -64,11 +64,13 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
             includeIncompleteEndingPeriod);
 
         var aggregated = AggregateDecomposedPortfolioBackTest(decomposed);
-        var aggregatedDrawdowns = GetBackTestPeriodReturnDrawdowns(aggregated);
+        var aggregatedDrawdownReturns = GetBackTestPeriodReturnDrawdownReturns(aggregated);
+        var aggregatedDrawdownPeriods = GetBackTestPeriodReturnDrawdownPeriods(aggregated);
         var backtest = new BackTest()
         {
             AggregatePerformance = aggregated,
-            AggregatePerformanceDrawdowns = aggregatedDrawdowns,
+            AggregatePerformanceDrawdownsReturns = aggregatedDrawdownReturns,
+            AggregatePerformanceDrawdownPeriods = aggregatedDrawdownPeriods,
             DecomposedPerformanceByTicker = decomposed,
             RebalancesByTicker = rebalances,
             RebalanceStrategy = rebalanceStrategy,
@@ -78,12 +80,20 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
         return backtest;
     }
 
-    private static BackTestPeriodReturn[] GetBackTestPeriodReturnDrawdowns(BackTestPeriodReturn[] returns)
+    private static BackTestDrawdownPeriod[] GetBackTestPeriodReturnDrawdownPeriods(BackTestPeriodReturn[] returns)
+    {
+        var result = new List<BackTestDrawdownPeriod>();
+        var returnsEnumerator = returns.GetEnumerator();
+
+        return [.. result];
+    }
+
+    private static BackTestPeriodReturn[] GetBackTestPeriodReturnDrawdownReturns(BackTestPeriodReturn[] returns)
     {
         var drawdowns = new List<BackTestPeriodReturn>();
-        var inDrawdown = false;
         var returnsCount = returns.Length;
-        var drawdownStartingBalance = 0m;
+        var drawdownStartingBalance = returns[0].StartingBalance;
+        var inDrawdown = returns[0].ReturnPercentage < 0;
 
         for (var i = 0; i < returnsCount; i++)
         {

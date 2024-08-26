@@ -136,7 +136,7 @@ function App() {
             series: [{
                 lineWidth: 1,
                 name: 'Drawdown',
-                data: portfolioBackTest.aggregatePerformanceDrawdowns.map(item => [
+                data: portfolioBackTest.aggregatePerformanceDrawdownsReturns.map(item => [
                     new Date(item.periodStart).getTime(),
                     item.returnPercentage
                 ])
