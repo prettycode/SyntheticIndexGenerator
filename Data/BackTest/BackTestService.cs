@@ -107,8 +107,23 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
                 continue;
             }
 
+            var drawdownIsUnfinished = inDrawdown && i == returnsCount - 1;
+
+            // Drawdown started
+            if (!wasInDrawdown && inDrawdown)
+            {
+                drawdownFirstPeriodStart = currentReturn.PeriodStart;
+
+                if (!drawdownIsUnfinished)
+                {
+                    continue;
+                }
+            }
+
             // Drawdown ended
-            if ((wasInDrawdown && !inDrawdown) || (inDrawdown && i == returnsCount - 1))
+            var drawdownEndsWithCurrentReturn = wasInDrawdown && !inDrawdown;
+
+            if (drawdownIsUnfinished || drawdownEndsWithCurrentReturn)
             {
                 if (drawdownFirstPeriodStart == null)
                 {
@@ -123,14 +138,6 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
                 });
 
                 drawdownFirstPeriodStart = null;
-
-                continue;
-            }
-
-            // Drawdown started
-            if (!wasInDrawdown && inDrawdown)
-            {
-                drawdownFirstPeriodStart = currentReturn.PeriodStart;
 
                 continue;
             }
