@@ -192,3 +192,5 @@
 {"Ticker":"AVEE","DateTime":"2024-08-21T00:00:00","Open":56.1500,"High":56.3500,"Low":56.1500,"Close":56.3000,"Volume":600,"AdjustedClose":56.3000}
 {"Ticker":"AVEE","DateTime":"2024-08-22T00:00:00","Open":55.9200,"High":55.9200,"Low":55.4420,"Close":55.4420,"Volume":900,"AdjustedClose":55.4420}
 {"Ticker":"AVEE","DateTime":"2024-08-23T00:00:00","Open":56.5000,"High":56.5130,"Low":56.4000,"Close":56.5130,"Volume":400,"AdjustedClose":56.5130}
+{"Ticker":"AVEE","DateTime":"2024-08-26T00:00:00","Open":56.0700,"High":56.1180,"Low":56.0700,"Close":56.1180,"Volume":500,"AdjustedClose":56.1180}
+{"Ticker":"AVEE","DateTime":"2024-08-27T00:00:00","Open":56.3685,"High":56.3700,"Low":56.3580,"Close":56.3580,"Volume":2379,"AdjustedClose":56.3580}

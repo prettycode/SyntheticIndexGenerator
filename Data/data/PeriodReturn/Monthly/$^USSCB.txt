@@ -1175,4 +1175,4 @@
 {"Ticker":"AVSC","PeriodStart":"2024-05-01T00:00:00","ReturnPercentage":5.513596253906466990225345800,"PeriodType":1}
 {"Ticker":"AVSC","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-2.6814753574130548384329202200,"PeriodType":1}
 {"Ticker":"AVSC","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":12.282107794029252654778601480,"PeriodType":1}
-{"Ticker":"AVSC","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-2.7480371163454675231977159200,"PeriodType":1}
+{"Ticker":"AVSC","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-3.497501784439685938615274800,"PeriodType":1}

@@ -225,4 +225,4 @@
 {"Ticker":"EFG","PeriodStart":"2024-05-01T00:00:00","ReturnPercentage":4.9757099596814909178809986900,"PeriodType":1}
 {"Ticker":"EFG","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-0.6050171633662933444225617900,"PeriodType":1}
 {"Ticker":"EFG","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":1.0361681329423264907135874900,"PeriodType":1}
-{"Ticker":"EFG","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":3.8699690402476780185758513900,"PeriodType":1}
+{"Ticker":"EFG","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":3.4829721362229102167182662500,"PeriodType":1}

@@ -5832,3 +5832,5 @@
 {"Ticker":"VTI","DateTime":"2024-08-21T00:00:00","Open":275.7700,"High":276.9000,"Low":274.9500,"Close":276.4600,"Volume":1983700,"AdjustedClose":276.4600}
 {"Ticker":"VTI","DateTime":"2024-08-22T00:00:00","Open":277.1700,"High":277.5900,"Low":273.6100,"Close":274.1200,"Volume":2554300,"AdjustedClose":274.1200}
 {"Ticker":"VTI","DateTime":"2024-08-23T00:00:00","Open":275.7400,"High":277.8300,"Low":275.3300,"Close":277.5900,"Volume":2280700,"AdjustedClose":277.5900}
+{"Ticker":"VTI","DateTime":"2024-08-26T00:00:00","Open":278.1300,"High":278.5300,"Low":276.2600,"Close":276.8900,"Volume":2263800,"AdjustedClose":276.8900}
+{"Ticker":"VTI","DateTime":"2024-08-27T00:00:00","Open":276.1000,"High":277.3800,"Low":275.6100,"Close":277.1400,"Volume":1786700,"AdjustedClose":277.1400}

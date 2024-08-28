@@ -2,7 +2,8 @@
 
 namespace Data.BackTest;
 
-public readonly struct BackTestDrawdownPeriod(BackTestPeriodReturn lastReturnPeriod)
+// TODO add `required` modifiers
+public readonly struct BackTestDrawdownPeriod(BackTestPeriodReturn currentReturnPeriod)
 {
     public string Ticker { get; init; }
 
@@ -10,14 +11,16 @@ public readonly struct BackTestDrawdownPeriod(BackTestPeriodReturn lastReturnPer
 
     public DateTime? FirstPositivePeriodStart { get; init; }
 
-    public PeriodType PeriodType { get; init; } = lastReturnPeriod.PeriodType;
+    public decimal MaximumDrawdownPercentage { get; init; }
+
+    public PeriodType PeriodType { get; init; } = currentReturnPeriod.PeriodType;
 
     public TimeSpan DrawdownTimeSpan
         => (FirstPositivePeriodStart ?? PeriodType switch
         {
-            PeriodType.Daily => lastReturnPeriod.PeriodStart.AddDays(1),
-            PeriodType.Monthly => lastReturnPeriod.PeriodStart.AddMonths(1),
-            PeriodType.Yearly => lastReturnPeriod.PeriodStart.AddYears(1),
+            PeriodType.Daily => currentReturnPeriod.PeriodStart.AddDays(1),
+            PeriodType.Monthly => currentReturnPeriod.PeriodStart.AddMonths(1),
+            PeriodType.Yearly => currentReturnPeriod.PeriodStart.AddYears(1),
             _ => throw new InvalidOperationException()
         })
         - FirstNegativePeriodStart;

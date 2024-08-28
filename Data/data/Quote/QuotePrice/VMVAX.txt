@@ -3246,3 +3246,5 @@
 {"Ticker":"VMVAX","DateTime":"2024-08-21T00:00:00","Open":83.2500,"High":83.2500,"Low":83.2500,"Close":83.2500,"Volume":0,"AdjustedClose":83.2500}
 {"Ticker":"VMVAX","DateTime":"2024-08-22T00:00:00","Open":83.2800,"High":83.2800,"Low":83.2800,"Close":83.2800,"Volume":0,"AdjustedClose":83.2800}
 {"Ticker":"VMVAX","DateTime":"2024-08-23T00:00:00","Open":84.3000,"High":84.3000,"Low":84.3000,"Close":84.3000,"Volume":0,"AdjustedClose":84.3000}
+{"Ticker":"VMVAX","DateTime":"2024-08-26T00:00:00","Open":84.4000,"High":84.4000,"Low":84.4000,"Close":84.4000,"Volume":0,"AdjustedClose":84.4000}
+{"Ticker":"VMVAX","DateTime":"2024-08-27T00:00:00","Open":84.2800,"High":84.2800,"Low":84.2800,"Close":84.2800,"Volume":0,"AdjustedClose":84.2800}

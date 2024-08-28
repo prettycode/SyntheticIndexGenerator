@@ -727,3 +727,5 @@
 {"Ticker":"AVES","DateTime":"2024-08-21T00:00:00","Open":49.4800,"High":49.6690,"Low":49.4560,"Close":49.5800,"Volume":14500,"AdjustedClose":49.5800}
 {"Ticker":"AVES","DateTime":"2024-08-22T00:00:00","Open":49.3300,"High":49.3300,"Low":48.8200,"Close":48.8200,"Volume":22400,"AdjustedClose":48.8200}
 {"Ticker":"AVES","DateTime":"2024-08-23T00:00:00","Open":49.2500,"High":49.8090,"Low":49.2500,"Close":49.7490,"Volume":32100,"AdjustedClose":49.7490}
+{"Ticker":"AVES","DateTime":"2024-08-26T00:00:00","Open":49.7400,"High":49.7600,"Low":49.5500,"Close":49.5500,"Volume":12900,"AdjustedClose":49.5500}
+{"Ticker":"AVES","DateTime":"2024-08-27T00:00:00","Open":49.7100,"High":49.8890,"Low":49.7000,"Close":49.8350,"Volume":13000,"AdjustedClose":49.8350}

@@ -654,3 +654,5 @@
 {"Ticker":"AVSC","DateTime":"2024-08-21T00:00:00","Open":52.8400,"High":53.0400,"Low":52.4750,"Close":53.0100,"Volume":30700,"AdjustedClose":53.0100}
 {"Ticker":"AVSC","DateTime":"2024-08-22T00:00:00","Open":53.0300,"High":53.1600,"Low":52.5490,"Close":52.6300,"Volume":53700,"AdjustedClose":52.6300}
 {"Ticker":"AVSC","DateTime":"2024-08-23T00:00:00","Open":53.0440,"High":54.6210,"Low":53.0440,"Close":54.5000,"Volume":39500,"AdjustedClose":54.5000}
+{"Ticker":"AVSC","DateTime":"2024-08-26T00:00:00","Open":54.9900,"High":54.9900,"Low":54.3340,"Close":54.4500,"Volume":54100,"AdjustedClose":54.4500}
+{"Ticker":"AVSC","DateTime":"2024-08-27T00:00:00","Open":54.1700,"High":53.8600,"Low":53.8600,"Close":54.0800,"Volume":2693,"AdjustedClose":54.0800}

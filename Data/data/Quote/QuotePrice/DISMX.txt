@@ -2932,3 +2932,5 @@
 {"Ticker":"DISMX","DateTime":"2024-08-21T00:00:00","Open":15.7800,"High":15.7800,"Low":15.7800,"Close":15.7800,"Volume":0,"AdjustedClose":15.7800}
 {"Ticker":"DISMX","DateTime":"2024-08-22T00:00:00","Open":15.6900,"High":15.6900,"Low":15.6900,"Close":15.6900,"Volume":0,"AdjustedClose":15.6900}
 {"Ticker":"DISMX","DateTime":"2024-08-23T00:00:00","Open":15.9500,"High":15.9500,"Low":15.9500,"Close":15.9500,"Volume":0,"AdjustedClose":15.9500}
+{"Ticker":"DISMX","DateTime":"2024-08-26T00:00:00","Open":15.9300,"High":15.9300,"Low":15.9300,"Close":15.9300,"Volume":0,"AdjustedClose":15.9300}
+{"Ticker":"DISMX","DateTime":"2024-08-27T00:00:00","Open":16.0000,"High":16.0000,"Low":16.0000,"Close":16.0000,"Volume":0,"AdjustedClose":16.0000}
