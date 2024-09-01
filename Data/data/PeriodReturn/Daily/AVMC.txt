@@ -112,4 +112,7 @@
 {"Ticker":"AVMC","PeriodStart":"2024-08-22T00:00:00","ReturnPercentage":-0.5022357591860540470481498300,"PeriodType":0}
 {"Ticker":"AVMC","PeriodStart":"2024-08-23T00:00:00","ReturnPercentage":2.0956133780571205262643696900,"PeriodType":0}
 {"Ticker":"AVMC","PeriodStart":"2024-08-26T00:00:00","ReturnPercentage":-0.2392306342801550214510135400,"PeriodType":0}
-{"Ticker":"AVMC","PeriodStart":"2024-08-27T00:00:00","ReturnPercentage":-0.1489984172914901440424613500,"PeriodType":0}
+{"Ticker":"AVMC","PeriodStart":"2024-08-27T00:00:00","ReturnPercentage":-0.1486786781985899506003101500,"PeriodType":0}
+{"Ticker":"AVMC","PeriodStart":"2024-08-28T00:00:00","ReturnPercentage":-0.3490345512184187774184251800,"PeriodType":0}
+{"Ticker":"AVMC","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.3534704370179948586118251900,"PeriodType":0}
+{"Ticker":"AVMC","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.7444764649375600384245917400,"PeriodType":0}
