@@ -38,14 +38,20 @@ public class BackTestController(IBackTestService backTestService, ILogger<BackTe
             rebalanceBandThreshold);
 
     [HttpPost]
-    public Task<BackTest> GetPortfolioBackTest(
-        [FromBody] BackTestRequest backTestRequest)
-        => GetPortfolioBackTest(
-            backTestRequest.PortfolioConstituents,
-            backTestRequest.StartingBalance,
-            backTestRequest.PeriodType,
-            backTestRequest.FirstPeriod,
-            backTestRequest.LastPeriod,
-            backTestRequest.RebalanceStrategy,
-            backTestRequest.RebalanceBandThreshold);
+    public Task<BackTest> GetPortfolioBackTest([FromBody] BackTestRequest backTestRequest) => GetPortfolioBackTest(
+        backTestRequest.PortfolioConstituents,
+        backTestRequest.StartingBalance,
+        backTestRequest.PeriodType,
+        backTestRequest.FirstPeriod,
+        backTestRequest.LastPeriod,
+        backTestRequest.RebalanceStrategy,
+        backTestRequest.RebalanceBandThreshold);
+
+    [HttpPost]
+    public async Task<IEnumerable<BackTest>> GetPortfolioBackTests([FromBody] IEnumerable<BackTestRequest> backTestRequests)
+    { 
+        var backTestTasks = backTestRequests.Select(backTestRequest => GetPortfolioBackTest(backTestRequest));
+
+        return await Task.WhenAll(backTestTasks);
+    }
 }
