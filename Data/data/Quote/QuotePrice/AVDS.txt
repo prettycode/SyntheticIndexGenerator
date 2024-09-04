@@ -276,4 +276,7 @@
 {"Ticker":"AVDS","DateTime":"2024-08-22T00:00:00","Open":54.3690,"High":54.4320,"Low":54.1000,"Close":54.1000,"Volume":800,"AdjustedClose":54.1000}
 {"Ticker":"AVDS","DateTime":"2024-08-23T00:00:00","Open":55.1200,"High":55.2900,"Low":55.1200,"Close":55.2900,"Volume":800,"AdjustedClose":55.2900}
 {"Ticker":"AVDS","DateTime":"2024-08-26T00:00:00","Open":55.2800,"High":55.3000,"Low":55.1300,"Close":55.1300,"Volume":2200,"AdjustedClose":55.1300}
-{"Ticker":"AVDS","DateTime":"2024-08-27T00:00:00","Open":55.2200,"High":55.3609,"Low":55.2200,"Close":55.3609,"Volume":1161,"AdjustedClose":55.3609}
+{"Ticker":"AVDS","DateTime":"2024-08-27T00:00:00","Open":55.2200,"High":55.3610,"Low":55.2200,"Close":55.3610,"Volume":1200,"AdjustedClose":55.3610}
+{"Ticker":"AVDS","DateTime":"2024-08-28T00:00:00","Open":55.0100,"High":55.0100,"Low":54.7300,"Close":54.8560,"Volume":2200,"AdjustedClose":54.8560}
+{"Ticker":"AVDS","DateTime":"2024-08-29T00:00:00","Open":55.1000,"High":55.1000,"Low":54.8850,"Close":54.8850,"Volume":1500,"AdjustedClose":54.8850}
+{"Ticker":"AVDS","DateTime":"2024-08-30T00:00:00","Open":55.2200,"High":55.2200,"Low":54.9730,"Close":55.1690,"Volume":2300,"AdjustedClose":55.1690}

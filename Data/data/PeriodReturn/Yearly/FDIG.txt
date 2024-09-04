@@ -1,0 +1,2 @@
+{"Ticker":"FDIG","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":166.00437267461930881055578996,"PeriodType":2}
+{"Ticker":"FDIG","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":-4.0374909877433309300648882500,"PeriodType":2}

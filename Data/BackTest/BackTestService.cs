@@ -68,7 +68,7 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
         var backtest = new BackTest()
         {
             AggregatePerformance = aggregated,
-            AggregatePerformanceDrawdowns = aggregatedDrawdowns,
+            AggregatePerformanceDrawdownsReturns = aggregatedDrawdowns,
             DecomposedPerformanceByTicker = decomposed,
             RebalancesByTicker = rebalances,
             RebalanceStrategy = rebalanceStrategy,

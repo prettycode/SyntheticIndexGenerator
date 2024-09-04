@@ -32,11 +32,23 @@ class Program
     {
         var returnsService = provider.GetRequiredService<IReturnsService>();
         var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
+        
+        var periodTypes = Enum.GetValues<PeriodType>().Reverse();
+        var syntheticIndexTickers = indicesService.GetSyntheticIndexTickers();
+        var tickers = syntheticIndexTickers.Concat([
+            "BLOK",
+            "FDIG",
+            "BITQ",
+            "DAPP",
+            "BKCH",
+            "WGMI"
+        ]);
+
         var returnsHistoryTasks = new List<Task>();
 
-        foreach (var ticker in indicesService.GetSyntheticIndexTickers())
+        foreach (var ticker in tickers)
         {
-            foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
+            foreach (var periodType in periodTypes)
             {
                 Console.WriteLine();
 

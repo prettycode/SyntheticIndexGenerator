@@ -10,7 +10,7 @@ public struct BackTest
 
     public required BackTestPeriodReturn[] AggregatePerformanceDrawdownsReturns { get; set; }
 
-    public required BackTestDrawdownPeriod[] AggregatePerformanceDrawdownPeriods { get; set; }
+    public BackTestDrawdownPeriod[] AggregatePerformanceDrawdownPeriods { get; set; }
 
     /// <summary>
     /// List of of the periods, after completing, that triggered rebalances.
