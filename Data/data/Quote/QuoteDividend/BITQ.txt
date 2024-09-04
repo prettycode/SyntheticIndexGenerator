@@ -1,0 +1,1 @@
+{"Ticker":"BITQ","DateTime":"2021-12-28T00:00:00","Dividend":0.6550}

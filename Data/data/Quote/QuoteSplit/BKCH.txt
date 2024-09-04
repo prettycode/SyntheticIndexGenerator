@@ -1,0 +1,1 @@
+{"Ticker":"BKCH","DateTime":"2022-12-20T00:00:00","BeforeSplit":4,"AfterSplit":1}
