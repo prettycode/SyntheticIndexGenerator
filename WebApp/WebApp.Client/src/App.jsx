@@ -57,7 +57,7 @@ function App() {
     const dailyPeriodOptionValue = periodOptions.find(option => option.name === 'Daily').value;
     const annualRebalanceOptionValue = rebalanceOptions.find(option => option.name === 'Annually').value;
 
-    const [portfolioBackTest, setPortfolioBackTest] = useState();
+    const [portfolioBackTests, setPortfolioBackTests] = useState();
     const [selectedPortfolio, setSelectedPortfolio] = useState('default');
     const [periodType, setPeriodType] = useState(dailyPeriodOptionValue);
     const [rebalanceFrequency, setRebalanceFrequency] = useState(annualRebalanceOptionValue);
@@ -75,11 +75,11 @@ function App() {
     }, [selectedPortfolio, periodType, rebalanceFrequency]);
 
     useEffect(() => {
-        if (portfolioBackTest) {
+        if (portfolioBackTests) {
             updatePerformanceChartOptions();
             updateDrawdownChartOptions();
         }
-    }, [portfolioBackTest, isLogScale]);
+    }, [portfolioBackTests, isLogScale]);
 
     const handlePortfolioChange = (event) => {
         setSelectedPortfolio(event.target.value);
@@ -127,23 +127,23 @@ function App() {
                 },
                 type: isLogScale ? 'logarithmic' : 'linear'
             },
-            series: [
+            series: portfolioBackTests.flatMap((portfolioBackTest, i) => [
                 {
                     lineWidth: 1,
-                    name: 'Starting Balance',
+                    name: `P${i} Starting Balance`,
                     data: portfolioBackTest.aggregatePerformance.map(item => [
                         new Date(item.periodStart).getTime(),
                         item.startingBalance
                     ])
                 }, {
                     lineWidth: 1,
-                    name: 'Ending Balance',
+                    name: `P${i} Ending Balance`,
                     data: portfolioBackTest.aggregatePerformance.map(item => [
                         new Date(item.periodStart).getTime(),
                         item.endingBalance
                     ])
                 }
-            ],
+            ]),
             tooltip: {
                 valuePrefix: '$',
                 shared: true
@@ -174,14 +174,14 @@ function App() {
                 },
                 max: 0
             },
-            series: [{
+            series: portfolioBackTests.map((portfolioBackTest, i) => ({
                 lineWidth: 1,
-                name: 'Drawdown',
+                name: `P${i} Drawdown`,
                 data: portfolioBackTest.aggregatePerformanceDrawdownsReturns.map(item => [
                     new Date(item.periodStart).getTime(),
                     item.returnPercentage
                 ])
-            }],
+            })),
             tooltip: {
                 valueSuffix: '%'
             }
@@ -210,9 +210,10 @@ function App() {
         }
     };
 
+    // TODO this hasn't been updated to support multiple backTests
     const handleSavePortfolioValueCSV = () => {
-        if (portfolioBackTest) {
-            const csvData = portfolioBackTest.aggregatePerformance.map(item => [
+        if (portfolioBackTests) {
+            const csvData = portfolioBackTests.aggregatePerformance.map(item => [
                 item.periodStart.substr(0, 10),
                 item.startingBalance,
                 item.endingBalance
@@ -223,9 +224,10 @@ function App() {
         }
     };
 
+    // TODO this hasn't been updated to support multiple backTests
     const handleSaveDrawdownCSV = () => {
-        if (portfolioBackTest) {
-            const csvData = portfolioBackTest.aggregatePerformanceDrawdownsReturns.map(item => [
+        if (portfolioBackTests) {
+            const csvData = portfolioBackTests.aggregatePerformanceDrawdownsReturns.map(item => [
                 item.periodStart.substr(0, 10),
                 item.returnPercentage
             ]);
@@ -235,7 +237,7 @@ function App() {
         }
     };
 
-    const contents = portfolioBackTest === undefined
+    const contents = portfolioBackTests === undefined
         ? <p>Loading&hellip;</p>
         : <>
             <div>
@@ -277,55 +279,59 @@ function App() {
             </div>
 
             <div className={isLoadingBackTest ? 'loading' : ''} >
-                <h3>Overview</h3>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>First Period:</td>
-                            <td>{portfolioBackTest.aggregatePerformance[0].periodStart.substr(0, 10)}</td>
-                        </tr>
-                        <tr>
-                            <td>Last Period:</td>
-                            <td>{portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].periodStart.substr(0, 10)}</td>
-                        </tr>
-                        <tr>
-                            <td>Period(s):</td>
-                            <td>{portfolioBackTest.aggregatePerformance.length.toLocaleString()}</td>
-                        </tr>
-                        <tr>
-                            <td>Starting Balance:</td>
-                            <td>{formatCurrency(portfolioBackTest.aggregatePerformance[0].startingBalance)}</td>
-                        </tr>
-                        <tr>
-                            <td>Ending Balance:</td>
-                            <td>{formatCurrency(portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].endingBalance)}</td>
-                        </tr>
-                        <tr>
-                            <td>CAGR:</td>
-                            <td>{formatNumber(portfolioBackTest.cagr * 100)}%</td>
-                        </tr>
-                        <tr>
-                            <td>Time to 2x @ CAGR:</td>
-                            <td>{formatNumber(portfolioBackTest.yearsBeforeDoubling)} years</td>
-                        </tr>
-                        <tr>
-                            <td>Maximum Drawdown:</td>
-                            <td>{formatNumber(portfolioBackTest.maximumDrawdownPercentage)}%</td>
-                        </tr>
-                        <tr>
-                            <td>Rebalances:</td>
-                            <td>
-                                {portfolioBackTest.rebalancesByTicker[Object.keys(portfolioBackTest.rebalancesByTicker)[0]].length.toLocaleString()}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Rebalance Strategy:</td>
-                            <td>
-                                {rebalanceOptions.find(option => option.value === portfolioBackTest.rebalanceStrategy).name}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3>Overview</h3>                
+                {portfolioBackTests.map(portfolioBackTest => (
+                    <table key={portfolioBackTest.id} style={{ display: "block", float: "left" }}>
+                        <tbody>
+                            <tr>
+                                <td>First Period:</td>
+                                <td>{portfolioBackTest.aggregatePerformance[0].periodStart.substr(0, 10)}</td>
+                            </tr>
+                            <tr>
+                                <td>Last Period:</td>
+                                <td>{portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].periodStart.substr(0, 10)}</td>
+                            </tr>
+                            <tr>
+                                <td>Period(s):</td>
+                                <td>{portfolioBackTest.aggregatePerformance.length.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Starting Balance:</td>
+                                <td>{formatCurrency(portfolioBackTest.aggregatePerformance[0].startingBalance)}</td>
+                            </tr>
+                            <tr>
+                                <td>Ending Balance:</td>
+                                <td>{formatCurrency(portfolioBackTest.aggregatePerformance[portfolioBackTest.aggregatePerformance.length - 1].endingBalance)}</td>
+                            </tr>
+                            <tr>
+                                <td>CAGR:</td>
+                                <td>{formatNumber(portfolioBackTest.cagr * 100)}%</td>
+                            </tr>
+                            <tr>
+                                <td>Time to 2x @ CAGR:</td>
+                                <td>{formatNumber(portfolioBackTest.yearsBeforeDoubling)} years</td>
+                            </tr>
+                            <tr>
+                                <td>Maximum Drawdown:</td>
+                                <td>{formatNumber(portfolioBackTest.maximumDrawdownPercentage)}%</td>
+                            </tr>
+                            <tr>
+                                <td>Rebalances:</td>
+                                <td>
+                                    {portfolioBackTest.rebalancesByTicker[Object.keys(portfolioBackTest.rebalancesByTicker)[0]].length.toLocaleString()}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rebalance Strategy:</td>
+                                <td>
+                                    {rebalanceOptions.find(option => option.value === portfolioBackTest.rebalanceStrategy).name}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>                    
+                ))}
+
+                <div style={{ clear: "both" }}></div>
 
                 <h3>Portfolio Value</h3>
                 <div>
@@ -354,7 +360,7 @@ function App() {
         <div>
             <h2 id="tableLabel">Portfolio Back Test</h2>
             {contents}
-            {portfolioBackTest && (
+            {portfolioBackTests && (
                 <div style={{ marginTop: '20px' }}>
                     <button onClick={handleSavePortfolioValueCSV}>Portfolio Value CSV</button>
                     <button onClick={handleSaveDrawdownCSV} style={{ marginLeft: '10px' }}>Portfolio Drawdown CSV</button>
@@ -401,20 +407,30 @@ function App() {
                 ];
         }
 
-        const response = await fetch(`https://localhost:7219/api/BackTest/GetPortfolioBackTest`, {
+        const cryptoFunds = [
+            [{ Ticker: 'BLOK', Percentage: 100 }], // Y
+            [{ Ticker: 'FDIG', Percentage: 100 }], // Y
+            [{ Ticker: 'BITQ', Percentage: 100 }], // Y
+            [{ Ticker: 'BKCH', Percentage: 100 }], 
+            [{ Ticker: 'DAPP', Percentage: 100 }], // Y
+            [{ Ticker: 'WGMI', Percentage: 100 }]
+        ];
+
+        const response = await fetch(`https://localhost:7219/api/BackTest/GetPortfolioBackTests`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
+            body: JSON.stringify(cryptoFunds.map(cryptoFund => ({
                 startingBalance: 10000,
                 periodType,
                 rebalanceStrategy: rebalanceFrequency,
-                portfolioConstituents
-            })
+                portfolioConstituents: cryptoFund,
+                firstPeriod: '2022-04-22'
+            })))
         });
         const data = await response.json();
-        setPortfolioBackTest(data);
+        setPortfolioBackTests(data);
     }
 }
 
