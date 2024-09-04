@@ -32,7 +32,7 @@ class Program
     {
         var returnsService = provider.GetRequiredService<IReturnsService>();
         var indicesService = provider.GetRequiredService<ISyntheticIndicesService>();
-        
+
         var periodTypes = Enum.GetValues<PeriodType>().Reverse();
         var syntheticIndexTickers = indicesService.GetSyntheticIndexTickers();
         var tickers = syntheticIndexTickers.Concat([

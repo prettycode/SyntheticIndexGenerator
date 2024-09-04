@@ -138,3 +138,4 @@
 {"Ticker":"DISMX","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-2.2296333448408381805983468300,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":4.3970686209193870752831445700,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":2.1697511167836630504148053600,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":-1.7489069331667707682698313600,"PeriodType":1}

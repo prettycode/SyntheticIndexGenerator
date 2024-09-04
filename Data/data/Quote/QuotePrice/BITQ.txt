@@ -830,3 +830,4 @@
 {"Ticker":"BITQ","DateTime":"2024-08-28T00:00:00","Open":12.7600,"High":12.7600,"Low":12.2200,"Close":12.3520,"Volume":45500,"AdjustedClose":12.3520}
 {"Ticker":"BITQ","DateTime":"2024-08-29T00:00:00","Open":12.6900,"High":12.9100,"Low":12.2920,"Close":12.4000,"Volume":50200,"AdjustedClose":12.4000}
 {"Ticker":"BITQ","DateTime":"2024-08-30T00:00:00","Open":12.5200,"High":12.5400,"Low":12.1280,"Close":12.2600,"Volume":47300,"AdjustedClose":12.2600}
+{"Ticker":"BITQ","DateTime":"2024-09-03T00:00:00","Open":12.1700,"High":12.1900,"Low":11.3700,"Close":11.4400,"Volume":101800,"AdjustedClose":11.4400}

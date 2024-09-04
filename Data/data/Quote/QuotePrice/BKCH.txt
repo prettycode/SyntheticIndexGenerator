@@ -787,3 +787,4 @@
 {"Ticker":"BKCH","DateTime":"2024-08-28T00:00:00","Open":45.5400,"High":45.5400,"Low":43.5000,"Close":43.9500,"Volume":23700,"AdjustedClose":43.9500}
 {"Ticker":"BKCH","DateTime":"2024-08-29T00:00:00","Open":44.9100,"High":46.3700,"Low":43.8200,"Close":44.3200,"Volume":33400,"AdjustedClose":44.3200}
 {"Ticker":"BKCH","DateTime":"2024-08-30T00:00:00","Open":44.8100,"High":44.8100,"Low":42.9500,"Close":43.4500,"Volume":17800,"AdjustedClose":43.4500}
+{"Ticker":"BKCH","DateTime":"2024-09-03T00:00:00","Open":42.7800,"High":42.7800,"Low":39.0000,"Close":39.1800,"Volume":198100,"AdjustedClose":39.1800}

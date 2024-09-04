@@ -1,0 +1,126 @@
+﻿Given this C# `BackTestPeriodReturn`:
+
+```
+public readonly struct BackTestPeriodReturn(string ticker, decimal startingBalance, PeriodReturn periodReturn)
+{
+    public string Ticker { get; init; } = ticker ?? periodReturn.Ticker;
+
+    public PeriodType PeriodType { get; init; } = periodReturn.PeriodType;
+
+    public DateTime PeriodStart { get; init; } = periodReturn.PeriodStart;
+
+    /// <summary>
+    /// Scale is 0 - 100, not 0 - 1.
+    /// </summary>
+    public decimal ReturnPercentage { get; init; } = periodReturn.ReturnPercentage;
+
+    public decimal StartingBalance { get; init; } = startingBalance;
+
+    public decimal EndingBalance => StartingBalance + BalanceIncrease;
+
+    public decimal BalanceIncrease => StartingBalance * (ReturnPercentage / 100m);
+}
+```
+
+...where `PeriodType` is:
+
+```
+public enum PeriodType
+{
+    Daily,
+    Monthly,
+    Yearly
+}
+```
+
+...create me a few datasets (different lists of `BackTestPeriodReturn` objects) that conform to the following requirements:
+
+1. The datasets should be all use `PeriodType.Daily`.
+2. There should be five `BackTestPeriodReturn` elements in each dataset.
+3. The `PeriodStart` properties of all the datasets should match one another.
+4. The `PeriodStart` properties should be all the consecutive weekday dates within a given period of time.
+5. One dataset should have negative `ReturnPercentage` for each element in the set.
+6. One dataset should start negative but end positive.
+7. One dataset should start positive but end negative.
+8. One dataset should start be positive the whole time.
+9. One dataset should start positive, go negative for at least two points, then end positive.
+10. One dataset should start negative, go positive for at least two points, then end negative.
+11. These datasets should all be hardcoded and not generated with alogrithms.
+
+These will be C# unit tests.
+
+Put descriptions of each dataset as a comment above it.
+
+
+
+using System;
+using System.Collections.Generic;
+
+public class BackTestDatasets
+{
+    private static readonly DateTime startDate = new DateTime(2023, 1, 2); // Monday, January 2, 2023
+
+    // Dataset 1: All negative returns
+    public static List<BackTestPeriodReturn> NegativeReturnsDataset = new List<BackTestPeriodReturn>
+    {
+        new BackTestPeriodReturn("AAPL", 1000m, new PeriodReturn { Ticker = "AAPL", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(0), ReturnPercentage = -0.5m }),
+        new BackTestPeriodReturn("AAPL", 995m, new PeriodReturn { Ticker = "AAPL", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(1), ReturnPercentage = -0.3m }),
+        new BackTestPeriodReturn("AAPL", 992m, new PeriodReturn { Ticker = "AAPL", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(2), ReturnPercentage = -0.7m }),
+        // ... (continue for 27 more days with negative returns)
+        new BackTestPeriodReturn("AAPL", 950m, new PeriodReturn { Ticker = "AAPL", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(29), ReturnPercentage = -0.4m })
+    };
+
+    // Dataset 2: Starts negative, ends positive
+    public static List<BackTestPeriodReturn> NegativeToPositiveDataset = new List<BackTestPeriodReturn>
+    {
+        new BackTestPeriodReturn("GOOGL", 1000m, new PeriodReturn { Ticker = "GOOGL", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(0), ReturnPercentage = -0.8m }),
+        new BackTestPeriodReturn("GOOGL", 992m, new PeriodReturn { Ticker = "GOOGL", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(1), ReturnPercentage = -0.5m }),
+        // ... (continue with negative returns for about 15 days, then transition to positive)
+        new BackTestPeriodReturn("GOOGL", 985m, new PeriodReturn { Ticker = "GOOGL", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(28), ReturnPercentage = 0.7m }),
+        new BackTestPeriodReturn("GOOGL", 992m, new PeriodReturn { Ticker = "GOOGL", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(29), ReturnPercentage = 0.9m })
+    };
+
+    // Dataset 3: Starts positive, ends negative
+    public static List<BackTestPeriodReturn> PositiveToNegativeDataset = new List<BackTestPeriodReturn>
+    {
+        new BackTestPeriodReturn("MSFT", 1000m, new PeriodReturn { Ticker = "MSFT", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(0), ReturnPercentage = 0.6m }),
+        new BackTestPeriodReturn("MSFT", 1006m, new PeriodReturn { Ticker = "MSFT", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(1), ReturnPercentage = 0.4m }),
+        // ... (continue with positive returns for about 15 days, then transition to negative)
+        new BackTestPeriodReturn("MSFT", 1015m, new PeriodReturn { Ticker = "MSFT", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(28), ReturnPercentage = -0.5m }),
+        new BackTestPeriodReturn("MSFT", 1010m, new PeriodReturn { Ticker = "MSFT", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(29), ReturnPercentage = -0.7m })
+    };
+
+    // Dataset 4: All positive returns
+    public static List<BackTestPeriodReturn> PositiveReturnsDataset = new List<BackTestPeriodReturn>
+    {
+        new BackTestPeriodReturn("AMZN", 1000m, new PeriodReturn { Ticker = "AMZN", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(0), ReturnPercentage = 0.3m }),
+        new BackTestPeriodReturn("AMZN", 1003m, new PeriodReturn { Ticker = "AMZN", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(1), ReturnPercentage = 0.5m }),
+        new BackTestPeriodReturn("AMZN", 1008m, new PeriodReturn { Ticker = "AMZN", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(2), ReturnPercentage = 0.2m }),
+        // ... (continue for 27 more days with positive returns)
+        new BackTestPeriodReturn("AMZN", 1050m, new PeriodReturn { Ticker = "AMZN", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(29), ReturnPercentage = 0.4m })
+    };
+
+    // Dataset 5: Starts positive, goes negative for at least two points, then ends positive
+    public static List<BackTestPeriodReturn> PositiveNegativePositiveDataset = new List<BackTestPeriodReturn>
+    {
+        new BackTestPeriodReturn("TSLA", 1000m, new PeriodReturn { Ticker = "TSLA", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(0), ReturnPercentage = 0.5m }),
+        // ... (continue with positive returns for about 10 days)
+        new BackTestPeriodReturn("TSLA", 1020m, new PeriodReturn { Ticker = "TSLA", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(11), ReturnPercentage = -0.3m }),
+        new BackTestPeriodReturn("TSLA", 1017m, new PeriodReturn { Ticker = "TSLA", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(12), ReturnPercentage = -0.2m }),
+        // ... (continue with negative returns for a few more days, then transition back to positive)
+        new BackTestPeriodReturn("TSLA", 1015m, new PeriodReturn { Ticker = "TSLA", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(28), ReturnPercentage = 0.4m }),
+        new BackTestPeriodReturn("TSLA", 1019m, new PeriodReturn { Ticker = "TSLA", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(29), ReturnPercentage = 0.6m })
+    };
+
+    // Dataset 6: Starts negative, goes positive for at least two points, then ends negative
+    public static List<BackTestPeriodReturn> NegativePositiveNegativeDataset = new List<BackTestPeriodReturn>
+    {
+        new BackTestPeriodReturn("FB", 1000m, new PeriodReturn { Ticker = "FB", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(0), ReturnPercentage = -0.4m }),
+        // ... (continue with negative returns for about 10 days)
+        new BackTestPeriodReturn("FB", 980m, new PeriodReturn { Ticker = "FB", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(11), ReturnPercentage = 0.2m }),
+        new BackTestPeriodReturn("FB", 982m, new PeriodReturn { Ticker = "FB", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(12), ReturnPercentage = 0.3m }),
+        // ... (continue with positive returns for a few more days, then transition back to negative)
+        new BackTestPeriodReturn("FB", 985m, new PeriodReturn { Ticker = "FB", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(28), ReturnPercentage = -0.5m }),
+        new BackTestPeriodReturn("FB", 980m, new PeriodReturn { Ticker = "FB", PeriodType = PeriodType.Daily, PeriodStart = startDate.AddDays(29), ReturnPercentage = -0.3m })
+    };
+}

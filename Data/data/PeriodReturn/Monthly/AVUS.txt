@@ -57,3 +57,4 @@
 {"Ticker":"AVUS","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":1.4103447771817166784542090500,"PeriodType":1}
 {"Ticker":"AVUS","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":2.8162767490852644417341168600,"PeriodType":1}
 {"Ticker":"AVUS","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":1.2293756065998058880621158200,"PeriodType":1}
+{"Ticker":"AVUS","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":-2.2690955576861617130073505900,"PeriodType":1}

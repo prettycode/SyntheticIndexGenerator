@@ -4236,3 +4236,4 @@
 {"Ticker":"DGS","DateTime":"2024-08-28T00:00:00","Open":52.9500,"High":52.9700,"Low":52.6200,"Close":52.7700,"Volume":296900,"AdjustedClose":52.7700}
 {"Ticker":"DGS","DateTime":"2024-08-29T00:00:00","Open":52.9300,"High":53.0100,"Low":52.7800,"Close":52.8000,"Volume":278500,"AdjustedClose":52.8000}
 {"Ticker":"DGS","DateTime":"2024-08-30T00:00:00","Open":52.8900,"High":52.9400,"Low":52.6100,"Close":52.8100,"Volume":224200,"AdjustedClose":52.8100}
+{"Ticker":"DGS","DateTime":"2024-09-03T00:00:00","Open":52.6000,"High":52.6300,"Low":52.0100,"Close":52.1000,"Volume":270600,"AdjustedClose":52.1000}

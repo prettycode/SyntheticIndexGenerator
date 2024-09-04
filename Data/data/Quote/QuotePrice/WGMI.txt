@@ -642,3 +642,4 @@
 {"Ticker":"WGMI","DateTime":"2024-08-28T00:00:00","Open":18.2600,"High":18.5400,"Low":17.5520,"Close":17.7900,"Volume":284600,"AdjustedClose":17.7900}
 {"Ticker":"WGMI","DateTime":"2024-08-29T00:00:00","Open":18.2600,"High":19.1250,"Low":17.8500,"Close":18.1200,"Volume":292500,"AdjustedClose":18.1200}
 {"Ticker":"WGMI","DateTime":"2024-08-30T00:00:00","Open":18.2400,"High":18.2400,"Low":17.5500,"Close":17.7600,"Volume":164100,"AdjustedClose":17.7600}
+{"Ticker":"WGMI","DateTime":"2024-09-03T00:00:00","Open":17.5000,"High":17.5000,"Low":15.7900,"Close":15.8600,"Volume":333700,"AdjustedClose":15.8600}
