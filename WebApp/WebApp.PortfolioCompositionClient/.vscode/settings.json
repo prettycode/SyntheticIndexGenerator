@@ -1,0 +1,6 @@
+{
+    "editor.rulers": [120],
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

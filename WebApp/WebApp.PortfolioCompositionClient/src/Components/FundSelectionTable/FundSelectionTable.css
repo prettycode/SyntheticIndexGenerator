@@ -1,0 +1,9 @@
+table.table tr:not(:last-child) td {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+table.table tbody td:nth-child(n + 3) {
+    padding-right: 3px;
+    padding-left: 3px;
+}
