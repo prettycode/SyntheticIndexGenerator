@@ -333,8 +333,9 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
 
         if (dateFilteredReturnsByTicker.All(returns => returns.Value.Length == 0))
         {
-            var emptyBackTestReturns = dateFilteredReturnsByTicker.Keys.ToDictionary(key => key, _ => Enumerable.Empty<BackTestPeriodReturn>().ToArray());
-            var emptyRebalanceEvents = dateFilteredReturnsByTicker.Keys.ToDictionary(key => key, _ => Enumerable.Empty<BackTestRebalanceEvent>().ToArray());
+            var tickers = dateFilteredReturnsByTicker.Keys;
+            var emptyBackTestReturns = tickers.ToDictionary(ticker => ticker, _ => Array.Empty<BackTestPeriodReturn>());
+            var emptyRebalanceEvents = tickers.ToDictionary(ticker => ticker, _ => Array.Empty<BackTestRebalanceEvent>());
 
             return (emptyBackTestReturns, emptyRebalanceEvents);
         }
