@@ -5,7 +5,7 @@ namespace Data.BackTest;
 
 internal partial class BackTestService(IReturnsService returnsService, ILogger<BackTestService> logger) : IBackTestService
 {
-    public async Task<IEnumerable<BackTest>> GetPortfolioBackTest(
+    public async Task<IEnumerable<BackTest>> GetPortfolioBackTests(
         IEnumerable<IEnumerable<BackTestAllocation>> portfolios,
         decimal? startingBalance,
         PeriodType? periodType,
@@ -125,7 +125,7 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
             .ToArray();
     }
 
-    private async Task<Dictionary<string, PeriodReturn[]>> GetDateRangedReturns(
+    private async Task<Dictionary<string, PeriodReturn[]>> GetOverlappingReturns(
         HashSet<string> tickers,
         PeriodType periodType,
         DateTime firstPeriod,
@@ -223,14 +223,17 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
         var allTickers = portfolios.SelectMany(portfolio => portfolio.Select(x => x.Ticker)).Distinct()
             ?? throw new InvalidOperationException("No portfolio tickers.");
 
-        var allReturnsByTicker = await GetDateRangedReturns(
+        var allReturnsByTicker = await GetOverlappingReturns(
             new(allTickers),
             periodType,
             firstPeriod,
             lastPeriod,
             includeIncompleteEndingPeriod);
 
-        // TODO dates across
+        var firstTickerReturns = allReturnsByTicker.First().Value;
+
+        firstPeriod = firstTickerReturns.First().PeriodStart;
+        lastPeriod = firstTickerReturns.Last().PeriodStart;
 
         var result = new List<BackTestDecomposed>();
 
@@ -243,7 +246,8 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
                     group => group.Sum(alloc => alloc.Percentage)
                 );
 
-            var dateFilteredReturnsByTicker = await GetDateRangedReturns(
+            // TODO: GET RID OF AWAIT, USE THREAD.WHENALL
+            var dateFilteredReturnsByTicker = await GetOverlappingReturns(
                 new(dedupedPortfolioConstituents.Keys),
                 periodType,
                 firstPeriod,
@@ -252,7 +256,7 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
 
             // No overlapping period, empty results
 
-            if (dateFilteredReturnsByTicker.All(returns => returns.Value.Length == 0))
+            if (dateFilteredReturnsByTicker.Any(returns => returns.Value.Length == 0))
             {
                 var tickers = dateFilteredReturnsByTicker.Keys;
 

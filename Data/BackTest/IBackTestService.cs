@@ -4,7 +4,7 @@ namespace Data.BackTest;
 
 public interface IBackTestService
 {
-    Task<IEnumerable<BackTest>> GetPortfolioBackTest(
+    Task<IEnumerable<BackTest>> GetPortfolioBackTests(
         IEnumerable<IEnumerable<BackTestAllocation>> portfolios,
         decimal? startingBalance,
         PeriodType? periodType,

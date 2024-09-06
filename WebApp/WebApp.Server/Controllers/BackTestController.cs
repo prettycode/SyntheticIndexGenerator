@@ -10,7 +10,7 @@ public class BackTestController(IBackTestService backTestService, ILogger<BackTe
 {
     [HttpPost]
     public Task<IEnumerable<BackTest>> GetPortfolioBackTests(BackTestRequest backTestRequest)
-        => backTestService.GetPortfolioBackTest(
+        => backTestService.GetPortfolioBackTests(
             backTestRequest.Portfolios,
             backTestRequest.StartingBalance,
             backTestRequest.PeriodType,
@@ -31,7 +31,7 @@ public class BackTestController(IBackTestService backTestService, ILogger<BackTe
         decimal? rebalanceBandThreshold = null,
         bool? includeIncompleteEndingPeriod = null)
     {
-        var backTests = await backTestService.GetPortfolioBackTest(
+        var backTests = await backTestService.GetPortfolioBackTests(
             [portfolio],
             startingBalance,
             periodType,
