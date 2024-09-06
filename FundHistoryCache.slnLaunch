@@ -3,11 +3,6 @@
     "Name": "New Profile",
     "Projects": [
       {
-        "Path": "WebService\\WebService.csproj",
-        "Action": "Start",
-        "DebugTarget": "https"
-      },
-      {
         "Path": "WebApp\\WebApp.Server\\WebApp.Server.csproj",
         "Action": "Start",
         "DebugTarget": "https"
