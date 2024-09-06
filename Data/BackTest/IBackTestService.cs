@@ -4,13 +4,13 @@ namespace Data.BackTest;
 
 public interface IBackTestService
 {
-    Task<BackTest> GetPortfolioBackTest(
-        IEnumerable<BackTestAllocation> portfolioConstituents,
-        decimal startingBalance = 100,
-        PeriodType periodType = PeriodType.Daily,
-        DateTime firstPeriod = default,
-        DateTime? lastPeriod = null,
-        BackTestRebalanceStrategy rebalanceStrategy = BackTestRebalanceStrategy.None,
-        decimal? rebalanceBandThreshold = null,
-        bool includeIncompleteEndingPeriod = true);
+    Task<IEnumerable<BackTest>> GetPortfolioBackTest(
+        IEnumerable<IEnumerable<BackTestAllocation>> portfolios,
+        decimal? startingBalance,
+        PeriodType? periodType,
+        DateTime? firstPeriod,
+        DateTime? lastPeriod,
+        BackTestRebalanceStrategy? rebalanceStrategy,
+        decimal? rebalanceBandThreshold,
+        bool? includeIncompleteEndingPeriod);
 }

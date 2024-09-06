@@ -5,31 +5,44 @@ namespace Data.BackTest;
 
 internal class BackTestService(IReturnsService returnsService, ILogger<BackTestService> logger) : IBackTestService
 {
-    public async Task<BackTest> GetPortfolioBackTest(
-        IEnumerable<BackTestAllocation> portfolioConstituents,
-        decimal startingBalance = 100,
-        PeriodType periodType = PeriodType.Daily,
-        DateTime firstPeriod = default,
-        DateTime? lastPeriod = null,
-        BackTestRebalanceStrategy rebalanceStrategy = BackTestRebalanceStrategy.None,
-        decimal? rebalanceBandThreshold = null,
-        bool includeIncompleteEndingPeriod = true)
+    public async Task<IEnumerable<BackTest>> GetPortfolioBackTest(
+        IEnumerable<IEnumerable<BackTestAllocation>> portfolios,
+        decimal? startingBalance,
+        PeriodType? periodType,
+        DateTime? firstPeriod,
+        DateTime? lastPeriod,
+        BackTestRebalanceStrategy? rebalanceStrategy,
+        decimal? rebalanceBandThreshold,
+        bool? includeIncompleteEndingPeriod)
     {
-        ArgumentNullException.ThrowIfNull(portfolioConstituents);
+        ArgumentNullException.ThrowIfNull(portfolios);
 
-        if (!portfolioConstituents.Any())
+        startingBalance ??= 100;
+        periodType ??= PeriodType.Daily;
+        firstPeriod ??= DateTime.MinValue;
+        lastPeriod ??= DateTime.MaxValue;
+        includeIncompleteEndingPeriod ??= true;
+        rebalanceStrategy ??= BackTestRebalanceStrategy.None;
+        rebalanceBandThreshold ??= 0;
+
+        if (!portfolios.Any())
         {
-            throw new ArgumentException("Portfolio constituents cannot be empty.", nameof(portfolioConstituents));
+            throw new ArgumentException("Portfolios cannot be empty.", nameof(portfolios));
         }
 
-        if (portfolioConstituents.Sum(constituent => constituent.Percentage) != 100)
+        if (portfolios.Any(portfolio => !portfolio.Any()))
         {
-            throw new ArgumentException("Portfolio constituents percentages must add up to 100.", nameof(portfolioConstituents));
+            throw new ArgumentException("A portfolio's constituents cannot be empty.", nameof(portfolios));
         }
 
-        ArgumentOutOfRangeException.ThrowIfLessThan(startingBalance, 1, nameof(startingBalance));
+        if (portfolios.Any(portfolio => portfolio.Sum(constituent => constituent.Percentage) != 100))
+        {
+            throw new ArgumentException("A portfolio's constituent percentages must add up to 100.", nameof(portfolios));
+        }
 
-        if (lastPeriod.HasValue && lastPeriod.Value < firstPeriod)
+        ArgumentOutOfRangeException.ThrowIfLessThan(startingBalance.Value, 1, nameof(startingBalance));
+
+        if (lastPeriod.HasValue && firstPeriod.HasValue && lastPeriod.Value < firstPeriod.Value)
         {
             throw new ArgumentOutOfRangeException(nameof(lastPeriod), "Last period cannot be before first period.");
         }
@@ -51,33 +64,36 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
                 "Rebalance strategy cannot be more frequent than period type.");
         }
 
-        lastPeriod ??= DateTime.MaxValue;
-
-        var (decomposed, rebalances) = await GetPortfolioBackTestDecomposed(
-            portfolioConstituents,
-            startingBalance,
-            periodType,
-            firstPeriod,
-            lastPeriod.Value,
-            rebalanceStrategy,
-            rebalanceBandThreshold,
-            includeIncompleteEndingPeriod);
-
-        var aggregated = AggregateDecomposedPortfolioBackTest(decomposed);
-        var aggregatedDrawdownReturns = GetBackTestPeriodReturnDrawdownReturns(aggregated);
-        var aggregatedDrawdownPeriods = GetBackTestPeriodReturnDrawdownPeriods(aggregated);
-        var backtest = new BackTest()
+        var portfolioBackTests = portfolios.Select(async portfolio =>
         {
-            AggregatePerformance = aggregated,
-            AggregatePerformanceDrawdownsReturns = aggregatedDrawdownReturns,
-            AggregatePerformanceDrawdownPeriods = aggregatedDrawdownPeriods,
-            DecomposedPerformanceByTicker = decomposed,
-            RebalancesByTicker = rebalances,
-            RebalanceStrategy = rebalanceStrategy,
-            RebalanceThreshold = rebalanceBandThreshold
-        };
+            var (decomposed, rebalances) = await GetPortfolioBackTestDecomposed(
+                portfolio,
+                startingBalance.Value,
+                periodType.Value,
+                firstPeriod.Value,
+                lastPeriod.Value,
+                rebalanceStrategy.Value,
+                rebalanceBandThreshold,
+                includeIncompleteEndingPeriod.Value);
 
-        return backtest;
+            var aggregated = AggregateDecomposedPortfolioBackTest(decomposed);
+            var aggregatedDrawdownReturns = GetBackTestPeriodReturnDrawdownReturns(aggregated);
+            var aggregatedDrawdownPeriods = GetBackTestPeriodReturnDrawdownPeriods(aggregated);
+            var backtest = new BackTest()
+            {
+                AggregatePerformance = aggregated,
+                AggregatePerformanceDrawdownsReturns = aggregatedDrawdownReturns,
+                AggregatePerformanceDrawdownPeriods = aggregatedDrawdownPeriods,
+                DecomposedPerformanceByTicker = decomposed,
+                RebalancesByTicker = rebalances,
+                RebalanceStrategy = rebalanceStrategy.Value,
+                RebalanceThreshold = rebalanceBandThreshold
+            };
+
+            return backtest;
+        });
+
+        return await Task.WhenAll(portfolioBackTests);
     }
 
     private static BackTestDrawdownPeriod[] GetBackTestPeriodReturnDrawdownPeriods(BackTestPeriodReturn[] returns)

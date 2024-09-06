@@ -408,11 +408,11 @@ function App() {
         }
 
         const cryptoFunds = [
-            [{ Ticker: 'BLOK', Percentage: 100 }], // Y
-            [{ Ticker: 'FDIG', Percentage: 100 }], // Y
-            [{ Ticker: 'BITQ', Percentage: 100 }], // Y
+            [{ Ticker: 'BLOK', Percentage: 100 }],
+            [{ Ticker: 'FDIG', Percentage: 100 }],
+            [{ Ticker: 'BITQ', Percentage: 100 }],
             [{ Ticker: 'BKCH', Percentage: 100 }],
-            [{ Ticker: 'DAPP', Percentage: 100 }], // Y
+            [{ Ticker: 'DAPP', Percentage: 100 }],
             [{ Ticker: 'WGMI', Percentage: 100 }]
         ];
 
@@ -421,13 +421,12 @@ function App() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(cryptoFunds.map(cryptoFund => ({
+            body: JSON.stringify({
                 startingBalance: 10000,
                 periodType,
                 rebalanceStrategy: rebalanceFrequency,
-                portfolioConstituents: cryptoFund,
-                firstPeriod: '2022-04-22'
-            })))
+                portfolios: cryptoFunds
+            })
         });
         const data = await response.json();
         setPortfolioBackTests(data);
