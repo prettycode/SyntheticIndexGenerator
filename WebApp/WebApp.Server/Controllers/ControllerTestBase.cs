@@ -1,7 +1,7 @@
 ﻿using Data.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebService.Controllers;
+namespace WebApp.Server.Controllers;
 
 public class ControllerTestBase
 {

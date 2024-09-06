@@ -1,9 +1,9 @@
 using Data.BackTest;
 using Data.Returns;
 using Microsoft.AspNetCore.Mvc;
-using WebService.Controllers;
+using WebApp.Server.Controllers;
 
-namespace WebService.EndpointTestControllers;
+namespace WebApp.Server.EndpointTestControllers;
 
 [ApiController]
 [Route("[controller]/[action]")]

@@ -2,7 +2,7 @@
 using Data.BackTest;
 using Data.Returns;
 
-namespace WebService.Controllers;
+namespace WebApp.Server.Controllers;
 
 public class BackTestControllerTests : ControllerTestBase
 {
@@ -18,7 +18,7 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "AVMC", Percentage = 12.5m }
         };
 
-        var controller1 = base.GetController<BackTestController>();
+        var controller1 = GetController<BackTestController>();
 
         // LCB has no daily
         await Assert.ThrowsAsync<KeyNotFoundException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily));
@@ -31,7 +31,7 @@ public class BackTestControllerTests : ControllerTestBase
         await Assert.ThrowsAsync<KeyNotFoundException>(() => controller1.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
 
 
-        var controller2 = base.GetController<BackTestController>();
+        var controller2 = GetController<BackTestController>();
 
         var portfolio2 = new List<BackTestAllocation>()
         {
@@ -50,7 +50,7 @@ public class BackTestControllerTests : ControllerTestBase
         await Assert.ThrowsAsync<KeyNotFoundException>(() => controller2.GetPortfolioBackTest(portfolio1, 100, PeriodType.Yearly));
 
 
-        var controller3 = base.GetController<BackTestController>();
+        var controller3 = GetController<BackTestController>();
 
         var portfolio3 = new List<BackTestAllocation>()
         {
@@ -84,7 +84,7 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#2X", Percentage = 100 }
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
         var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1))).DecomposedPerformanceByTicker;
         var actualOutput2 = (await controller.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1))).DecomposedPerformanceByTicker;
@@ -123,7 +123,7 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#3X", Percentage = 50 },
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
         var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1))).DecomposedPerformanceByTicker;
 
@@ -176,7 +176,7 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#3X", Percentage = 50 },
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
         var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 1, 1))).DecomposedPerformanceByTicker;
 
@@ -207,7 +207,7 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#3X", Percentage = 50 },
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
         var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 2, 1))).DecomposedPerformanceByTicker;
 
@@ -240,7 +240,7 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#3X", Percentage = 50 },
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
         var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.Monthly)).DecomposedPerformanceByTicker;
 
@@ -299,7 +299,7 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#2X", Percentage = 100 }
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
         var actualOutput1 = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.BandsAbsolute, 0.0000001m)).DecomposedPerformanceByTicker;
         var actualOutput2 = (await controller.GetPortfolioBackTest(portfolio2, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.BandsAbsolute, 0.0000001m)).DecomposedPerformanceByTicker;
@@ -338,9 +338,9 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#2X", Percentage = 50 },
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
-        var backtest = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.BandsAbsolute, 25));
+        var backtest = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.BandsAbsolute, 25);
         var decomposed = backtest.DecomposedPerformanceByTicker;
 
         var expectedDecomposed = new Dictionary<string, BackTestPeriodReturn[]>
@@ -413,9 +413,9 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#2X", Percentage = 50 },
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
-        var backtest = (await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.BandsRelative, 50));
+        var backtest = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.BandsRelative, 50);
         var decomposed = backtest.DecomposedPerformanceByTicker;
 
         var expectedDecomposed = new Dictionary<string, BackTestPeriodReturn[]>
@@ -488,7 +488,7 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#3X", Percentage = 50 },
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
         var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Monthly, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.Monthly);
 
@@ -519,7 +519,7 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#3X", Percentage = 50 },
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
         var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.Weekly);
 
@@ -544,7 +544,7 @@ public class BackTestControllerTests : ControllerTestBase
             new() { Ticker = "#3X", Percentage = 50 },
         };
 
-        var controller = base.GetController<BackTestController>();
+        var controller = GetController<BackTestController>();
 
         var actualOutput1 = await controller.GetPortfolioBackTest(portfolio1, 100, PeriodType.Daily, new DateTime(2023, 1, 1), new DateTime(2023, 12, 1), BackTestRebalanceStrategy.Monthly);
 

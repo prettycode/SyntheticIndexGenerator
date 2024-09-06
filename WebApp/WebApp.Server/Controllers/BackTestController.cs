@@ -2,7 +2,7 @@ using Data.BackTest;
 using Data.Returns;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebService.Controllers;
+namespace WebApp.Server.Controllers;
 
 public class BackTestRequest
 {
@@ -49,7 +49,7 @@ public class BackTestController(IBackTestService backTestService, ILogger<BackTe
 
     [HttpPost]
     public async Task<IEnumerable<BackTest>> GetPortfolioBackTests([FromBody] IEnumerable<BackTestRequest> backTestRequests)
-    { 
+    {
         var backTestTasks = backTestRequests.Select(backTestRequest => GetPortfolioBackTest(backTestRequest));
 
         return await Task.WhenAll(backTestTasks);
