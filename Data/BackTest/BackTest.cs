@@ -2,20 +2,20 @@
 
 namespace Data.BackTest;
 
-public struct BackTest
+public class BackTest
 {
-    public required Dictionary<string, BackTestPeriodReturn[]> DecomposedPerformanceByTicker { get; set; }
+    public Dictionary<string, BackTestPeriodReturn[]> DecomposedPerformanceByTicker { get; set; } = [];
 
-    public required BackTestPeriodReturn[] AggregatePerformance { get; set; }
+    public BackTestPeriodReturn[] AggregatePerformance { get; set; } = [];
 
-    public required BackTestPeriodReturn[] AggregatePerformanceDrawdownsReturns { get; set; }
+    public BackTestPeriodReturn[] AggregatePerformanceDrawdownsReturns { get; set; } = [];
 
-    public required BackTestDrawdownPeriod[] AggregatePerformanceDrawdownPeriods { get; set; }
+    public BackTestDrawdownPeriod[] AggregatePerformanceDrawdownPeriods { get; set; } = [];
 
     /// <summary>
     /// List of of the periods, after completing, that triggered rebalances.
     /// </summary>
-    public required Dictionary<string, BackTestRebalanceEvent[]> RebalancesByTicker { get; set; }
+    public Dictionary<string, BackTestRebalanceEvent[]> RebalancesByTicker { get; set; } = [];
 
     public required BackTestRebalanceStrategy RebalanceStrategy { get; set; }
 
@@ -24,7 +24,7 @@ public struct BackTest
     /// </summary>
     public required decimal? RebalanceThreshold { get; set; }
 
-    public readonly double Cagr
+    public double Cagr
     {
         get
         {
@@ -49,7 +49,7 @@ public struct BackTest
         }
     }
 
-    public readonly double YearsBeforeDoubling => Math.Log(2) / Math.Log(1 + Cagr);
+    public double YearsBeforeDoubling => Math.Log(2) / Math.Log(1 + Cagr);
 
-    public readonly decimal MaximumDrawdownPercentage => AggregatePerformanceDrawdownsReturns.MinBy(dd => dd.ReturnPercentage).ReturnPercentage;
+    public decimal MaximumDrawdownPercentage => AggregatePerformanceDrawdownsReturns.MinBy(dd => dd.ReturnPercentage).ReturnPercentage;
 }

@@ -74,6 +74,15 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
             rebalanceBandThreshold,
             includeIncompleteEndingPeriod.Value);
 
+        if (!portfolioBackTests.SelectMany(backTest => backTest.ReturnsByTicker.Values).Any())
+        {
+            return portfolioBackTests.Select(backTest => new BackTest()
+            {
+                RebalanceStrategy = rebalanceStrategy.Value,
+                RebalanceThreshold = rebalanceBandThreshold
+            });
+        }
+
         var backTestResult = portfolioBackTests.Select(portfolioBackTest =>
         {
             var returns = portfolioBackTest.ReturnsByTicker;
@@ -229,6 +238,11 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
             firstPeriod,
             lastPeriod,
             includeIncompleteEndingPeriod);
+
+        if (allReturnsByTicker.Any(pair => pair.Value.Length == 0))
+        {
+            return portfolios.Select(portfolio => new BackTestDecomposed());
+        }
 
         var firstTickerReturns = allReturnsByTicker.First().Value;
 
