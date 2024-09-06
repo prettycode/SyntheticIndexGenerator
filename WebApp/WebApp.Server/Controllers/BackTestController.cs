@@ -22,9 +22,9 @@ public class BackTestController(IBackTestService backTestService, ILogger<BackTe
 
     [HttpPost]
     public async Task<BackTest> GetPortfolioBackTest(
-        IEnumerable<BackTestAllocation> portfolioConstituents,
-        decimal startingBalance,
-        PeriodType periodType,
+        IEnumerable<BackTestAllocation> portfolio,
+        decimal? startingBalance,
+        PeriodType? periodType,
         DateTime? firstPeriod = null,
         DateTime? lastPeriod = null,
         BackTestRebalanceStrategy? rebalanceStrategy = null,
@@ -32,7 +32,7 @@ public class BackTestController(IBackTestService backTestService, ILogger<BackTe
         bool? includeIncompleteEndingPeriod = null)
     {
         var backTests = await backTestService.GetPortfolioBackTest(
-            [portfolioConstituents],
+            [portfolio],
             startingBalance,
             periodType,
             firstPeriod,

@@ -2,10 +2,10 @@
 
 public readonly struct BackTestAllocation
 {
-    public string Ticker { get; init; }
+    public required string Ticker { get; init; }
 
     /// <summary>
     /// Scale is 0 - 100, not 0 - 1.
     /// </summary>
-    public decimal Percentage { get; init; }
+    public required decimal Percentage { get; init; }
 }

@@ -9,7 +9,7 @@ public class BackTestRequest
 
     public decimal? StartingBalance { get; init; }
 
-    public PeriodType PeriodType { get; init; }
+    public PeriodType? PeriodType { get; init; }
 
     public DateTime? FirstPeriod { get; init; }
 

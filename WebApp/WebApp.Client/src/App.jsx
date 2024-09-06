@@ -30,71 +30,69 @@ Highcharts.setOptions({
 
 function App() {
     const portfolioOptions = [
-        { name: 'Default ($^USSCV 50%, $^USLCB 50%)', value: 'default' },
-        { name: 'Aggressive ($^USSCV 70%, $^USLCB 30%)', value: 'aggressive' },
-        { name: 'Conservative ($^USSCV 30%, $^USLCB 70%)', value: 'conservative' },
-        { name: 'AVUV', value: 'AVUV' },
-        { name: 'SPY', value: 'SPY' },
-        { name: 'SPY/AVUV', value: 'SPY/AVUV' }
+        { name: 'Default ($^USSCV 50%, $^USLCB 50%)', id: 'default' },
+        { name: 'Aggressive ($^USSCV 70%, $^USLCB 30%)', id: 'aggressive' },
+        { name: 'Conservative ($^USSCV 30%, $^USLCB 70%)', id: 'conservative' },
+        { name: 'AVUV', id: 'AVUV' },
+        { name: 'SPY', id: 'SPY' },
+        { name: 'SPY/AVUV', id: 'SPY/AVUV' }
     ];
 
     const periodOptions = [
-        { name: 'Daily', value: 0 },
-        { name: 'Monthly', value: 1 },
-        { name: 'Yearly', value: 2 },
+        { name: 'Daily', id: 0 },
+        { name: 'Monthly', id: 1 },
+        { name: 'Yearly', id: 2 },
     ];
 
     const rebalanceOptions = [
-        { name: 'None', value: 0 },
-        { name: 'Daily', value: 1 },
-        { name: 'Weekly', value: 2 },
-        { name: 'Monthly', value: 3 },
-        { name: 'Quarterly', value: 4 },
-        { name: 'Semi-Annually', value: 5 },
-        { name: 'Annually', value: 6 }
+        { name: 'None', id: 0 },
+        { name: 'Daily', id: 1 },
+        { name: 'Weekly', id: 2 },
+        { name: 'Monthly', id: 3 },
+        { name: 'Quarterly', id: 4 },
+        { name: 'Semi-Annually', id: 5 },
+        { name: 'Annually', id: 6 }
     ];
 
-    const dailyPeriodOptionValue = periodOptions.find(option => option.name === 'Daily').value;
-    const annualRebalanceOptionValue = rebalanceOptions.find(option => option.name === 'Annually').value;
+    const [selectedPortfolioId, setSelectedPortfolioId] = useState('default');
+    const [selectedPeriodTypeId, setSelectedPeriodTypeId] = useState(periodOptions.find(option => option.name === 'Daily').id);
+    const [selectedRebalanceStrategyId, setSelectedRebalanceId] = useState(rebalanceOptions.find(option => option.name === 'Annually').id);
+    const [selectedIsLogScale, setSelectedIsLogScale] = useState(false);
 
     const [portfolioBackTests, setPortfolioBackTests] = useState();
-    const [selectedPortfolio, setSelectedPortfolio] = useState('default');
-    const [periodType, setPeriodType] = useState(dailyPeriodOptionValue);
-    const [rebalanceFrequency, setRebalanceFrequency] = useState(annualRebalanceOptionValue);
     const [isLoadingBackTest, setIsLoadingBackTest] = useState(true);
-    const [isLogScale, setIsLogScale] = useState(false);
     const [chartOptions, setChartOptions] = useState({});
     const [drawdownChartOptions, setDrawdownChartOptions] = useState({});
 
     useEffect(() => {
         setIsLoadingBackTest(true);
         (async () => {
-            await fetchPortfolio(selectedPortfolio, periodType, rebalanceFrequency);
+            await fetchPortfolio(selectedPortfolioId, selectedPeriodTypeId, selectedRebalanceStrategyId, 10000);
             setIsLoadingBackTest(false);
         })();
-    }, [selectedPortfolio, periodType, rebalanceFrequency]);
+    }, [selectedPortfolioId, selectedPeriodTypeId, selectedRebalanceStrategyId]);
 
     useEffect(() => {
         if (portfolioBackTests) {
             updatePerformanceChartOptions();
             updateDrawdownChartOptions();
         }
-    }, [portfolioBackTests, isLogScale]);
+    }, [portfolioBackTests, selectedIsLogScale]);
 
     const handlePortfolioChange = (event) => {
-        setSelectedPortfolio(event.target.value);
+        setSelectedPortfolioId(event.target.value);
     };
 
     const handlePeriodTypeChange = (event) => {
-        setPeriodType(Number(event.target.value));
+        setSelectedPeriodTypeId(Number(event.target.value));
     };
 
-    const handleRebalanceFrequencyChange = (event) => {
-        setRebalanceFrequency(Number(event.target.value));
+    const handleRebalanceStrategyChange = (event) => {
+        setSelectedRebalanceId(Number(event.target.value));
     };
 
     const handleLogScaleChange = (event) => {
-        setIsLogScale(event.target.checked);
+        setSelectedIsLogScale(event.target.checked);
     };
 
     const formatNumber = (number) =>
@@ -125,7 +123,7 @@ function App() {
                 title: {
                     text: 'Portfolio Balance'
                 },
-                type: isLogScale ? 'logarithmic' : 'linear'
+                type: selectedIsLogScale ? 'logarithmic' : 'linear'
             },
             series: portfolioBackTests.flatMap((portfolioBackTest, i) => [
                 {
@@ -248,9 +246,9 @@ function App() {
             <div style={{ textAlign: 'left', marginBottom: '20px' }}>
                 <div style={{ marginBottom: '10px' }}>
                     <label htmlFor="portfolio-select" style={{ marginRight: '10px' }}>Portfolio: </label>
-                    <select id="portfolio-select" value={selectedPortfolio} onChange={handlePortfolioChange}>
+                    <select id="portfolio-select" value={selectedPortfolioId} onChange={handlePortfolioChange}>
                         {portfolioOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
+                            <option key={option.id} value={option.id}>
                                 {option.name}
                             </option>
                         ))}
@@ -258,9 +256,9 @@ function App() {
                 </div>
                 <div style={{ marginBottom: '10px' }}>
                     <label htmlFor="period-select" style={{ marginRight: '10px' }}>History resolution: </label>
-                    <select id="period-select" value={periodType} onChange={handlePeriodTypeChange}>
+                    <select id="period-select" value={selectedPeriodTypeId} onChange={handlePeriodTypeChange}>
                         {periodOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
+                            <option key={option.id} value={option.id}>
                                 {option.name}
                             </option>
                         ))}
@@ -268,9 +266,9 @@ function App() {
                 </div>
                 <div>
                     <label htmlFor="rebalance-select" style={{ marginRight: '10px' }}>Rebalancing frequency: </label>
-                    <select id="rebalance-select" value={rebalanceFrequency} onChange={handleRebalanceFrequencyChange}>
+                    <select id="rebalance-select" value={selectedRebalanceStrategyId} onChange={handleRebalanceStrategyChange}>
                         {rebalanceOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
+                            <option key={option.id} value={option.id}>
                                 {option.name}
                             </option>
                         ))}
@@ -324,7 +322,7 @@ function App() {
                             <tr>
                                 <td>Rebalance Strategy:</td>
                                 <td>
-                                    {rebalanceOptions.find(option => option.value === portfolioBackTest.rebalanceStrategy).name}
+                                    {rebalanceOptions.find(option => option.id === portfolioBackTest.rebalanceStrategy).name}
                                 </td>
                             </tr>
                         </tbody>
@@ -341,7 +339,7 @@ function App() {
                     <label>
                         <input
                             type="checkbox"
-                            checked={isLogScale}
+                            checked={selectedIsLogScale}
                             onChange={handleLogScaleChange}
                         />
                         Logarithmic Scale
@@ -369,67 +367,62 @@ function App() {
         </div>
     );
 
-    async function fetchPortfolio(portfolioType, periodType, rebalanceFrequency) {
-        let portfolioConstituents;
-        switch (portfolioType) {
-            case 'aggressive':
-                portfolioConstituents = [
-                    { Ticker: '$^USSCV', Percentage: 70 },
-                    { Ticker: '$^USLCB', Percentage: 30 }
-                ];
-                break;
-            case 'conservative':
-                portfolioConstituents = [
-                    { Ticker: '$^USSCV', Percentage: 30 },
-                    { Ticker: '$^USLCB', Percentage: 70 }
-                ];
-                break;
-            case 'AVUV':
-                portfolioConstituents = [
-                    { Ticker: 'AVUV', Percentage: 100 }
-                ];
-                break;
-            case 'SPY':
-                portfolioConstituents = [
-                    { Ticker: 'SPY', Percentage: 100 }
-                ];
-                break;
-            case 'SPY/AVUV':
-                portfolioConstituents = [
-                    { Ticker: 'SPY', Percentage: 50 },
-                    { Ticker: 'AVUV', Percentage: 50 }
-                ];
-                break;
-            default:
-                portfolioConstituents = [
-                    { Ticker: '$^USSCV', Percentage: 50 },
-                    { Ticker: '$^USLCB', Percentage: 50 }
-                ];
+    async function fetchPortfolio(portfolioId, periodType, rebalanceStrategy, startingBalance) {
+        /* Don't work, not sure what's going on. Not important for now, may disappear completely.
+
+        let portfolio = portfolioOptions.find(option => option.id = portfolioId);
+
+        if (!portfolio) {
+            throw new Error('Unrecognized portfolio type.');
         }
 
-        const cryptoFunds = [
-            [{ Ticker: 'BLOK', Percentage: 100 }],
-            [{ Ticker: 'FDIG', Percentage: 100 }],
-            [{ Ticker: 'BITQ', Percentage: 100 }],
-            [{ Ticker: 'BKCH', Percentage: 100 }],
-            [{ Ticker: 'DAPP', Percentage: 100 }],
-            [{ Ticker: 'WGMI', Percentage: 100 }]
-        ];
+        const singlePortfolioBackTestRequest = {
+            portfolio,
+            startingBalance,
+            periodType,
+            rebalanceStrategy
+        };
 
-        const response = await fetch(`https://localhost:7118/api/BackTest/GetPortfolioBackTests`, {
+        const fetchSinglePortfolioBackTest = fetch(`https://localhost:7118/api/BackTest/GetPortfolioBackTest`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                startingBalance: 10000,
-                periodType,
-                rebalanceStrategy: rebalanceFrequency,
-                portfolios: cryptoFunds
-            })
+            body: JSON.stringify(singlePortfolioBackTestRequest)
         });
-        const data = await response.json();
-        setPortfolioBackTests(data);
+
+        await fetchSinglePortfolioBackTest
+            .then(response => response.json())
+            .then(backTest => setPortfolioBackTests([backTest]))
+            .catch(console.error);
+        */
+
+        const multiPortfolioBackTestRequest = {
+            portfolios: [
+                [{ Ticker: 'BLOK', Percentage: 100 }],
+                [{ Ticker: 'FDIG', Percentage: 100 }],
+                [{ Ticker: 'BITQ', Percentage: 100 }],
+                [{ Ticker: 'BKCH', Percentage: 100 }],
+                [{ Ticker: 'DAPP', Percentage: 100 }],
+                [{ Ticker: 'WGMI', Percentage: 100 }]
+            ],
+            startingBalance,
+            periodType,
+            rebalanceStrategy
+        };
+
+        const fetchMultiPortfolioBackTest = fetch(`https://localhost:7118/api/BackTest/GetPortfolioBackTests`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(multiPortfolioBackTestRequest)
+        });
+
+        await fetchMultiPortfolioBackTest
+            .then(response => response.json())
+            .then(setPortfolioBackTests)
+            .catch(console.error);
     }
 }
 
