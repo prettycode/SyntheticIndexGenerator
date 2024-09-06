@@ -211,7 +211,9 @@ internal class QuotesService(
 
         lock (downloadLocker)
         {
-            Task.Delay(1000).GetAwaiter().GetResult();
+            // 2024-09-06: Ran into rate-limiting with 1000, so bumped to 2500.
+
+            Task.Delay(2500).GetAwaiter().GetResult();
             downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
         }
 

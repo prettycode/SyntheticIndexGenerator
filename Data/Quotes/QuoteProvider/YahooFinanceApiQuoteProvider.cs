@@ -7,6 +7,9 @@ public class YahooFinanceApiQuoteProvider : QuoteProvider, IQuoteProvider
         DateTime? startDate,
         DateTime? endDate)
     {
+        // Yahoo! Finance goes back to 1927 for S&P 500 (^GSPC)
+        startDate ??= new DateTime(1927, 1, 1);
+
         var libDivs = await YahooFinanceApi.Yahoo.GetDividendsAsync(ticker, startDate, endDate);
         var libPrices = await YahooFinanceApi.Yahoo.GetHistoricalAsync(ticker, startDate, endDate);
         var libSplits = await YahooFinanceApi.Yahoo.GetSplitsAsync(ticker, startDate, endDate);
