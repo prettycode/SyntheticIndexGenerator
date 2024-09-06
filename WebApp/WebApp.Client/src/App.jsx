@@ -30,12 +30,37 @@ Highcharts.setOptions({
 
 function App() {
     const portfolioOptions = [
-        { name: 'Default ($^USSCV 50%, $^USLCB 50%)', id: 'default' },
-        { name: 'Aggressive ($^USSCV 70%, $^USLCB 30%)', id: 'aggressive' },
-        { name: 'Conservative ($^USSCV 30%, $^USLCB 70%)', id: 'conservative' },
-        { name: 'AVUV', id: 'AVUV' },
-        { name: 'SPY', id: 'SPY' },
-        { name: 'SPY/AVUV', id: 'SPY/AVUV' }
+        {
+            name: 'Aggressive ($^USLCB 25%, $^USSCV 75%)',
+            id: 'aggressive',
+            portfolio: [
+                { Ticker: '$^USLCB', Percentage: 25 },
+                { Ticker: '$^USSCV', Percentage: 75 }
+            ]
+        },
+        {
+            name: 'Barbell ($^USLCB 50%, $^USSCV 50%)',
+            id: 'default',
+            portfolio: [
+                { Ticker: '$^USLCB', Percentage: 50 },
+                { Ticker: '$^USSCV', Percentage: 50 }
+            ]
+        },
+        {
+            name: 'Conservative ($^USLCB 75%, $^USSCV 25%)',
+            id: 'conservative',
+            portfolio: [
+                { Ticker: '$^USLCB', Percentage: 75 },
+                { Ticker: '$^USSCV', Percentage: 25 }
+            ]
+        },
+        {
+            name: 'AVUV',
+            id: 'AVUV',
+            portfolio: [
+                { Ticker: 'AVUV', Percentage: 100 }
+            ]
+        }
     ];
 
     const periodOptions = [
@@ -368,9 +393,9 @@ function App() {
     );
 
     async function fetchPortfolio(portfolioId, periodType, rebalanceStrategy, startingBalance) {
-        /* Don't work, not sure what's going on. Not important for now, may disappear completely.
+        /* Not working, not sure what's going on. Not important for now, may disappear completely.
 
-        let portfolio = portfolioOptions.find(option => option.id = portfolioId);
+        let portfolio = portfolioOptions.find(option => option.id = portfolioId)?.portfolio;
 
         if (!portfolio) {
             throw new Error('Unrecognized portfolio type.');
