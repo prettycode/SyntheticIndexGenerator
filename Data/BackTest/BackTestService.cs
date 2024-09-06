@@ -98,9 +98,14 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
 
     private static BackTestDrawdownPeriod[] GetBackTestPeriodReturnDrawdownPeriods(BackTestPeriodReturn[] returns)
     {
-        var result = new List<BackTestDrawdownPeriod>();
-
         var returnsCount = returns.Length;
+
+        if (returnsCount == 0)
+        {
+            return [];
+        }
+
+        var result = new List<BackTestDrawdownPeriod>();
         var drawdownStartingBalance = returns[0].StartingBalance;
         var inDrawdown = returns[0].ReturnPercentage < 0;
         DateTime? drawdownFirstPeriodStart = !inDrawdown ? null : returns[0].PeriodStart;
@@ -167,8 +172,14 @@ internal class BackTestService(IReturnsService returnsService, ILogger<BackTestS
 
     private static BackTestPeriodReturn[] GetBackTestPeriodReturnDrawdownReturns(BackTestPeriodReturn[] returns)
     {
-        var drawdowns = new List<BackTestPeriodReturn>();
         var returnsCount = returns.Length;
+
+        if (returnsCount == 0)
+        {
+            return [];
+        }
+
+        var drawdowns = new List<BackTestPeriodReturn>();
         var drawdownStartingBalance = returns[0].StartingBalance;
         var inDrawdown = returns[0].ReturnPercentage < 0;
 
