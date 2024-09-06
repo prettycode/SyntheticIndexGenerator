@@ -279,7 +279,7 @@ function App() {
             </div>
 
             <div className={isLoadingBackTest ? 'loading' : ''} >
-                <h3>Overview</h3>                
+                <h3>Overview</h3>
                 {portfolioBackTests.map(portfolioBackTest => (
                     <table key={portfolioBackTest.id} style={{ display: "block", float: "left" }}>
                         <tbody>
@@ -328,7 +328,7 @@ function App() {
                                 </td>
                             </tr>
                         </tbody>
-                    </table>                    
+                    </table>
                 ))}
 
                 <div style={{ clear: "both" }}></div>
@@ -411,12 +411,12 @@ function App() {
             [{ Ticker: 'BLOK', Percentage: 100 }], // Y
             [{ Ticker: 'FDIG', Percentage: 100 }], // Y
             [{ Ticker: 'BITQ', Percentage: 100 }], // Y
-            [{ Ticker: 'BKCH', Percentage: 100 }], 
+            [{ Ticker: 'BKCH', Percentage: 100 }],
             [{ Ticker: 'DAPP', Percentage: 100 }], // Y
             [{ Ticker: 'WGMI', Percentage: 100 }]
         ];
 
-        const response = await fetch(`https://localhost:7219/api/BackTest/GetPortfolioBackTests`, {
+        const response = await fetch(`https://localhost:7118/api/BackTest/GetPortfolioBackTests`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"

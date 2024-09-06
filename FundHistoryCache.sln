@@ -7,13 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataRefreshJob", "DataRefreshJob\DataRefreshJob.csproj", "{BB58D816-4BE8-42EF-9AC8-75889A7A6260}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebService", "WebService\WebService.csproj", "{ACB66D6C-12BF-469B-9A2C-B194FF7400B5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp.Server", "WebApp\WebApp.Server\WebApp.Server.csproj", "{DC37004F-2F0B-44E3-B840-16F7CA098254}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "WebApp.Client", "WebApp\WebApp.Client\WebApp.Client.esproj", "{59F52663-0251-4243-A9DE-93BE4606F013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TableFileCache", "TableFileCache\TableFileCache.csproj", "{0C8FC40A-29FA-40A4-BD44-07B992380708}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TableFileCache", "TableFileCache\TableFileCache.csproj", "{0C8FC40A-29FA-40A4-BD44-07B992380708}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{BB58D816-4BE8-42EF-9AC8-75889A7A6260}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB58D816-4BE8-42EF-9AC8-75889A7A6260}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB58D816-4BE8-42EF-9AC8-75889A7A6260}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ACB66D6C-12BF-469B-9A2C-B194FF7400B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ACB66D6C-12BF-469B-9A2C-B194FF7400B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ACB66D6C-12BF-469B-9A2C-B194FF7400B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ACB66D6C-12BF-469B-9A2C-B194FF7400B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DC37004F-2F0B-44E3-B840-16F7CA098254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC37004F-2F0B-44E3-B840-16F7CA098254}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC37004F-2F0B-44E3-B840-16F7CA098254}.Release|Any CPU.ActiveCfg = Release|Any CPU

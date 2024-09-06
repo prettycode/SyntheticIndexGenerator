@@ -1659,3 +1659,5 @@
 {"Ticker":"BLOK","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":-0.085034013605442176870748300,"PeriodType":0}
 {"Ticker":"BLOK","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.340425531914893617021276600,"PeriodType":0}
 {"Ticker":"BLOK","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-4.9476957873904438789934973100,"PeriodType":0}
+{"Ticker":"BLOK","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":0.4461629982153480071386079700,"PeriodType":0}
+{"Ticker":"BLOK","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":-0.3849570624814924489191590200,"PeriodType":0}
