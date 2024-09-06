@@ -64,36 +64,38 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
                 "Rebalance strategy cannot be more frequent than period type.");
         }
 
-        var portfolioBackTests = portfolios.Select(async portfolio =>
-        {
-            var (decomposed, rebalances) = await GetPortfolioBackTestDecomposed(
-                portfolio,
-                startingBalance.Value,
-                periodType.Value,
-                firstPeriod.Value,
-                lastPeriod.Value,
-                rebalanceStrategy.Value,
-                rebalanceBandThreshold,
-                includeIncompleteEndingPeriod.Value);
+        var portfolioBackTests = await GetPortfolioBackTestsDecomposed(
+            portfolios,
+            startingBalance.Value,
+            periodType.Value,
+            firstPeriod.Value,
+            lastPeriod.Value,
+            rebalanceStrategy.Value,
+            rebalanceBandThreshold,
+            includeIncompleteEndingPeriod.Value);
 
-            var aggregated = AggregateDecomposedPortfolioBackTest(decomposed);
+        var backTestResult = portfolioBackTests.Select(portfolioBackTest =>
+        {
+            var returns = portfolioBackTest.ReturnsByTicker;
+            var rebalances = portfolioBackTest.RebalancesByTicker;
+            var aggregated = AggregateDecomposedPortfolioBackTest(returns);
             var aggregatedDrawdownReturns = GetBackTestPeriodReturnDrawdownReturns(aggregated);
             var aggregatedDrawdownPeriods = GetBackTestPeriodReturnDrawdownPeriods(aggregated);
-            var backtest = new BackTest()
+            var backTest = new BackTest()
             {
                 AggregatePerformance = aggregated,
                 AggregatePerformanceDrawdownsReturns = aggregatedDrawdownReturns,
                 AggregatePerformanceDrawdownPeriods = aggregatedDrawdownPeriods,
-                DecomposedPerformanceByTicker = decomposed,
+                DecomposedPerformanceByTicker = returns,
                 RebalancesByTicker = rebalances,
                 RebalanceStrategy = rebalanceStrategy.Value,
                 RebalanceThreshold = rebalanceBandThreshold
             };
 
-            return backtest;
+            return backTest;
         });
 
-        return await Task.WhenAll(portfolioBackTests);
+        return backTestResult;
     }
 
     private static BackTestPeriodReturn[] AggregateDecomposedPortfolioBackTest(
@@ -130,6 +132,35 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
         DateTime lastPeriod,
         bool includeIncompletePeriod)
     {
+        static void AssertArrayAlignment(IEnumerable<PeriodReturn[]> dateFilteredConstituentReturns)
+        {
+            if (!dateFilteredConstituentReturns.Any())
+            {
+                throw new ArgumentException("The collection of filtered returns is empty.",
+                    nameof(dateFilteredConstituentReturns));
+            }
+
+            var firstReturns = dateFilteredConstituentReturns.First();
+            var firstLength = firstReturns.Length;
+
+            if (dateFilteredConstituentReturns.Any(d => d.Length != firstLength))
+            {
+                throw new InvalidOperationException("All constituent histories should have the same length.");
+            }
+
+            var firstDates = firstReturns.Select(period => period.PeriodStart).ToArray();
+
+            foreach (var returns in dateFilteredConstituentReturns.Skip(1))
+            {
+                var currentDates = returns.Select(period => period.PeriodStart).ToArray();
+
+                if (!firstDates.SequenceEqual(currentDates))
+                {
+                    throw new InvalidOperationException("All constituent histories should have identical dates.");
+                }
+            }
+        }
+
         var constituentReturnsByTicker = await returnsService.GetReturnsHistory(
             tickers,
             periodType,
@@ -174,11 +205,13 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
                     .ToArray()
             );
 
+        AssertArrayAlignment(dateFilteredReturnsByTicker.Values);
+
         return dateFilteredReturnsByTicker;
     }
 
-    private async Task<(Dictionary<string, BackTestPeriodReturn[]>, Dictionary<string, BackTestRebalanceEvent[]>)> GetPortfolioBackTestDecomposed(
-        IEnumerable<BackTestAllocation> portfolioConstituents,
+    private async Task<IEnumerable<BackTestDecomposed>> GetPortfolioBackTestsDecomposed(
+        IEnumerable<IEnumerable<BackTestAllocation>> portfolios,
         decimal startingBalance,
         PeriodType periodType,
         DateTime firstPeriod,
@@ -187,74 +220,69 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
         decimal? rebalanceBandThreshold,
         bool includeIncompleteEndingPeriod)
     {
-        static void ConfirmAlignment(IEnumerable<PeriodReturn[]> dateFilteredConstituentReturns)
-        {
-            if (!dateFilteredConstituentReturns.Any())
-            {
-                throw new ArgumentException("The collection of filtered returns is empty.",
-                    nameof(dateFilteredConstituentReturns));
-            }
+        var allTickers = portfolios.SelectMany(portfolio => portfolio.Select(x => x.Ticker)).Distinct()
+            ?? throw new InvalidOperationException("No portfolio tickers.");
 
-            var firstReturns = dateFilteredConstituentReturns.First();
-            var firstLength = firstReturns.Length;
-
-            if (dateFilteredConstituentReturns.Any(d => d.Length != firstLength))
-            {
-                throw new InvalidOperationException("All constituent histories should have the same length.");
-            }
-
-            var firstDates = firstReturns.Select(period => period.PeriodStart).ToArray();
-
-            foreach (var returns in dateFilteredConstituentReturns.Skip(1))
-            {
-                var currentDates = returns.Select(period => period.PeriodStart).ToArray();
-
-                if (!firstDates.SequenceEqual(currentDates))
-                {
-                    throw new InvalidOperationException("All constituent histories should have identical dates.");
-                }
-            }
-        }
-
-        var dedupedPortfolioConstituents = portfolioConstituents
-            .GroupBy(alloc => alloc.Ticker)
-            .ToDictionary(
-                group => group.Key,
-                group => group.Sum(alloc => alloc.Percentage)
-            );
-
-        var dateFilteredReturnsByTicker = await GetDateRangedReturns(
-            new(dedupedPortfolioConstituents.Keys),
+        var allReturnsByTicker = await GetDateRangedReturns(
+            new(allTickers),
             periodType,
             firstPeriod,
             lastPeriod,
             includeIncompleteEndingPeriod);
 
-        ConfirmAlignment(dateFilteredReturnsByTicker.Values);
+        // TODO dates across
 
-        // No overlapping period, empty results
+        var result = new List<BackTestDecomposed>();
 
-        if (dateFilteredReturnsByTicker.All(returns => returns.Value.Length == 0))
+        foreach(var portfolioConstituents in portfolios)
         {
-            var tickers = dateFilteredReturnsByTicker.Keys;
-            var emptyBackTestReturns = tickers.ToDictionary(ticker => ticker, _ => Array.Empty<BackTestPeriodReturn>());
-            var emptyRebalanceEvents = tickers.ToDictionary(ticker => ticker, _ => Array.Empty<BackTestRebalanceEvent>());
+            var dedupedPortfolioConstituents = portfolioConstituents
+                .GroupBy(alloc => alloc.Ticker)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Sum(alloc => alloc.Percentage)
+                );
 
-            return (emptyBackTestReturns, emptyRebalanceEvents);
+            var dateFilteredReturnsByTicker = await GetDateRangedReturns(
+                new(dedupedPortfolioConstituents.Keys),
+                periodType,
+                firstPeriod,
+                lastPeriod,
+                includeIncompleteEndingPeriod);
+
+            // No overlapping period, empty results
+
+            if (dateFilteredReturnsByTicker.All(returns => returns.Value.Length == 0))
+            {
+                var tickers = dateFilteredReturnsByTicker.Keys;
+
+                var emptyBackTestReturns = tickers.ToDictionary(ticker => ticker, _ => Array.Empty<BackTestPeriodReturn>());
+                var emptyRebalanceEvents = tickers.ToDictionary(ticker => ticker, _ => Array.Empty<BackTestRebalanceEvent>());
+
+                result.Add(new BackTestDecomposed()
+                {
+                    ReturnsByTicker = emptyBackTestReturns,
+                    RebalancesByTicker = emptyRebalanceEvents
+                });
+
+                continue;
+            }
+
+            var portfolioBackTest = GetRebalancedPortfolioBacktest(
+                dateFilteredReturnsByTicker,
+                dedupedPortfolioConstituents,
+                startingBalance,
+                rebalanceStrategy,
+                rebalanceBandThreshold
+            );
+
+            result.Add(portfolioBackTest);
         }
 
-        var rebalancedPerformance = GetRebalancedPortfolioBacktest(
-            dateFilteredReturnsByTicker,
-            dedupedPortfolioConstituents,
-            startingBalance,
-            rebalanceStrategy,
-            rebalanceBandThreshold
-        );
-
-        return rebalancedPerformance;
+        return result;
     }
 
-    private static (Dictionary<string, BackTestPeriodReturn[]>, Dictionary<string, BackTestRebalanceEvent[]>) GetRebalancedPortfolioBacktest(
+    private static BackTestDecomposed GetRebalancedPortfolioBacktest(
         Dictionary<string, PeriodReturn[]> periodAlignedReturnsByTicker,
         Dictionary<string, decimal> targetAllocationsByTicker,
         decimal startingBalance,
@@ -387,10 +415,11 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
             }
         }
 
-        return (
-            backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray()),
-            rebalances.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray())
-        );
+        return new()
+        {
+            ReturnsByTicker = backtest.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray()),
+            RebalancesByTicker = rebalances.ToDictionary(pair => pair.Key, pair => pair.Value.ToArray())
+        };
     }
 
     private static BackTestPeriodReturn[] GetPeriodReturnsBackTest(
