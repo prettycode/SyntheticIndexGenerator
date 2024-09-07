@@ -1,6 +1,16 @@
 [
   {
-    "Name": "New Profile",
+    "Name": "Web Service",
+    "Projects": [
+      {
+        "Path": "WebApp\\WebApp.Server\\WebApp.Server.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  },
+  {
+    "Name": "Web Service + Client",
     "Projects": [
       {
         "Path": "WebApp\\WebApp.Server\\WebApp.Server.csproj",
@@ -10,7 +20,17 @@
       {
         "Path": "WebApp\\WebApp.Client\\WebApp.Client.esproj",
         "Action": "Start",
-        "DebugTarget": "localhost (Chrome)"
+        "DebugTarget": "https"
+      }
+    ]
+  },
+  {
+    "Name": "Data Refresh Job",
+    "Projects": [
+      {
+        "Path": "DataRefreshJob\\DataRefreshJob.csproj",
+        "Action": "Start",
+        "DebugTarget": "DataRefreshJob"
       }
     ]
   }
