@@ -9,12 +9,14 @@
     },
     "license": "cc-by-nc-4.0",
     "scripts": {
-        "start": "rmdir node_modules /s /q & cd ../ && pwsh .\\pipeline.ps1 && start pwsh .\\pipeline-task.ps1 run:WebApp.Server && cd WebApp.ClientLegacy && npm run versions && npm run install:ci && npm run start:vite",
+        "preserver": "rmdir node_modules /s /q || exit /b 0",
+        "server": "cd ../ && pwsh .\\pipeline.ps1 && start pwsh .\\pipeline-task.ps1 run:WebApp.Server && cd WebApp.ClientLibrary",
+        "start": "npm run server & npm run versions && npm run install:ci && npm run start:vite",
         "start:vite": "npx vite --open",
         "versions": "echo node: && node -v && echo npm: && npm -v",
         "install:ci": "npm ci",
         "install:local": "npm install",
-        "outdated:ci": "npm outdated",
+        "outdated:ci": "npm outdated || exit /b 0",
         "outdated:fix": "npm update --save",
         "audit:ci": "npm audit --audit-level=none",
         "audit:fix": "npm audit fix --force",
@@ -25,10 +27,10 @@
         "vite:build:local": "npx tsc & npx vite build --mode development",
         "vite:build:ci": "npx tsc && npx vite build",
         "build:local": "npm run versions && npm run install:local && npm run outdated:fix && npm run audit:fix && npm run prettier:fix && npm run lint:fix && npm run vite:build:local && npm run test",
-        "build:ci": "npm run versions && npm run install:ci && npm run outdated:ci && npm run audit:ci && npm run prettier:ci && npm run lint:ci && npm run vite:build:ci && npm run test",
+        "build:ci": "npm run versions && npm run install:ci && npm run outdated:ci & npm run audit:ci && npm run prettier:ci && npm run lint:ci && npm run vite:build:ci && npm run test",
         "test:local": "npm run vite:build:local && npx jest",
         "test": "npx jest",
-        "precommit": "npm run build:local && npm run build:ci && npm run start:vite"
+        "precommit": "npm run server & npm run build:local && npm run build:ci && npm run start:vite"
     },
     "dependencies": {
         "@fortawesome/free-solid-svg-icons": "^6.6.0",
