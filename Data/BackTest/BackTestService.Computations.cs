@@ -1,7 +1,4 @@
-﻿using Data.Returns;
-using Microsoft.Extensions.Logging;
-
-namespace Data.BackTest;
+﻿namespace Data.BackTest;
 
 internal partial class BackTestService
 {

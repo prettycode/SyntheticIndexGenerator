@@ -25,6 +25,21 @@
     ]
   },
   {
+    "Name": "Web Service + ClientLegacy",
+    "Projects": [
+      {
+        "Path": "WebApp\\WebApp.Server\\WebApp.Server.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "WebApp.ClientLegacy\\WebApp.ClientLegacy.esproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  },
+  {
     "Name": "Data Refresh Job",
     "Projects": [
       {

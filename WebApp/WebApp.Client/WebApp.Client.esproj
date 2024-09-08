@@ -9,6 +9,7 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <None Include=".vscode\launch.json" />
     <None Include=".vscode\settings.json" />
   </ItemGroup>
 </Project>

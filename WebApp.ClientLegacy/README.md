@@ -1,50 +1,23 @@
-# React + TypeScript + Vite
+A tool for customizing and evaluating portfolios of asset classes.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio Visualizer shortcomings:
 
-Currently, two official plugins are available:
+1. ✅ Cannot backtest more than three portfolios at a time
+2. ✅ Cannot create a portfolio that is both a mix of assets and asset classes
+3. ✅ Cannot create a portfolio that includes a custom portfolio as an allocation
+4. ❌ Backtest tickers must be manually defined
+5. ✅ Does not calculate the develered composition of a leveraged portfolio
+6. ❌ Price history does not go as far back as Simba's Spreadsheet
+7. ❌ Cannot save a portfolio directly from the portfolio backtest page
+8. ✅ "Backtest Portfolio Asset Class Allocation" does not support margin (i.e. CASHX)
+9. ❌ ETFs for asset classes (e.g. VGIT, VTI) do not automatically backfill with asset class history
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## TO-DO:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. Disable row/column
+2. Delete row/column
+3. Form validation
+4. Name custom portfolio (e.g. give names to P1, P2, etc.)
+5. Menu for custom portfolios (e.g. dropdown menu for P1, P2, etc. that allows: loading, saving, clearing, copying, equal-weight)
+6. Indexes on funds (i.e. EDV corresponds to Bloomberge XYZ Index)
+7. Sythentic vs. Custom (synthetic: default/all-user customs; custom: private, user-level customs)

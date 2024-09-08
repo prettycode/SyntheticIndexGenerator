@@ -251,7 +251,7 @@ internal partial class BackTestService(IReturnsService returnsService, ILogger<B
 
         var result = new List<BackTestDecomposed>();
 
-        foreach(var portfolioConstituents in portfolios)
+        foreach (var portfolioConstituents in portfolios)
         {
             var dedupedPortfolioConstituents = portfolioConstituents
                 .GroupBy(alloc => alloc.Ticker)
