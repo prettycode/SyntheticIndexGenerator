@@ -8,14 +8,13 @@ param (
     [Parameter(Position=2, Mandatory=$false)]
     [string]$Configuration = "Debug"
 )
-
 function Execute-Command {
     param (
         [string]$Description,
         [string]$Command
     )
 
-    Write-Host "$Description in $Configuration configuration_"
+    Write-Host "$($Task): $($Description)_" -ForegroundColor Cyan
     Write-Host "> $Command"
 
     Invoke-Expression $Command
@@ -27,7 +26,7 @@ function Execute-Command {
 }
 
 function Show-Usage {
-    Write-Information @"
+    Write-Host @"
 Usage:
 .\pipeline-task.ps1 [Task] [SolutionFile] [Configuration]
 
@@ -40,7 +39,7 @@ Examples:
 .\pipeline-task.ps1 build MySpecificSolution.sln Release
 .\pipeline-task.ps1 test
 .\pipeline-task.ps1 run PortfolioAnalyzer.sln Release
-"@
+"@ -ForegroundColor Cyan
 }
 
 function Main {
@@ -65,7 +64,7 @@ function Main {
             Execute-Command "Running project/solution tests" "dotnet test $ProjectOrSolution --configuration $Configuration --no-build"
         }
         default {
-            Write-Warning "Unrecognized task `"$($Task)`"."
+            Write-Warning "Unrecognized task `"$($Task)`"." -ForegroundColor Cyan
             Show-Usage
             exit 1
         }
