@@ -175,6 +175,15 @@ let fundList: Array<Fund> = [
         allocations: []
     },
     {
+        fundId: 'Custom:REET',
+        percentage: 100,
+        tickerSymbol: 'DFGEX',
+        name: 'Global Real Estate (DFGR, REET)',
+        assetClass: 'Equity',
+        marketRegion: 'Global (All-World)',
+        allocations: []
+    },
+    {
         fundId: 'Custom:XLU',
         percentage: 100,
         tickerSymbol: 'XLU',
