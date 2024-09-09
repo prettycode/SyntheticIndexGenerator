@@ -52,7 +52,7 @@ function Main {
             Execute-Command "Building project/solution" "dotnet build $ProjectOrSolution --configuration $Configuration"
         }
         "run:WebApp.Server" {
-            Execute-Command "Launching project" "dotnet run --project WebApp\\WebApp.Server\\WebApp.Server.csproj --configuration $Configuration --no-build --launch-profile ci"
+            Execute-Command "Launching project" "dotnet run --project WebApp\\WebApp.Server\\WebApp.Server.csproj --configuration $Configuration --no-build"
         }
         "run:WebApp.ClientLegacy" {
             Execute-Command "Launching project" "dotnet run --project **/WebApp.ClientLegacy.esproj --configuration $Configuration --no-build --launch-profile 'Web Service'"
