@@ -6,7 +6,7 @@
   "name": "localhost (Chrome)",
   "type": "chrome",
   "request": "launch",
-  "url": "https://localhost:5173",
+  "url": "http://localhost:5173",
   "webRoot": "C:\\Users\\chris\\Documents\\GitHub\\SyntheticIndexGenerator\\WebApp.ClientLegacy"
 }</LaunchJsonTarget>
   </PropertyGroup>
