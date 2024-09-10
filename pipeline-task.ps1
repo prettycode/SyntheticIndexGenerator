@@ -60,17 +60,17 @@ function Main {
         "run:WebApp.Server" {
             $Task = "run"
             $ProjectOrSolution = "WebApp\\WebApp.Server\\WebApp.Server.csproj"
-            Main()
+            Main
         }
         "run:WebApp.ClientLegacy" {
             $Task = "run"
             $ProjectOrSolution = "WebApp.ClientLegacy\\WebApp.ClientLegacy.esproj"
-            Main()
+            Main
         }
         "run:DataRefreshJob" {
             $Task = "run"
             $ProjectOrSolution = "DataRefreshJob\\DataRefreshJob.csproj"
-            Main()
+            Main
         }
         default {
             Write-Warning "Unrecognized task `"$($Task)`"." -ForegroundColor Cyan
