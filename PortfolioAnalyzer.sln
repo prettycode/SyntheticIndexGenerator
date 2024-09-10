@@ -20,8 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		LICENSE = LICENSE
 		makefile = makefile
-		pipeline.ps1 = pipeline.ps1
 		pipeline-task.ps1 = pipeline-task.ps1
+		pipeline.ps1 = pipeline.ps1
 		pipeline0.ps1 = pipeline0.ps1
 		PortfolioAnalyzer.slnLaunch = PortfolioAnalyzer.slnLaunch
 	EndProjectSection
