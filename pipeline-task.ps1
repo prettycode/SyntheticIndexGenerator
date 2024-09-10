@@ -51,17 +51,26 @@ function Main {
         "build" {
             Execute-Command "Building project/solution" "dotnet build $ProjectOrSolution --configuration $Configuration"
         }
-        "run:WebApp.Server" {
-            Execute-Command "Launching project" "dotnet run --project WebApp\\WebApp.Server\\WebApp.Server.csproj --configuration $Configuration --no-build"
-        }
-        "run:WebApp.ClientLegacy" {
-            Execute-Command "Launching project" "dotnet run --project **/WebApp.ClientLegacy.esproj --configuration $Configuration --no-build --launch-profile 'Web Service'"
-        }
-        "run:DataRefreshJob" {
-            Execute-Command "Launching project" "dotnet run --project **/DataRefreshJob.csproj --configuration $Configuration --no-build --launch-profile 'Web Service'"
-        }
         "test" {
             Execute-Command "Running project/solution tests" "dotnet test $ProjectOrSolution --configuration $Configuration --no-build"
+        }
+        "run" {
+            Execute-Command "Launching project" "dotnet run --project $ProjectOrSolution --configuration $Configuration --no-build"
+        }
+        "run:WebApp.Server" {
+            $Task = "run"
+            $ProjectOrSolution = "WebApp\\WebApp.Server\\WebApp.Server.csproj"
+            Main()
+        }
+        "run:WebApp.ClientLegacy" {
+            $Task = "run"
+            $ProjectOrSolution = "WebApp.ClientLegacy\\WebApp.ClientLegacy.esproj"
+            Main()
+        }
+        "run:DataRefreshJob" {
+            $Task = "run"
+            $ProjectOrSolution = "DataRefreshJob\\DataRefreshJob.csproj"
+            Main()
         }
         default {
             Write-Warning "Unrecognized task `"$($Task)`"." -ForegroundColor Cyan
