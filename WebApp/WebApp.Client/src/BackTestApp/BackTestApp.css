@@ -4,7 +4,9 @@
     padding: 2rem;
 }
 
-th, td, h3 + div {
+th,
+td,
+h3 + div {
     padding-left: 1rem;
     padding-right: 1rem;
 }
@@ -14,4 +16,5 @@ td:not(:first-of-type) {
 }
 
 .loading {
+    /**/
 }

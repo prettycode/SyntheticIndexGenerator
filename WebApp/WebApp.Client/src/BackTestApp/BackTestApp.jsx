@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import './App.css';
+import './BackTestApp.css';
 
 function getLocaleSeparators() {
     const format = new Intl.NumberFormat(navigator.language).formatToParts(1234.5);
@@ -28,7 +28,7 @@ Highcharts.setOptions({
     }
 });
 
-function App() {
+function BackTestApp() {
     const portfolioOptions = [
         {
             name: 'Aggressive ($^USLCB 25%, $^USSCV 75%)',
@@ -517,4 +517,4 @@ function App() {
     }
 }
 
-export default App;
+export default BackTestApp;
