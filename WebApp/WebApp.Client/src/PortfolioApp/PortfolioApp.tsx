@@ -2,7 +2,7 @@
 
 import FundSelectionTable, { UNSELECTED_FUND_FUNDID } from './Components/FundSelectionTable/FundSelectionTable';
 import { FundSelectionTableState } from './Components/FundSelectionTable/FundSelectionTableState';
-import './App.css';
+import './PortfolioApp.css';
 
 const defaultTableState: FundSelectionTableState = {
     rows: [
@@ -12,7 +12,7 @@ const defaultTableState: FundSelectionTableState = {
     ]
 };
 
-function App() {
+function PortfolioApp() {
     let stateToLoad: FundSelectionTableState = defaultTableState;
     const stateDeserialized: FundSelectionTableState | undefined = (() => {
         try {
@@ -162,4 +162,4 @@ function App() {
     );
 }
 
-export default App;
+export default PortfolioApp;
