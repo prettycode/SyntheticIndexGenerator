@@ -59,7 +59,7 @@ function Main {
         }
         "run:WebApp.Server" {
             $Task = "run"
-            $ProjectOrSolution = "WebApp\\WebApp.Server\\WebApp.Server.csproj"
+            $ProjectOrSolution = "WebApp\\WebApp.Server\\WebApp.Server.csproj --launch-profile https"
             Main
         }
         "run:WebApp.ClientLegacy" {
