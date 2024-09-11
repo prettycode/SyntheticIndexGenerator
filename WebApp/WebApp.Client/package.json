@@ -9,10 +9,11 @@
     },
     "license": "cc-by-nc-4.0",
     "scripts": {
-        "nuke:node_modules": "rmdir node_modules /s /q || exit /b 0",
+        "clean:dist": "rmdir dist /s /q || exit /b 0",
+        "clean:node_modules": "rmdir node_modules /s /q || exit /b 0",
         "start": "npm run install:ci && npm run start:vite",
         "preview": "vite preview",
-        "prestart:withserver": "npm run nuke:node_modules",
+        "prestart:withserver": "npm run clean:node_modules",
         "start:withserver": "cd ..\\..\\ && pwsh .\\pipeline.ps1 && start pwsh .\\pipeline-task.ps1 run:WebApp.Server",
         "start:vite": "npx vite --open",
         "versions": "echo node: && node -v && echo npm: && npm -v",
@@ -32,7 +33,7 @@
         "build:ci": "npm run versions && npm run install:ci && npm run outdated:ci & npm run audit:ci && npm run prettier:ci && npm run lint:ci && npm run vite:build:ci && npm run test",
         "test:dev": "npm run vite:build:dev && npx jest",
         "test": "npx jest",
-        "precommit": "npm run start:server & npm run build:dev && npm run build:ci && npm run start:vite"
+        "precommit": "npm run start:withserver && npm run build:dev && npm run build:ci && npm run start:vite"
     },
     "dependencies": {
         "@fortawesome/free-solid-svg-icons": "^6.6.0",
