@@ -77,6 +77,7 @@ function BackTestApp() {
         { name: 'Annually', id: 6 }
     ];
 
+    const [isAppLoading, setIsAppLoading] = useState(true);
     const [selectedPortfolioId, setSelectedPortfolioId] = useState('default');
     const [selectedPeriodTypeId, setSelectedPeriodTypeId] = useState(
         periodOptions.find((option) => option.name === 'Daily').id
@@ -95,6 +96,7 @@ function BackTestApp() {
         setIsLoadingBackTest(true);
         (async () => {
             await fetchPortfolio(selectedPortfolioId, selectedPeriodTypeId, selectedRebalanceStrategyId, 10000);
+            setIsAppLoading(false);
             setIsLoadingBackTest(false);
         })();
     }, [selectedPortfolioId, selectedPeriodTypeId, selectedRebalanceStrategyId]);
@@ -104,7 +106,7 @@ function BackTestApp() {
             updatePerformanceChartOptions();
             updateDrawdownChartOptions();
         }
-    });
+    }, [portfolioBackTests]);
 
     const handlePortfolioChange = (event) => {
         setSelectedPortfolioId(event.target.value);
@@ -243,7 +245,7 @@ function BackTestApp() {
                 ]);
                 const headers = ['Period Start', 'Period Starting Balance', 'Period Ending Balance'];
                 const csvContent = generateCSV(csvData, headers);
-                downloadCSV(csvContent, `portfolio${index}_value.csv`);
+                downloadCSV(csvContent, `P${index}-portfolio-balance.csv`);
             }
         }
     };
@@ -257,190 +259,189 @@ function BackTestApp() {
                 ]);
                 const headers = ['Period Start', 'Period Drawdown Percentage '];
                 const csvContent = generateCSV(csvData, headers);
-                downloadCSV(csvContent, `portfolio${index}_value.csv`);
+                downloadCSV(csvContent, `P${index}-drawdown.csv`);
             }
         }
     };
 
-    const contents =
-        portfolioBackTests === undefined ? (
-            <p>Loading&hellip;</p>
-        ) : (
-            <>
-                <div>All performance calculations assume dividends reinvested and 0% income tax on dividends.</div>
+    const contents = isAppLoading ? (
+        <p>Loading&hellip;</p>
+    ) : (
+        <>
+            <div>All performance calculations assume dividends reinvested and 0% income tax on dividends.</div>
 
-                <h3>Configuration</h3>
-                <div style={{ textAlign: 'left', marginBottom: '20px' }}>
-                    <div style={{ marginBottom: '10px' }}>
-                        <label
-                            htmlFor="portfolio-select"
-                            style={{ marginRight: '10px' }}
-                        >
-                            Portfolio:{' '}
-                        </label>
-                        <select
-                            id="portfolio-select"
-                            value={selectedPortfolioId}
-                            onChange={handlePortfolioChange}
-                        >
-                            {portfolioOptions.map((option) => (
-                                <option
-                                    key={option.id}
-                                    value={option.id}
-                                >
-                                    {option.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div style={{ marginBottom: '10px' }}>
-                        <label
-                            htmlFor="period-select"
-                            style={{ marginRight: '10px' }}
-                        >
-                            History resolution:{' '}
-                        </label>
-                        <select
-                            id="period-select"
-                            value={selectedPeriodTypeId}
-                            onChange={handlePeriodTypeChange}
-                        >
-                            {periodOptions.map((option) => (
-                                <option
-                                    key={option.id}
-                                    value={option.id}
-                                >
-                                    {option.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div>
-                        <label
-                            htmlFor="rebalance-select"
-                            style={{ marginRight: '10px' }}
-                        >
-                            Rebalancing frequency:{' '}
-                        </label>
-                        <select
-                            id="rebalance-select"
-                            value={selectedRebalanceStrategyId}
-                            onChange={handleRebalanceStrategyChange}
-                        >
-                            {rebalanceOptions.map((option) => (
-                                <option
-                                    key={option.id}
-                                    value={option.id}
-                                >
-                                    {option.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+            <h3>Configuration</h3>
+            <div style={{ textAlign: 'left', marginBottom: '20px' }}>
+                <div style={{ marginBottom: '10px' }}>
+                    <label
+                        htmlFor="portfolio-select"
+                        style={{ marginRight: '10px' }}
+                    >
+                        Portfolio:{' '}
+                    </label>
+                    <select
+                        id="portfolio-select"
+                        value={selectedPortfolioId}
+                        onChange={handlePortfolioChange}
+                    >
+                        {portfolioOptions.map((option) => (
+                            <option
+                                key={option.id}
+                                value={option.id}
+                            >
+                                {option.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
+                <div style={{ marginBottom: '10px' }}>
+                    <label
+                        htmlFor="period-select"
+                        style={{ marginRight: '10px' }}
+                    >
+                        History resolution:{' '}
+                    </label>
+                    <select
+                        id="period-select"
+                        value={selectedPeriodTypeId}
+                        onChange={handlePeriodTypeChange}
+                    >
+                        {periodOptions.map((option) => (
+                            <option
+                                key={option.id}
+                                value={option.id}
+                            >
+                                {option.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label
+                        htmlFor="rebalance-select"
+                        style={{ marginRight: '10px' }}
+                    >
+                        Rebalancing frequency:{' '}
+                    </label>
+                    <select
+                        id="rebalance-select"
+                        value={selectedRebalanceStrategyId}
+                        onChange={handleRebalanceStrategyChange}
+                    >
+                        {rebalanceOptions.map((option) => (
+                            <option
+                                key={option.id}
+                                value={option.id}
+                            >
+                                {option.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div>
 
-                <div className={isLoadingBackTest ? 'loading' : ''}>
-                    <h3>Overview</h3>
-                    {portfolioBackTests.map((portfolioBackTest) => (
-                        <table
-                            key={portfolioBackTest.id}
-                            style={{ display: 'block', float: 'left' }}
-                        >
-                            <tbody>
-                                <tr>
-                                    <td>First Period:</td>
-                                    <td>{portfolioBackTest.aggregatePerformance[0].periodStart.substr(0, 10)}</td>
-                                </tr>
-                                <tr>
-                                    <td>Last Period:</td>
-                                    <td>
-                                        {portfolioBackTest.aggregatePerformance[
+            <div className={isLoadingBackTest ? 'loading' : ''}>
+                <h3>Overview</h3>
+                {portfolioBackTests.map((portfolioBackTest) => (
+                    <table
+                        key={portfolioBackTest.id}
+                        style={{ display: 'block', float: 'left' }}
+                    >
+                        <tbody>
+                            <tr>
+                                <td>First Period:</td>
+                                <td>{portfolioBackTest.aggregatePerformance[0].periodStart.substr(0, 10)}</td>
+                            </tr>
+                            <tr>
+                                <td>Last Period:</td>
+                                <td>
+                                    {portfolioBackTest.aggregatePerformance[
+                                        portfolioBackTest.aggregatePerformance.length - 1
+                                    ].periodStart.substr(0, 10)}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Period(s):</td>
+                                <td>{portfolioBackTest.aggregatePerformance.length.toLocaleString()}</td>
+                            </tr>
+                            <tr>
+                                <td>Starting Balance:</td>
+                                <td>{formatCurrency(portfolioBackTest.aggregatePerformance[0].startingBalance)}</td>
+                            </tr>
+                            <tr>
+                                <td>Ending Balance:</td>
+                                <td>
+                                    {formatCurrency(
+                                        portfolioBackTest.aggregatePerformance[
                                             portfolioBackTest.aggregatePerformance.length - 1
-                                        ].periodStart.substr(0, 10)}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Period(s):</td>
-                                    <td>{portfolioBackTest.aggregatePerformance.length.toLocaleString()}</td>
-                                </tr>
-                                <tr>
-                                    <td>Starting Balance:</td>
-                                    <td>{formatCurrency(portfolioBackTest.aggregatePerformance[0].startingBalance)}</td>
-                                </tr>
-                                <tr>
-                                    <td>Ending Balance:</td>
-                                    <td>
-                                        {formatCurrency(
-                                            portfolioBackTest.aggregatePerformance[
-                                                portfolioBackTest.aggregatePerformance.length - 1
-                                            ].endingBalance
-                                        )}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>CAGR:</td>
-                                    <td>{formatNumber(portfolioBackTest.cagr * 100)}%</td>
-                                </tr>
-                                <tr>
-                                    <td>Time to 2x @ CAGR:</td>
-                                    <td>{formatNumber(portfolioBackTest.yearsBeforeDoubling)} years</td>
-                                </tr>
-                                <tr>
-                                    <td>Maximum Drawdown:</td>
-                                    <td>{formatNumber(portfolioBackTest.maximumDrawdownPercentage)}%</td>
-                                </tr>
-                                <tr>
-                                    <td>Rebalances:</td>
-                                    <td>
-                                        {portfolioBackTest.rebalancesByTicker[
-                                            Object.keys(portfolioBackTest.rebalancesByTicker)[0]
-                                        ].length.toLocaleString()}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Rebalance Strategy:</td>
-                                    <td>
-                                        {
-                                            rebalanceOptions.find(
-                                                (option) => option.id === portfolioBackTest.rebalanceStrategy
-                                            ).name
-                                        }
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    ))}
+                                        ].endingBalance
+                                    )}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CAGR:</td>
+                                <td>{formatNumber(portfolioBackTest.cagr * 100)}%</td>
+                            </tr>
+                            <tr>
+                                <td>Time to 2x @ CAGR:</td>
+                                <td>{formatNumber(portfolioBackTest.yearsBeforeDoubling)} years</td>
+                            </tr>
+                            <tr>
+                                <td>Maximum Drawdown:</td>
+                                <td>{formatNumber(portfolioBackTest.maximumDrawdownPercentage)}%</td>
+                            </tr>
+                            <tr>
+                                <td>Rebalances:</td>
+                                <td>
+                                    {portfolioBackTest.rebalancesByTicker[
+                                        Object.keys(portfolioBackTest.rebalancesByTicker)[0]
+                                    ].length.toLocaleString()}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Rebalance Strategy:</td>
+                                <td>
+                                    {
+                                        rebalanceOptions.find(
+                                            (option) => option.id === portfolioBackTest.rebalanceStrategy
+                                        ).name
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                ))}
 
-                    <div style={{ clear: 'both' }}></div>
+                <div style={{ clear: 'both' }}></div>
 
-                    <h3>Portfolio Value</h3>
-                    <div>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={chartOptions}
-                        />
-                    </div>
-                    <div style={{ marginTop: '0.5em', textAlign: 'center' }}>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={selectedIsLogScale}
-                                onChange={handleLogScaleChange}
-                            />
-                            Logarithmic Scale
-                        </label>
-                    </div>
-
-                    <h3>Portfolio Drawdowns</h3>
-                    <div>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={drawdownChartOptions}
-                        />
-                    </div>
+                <h3>Portfolio Value</h3>
+                <div>
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={chartOptions}
+                    />
                 </div>
-            </>
-        );
+                <div style={{ marginTop: '0.5em', textAlign: 'center' }}>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={selectedIsLogScale}
+                            onChange={handleLogScaleChange}
+                        />
+                        Logarithmic Scale
+                    </label>
+                </div>
+
+                <h3>Portfolio Drawdowns</h3>
+                <div>
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={drawdownChartOptions}
+                    />
+                </div>
+            </div>
+        </>
+    );
 
     return (
         <div>
