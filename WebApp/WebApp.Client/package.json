@@ -17,7 +17,7 @@
         "start": "npm run install:ci && npm run start:vite",
         "preview": "vite preview",
         "prestart:withserver": "npm run clean:node_modules",
-        "start:withserver": "cd ..\\..\\ && start pwsh .\\pipeline-task.ps1 \"clean, build, test, run:WebApp.Server\"",
+        "start:withserver": "cd ..\\..\\ && start pwsh .\\dotnet-pipeline.ps1 \"clean, build, test, run:WebApp.Server\"",
         "start:vite": "npx vite --open",
         "versions": "echo node: && node -v && echo npm: && npm -v",
         "install:ci": "npm ci",
