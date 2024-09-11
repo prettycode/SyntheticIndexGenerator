@@ -5,7 +5,7 @@ import './BackTestApp.css';
 
 function getLocaleSeparators() {
     const format = new Intl.NumberFormat(navigator.language).formatToParts(1234.5);
-    const separators = {};
+    const separators: { thousandsSep?: string; decimalPoint?: string } = {};
     format.forEach((part) => {
         if (part.type === 'group') {
             separators.thousandsSep = part.value;
@@ -86,7 +86,7 @@ function BackTestApp() {
     );
     const [selectedIsLogScale, setSelectedIsLogScale] = useState(false);
 
-    const [portfolioBackTests, setPortfolioBackTests] = useState();
+    const [portfolioBackTests, setPortfolioBackTests] = useState([]);
     const [isLoadingBackTest, setIsLoadingBackTest] = useState(true);
     const [chartOptions, setChartOptions] = useState({});
     const [drawdownChartOptions, setDrawdownChartOptions] = useState({});
@@ -233,30 +233,32 @@ function BackTestApp() {
         }
     };
 
-    // TODO this hasn't been updated to support multiple backTests
     const handleSavePortfolioValueCSV = () => {
-        if (portfolioBackTests) {
-            const csvData = portfolioBackTests.aggregatePerformance.map((item) => [
-                item.periodStart.substr(0, 10),
-                item.startingBalance,
-                item.endingBalance
-            ]);
-            const headers = ['Period Start', 'Period Starting Balance', 'Period Ending Balance'];
-            const csvContent = generateCSV(csvData, headers);
-            downloadCSV(csvContent, 'portfolio_value.csv');
+        if (portfolioBackTests?.length) {
+            for (const [index, portfolioBackTest] of portfolioBackTests.entries()) {
+                const csvData = portfolioBackTest.aggregatePerformance.map((item) => [
+                    item.periodStart.substr(0, 10),
+                    item.startingBalance,
+                    item.endingBalance
+                ]);
+                const headers = ['Period Start', 'Period Starting Balance', 'Period Ending Balance'];
+                const csvContent = generateCSV(csvData, headers);
+                downloadCSV(csvContent, `portfolio${index}_value.csv`);
+            }
         }
     };
 
-    // TODO this hasn't been updated to support multiple backTests
     const handleSaveDrawdownCSV = () => {
-        if (portfolioBackTests) {
-            const csvData = portfolioBackTests.aggregatePerformanceDrawdownsReturns.map((item) => [
-                item.periodStart.substr(0, 10),
-                item.returnPercentage
-            ]);
-            const headers = ['Period Start', 'Period Drawdown Percentage '];
-            const csvContent = generateCSV(csvData, headers);
-            downloadCSV(csvContent, 'portfolio_drawdown.csv');
+        if (portfolioBackTests?.length) {
+            for (const [index, portfolioBackTest] of portfolioBackTests.entries()) {
+                const csvData = portfolioBackTest.aggregatePerformanceDrawdownsReturns.map((item) => [
+                    item.periodStart.substr(0, 10),
+                    item.returnPercentage
+                ]);
+                const headers = ['Period Start', 'Period Drawdown Percentage '];
+                const csvContent = generateCSV(csvData, headers);
+                downloadCSV(csvContent, `portfolio${index}_value.csv`);
+            }
         }
     };
 
