@@ -26,8 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		PortfolioAnalyzer.slnLaunch = PortfolioAnalyzer.slnLaunch
 	EndProjectSection
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "WebApp.ClientLegacy", "WebApp.ClientLegacy\WebApp.ClientLegacy.esproj", "{66C22F3E-4D96-41BE-8367-A271FBA5913A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,12 +54,6 @@ Global
 		{0C8FC40A-29FA-40A4-BD44-07B992380708}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C8FC40A-29FA-40A4-BD44-07B992380708}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C8FC40A-29FA-40A4-BD44-07B992380708}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66C22F3E-4D96-41BE-8367-A271FBA5913A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66C22F3E-4D96-41BE-8367-A271FBA5913A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66C22F3E-4D96-41BE-8367-A271FBA5913A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{66C22F3E-4D96-41BE-8367-A271FBA5913A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66C22F3E-4D96-41BE-8367-A271FBA5913A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66C22F3E-4D96-41BE-8367-A271FBA5913A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
