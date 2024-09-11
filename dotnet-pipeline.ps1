@@ -1,3 +1,8 @@
+#Set-StrictMode -Version Latest
+
+#$ErrorActionPreference = 'Stop'
+$#WarningPreference = 'Stop'
+
 param (
     [Parameter(Position=0, Mandatory=$true)]
     [string]$Tasks,
@@ -12,9 +17,12 @@ function Execute-Command {
         [string]$Description,
         [string]$Command
     )
+
     Write-Host "$($Task): $($Description)..." -ForegroundColor Cyan
     Write-Host "> $Command"
+
     Invoke-Expression $Command
+
     if ($LASTEXITCODE -ne 0) {
         Write-Error "Command failed with exit code $LASTEXITCODE"
         exit 1
@@ -38,33 +46,28 @@ Examples:
 
 function Execute-Task {
     param (
-        [string]$Task
+        [string]$Task,
+        [string]$ProjectOrSolution
     )
     switch ($Task) {
+        "build" {
+            Execute-Command "Building project/solution" "dotnet build $ProjectOrSolution --configuration $Configuration"
+        }
         "clean" {
             Execute-Command "Cleaning project/solution" "dotnet clean $ProjectOrSolution --configuration $Configuration"
             Execute-Command "Removing bin and obj directories" "Get-ChildItem -Path . -Include bin, obj -Recurse | Remove-Item -Recurse -Force"
         }
-        "build" {
-            Execute-Command "Building project/solution" "dotnet build $ProjectOrSolution --configuration $Configuration"
-        }
-        "test" {
-            Execute-Command "Running project/solution tests" "dotnet test $ProjectOrSolution --configuration $Configuration --no-build"
-        }
         "run" {
             Execute-Command "Launching project" "dotnet run --project $ProjectOrSolution --configuration $Configuration --no-build"
         }
-        "run:WebApp.Server" {
-            $ProjectOrSolution = "WebApp\WebApp.Server\WebApp.Server.csproj --launch-profile https"
-            Execute-Command "Launching WebApp.Server" "dotnet run --project $ProjectOrSolution --configuration $Configuration --no-build"
-        }
-        "run:WebApp.ClientLegacy" {
-            $ProjectOrSolution = "WebApp.ClientLegacy\WebApp.ClientLegacy.esproj"
-            Execute-Command "Launching WebApp.ClientLegacy" "dotnet run --project $ProjectOrSolution --configuration $Configuration --no-build"
-        }
         "run:DataRefreshJob" {
-            $ProjectOrSolution = "DataRefreshJob\DataRefreshJob.csproj"
-            Execute-Command "Launching DataRefreshJob" "dotnet run --project $ProjectOrSolution --configuration $Configuration --no-build"
+            Execute-Task "run" "DataRefreshJob\\DataRefreshJob.csproj"
+        }
+        "run:WebApp.Server" {
+            Execute-Task "run" "WebApp\\WebApp.Server\\WebApp.Server.csproj --launch-profile https"
+        }
+        "test" {
+            Execute-Command "Running project/solution tests" "dotnet test $ProjectOrSolution --configuration $Configuration --no-build"
         }
         default {
             Write-Warning "Unrecognized task `"$($Task)`"." -ForegroundColor Yellow
