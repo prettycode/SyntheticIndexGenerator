@@ -33,7 +33,7 @@
         "build:ci": "npm run versions && npm run install:ci && npm run outdated:ci & npm run audit:ci && npm run prettier:ci && npm run lint:ci && npm run vite:build:ci && npm run test",
         "test:dev": "npm run vite:build:dev && npx jest",
         "test": "npx jest",
-        "precommit": "npm run start:withserver && npm run build:dev && npm run build:ci && npm run start:vite"
+        "precommit": "npm run build:dev && npm run build:ci && npm run start:vite"
     },
     "dependencies": {
         "@fortawesome/free-solid-svg-icons": "^6.6.0",
