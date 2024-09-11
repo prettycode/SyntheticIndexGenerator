@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getBacktestUrl } from '../../Fund/utils/getBacktestUrl';
 import { FundAllocation } from '../../Fund/models/Fund/FundAllocation';
 import { faExternalLink } from '@fortawesome/free-solid-svg-icons';

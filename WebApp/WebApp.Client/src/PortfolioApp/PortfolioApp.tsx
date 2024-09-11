@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
+import React from 'react';
 import FundSelectionTable, { UNSELECTED_FUND_FUNDID } from './Components/FundSelectionTable/FundSelectionTable';
 import { FundSelectionTableState } from './Components/FundSelectionTable/FundSelectionTableState';
 import './PortfolioApp.css';

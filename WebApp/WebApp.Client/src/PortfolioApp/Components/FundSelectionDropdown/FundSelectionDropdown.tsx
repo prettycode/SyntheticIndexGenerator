@@ -1,3 +1,4 @@
+import React from 'react';
 import Select, { StylesConfig } from 'react-select';
 import { Fund } from '../../Fund/models/Fund/Fund';
 import { UNSELECTED_FUND_FUNDID } from '../FundSelectionTable/FundSelectionTable';
