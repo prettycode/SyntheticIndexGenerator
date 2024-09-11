@@ -104,7 +104,7 @@ function BackTestApp() {
             updatePerformanceChartOptions();
             updateDrawdownChartOptions();
         }
-    }, [portfolioBackTests, selectedIsLogScale]);
+    });
 
     const handlePortfolioChange = (event) => {
         setSelectedPortfolioId(event.target.value);
