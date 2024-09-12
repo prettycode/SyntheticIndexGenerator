@@ -447,7 +447,7 @@ function BackTestApp() {
         <div>
             <h2 id="tableLabel">Portfolio Back Test</h2>
             {contents}
-            {portfolioBackTests && (
+            {!!portfolioBackTests?.length && (
                 <div style={{ marginTop: '20px' }}>
                     <button onClick={handleSavePortfolioValueCSV}>Portfolio Value CSV</button>
                     <button
