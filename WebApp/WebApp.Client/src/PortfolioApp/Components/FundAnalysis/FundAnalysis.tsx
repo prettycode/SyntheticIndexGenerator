@@ -4,9 +4,6 @@ import type { FundAnalysis } from '../../Fund/models/FundAnalysis/FundAnalysis';
 import { FundAllocation } from '../../Fund/models/Fund/FundAllocation';
 import { Fund } from '../../Fund/models/Fund/Fund';
 import { fetchFundByFundId } from '../../Fund/services/fetchFundByFundId';
-
-import { PortfolioVisualizerLink } from './PortfolioVisualizerLink';
-import { getComparisonBacktestUrl } from '../../Fund/utils/getBacktestUrl';
 import { sum } from '../../Fund/utils/sum';
 import './FundAnalysis.css';
 
@@ -19,8 +16,6 @@ const showRedundantTitles = true;
 const FundAnalysis: React.FC<FundAnalysisProps> = ({ fundAllocations }) => {
     const [fundAnalysis, setFundAnalysis] = useState<Array<FundAnalysis> | undefined>(undefined);
     const [fundLookupCache, setFundLookupCache] = useState<Record<string, Fund> | undefined>(undefined);
-    const [comparisonBacktestUrl, setComparisonBacktestUrl] = useState<string | undefined>(undefined);
-    const [comparisonDeleveredBacktestUrl, setComparisonDeleveredBacktestUrl] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         (async () => {
@@ -40,39 +35,10 @@ const FundAnalysis: React.FC<FundAnalysisProps> = ({ fundAllocations }) => {
         })();
     }, [fundAllocations]);
 
-    useEffect(() => {
-        (async () => {
-            if (fundAnalysis && fundAnalysis.length > 1) {
-                setComparisonBacktestUrl(await getComparisonBacktestUrl(fundAnalysis.map((a) => a.flattened)));
-                setComparisonDeleveredBacktestUrl(await getComparisonBacktestUrl(fundAnalysis.map((a) => a.delevered)));
-            } else {
-                setComparisonBacktestUrl(undefined);
-                setComparisonDeleveredBacktestUrl(undefined);
-            }
-        })();
-    }, [fundAnalysis]);
-
     return (
         <>
             <h3>Portoflio Analysis</h3>
             {!fundAnalysis?.length && <>No completed portfolios to analyze.</>}
-            {(comparisonBacktestUrl || comparisonDeleveredBacktestUrl) && (
-                <ul>
-                    {comparisonBacktestUrl && (
-                        <li style={{ fontWeight: 500 }}>
-                            Portfolio Decomposed Baktests&nbsp;
-                            <PortfolioVisualizerLink url={comparisonBacktestUrl} />
-                        </li>
-                    )}
-                    {/* TODO has bug where rows don't align */}
-                    {comparisonDeleveredBacktestUrl && (
-                        <li style={{ fontWeight: 500 }}>
-                            Delevered Compositions Backtests&nbsp;
-                            <PortfolioVisualizerLink url={comparisonDeleveredBacktestUrl} />
-                        </li>
-                    )}
-                </ul>
-            )}
             {fundAnalysis &&
                 fundLookupCache &&
                 fundAnalysis.map((analysis, portfolioIndex) => (
@@ -82,10 +48,6 @@ const FundAnalysis: React.FC<FundAnalysisProps> = ({ fundAllocations }) => {
                         style={{ marginRight: 75 }}
                     >
                         <h4>{showRedundantTitles || portfolioIndex === 0 ? 'Portfolio Decomposed' : <>&nbsp;</>}</h4>
-                        <PortfolioVisualizerLink
-                            allocations={analysis.flattened}
-                            className="float-end"
-                        />
                         <table className="table table-sm">
                             <thead>
                                 <tr>
