@@ -18,9 +18,36 @@ import { FundSelectionDropdown, FundSelectionDropdownOptionType } from '../FundS
 import { FundSelectionTableState } from './FundSelectionTableState';
 import { FundSelectionTableRow } from './FundSelectionTableRow';
 import { displayPercentage } from '../utils/displayPercentage';
+import { sum } from '../../Fund/utils/sum';
+import Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
 
 import './FundSelectionTable.css';
-import { sum } from '../../Fund/utils/sum';
+
+function getLocaleSeparators() {
+    const format = new Intl.NumberFormat(navigator.language).formatToParts(1234.5);
+    const separators: { thousandsSep?: string; decimalPoint?: string } = {};
+    format.forEach((part) => {
+        if (part.type === 'group') {
+            separators.thousandsSep = part.value;
+        } else if (part.type === 'decimal') {
+            separators.decimalPoint = part.value;
+        }
+    });
+    return separators;
+}
+
+const { thousandsSep, decimalPoint } = getLocaleSeparators();
+
+Highcharts.setOptions({
+    lang: {
+        thousandsSep: thousandsSep,
+        decimalPoint: decimalPoint
+    },
+    tooltip: {
+        valueDecimals: 2
+    }
+});
 
 export const UNSELECTED_FUND_FUNDID: string = '00000000-0000-0000-0000-000000000000';
 
@@ -52,6 +79,7 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
         state?.rows ?? Array.from({ length: defaultRowsCount }, () => createRow(defaultColumnsCount))
     );
     const [customPortfolios, setCustomPortfolios] = useState<Array<Array<FundAllocation>> | undefined>(undefined);
+    const [backtestData, setBacktestData] = useState<any>(null);
 
     const triggerCalculation = useRef(false);
 
@@ -166,9 +194,37 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
             }
         }
 
-        // Set the custom portfolios and recalculate
+        // Set the custom portfolios and fetch backtested data
         setCustomPortfolios(portfolios);
+        fetchBacktestData(portfolios);
         onCalculatePortfolios(cloneDeep(rows));
+    };
+
+    const fetchBacktestData = async (portfolios: Array<Array<FundAllocation>>) => {
+        const response = await fetch('https://localhost:7118/api/BackTest/GetPortfolioBackTests', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                portfolios: portfolios.map((portfolio) =>
+                    portfolio.map((fund) => ({
+                        Ticker: fund.fundId.replace('Custom:', ''),
+                        Percentage: fund.percentage
+                    }))
+                ),
+                startingBalance: 10000,
+                periodType: 0,
+                rebalanceStrategy: 6
+            })
+        });
+
+        if (!response.ok) {
+            throw response;
+        }
+
+        const data = await response.json();
+        setBacktestData(data);
     };
 
     const onFundComparisonSelected = (fundSelection: Array<FundSelectionDropdownOptionType> | null): void => {
@@ -495,6 +551,52 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
             {customPortfolios && (
                 <div style={{ marginTop: '40px' }}>
                     <FundAnalysis fundAllocations={customPortfolios} />
+                </div>
+            )}
+
+            {backtestData && (
+                <div style={{ marginTop: '40px' }}>
+                    <h3>Portfolio Value</h3>
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={{
+                            // ... chart options for portfolio value ...
+                            series: backtestData.flatMap((portfolioBackTest, i) => [
+                                {
+                                    lineWidth: 1,
+                                    name: `P${i} Starting Balance`,
+                                    data: portfolioBackTest.aggregatePerformance.map((item) => [
+                                        new Date(item.periodStart).getTime(),
+                                        item.startingBalance
+                                    ])
+                                },
+                                {
+                                    lineWidth: 1,
+                                    name: `P${i} Ending Balance`,
+                                    data: portfolioBackTest.aggregatePerformance.map((item) => [
+                                        new Date(item.periodStart).getTime(),
+                                        item.endingBalance
+                                    ])
+                                }
+                            ])
+                        }}
+                    />
+
+                    <h3>Portfolio Drawdowns</h3>
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={{
+                            // ... chart options for portfolio drawdowns ...
+                            series: backtestData.map((portfolioBackTest, i) => ({
+                                lineWidth: 1,
+                                name: `P${i} Drawdown`,
+                                data: portfolioBackTest.aggregatePerformanceDrawdownsReturns.map((item) => [
+                                    new Date(item.periodStart).getTime(),
+                                    item.returnPercentage
+                                ])
+                            }))
+                        }}
+                    />
                 </div>
             )}
         </>

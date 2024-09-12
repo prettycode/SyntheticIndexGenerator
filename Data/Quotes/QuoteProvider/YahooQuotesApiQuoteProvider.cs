@@ -10,7 +10,7 @@ public class YahooQuotesApiQuoteProvider : QuoteProvider, IQuoteProvider
         DateTime? startDate,
         DateTime? endDate)
     {
-        var utcStartDate = (startDate ?? DateTime.MinValue).ToUniversalTime();
+        var utcStartDate = (startDate ?? new DateTime(1927, 1, 1)).ToUniversalTime();
 
         if (endDate.HasValue)
         {
