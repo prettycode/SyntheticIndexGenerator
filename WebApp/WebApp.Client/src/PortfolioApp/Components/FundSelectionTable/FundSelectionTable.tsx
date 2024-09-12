@@ -397,18 +397,28 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
                                     }
                                 />
                             </td>
-                            {row.percentage.map((percentageInColumn, columnIndex) => (
-                                <td key={columnIndex}>
-                                    <input
-                                        className="form-control"
-                                        style={{ textAlign: 'center', width: 85 }}
-                                        type="text"
-                                        maxLength={7}
-                                        value={percentageInColumn.toString()}
-                                        onChange={(e) => onChangePercentage(rowIndex, columnIndex, e.target.value)}
-                                    />
-                                </td>
-                            ))}
+                            {row.percentage.map((percentageInColumn, columnIndex) => {
+                                const columnSum = sumColumn(columnIndex);
+                                const isEmpty = percentageInColumn === '' || percentageInColumn === '0';
+                                const isGray = isEmpty && columnSum >= 100;
+
+                                return (
+                                    <td key={columnIndex}>
+                                        <input
+                                            className="form-control"
+                                            style={{
+                                                textAlign: 'center',
+                                                width: 85,
+                                                backgroundColor: isGray ? '#fafafa' : ''
+                                            }}
+                                            type="text"
+                                            maxLength={7}
+                                            value={percentageInColumn.toString()}
+                                            onChange={(e) => onChangePercentage(rowIndex, columnIndex, e.target.value)}
+                                        />
+                                    </td>
+                                );
+                            })}
                         </tr>
                     ))}
                     <tr>
