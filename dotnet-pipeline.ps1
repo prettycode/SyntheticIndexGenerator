@@ -1,7 +1,7 @@
 #Set-StrictMode -Version Latest
 
 #$ErrorActionPreference = 'Stop'
-$#WarningPreference = 'Stop'
+#WarningPreference = 'Stop'
 
 param (
     [Parameter(Position=0, Mandatory=$true)]
@@ -47,18 +47,18 @@ Examples:
 function Execute-Task {
     param (
         [string]$Task,
-        [string]$ProjectOrSolution
+        [string]$Project
     )
     switch ($Task) {
         "build" {
-            Execute-Command "Building project/solution" "dotnet build $ProjectOrSolution --configuration $Configuration"
+            Execute-Command "Building project/solution" "dotnet build $Project --configuration $Configuration"
         }
         "clean" {
-            Execute-Command "Cleaning project/solution" "dotnet clean $ProjectOrSolution --configuration $Configuration"
+            Execute-Command "Cleaning project/solution" "dotnet clean $Project --configuration $Configuration"
             Execute-Command "Removing bin and obj directories" "Get-ChildItem -Path . -Include bin, obj -Recurse | Remove-Item -Recurse -Force"
         }
         "run" {
-            Execute-Command "Launching project" "dotnet run --project $ProjectOrSolution --configuration $Configuration --no-build"
+            Execute-Command "Launching project" "dotnet run --project $Project --configuration $Configuration --no-build"
         }
         "run:DataRefreshJob" {
             Execute-Task "run" "DataRefreshJob\\DataRefreshJob.csproj"
@@ -67,7 +67,7 @@ function Execute-Task {
             Execute-Task "run" "WebApp\\WebApp.Server\\WebApp.Server.csproj --launch-profile https"
         }
         "test" {
-            Execute-Command "Running project/solution tests" "dotnet test $ProjectOrSolution --configuration $Configuration --no-build"
+            Execute-Command "Running project/solution tests" "dotnet test $Project --configuration $Configuration --no-build"
         }
         default {
             Write-Warning "Unrecognized task `"$($Task)`"." -ForegroundColor Yellow
@@ -78,7 +78,7 @@ function Execute-Task {
 function Main {
     $TaskList = $Tasks -split ',' | ForEach-Object { $_.Trim() }
     foreach ($Task in $TaskList) {
-        Execute-Task $Task
+        Execute-Task $Task $ProjectOrSolution
     }
 }
 

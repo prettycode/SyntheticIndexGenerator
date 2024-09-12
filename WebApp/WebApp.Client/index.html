@@ -12,47 +12,12 @@
             content="width=device-width, initial-scale=1.0"
         />
         <title>Client</title>
-        <style>
-            #app-selector {
-                position: fixed;
-                left: 5px;
-                top: 5px;
-            }
-
-            #app-selector > button {
-                padding: 0.25rem 0.4rem;
-                font-size: 0.875rem;
-                line-height: 0.75;
-            }
-        </style>
     </head>
     <body>
-        <div id="app-selector">
-            <button onclick="loadApp('portfolio')">Portfolio Composition</button>
-            <button onclick="loadApp('backtest')">Portfolio Backtest</button>
-        </div>
         <div id="root"></div>
-
-        <script>
-            function loadApp(appType) {
-                const script = document.createElement('script');
-                script.type = 'module';
-
-                if (appType === 'portfolio') {
-                    script.src = '/src/PortfolioAppIndex/PortfolioAppIndex.tsx';
-                } else if (appType === 'backtest') {
-                    script.src = '/src/BackTestAppIndex/BackTestAppIndex.tsx';
-                }
-
-                // Remove any existing app script
-                const existingScript = document.querySelector('script[type="module"]');
-                if (existingScript) {
-                    existingScript.remove();
-                }
-
-                // Add the new script
-                document.body.appendChild(script);
-            }
-        </script>
+        <script
+            type="module"
+            src="/src/Main.tsx"
+        ></script>
     </body>
 </html>
