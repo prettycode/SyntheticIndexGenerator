@@ -1,6 +1,6 @@
 ﻿namespace Data.Quotes.QuoteProvider;
 
-public class YahooFinanceApiQuoteProvider : QuoteProvider, IQuoteProvider
+public class YahooFinanceApiQuoteProvider : YahooQuoteProvider, IQuoteProvider
 {
     public async Task<Quote?> GetQuote(
         string ticker,

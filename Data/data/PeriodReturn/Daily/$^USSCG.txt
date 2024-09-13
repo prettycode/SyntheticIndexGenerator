@@ -3251,3 +3251,14 @@
 {"Ticker":"VSGAX","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.715937878620993501486947900,"PeriodType":0}
 {"Ticker":"VSGAX","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.4921259842519685039370078700,"PeriodType":0}
 {"Ticker":"VSGAX","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-3.0362389813907933398628795300,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.1459034792368125701459034800,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":-0.4608294930875576036866359400,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-1.6937669376693766937669376700,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":0.7236388697450034458993797400,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":0,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":1.220207549321473372106283500,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":1.0815682739972960793150067600,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":1.7275969683459652251448952300,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.5259121288484715678755341300,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.6539509536784741144414168900,"PeriodType":0}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":0,"PeriodType":0}

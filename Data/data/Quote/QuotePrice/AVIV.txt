@@ -733,3 +733,14 @@
 {"Ticker":"AVIV","DateTime":"2024-08-29T00:00:00","Open":55.2400,"High":55.4500,"Low":55.1500,"Close":55.2300,"Volume":19900,"AdjustedClose":55.2300}
 {"Ticker":"AVIV","DateTime":"2024-08-30T00:00:00","Open":55.3900,"High":55.4200,"Low":55.0400,"Close":55.3800,"Volume":45100,"AdjustedClose":55.3800}
 {"Ticker":"AVIV","DateTime":"2024-09-03T00:00:00","Open":54.9700,"High":54.9700,"Low":54.2500,"Close":54.3300,"Volume":26500,"AdjustedClose":54.3300}
+{"Ticker":"AVIV","DateTime":"2024-09-04T00:00:00","Open":54.06,"High":54.34,"Low":54.04,"Close":54.14,"Volume":21401,"AdjustedClose":54.14}
+{"Ticker":"AVIV","DateTime":"2024-09-05T00:00:00","Open":54.43,"High":54.49,"Low":54.06,"Close":54.28,"Volume":26200,"AdjustedClose":54.28}
+{"Ticker":"AVIV","DateTime":"2024-09-06T00:00:00","Open":54,"High":54.1,"Low":53.14,"Close":53.21,"Volume":65200,"AdjustedClose":53.21}
+{"Ticker":"AVIV","DateTime":"2024-09-09T00:00:00","Open":53.62,"High":53.82,"Low":53.54,"Close":53.65,"Volume":36421,"AdjustedClose":53.65}
+{"Ticker":"AVIV","DateTime":"2024-09-10T00:00:00","Open":53.41,"High":53.41,"Low":52.87,"Close":53.21,"Volume":26435,"AdjustedClose":53.21}
+{"Ticker":"AVIV","DateTime":"2024-09-11T00:00:00","Open":53.01,"High":53.45,"Low":52.65,"Close":53.4,"Volume":17500,"AdjustedClose":53.4}
+{"Ticker":"AVIV","DateTime":"2024-09-12T00:00:00","Open":53.39,"High":53.99,"Low":53.28,"Close":53.99,"Volume":42471,"AdjustedClose":53.99}
+{"Ticker":"AVIV","DateTime":"2024-09-13T00:00:00","Open":54.1500,"High":54.4600,"Low":54.1200,"Close":54.2500,"Volume":17100,"AdjustedClose":54.2500}
+{"Ticker":"AVIV","DateTime":"2024-09-16T00:00:00","Open":54.4700,"High":54.7600,"Low":54.4100,"Close":54.7500,"Volume":19600,"AdjustedClose":54.7500}
+{"Ticker":"AVIV","DateTime":"2024-09-17T00:00:00","Open":54.7700,"High":54.8600,"Low":54.4600,"Close":54.6100,"Volume":39800,"AdjustedClose":54.6100}
+{"Ticker":"AVIV","DateTime":"2024-09-18T00:00:00","Open":54.7400,"High":55.1600,"Low":54.4700,"Close":54.6000,"Volume":28400,"AdjustedClose":54.6000}

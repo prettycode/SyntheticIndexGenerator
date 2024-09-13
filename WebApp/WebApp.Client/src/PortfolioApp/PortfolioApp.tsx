@@ -17,7 +17,7 @@ function PortfolioApp() {
         try {
             // TODO: use Zod to validate that the deserialized object is a valid FundSelectionTableState
             return JSON.parse(decodeURIComponent(location.search));
-        } catch (e) {
+        } catch {
             return undefined;
         }
     })();

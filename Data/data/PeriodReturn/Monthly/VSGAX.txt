@@ -153,4 +153,4 @@
 {"Ticker":"VSGAX","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":0.0312846619834475697505759200,"PeriodType":1}
 {"Ticker":"VSGAX","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":4.5263277607187535539633799600,"PeriodType":1}
 {"Ticker":"VSGAX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-0.0217604178000217604178000200,"PeriodType":1}
-{"Ticker":"VSGAX","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":-3.0362389813907933398628795300,"PeriodType":1}
+{"Ticker":"VSGAX","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":0.5005985417346827728806181300,"PeriodType":1}

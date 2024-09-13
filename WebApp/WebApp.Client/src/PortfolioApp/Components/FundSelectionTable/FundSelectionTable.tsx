@@ -548,19 +548,32 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
                 </tfoot>
             </table>
 
-            {customPortfolios && (
-                <div style={{ marginTop: '40px' }}>
-                    <FundAnalysis fundAllocations={customPortfolios} />
-                </div>
-            )}
-
             {backtestData && (
                 <div style={{ marginTop: '40px' }}>
                     <h3>Portfolio Value</h3>
                     <HighchartsReact
                         highcharts={Highcharts}
                         options={{
-                            // ... chart options for portfolio value ...
+                            chart: {
+                                type: 'spline',
+                                zoomType: 'x'
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                type: 'datetime'
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Portfolio Balance ($)'
+                                },
+                                type: 'linear' // TODO: selectedIsLogScale ? 'logarithmic' : 'linear'
+                            },
+                            tooltip: {
+                                valuePrefix: '$',
+                                shared: true
+                            },
                             series: backtestData.flatMap((portfolioBackTest, i) => [
                                 {
                                     lineWidth: 1,
@@ -586,7 +599,30 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
                     <HighchartsReact
                         highcharts={Highcharts}
                         options={{
-                            // ... chart options for portfolio drawdowns ...
+                            chart: {
+                                type: 'spline',
+                                zoomType: 'x'
+                            },
+                            title: {
+                                text: null
+                            },
+                            xAxis: {
+                                type: 'datetime'
+                            },
+                            yAxis: {
+                                title: {
+                                    text: 'Drawdown'
+                                },
+                                labels: {
+                                    formatter: function () {
+                                        return this.value + '%';
+                                    }
+                                },
+                                max: 0
+                            },
+                            tooltip: {
+                                valueSuffix: '%'
+                            },
                             series: backtestData.map((portfolioBackTest, i) => ({
                                 lineWidth: 1,
                                 name: `P${i} Drawdown`,
@@ -597,6 +633,12 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
                             }))
                         }}
                     />
+                </div>
+            )}
+
+            {customPortfolios && (
+                <div style={{ marginTop: '40px' }}>
+                    <FundAnalysis fundAllocations={customPortfolios} />
                 </div>
             )}
         </>

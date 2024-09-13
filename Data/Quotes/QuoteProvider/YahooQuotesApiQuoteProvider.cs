@@ -3,7 +3,7 @@ using YahooQuotesApi;
 
 namespace Data.Quotes.QuoteProvider;
 
-public class YahooQuotesApiQuoteProvider : QuoteProvider, IQuoteProvider
+public class YahooQuotesApiQuoteProvider : YahooQuoteProvider, IQuoteProvider
 {
     public async Task<Quote?> GetQuote(
         string ticker,

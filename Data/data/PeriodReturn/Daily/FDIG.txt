@@ -594,3 +594,12 @@
 {"Ticker":"FDIG","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-6.3861758076634109691960931600,"PeriodType":0}
 {"Ticker":"FDIG","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.6821829855537720706260032100,"PeriodType":0}
 {"Ticker":"FDIG","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":-1.0505050505050505050505050500,"PeriodType":0}
+{"Ticker":"FDIG","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-3.7974683544303797468354430400,"PeriodType":0}
+{"Ticker":"FDIG","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":4.3293718166383701188455008500,"PeriodType":0}
+{"Ticker":"FDIG","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":3.0512611879576891781936533800,"PeriodType":0}
+{"Ticker":"FDIG","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":0.7106198183971575207264113700,"PeriodType":0}
+{"Ticker":"FDIG","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":0.2352018816150529204233633900,"PeriodType":0}
+{"Ticker":"FDIG","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":2.1509581540868204927649589400,"PeriodType":0}
+{"Ticker":"FDIG","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":-2.2970903522205206738131699800,"PeriodType":0}
+{"Ticker":"FDIG","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":1.7633228840125391849529780600,"PeriodType":0}
+{"Ticker":"FDIG","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.4235656526761648055448594500,"PeriodType":0}

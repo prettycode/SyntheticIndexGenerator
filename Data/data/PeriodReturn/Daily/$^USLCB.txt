@@ -11259,3 +11259,14 @@
 {"Ticker":"VOO","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.0155905910782842554518348200,"PeriodType":0}
 {"Ticker":"VOO","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.9411352078096685567311626800,"PeriodType":0}
 {"Ticker":"VOO","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-2.0230098061925720021619952100,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.2482465127275593033335960300,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":-0.2468891961287774047007702900,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-1.6651816651816651816651816700,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":1.1255637886597938144329896900,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":0.4121617585568365091691057900,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":1.0232004759071980963712076100,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":0.8597338358261688847014485900,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":0.5312937879495562821111630100,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.1509959927986526511411812500,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.0463902580458103798202377500,"PeriodType":0}
+{"Ticker":"VOO","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.2975327962286752062443246600,"PeriodType":0}

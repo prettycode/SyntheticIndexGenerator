@@ -7026,3 +7026,14 @@
 {"Ticker":"DFISX","DateTime":"2024-08-29T00:00:00","Open":20.9400,"High":20.9400,"Low":20.9400,"Close":20.9400,"Volume":0,"AdjustedClose":20.9400}
 {"Ticker":"DFISX","DateTime":"2024-08-30T00:00:00","Open":21.0300,"High":21.0300,"Low":21.0300,"Close":21.0300,"Volume":0,"AdjustedClose":21.0300}
 {"Ticker":"DFISX","DateTime":"2024-09-03T00:00:00","Open":20.6100,"High":20.6100,"Low":20.6100,"Close":20.6100,"Volume":0,"AdjustedClose":20.6100}
+{"Ticker":"DFISX","DateTime":"2024-09-04T00:00:00","Open":20.5900,"High":20.5900,"Low":20.5900,"Close":20.5900,"Volume":0,"AdjustedClose":20.5900}
+{"Ticker":"DFISX","DateTime":"2024-09-05T00:00:00","Open":20.6900,"High":20.6900,"Low":20.6900,"Close":20.6900,"Volume":0,"AdjustedClose":20.6900}
+{"Ticker":"DFISX","DateTime":"2024-09-06T00:00:00","Open":20.2800,"High":20.2800,"Low":20.2800,"Close":20.2800,"Volume":0,"AdjustedClose":20.2800}
+{"Ticker":"DFISX","DateTime":"2024-09-09T00:00:00","Open":20.4200,"High":20.4200,"Low":20.4200,"Close":20.4200,"Volume":0,"AdjustedClose":20.4200}
+{"Ticker":"DFISX","DateTime":"2024-09-10T00:00:00","Open":20.4300,"High":20.4300,"Low":20.4300,"Close":20.4300,"Volume":0,"AdjustedClose":20.4300}
+{"Ticker":"DFISX","DateTime":"2024-09-11T00:00:00","Open":20.4300,"High":20.4300,"Low":20.4300,"Close":20.4300,"Volume":0,"AdjustedClose":20.4300}
+{"Ticker":"DFISX","DateTime":"2024-09-12T00:00:00","Open":20.6600,"High":20.6600,"Low":20.6600,"Close":20.6600,"Volume":0,"AdjustedClose":20.6600}
+{"Ticker":"DFISX","DateTime":"2024-09-13T00:00:00","Open":20.7700,"High":20.7700,"Low":20.7700,"Close":20.7700,"Volume":0,"AdjustedClose":20.7700}
+{"Ticker":"DFISX","DateTime":"2024-09-16T00:00:00","Open":20.9100,"High":20.9100,"Low":20.9100,"Close":20.9100,"Volume":0,"AdjustedClose":20.9100}
+{"Ticker":"DFISX","DateTime":"2024-09-17T00:00:00","Open":20.9000,"High":20.9000,"Low":20.9000,"Close":20.9000,"Volume":0,"AdjustedClose":20.9000}
+{"Ticker":"DFISX","DateTime":"2024-09-18T00:00:00","Open":20.9000,"High":20.9000,"Low":20.9000,"Close":20.9000,"Volume":0,"AdjustedClose":20.9000}

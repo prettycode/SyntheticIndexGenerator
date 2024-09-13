@@ -645,3 +645,12 @@
 {"Ticker":"WGMI","DateTime":"2024-09-03T00:00:00","Open":17.5000,"High":17.5000,"Low":15.7900,"Close":15.8600,"Volume":333700,"AdjustedClose":15.8600}
 {"Ticker":"WGMI","DateTime":"2024-09-04T00:00:00","Open":15.6200,"High":16.2700,"Low":15.3700,"Close":15.7600,"Volume":302400,"AdjustedClose":15.7600}
 {"Ticker":"WGMI","DateTime":"2024-09-05T00:00:00","Open":15.9000,"High":16.3600,"Low":15.7100,"Close":15.8700,"Volume":199000,"AdjustedClose":15.8700}
+{"Ticker":"WGMI","DateTime":"2024-09-06T00:00:00","Open":16.0100,"High":16.2200,"Low":14.8500,"Close":14.9500,"Volume":392874,"AdjustedClose":14.9500}
+{"Ticker":"WGMI","DateTime":"2024-09-09T00:00:00","Open":15.4000,"High":16.2400,"Low":15.2300,"Close":16.2400,"Volume":226928,"AdjustedClose":16.2400}
+{"Ticker":"WGMI","DateTime":"2024-09-10T00:00:00","Open":16.3000,"High":16.9300,"Low":15.8800,"Close":16.9200,"Volume":149328,"AdjustedClose":16.9200}
+{"Ticker":"WGMI","DateTime":"2024-09-11T00:00:00","Open":16.5300,"High":17.0500,"Low":15.8900,"Close":16.9000,"Volume":166234,"AdjustedClose":16.9000}
+{"Ticker":"WGMI","DateTime":"2024-09-12T00:00:00","Open":16.9700,"High":17.3400,"Low":16.5700,"Close":17.0800,"Volume":160251,"AdjustedClose":17.0800}
+{"Ticker":"WGMI","DateTime":"2024-09-13T00:00:00","Open":16.9600,"High":17.7900,"Low":16.9600,"Close":17.4800,"Volume":222214,"AdjustedClose":17.4800}
+{"Ticker":"WGMI","DateTime":"2024-09-16T00:00:00","Open":17.0900,"High":17.2900,"Low":16.4500,"Close":17.1100,"Volume":96014,"AdjustedClose":17.1100}
+{"Ticker":"WGMI","DateTime":"2024-09-17T00:00:00","Open":17.4300,"High":18.0200,"Low":17.2300,"Close":17.5500,"Volume":166814,"AdjustedClose":17.5500}
+{"Ticker":"WGMI","DateTime":"2024-09-18T00:00:00","Open":17.3700,"High":18.5000,"Low":17.2500,"Close":17.3700,"Volume":138013,"AdjustedClose":17.3700}

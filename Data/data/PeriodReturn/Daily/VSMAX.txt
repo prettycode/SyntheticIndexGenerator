@@ -5984,3 +5984,14 @@
 {"Ticker":"VSMAX","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.5338400289540354686934491500,"PeriodType":0}
 {"Ticker":"VSMAX","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.6480064800648006480064800600,"PeriodType":0}
 {"Ticker":"VSMAX","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-2.5753375659483144057945095200,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.22946305644791188618632400,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":-0.5335786568537258509659613600,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-1.5353311135775064742878283400,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":0.469659966184482434717264700,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":-0.186985789080029917726252800,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":0.5526414387411015361558636200,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":1.0246856078248719142990218900,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":1.9087136929460580912863070500,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.6786102062975027144408251900,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.5482160510470027860159971200,"PeriodType":0}
+{"Ticker":"VSMAX","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":0,"PeriodType":0}

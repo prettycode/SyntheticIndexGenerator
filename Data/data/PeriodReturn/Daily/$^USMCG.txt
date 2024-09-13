@@ -3251,3 +3251,14 @@
 {"Ticker":"VMGMX","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.6331618519984170953700039600,"PeriodType":0}
 {"Ticker":"VMGMX","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.6193472276838379866299646100,"PeriodType":0}
 {"Ticker":"VMGMX","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-2.5305324865657059110893991200,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.2004811547714514835605453100,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":-0.5222981116914423463238248300,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-1.4741518578352180936995153500,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":1.4449682311949169911867185900,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":0.3131629457520961713304374200,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":0.9365558912386706948640483400,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":0.3990821111443679537064751100,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":0.9043028917817748186425519200,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.3643884183572976167027772300,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.058875478363261701501324700,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":0,"PeriodType":0}

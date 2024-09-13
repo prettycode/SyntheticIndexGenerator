@@ -29,8 +29,11 @@ public static class DecimalExtensions
 
     public static decimal ToQuotePrice(this decimal value, int digits = 4, bool trimZeros = false)
     {
-        var rounded = Math.Round(value, digits);
+        var forcedPrecision = Decimal.Parse("0." + new string('0', digits));
+        var rounded = Math.Round(value + forcedPrecision, digits);
 
-        return trimZeros ? rounded.TrimZeros() : rounded;
+        return trimZeros
+            ? rounded.TrimZeros()
+            : rounded;
     }
 }

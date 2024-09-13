@@ -1,6 +1,6 @@
 ﻿namespace Data.Quotes.QuoteProvider;
 
-public abstract class QuoteProvider
+public abstract class YahooQuoteProvider
 {
     protected Quote? GetQuote(string ticker, List<QuoteDividend> dividends, List<QuotePrice> prices, List<QuoteSplit> splits)
     {

@@ -4799,3 +4799,14 @@
 {"Ticker":"EFG","DateTime":"2024-08-29T00:00:00","Open":107.3000,"High":107.9700,"Low":107.0000,"Close":107.1800,"Volume":282800,"AdjustedClose":107.1800}
 {"Ticker":"EFG","DateTime":"2024-08-30T00:00:00","Open":107.5500,"High":107.8600,"Low":106.8000,"Close":107.4600,"Volume":229300,"AdjustedClose":107.4600}
 {"Ticker":"EFG","DateTime":"2024-09-03T00:00:00","Open":106.8100,"High":106.9400,"Low":105.0000,"Close":105.2200,"Volume":315000,"AdjustedClose":105.2200}
+{"Ticker":"EFG","DateTime":"2024-09-04T00:00:00","Open":104.1600,"High":105.0400,"Low":104.0300,"Close":104.4900,"Volume":414700,"AdjustedClose":104.4900}
+{"Ticker":"EFG","DateTime":"2024-09-05T00:00:00","Open":103.6300,"High":103.9900,"Low":103.1600,"Close":103.6600,"Volume":8566100,"AdjustedClose":103.6600}
+{"Ticker":"EFG","DateTime":"2024-09-06T00:00:00","Open":103.5600,"High":104.0400,"Low":101.4200,"Close":101.5600,"Volume":1224600,"AdjustedClose":101.5600}
+{"Ticker":"EFG","DateTime":"2024-09-09T00:00:00","Open":102.5300,"High":103.1800,"Low":102.3900,"Close":102.8200,"Volume":706800,"AdjustedClose":102.8200}
+{"Ticker":"EFG","DateTime":"2024-09-10T00:00:00","Open":102.5100,"High":102.7300,"Low":101.5400,"Close":102.4900,"Volume":652700,"AdjustedClose":102.4900}
+{"Ticker":"EFG","DateTime":"2024-09-11T00:00:00","Open":102.7300,"High":103.6400,"Low":101.5200,"Close":103.5700,"Volume":591600,"AdjustedClose":103.5700}
+{"Ticker":"EFG","DateTime":"2024-09-12T00:00:00","Open":103.6000,"High":104.6200,"Low":103.1800,"Close":104.4600,"Volume":394700,"AdjustedClose":104.4600}
+{"Ticker":"EFG","DateTime":"2024-09-13T00:00:00","Open":104.4600,"High":104.9800,"Low":104.4100,"Close":104.6000,"Volume":313236,"AdjustedClose":104.6000}
+{"Ticker":"EFG","DateTime":"2024-09-16T00:00:00","Open":105.1000,"High":105.3100,"Low":104.6400,"Close":105.2100,"Volume":357501,"AdjustedClose":105.2100}
+{"Ticker":"EFG","DateTime":"2024-09-17T00:00:00","Open":105.0300,"High":105.1500,"Low":104.1200,"Close":104.4500,"Volume":458742,"AdjustedClose":104.4500}
+{"Ticker":"EFG","DateTime":"2024-09-18T00:00:00","Open":104.5000,"High":105.4800,"Low":103.7800,"Close":104.1500,"Volume":302253,"AdjustedClose":104.1500}

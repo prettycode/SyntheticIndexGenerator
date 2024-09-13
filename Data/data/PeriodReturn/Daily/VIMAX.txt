@@ -5737,3 +5737,14 @@
 {"Ticker":"VIMAX","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.3860270851790912542716111900,"PeriodType":0}
 {"Ticker":"VIMAX","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.8037571707747588728487675700,"PeriodType":0}
 {"Ticker":"VIMAX","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-1.641599699821769175447922200,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.2225330620549338758901322500,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":-0.5766902440578601924424902800,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-1.19211664797308123698125300,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":1.1481205202218402361106606600,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":0.1442908904351171962676756300,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":0.3393954918032786885245901600,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":0.6158657221264917990937519900,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":0.9958453585360438933113443900,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.5997801852724132516878630900,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.1997752528405543763266325400,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":0,"PeriodType":0}

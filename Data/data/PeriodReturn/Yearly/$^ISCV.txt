@@ -23,8 +23,8 @@
 {"Ticker":"DISVX","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":27.979921199119449235126684330,"PeriodType":2}
 {"Ticker":"DISVX","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":-23.362622433551723382343274100,"PeriodType":2}
 {"Ticker":"DISVX","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":21.037169406719085060757684060,"PeriodType":2}
-{"Ticker":"AVDV","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":5.0059553217616272276080926800,"PeriodType":2}
-{"Ticker":"AVDV","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":15.798937171282539856076904760,"PeriodType":2}
-{"Ticker":"AVDV","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-11.465700514041302013173888930,"PeriodType":2}
-{"Ticker":"AVDV","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":16.848810305921334513982118880,"PeriodType":2}
-{"Ticker":"AVDV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":10.150681047042603330432486870,"PeriodType":2}
+{"Ticker":"AVDV","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":5.002050020500205002050020500,"PeriodType":2}
+{"Ticker":"AVDV","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":15.794611479890667707926591180,"PeriodType":2}
+{"Ticker":"AVDV","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-11.465182937110099477322542570,"PeriodType":2}
+{"Ticker":"AVDV","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":16.853932584269662921348314610,"PeriodType":2}
+{"Ticker":"AVDV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":12.320730117340286831812255540,"PeriodType":2}

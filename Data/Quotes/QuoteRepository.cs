@@ -182,7 +182,7 @@ internal class QuoteRepository : IQuoteRepository
 
             if (div.DateTime <= previousDateTime)
             {
-                logger.LogWarning("Non-chronological {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                logger.LogError("Non-chronological {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
                     nameof(div.DateTime),
                     nameof(fundHistory.Dividends),
                     div.DateTime,
@@ -252,7 +252,7 @@ internal class QuoteRepository : IQuoteRepository
 
             if (price.DateTime <= previousDateTime)
             {
-                logger.LogWarning("Non-chronological {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                logger.LogError("Non-chronological {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
                     nameof(price.DateTime),
                     nameof(fundHistory.Prices),
                     price.DateTime,
@@ -312,7 +312,7 @@ internal class QuoteRepository : IQuoteRepository
 
             if (split.DateTime <= previousDateTime)
             {
-                logger.LogWarning("Non-chronological {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
+                logger.LogError("Non-chronological {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
                     nameof(split.DateTime),
                     nameof(fundHistory.Splits),
                     split.DateTime,

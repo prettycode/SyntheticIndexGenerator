@@ -5738,3 +5738,14 @@
 {"Ticker":"VIMAX","DateTime":"2024-08-29T00:00:00","Open":317.2600,"High":317.2600,"Low":317.2600,"Close":317.2600,"Volume":0,"AdjustedClose":317.2600}
 {"Ticker":"VIMAX","DateTime":"2024-08-30T00:00:00","Open":319.8100,"High":319.8100,"Low":319.8100,"Close":319.8100,"Volume":0,"AdjustedClose":319.8100}
 {"Ticker":"VIMAX","DateTime":"2024-09-03T00:00:00","Open":314.5600,"High":314.5600,"Low":314.5600,"Close":314.5600,"Volume":0,"AdjustedClose":314.5600}
+{"Ticker":"VIMAX","DateTime":"2024-09-04T00:00:00","Open":313.8600,"High":313.8600,"Low":313.8600,"Close":313.8600,"Volume":0,"AdjustedClose":313.8600}
+{"Ticker":"VIMAX","DateTime":"2024-09-05T00:00:00","Open":312.0500,"High":312.0500,"Low":312.0500,"Close":312.0500,"Volume":0,"AdjustedClose":312.0500}
+{"Ticker":"VIMAX","DateTime":"2024-09-06T00:00:00","Open":308.3300,"High":308.3300,"Low":308.3300,"Close":308.3300,"Volume":0,"AdjustedClose":308.3300}
+{"Ticker":"VIMAX","DateTime":"2024-09-09T00:00:00","Open":311.8700,"High":311.8700,"Low":311.8700,"Close":311.8700,"Volume":0,"AdjustedClose":311.8700}
+{"Ticker":"VIMAX","DateTime":"2024-09-10T00:00:00","Open":312.3200,"High":312.3200,"Low":312.3200,"Close":312.3200,"Volume":0,"AdjustedClose":312.3200}
+{"Ticker":"VIMAX","DateTime":"2024-09-11T00:00:00","Open":313.3800,"High":313.3800,"Low":313.3800,"Close":313.3800,"Volume":0,"AdjustedClose":313.3800}
+{"Ticker":"VIMAX","DateTime":"2024-09-12T00:00:00","Open":315.3100,"High":315.3100,"Low":315.3100,"Close":315.3100,"Volume":0,"AdjustedClose":315.3100}
+{"Ticker":"VIMAX","DateTime":"2024-09-13T00:00:00","Open":318.4500,"High":318.4500,"Low":318.4500,"Close":318.4500,"Volume":0,"AdjustedClose":318.4500}
+{"Ticker":"VIMAX","DateTime":"2024-09-16T00:00:00","Open":320.3600,"High":320.3600,"Low":320.3600,"Close":320.3600,"Volume":0,"AdjustedClose":320.3600}
+{"Ticker":"VIMAX","DateTime":"2024-09-17T00:00:00","Open":321.0000,"High":321.0000,"Low":321.0000,"Close":321.0000,"Volume":0,"AdjustedClose":321.0000}
+{"Ticker":"VIMAX","DateTime":"2024-09-18T00:00:00","Open":321.0000,"High":321.0000,"Low":321.0000,"Close":321.0000,"Volume":0,"AdjustedClose":321.0000}

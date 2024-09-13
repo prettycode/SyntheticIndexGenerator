@@ -659,3 +659,14 @@
 {"Ticker":"AVSC","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.9495438465835040029789610900,"PeriodType":0}
 {"Ticker":"AVSC","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.5348579859830320914791589800,"PeriodType":0}
 {"Ticker":"AVSC","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-2.8618602091359383599339570700,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.6421152030217186024551463600,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":-0.456187036685040866755369700,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-1.9667748711094137865189994300,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":-0.1558239189715621347876899100,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":-0.234100663285212641435817400,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":-0.0195541650371529135705905400,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":1.2125953451985135928026598900,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":2.628019323671497584541062800,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.3577480700433063453210318200,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":1.1444652908067542213883677300,"PeriodType":0}
+{"Ticker":"AVSC","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.0185494342422556112038582800,"PeriodType":0}

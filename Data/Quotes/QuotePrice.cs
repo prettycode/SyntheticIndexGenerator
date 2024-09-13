@@ -1,4 +1,5 @@
 ﻿using Data.Quotes.Extensions;
+using Data.Quotes.QuoteProvider;
 using YahooFinanceApi;
 
 namespace Data.Quotes;
@@ -33,6 +34,21 @@ public readonly struct QuotePrice
         Low = Convert.ToDecimal(price.Low).ToQuotePrice();
         Close = Convert.ToDecimal(price.Close).ToQuotePrice();
         AdjustedClose = Convert.ToDecimal(price.AdjustedClose).ToQuotePrice();
+        Volume = price.Volume;
+    }
+
+    public QuotePrice(string ticker, FmpQuotePrice price)
+    {
+        ArgumentNullException.ThrowIfNull(ticker);
+        ArgumentNullException.ThrowIfNull(price);
+
+        Ticker = ticker;
+        DateTime = DateTime.Parse(price.Date);
+        Open = Convert.ToDecimal(price.Open).ToQuotePrice();
+        High = Convert.ToDecimal(price.High).ToQuotePrice();
+        Low = Convert.ToDecimal(price.Low).ToQuotePrice();
+        Close = Convert.ToDecimal(price.Close).ToQuotePrice();
+        AdjustedClose = Convert.ToDecimal(price.AdjClose).ToQuotePrice();
         Volume = price.Volume;
     }
 

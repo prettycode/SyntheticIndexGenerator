@@ -16,11 +16,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E71E44E0-DCA3-4AAA-86A0-07E20B818372}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.env = .env
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		dotnet-pipeline.ps1 = dotnet-pipeline.ps1
 		LICENSE = LICENSE
 		makefile = makefile
-		dotnet-pipeline.ps1 = dotnet-pipeline.ps1
 		PortfolioAnalyzer.slnLaunch = PortfolioAnalyzer.slnLaunch
 	EndProjectSection
 EndProject

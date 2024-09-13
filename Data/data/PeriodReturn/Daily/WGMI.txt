@@ -644,3 +644,12 @@
 {"Ticker":"WGMI","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-10.698198198198198198198198200,"PeriodType":0}
 {"Ticker":"WGMI","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.630517023959646910466582600,"PeriodType":0}
 {"Ticker":"WGMI","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":0.6979695431472081218274111700,"PeriodType":0}
+{"Ticker":"WGMI","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-5.7971014492753623188405797100,"PeriodType":0}
+{"Ticker":"WGMI","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":8.628762541806020066889632110,"PeriodType":0}
+{"Ticker":"WGMI","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":4.1871921182266009852216748800,"PeriodType":0}
+{"Ticker":"WGMI","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":-0.1182033096926713947990543700,"PeriodType":0}
+{"Ticker":"WGMI","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":1.0650887573964497041420118300,"PeriodType":0}
+{"Ticker":"WGMI","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":2.3419203747072599531615925100,"PeriodType":0}
+{"Ticker":"WGMI","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":-2.116704805491990846681922200,"PeriodType":0}
+{"Ticker":"WGMI","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":2.5715955581531268264172998200,"PeriodType":0}
+{"Ticker":"WGMI","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-1.0256410256410256410256410300,"PeriodType":0}

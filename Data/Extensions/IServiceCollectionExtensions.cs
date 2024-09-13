@@ -16,6 +16,7 @@ public static class IServiceCollectionExtensions
         .Configure<QuoteRepositoryOptions>(configuration.GetSection("QuoteRepositoryOptions"))
         .Configure<ReturnsCacheOptions>(configuration.GetSection("ReturnsCacheOptions"))
         .Configure<QuotesServiceOptions>(configuration.GetSection("QuotesServiceOptions"))
+        .Configure<FmpQuoteProviderOptions>(configuration.GetSection("FmpQuoteProviderOptions"))
         .AddTransient<IQuoteRepository, QuoteRepository>()
         .AddSingleton<IReturnsCache>(sp =>
         {
@@ -24,7 +25,7 @@ public static class IServiceCollectionExtensions
 
             return ReturnsCache.Create(options, logger).GetAwaiter().GetResult();
         })
-        .AddTransient<IQuoteProvider, YahooFinanceApiQuoteProvider>()
+        .AddTransient<IQuoteProvider, FmpQuoteProvider>()
         .AddTransient<IQuotesService, QuotesService>()
         .AddTransient<IReturnsService, ReturnsService>()
         .AddTransient<ISyntheticIndicesService, SyntheticIndicesService>()

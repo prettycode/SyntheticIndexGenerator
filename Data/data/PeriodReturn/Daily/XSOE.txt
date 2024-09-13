@@ -2433,3 +2433,14 @@
 {"Ticker":"XSOE","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.2585649644473173884938590800,"PeriodType":0}
 {"Ticker":"XSOE","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.3868471953578336557059961300,"PeriodType":0}
 {"Ticker":"XSOE","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-1.8625561978163134232498394300,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":0.2290575916230366492146596900,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":0.1632386549134835128958537400,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-1.8904823989569752281616688400,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":0.9302325581395348837209302300,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":-0.0658327847267939433838051300,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":0.8234519104084321475625823500,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":0.9474028095393662201894805600,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":0.226537216828478964401294500,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.3551824346141427187600904100,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.1930501930501930501930501900,"PeriodType":0}
+{"Ticker":"XSOE","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.5138086062941554271034039800,"PeriodType":0}

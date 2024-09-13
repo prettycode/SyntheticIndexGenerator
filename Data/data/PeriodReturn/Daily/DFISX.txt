@@ -7025,3 +7025,14 @@
 {"Ticker":"DFISX","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.1434720229555236728837876600,"PeriodType":0}
 {"Ticker":"DFISX","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.429799426934097421203438400,"PeriodType":0}
 {"Ticker":"DFISX","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-1.997146932952924393723252500,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.0970402717127607957302280400,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":0.4856726566294317629917435600,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-1.9816336394393426776220396300,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":0.6903353057199211045364891500,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":0.0489715964740450538687561200,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":0,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":1.1257953989231522271169848300,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":0.532429816069699903194578900,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.6740491092922484352431391400,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":-0.0478240076518412242945958900,"PeriodType":0}
+{"Ticker":"DFISX","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":0,"PeriodType":0}

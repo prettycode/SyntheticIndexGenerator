@@ -851,3 +851,12 @@
 {"Ticker":"DAPP","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-8.606173994387277829747427500,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.2047082906857727737973387900,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":3.1794871794871794871794871800,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-5.8648111332007952286282306200,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":8.553326293558606124604012670,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":2.626459143968871595330739300,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":-0.5687203791469194312796208500,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":1.6205910390848427073403241200,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":2.34521575984990619136960600,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":-2.9330889092575618698441796500,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":2.0774315391879131255901794100,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.7400555041628122109158186900,"PeriodType":0}

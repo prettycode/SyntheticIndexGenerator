@@ -833,3 +833,12 @@
 {"Ticker":"BITQ","DateTime":"2024-09-03T00:00:00","Open":12.1700,"High":12.1900,"Low":11.3700,"Close":11.4400,"Volume":101800,"AdjustedClose":11.4400}
 {"Ticker":"BITQ","DateTime":"2024-09-04T00:00:00","Open":11.2400,"High":11.5800,"Low":11.1100,"Close":11.3700,"Volume":91500,"AdjustedClose":11.3700}
 {"Ticker":"BITQ","DateTime":"2024-09-05T00:00:00","Open":11.3600,"High":11.6600,"Low":11.3250,"Close":11.4800,"Volume":61100,"AdjustedClose":11.4800}
+{"Ticker":"BITQ","DateTime":"2024-09-06T00:00:00","Open":11.5600,"High":11.6200,"Low":10.8300,"Close":10.8900,"Volume":124800,"AdjustedClose":10.8900}
+{"Ticker":"BITQ","DateTime":"2024-09-09T00:00:00","Open":11.1100,"High":11.6200,"Low":11.1100,"Close":11.6200,"Volume":62500,"AdjustedClose":11.6200}
+{"Ticker":"BITQ","DateTime":"2024-09-10T00:00:00","Open":11.5500,"High":11.9900,"Low":11.4100,"Close":11.9400,"Volume":31533,"AdjustedClose":11.9400}
+{"Ticker":"BITQ","DateTime":"2024-09-11T00:00:00","Open":11.7200,"High":12.0000,"Low":11.4300,"Close":11.9200,"Volume":59835,"AdjustedClose":11.9200}
+{"Ticker":"BITQ","DateTime":"2024-09-12T00:00:00","Open":11.9500,"High":12.1900,"Low":11.7800,"Close":12.0800,"Volume":39333,"AdjustedClose":12.0800}
+{"Ticker":"BITQ","DateTime":"2024-09-13T00:00:00","Open":12.1000,"High":12.5000,"Low":12.0800,"Close":12.3600,"Volume":53231,"AdjustedClose":12.3600}
+{"Ticker":"BITQ","DateTime":"2024-09-16T00:00:00","Open":12.0500,"High":12.1700,"Low":11.8200,"Close":12.1000,"Volume":29903,"AdjustedClose":12.1000}
+{"Ticker":"BITQ","DateTime":"2024-09-17T00:00:00","Open":12.3000,"High":12.5700,"Low":12.1500,"Close":12.2200,"Volume":47900,"AdjustedClose":12.2200}
+{"Ticker":"BITQ","DateTime":"2024-09-18T00:00:00","Open":12.2100,"High":12.7400,"Low":12.1500,"Close":12.2000,"Volume":40009,"AdjustedClose":12.2000}

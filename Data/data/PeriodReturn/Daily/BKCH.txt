@@ -789,3 +789,12 @@
 {"Ticker":"BKCH","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-9.827387802071346375143843500,"PeriodType":0}
 {"Ticker":"BKCH","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":0.1786625829504849412965798900,"PeriodType":0}
 {"Ticker":"BKCH","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":1.5796178343949044585987261100,"PeriodType":0}
+{"Ticker":"BKCH","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-5.1918735891647855530474040600,"PeriodType":0}
+{"Ticker":"BKCH","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":8.465608465608465608465608470,"PeriodType":0}
+{"Ticker":"BKCH","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":3.6341463414634146341463414600,"PeriodType":0}
+{"Ticker":"BKCH","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":-0.3765591903977406448576135600,"PeriodType":0}
+{"Ticker":"BKCH","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":1.0394519253484526340656744600,"PeriodType":0}
+{"Ticker":"BKCH","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":1.2158054711246200607902735600,"PeriodType":0}
+{"Ticker":"BKCH","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":-2.9106029106029106029106029100,"PeriodType":0}
+{"Ticker":"BKCH","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":2.9026885557934808470140375900,"PeriodType":0}
+{"Ticker":"BKCH","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-1.2716763005780346820809248600,"PeriodType":0}

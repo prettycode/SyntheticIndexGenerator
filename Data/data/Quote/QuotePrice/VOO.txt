@@ -3517,3 +3517,14 @@
 {"Ticker":"VOO","DateTime":"2024-08-29T00:00:00","Open":514.9900,"High":518.0900,"Low":512.1300,"Close":513.2100,"Volume":3487100,"AdjustedClose":513.2100}
 {"Ticker":"VOO","DateTime":"2024-08-30T00:00:00","Open":515.4200,"High":518.5800,"Low":512.1200,"Close":518.0400,"Volume":5637700,"AdjustedClose":518.0400}
 {"Ticker":"VOO","DateTime":"2024-09-03T00:00:00","Open":515.1200,"High":515.4300,"Low":505.1000,"Close":507.5600,"Volume":5845100,"AdjustedClose":507.5600}
+{"Ticker":"VOO","DateTime":"2024-09-04T00:00:00","Open":505.6800,"High":509.5300,"Low":505.0200,"Close":506.3000,"Volume":3601400,"AdjustedClose":506.3000}
+{"Ticker":"VOO","DateTime":"2024-09-05T00:00:00","Open":506.3600,"High":508.9400,"Low":502.8400,"Close":505.0500,"Volume":3425600,"AdjustedClose":505.0500}
+{"Ticker":"VOO","DateTime":"2024-09-06T00:00:00","Open":505.3400,"High":506.9400,"Low":495.8000,"Close":496.6400,"Volume":7411439,"AdjustedClose":496.6400}
+{"Ticker":"VOO","DateTime":"2024-09-09T00:00:00","Open":500.6000,"High":503.3700,"Low":498.7500,"Close":502.2300,"Volume":3656800,"AdjustedClose":502.2300}
+{"Ticker":"VOO","DateTime":"2024-09-10T00:00:00","Open":503.9500,"High":504.7100,"Low":499.5000,"Close":504.3000,"Volume":2975400,"AdjustedClose":504.3000}
+{"Ticker":"VOO","DateTime":"2024-09-11T00:00:00","Open":504.3100,"High":510.4400,"Low":496.2500,"Close":509.4600,"Volume":6108979,"AdjustedClose":509.4600}
+{"Ticker":"VOO","DateTime":"2024-09-12T00:00:00","Open":510.0900,"High":514.1400,"Low":508.0600,"Close":513.8400,"Volume":4081244,"AdjustedClose":513.8400}
+{"Ticker":"VOO","DateTime":"2024-09-13T00:00:00","Open":514.4300,"High":517.5300,"Low":514.2300,"Close":516.5700,"Volume":4416641,"AdjustedClose":516.5700}
+{"Ticker":"VOO","DateTime":"2024-09-16T00:00:00","Open":516.3400,"High":517.5900,"Low":514.6500,"Close":517.3500,"Volume":4256300,"AdjustedClose":517.3500}
+{"Ticker":"VOO","DateTime":"2024-09-17T00:00:00","Open":519.4400,"High":520.7400,"Low":515.5000,"Close":517.5900,"Volume":8150000,"AdjustedClose":517.5900}
+{"Ticker":"VOO","DateTime":"2024-09-18T00:00:00","Open":518.1800,"High":522.7300,"Low":515.4700,"Close":516.0500,"Volume":6338469,"AdjustedClose":516.0500}

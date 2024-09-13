@@ -4798,3 +4798,14 @@
 {"Ticker":"EFG","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.3464095122179571201198389700,"PeriodType":0}
 {"Ticker":"EFG","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.2612427691733532375443179700,"PeriodType":0}
 {"Ticker":"EFG","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-2.0844965568583659035920342500,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.6937844516251663181904580900,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":-0.7943343860656522155230165600,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-2.0258537526529037237121358300,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":1.2406459235919653406853091800,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":-0.3209492316669908578097646400,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":1.0537613425700068299346277700,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":0.8593221975475523800328280400,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":0.1340225923798583189737698600,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.5831739961759082217973231400,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":-0.7223647942210816462313468300,"PeriodType":0}
+{"Ticker":"EFG","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.2872187649593106749640976500,"PeriodType":0}

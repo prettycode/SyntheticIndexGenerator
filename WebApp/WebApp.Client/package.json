@@ -54,7 +54,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.10.0",
-        "@types/jest": "^29.5.12",
+        "@types/jest": "^29.5.13",
         "@types/lodash.clonedeep": "^4.5.9",
         "@types/lodash.groupby": "^4.6.9",
         "@types/react": "^18.3.5",
@@ -62,7 +62,7 @@
         "@types/react-fontawesome": "^1.6.8",
         "@vitejs/plugin-react": "4.3.1",
         "eslint": "^9.10.0",
-        "eslint-plugin-react": "^7.36.0",
+        "eslint-plugin-react": "^7.36.1",
         "globals": "^15.9.0",
         "jest": "^29.7.0",
         "prettier": "3.3.3",

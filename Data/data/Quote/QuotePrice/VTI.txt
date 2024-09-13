@@ -5838,3 +5838,14 @@
 {"Ticker":"VTI","DateTime":"2024-08-29T00:00:00","Open":276.4800,"High":278.3100,"Low":275.2400,"Close":275.7200,"Volume":3018000,"AdjustedClose":275.7200}
 {"Ticker":"VTI","DateTime":"2024-08-30T00:00:00","Open":276.7200,"High":278.5300,"Low":275.0800,"Close":278.3800,"Volume":2029300,"AdjustedClose":278.3800}
 {"Ticker":"VTI","DateTime":"2024-09-03T00:00:00","Open":276.8000,"High":277.0000,"Low":271.1600,"Close":272.3900,"Volume":3669200,"AdjustedClose":272.3900}
+{"Ticker":"VTI","DateTime":"2024-09-04T00:00:00","Open":271.0100,"High":273.5400,"Low":270.9800,"Close":271.7800,"Volume":2946704,"AdjustedClose":271.7800}
+{"Ticker":"VTI","DateTime":"2024-09-05T00:00:00","Open":271.8000,"High":273.0200,"Low":269.8300,"Close":270.9400,"Volume":3997837,"AdjustedClose":270.9400}
+{"Ticker":"VTI","DateTime":"2024-09-06T00:00:00","Open":271.1800,"High":272.0400,"Low":266.0100,"Close":266.4400,"Volume":3599900,"AdjustedClose":266.4400}
+{"Ticker":"VTI","DateTime":"2024-09-09T00:00:00","Open":268.3900,"High":270.0500,"Low":267.5800,"Close":269.2900,"Volume":2969812,"AdjustedClose":269.2900}
+{"Ticker":"VTI","DateTime":"2024-09-10T00:00:00","Open":270.1300,"High":270.4900,"Low":267.6700,"Close":270.3400,"Volume":1874700,"AdjustedClose":270.3400}
+{"Ticker":"VTI","DateTime":"2024-09-11T00:00:00","Open":270.2200,"High":273.3600,"Low":265.9200,"Close":273.0300,"Volume":2640245,"AdjustedClose":273.0300}
+{"Ticker":"VTI","DateTime":"2024-09-12T00:00:00","Open":273.4300,"High":275.5500,"Low":272.1500,"Close":275.3000,"Volume":2422039,"AdjustedClose":275.3000}
+{"Ticker":"VTI","DateTime":"2024-09-13T00:00:00","Open":276.0000,"High":277.7000,"Low":275.7600,"Close":277.2200,"Volume":2474737,"AdjustedClose":277.2200}
+{"Ticker":"VTI","DateTime":"2024-09-16T00:00:00","Open":277.1200,"High":277.8800,"Low":276.2500,"Close":277.7700,"Volume":2065742,"AdjustedClose":277.7700}
+{"Ticker":"VTI","DateTime":"2024-09-17T00:00:00","Open":278.9800,"High":279.7800,"Low":276.9700,"Close":278.0500,"Volume":2133620,"AdjustedClose":278.0500}
+{"Ticker":"VTI","DateTime":"2024-09-18T00:00:00","Open":278.3700,"High":281.0600,"Low":277.0900,"Close":277.2700,"Volume":3347455,"AdjustedClose":277.2700}

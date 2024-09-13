@@ -32,8 +32,7 @@ internal class QuotesService(
                 $"{ticker}: Trying to get quote task was successful but task was, and should not be, null.");
         }
 
-        return getQuoteTasks[ticker] = Task.Run(() => GetQuote(ticker)).ContinueWith(quote
-            => quote.Result ?? throw new KeyNotFoundException($"{ticker}: No history found."));
+        return getQuoteTasks[ticker] = GetQuote(ticker);
     }
 
     private async Task<Quote> GetQuote(string ticker)
@@ -76,7 +75,7 @@ internal class QuotesService(
         return await quoteRepository.PutQuote(upToDateQuote);
     }
 
-    private async Task<(bool IsChanged, Quote UpToDateQuopte)> GetUpdatedQuoteFromStale(Quote staleQuote)
+    private async Task<(bool IsChanged, Quote UpToDateQuote)> GetUpdatedQuoteFromStale(Quote staleQuote)
     {
         var ticker = staleQuote.Ticker;
         var staleHistoryLastTick = staleQuote.Prices[^1];
@@ -179,9 +178,9 @@ internal class QuotesService(
         var lastDataPointDateNewYork = TimeZoneInfo.ConvertTime(lastDataPoint, newYorkTimeZone).Date;
         var currentDateNewYork = TimeZoneInfo.ConvertTime(DateTime.UtcNow, newYorkTimeZone).Date;
 
-        if (currentDateNewYork <= lastDataPointDateNewYork)
+        if (lastDataPointDateNewYork > currentDateNewYork)
         {
-            throw new InvalidOperationException("Last date should not be more recent than right now.");
+            throw new InvalidOperationException("Last date should not be more recent than today.");
         }
 
         var nextBusinessDay = lastDataPointDateNewYork.AddDays(1);
@@ -191,7 +190,7 @@ internal class QuotesService(
             nextBusinessDay = nextBusinessDay.AddDays(1);
         }
 
-        return nextBusinessDay <= currentDateNewYork;
+        return nextBusinessDay < currentDateNewYork;
     }
 
     private async Task<Quote> DownloadFreshQuote(string ticker)

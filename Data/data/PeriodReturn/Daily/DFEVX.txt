@@ -6647,3 +6647,14 @@
 {"Ticker":"DFEVX","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.1564945226917057902973395900,"PeriodType":0}
 {"Ticker":"DFEVX","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.12500,"PeriodType":0}
 {"Ticker":"DFEVX","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-1.6541822721598002496878901400,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.3490955252300856870834655700,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":0.0636942675159235668789808900,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-1.4322087842138765117759388900,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":0.3228931223764933806909912800,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":-0.514966205342774380431284200,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":0,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":0.8411517308314461339372371400,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":0.7378889958293230670516522300,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.5414012738853503184713375800,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.2217294900221729490022172900,"PeriodType":0}
+{"Ticker":"DFEVX","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":0,"PeriodType":0}
