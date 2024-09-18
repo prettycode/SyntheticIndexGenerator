@@ -1,2 +1,0 @@
-{"Ticker":"AVDS","DateTime":"2023-12-18T00:00:00","Dividend":0.3750}
-{"Ticker":"AVDS","DateTime":"2024-06-24T00:00:00","Dividend":0.8180}

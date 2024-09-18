@@ -1,20 +1,25 @@
-﻿using System.Net.Http.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Web;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Data.Quotes.QuoteProvider;
 
 public class FmpQuoteProvider : IQuoteProvider
 {
+    private readonly ILogger<FmpQuoteProvider> Logger;
+
     private readonly Uri BaseUri = new("https://financialmodelingprep.com/api/v3/historical-price-full/");
+
     private readonly string ApiKey;
 
-    public FmpQuoteProvider(IOptions<FmpQuoteProviderOptions>? options = null)
+    public FmpQuoteProvider(ILogger<FmpQuoteProvider> logger, IOptions<FmpQuoteProviderOptions>? options = null)
     {
         ApiKey = options == null
             ? new FmpQuoteProviderOptions().ApiKey
             : options.Value.ApiKey;
+        Logger = logger;
     }
 
     private async Task<IEnumerable<FmpQuotePrice>> GetQuotePrices(string symbol, DateTime? fromDate = null)
@@ -36,12 +41,29 @@ public class FmpQuoteProvider : IQuoteProvider
 
         uriBuilder.Query = query.ToString();
 
+        Uri requestUri = uriBuilder.Uri;
         using HttpClient httpClient = new();
+        string jsonResponse = await httpClient.GetStringAsync(requestUri);
 
-        var response = await httpClient.GetFromJsonAsync<QuotePriceResponse>(uriBuilder.Uri);
+        try
+        {
+            var quotePriceResponse = JsonSerializer.Deserialize<QuotePriceResponse>(jsonResponse);
 
-        return response?.Historical?.Reverse()
-            ?? throw new InvalidOperationException("Downloaded history is unavailable or invalid.");
+            return quotePriceResponse?.Historical?.Reverse()
+                ?? throw new InvalidOperationException("Downloaded history is unavailable or invalid.");
+        }
+        catch(JsonException jsonException)
+        {
+            Logger.LogError(
+                jsonException.InnerException,
+                "{ticker}: Could not parse API response '{jsonResponse}' from quote provider for start date '{fromDate}' at '{requestUri}'.",
+                symbol,
+                jsonResponse,
+                fromDate,
+                requestUri);
+
+            throw;
+        }
     }
 
     public async Task<Quote?> GetQuote(string ticker, DateTime? startDate, DateTime? endDate)

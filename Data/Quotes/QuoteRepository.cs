@@ -6,9 +6,7 @@ namespace Data.Quotes;
 
 internal class QuoteRepository : IQuoteRepository
 {
-    private readonly TableFileCache<string, QuoteDividend> dividendsCache;
     private readonly TableFileCache<string, QuotePrice> pricesCache;
-    private readonly TableFileCache<string, QuoteSplit> splitsCache;
 
     private readonly ILogger<QuoteRepository> logger;
 
@@ -18,9 +16,7 @@ internal class QuoteRepository : IQuoteRepository
 
         var tableCacheOptions = quoteRepositoryOptions.Value.TableCacheOptions;
 
-        dividendsCache = new(tableCacheOptions);
         pricesCache = new(tableCacheOptions);
-        splitsCache = new(tableCacheOptions);
 
         this.logger = logger;
     }
@@ -38,9 +34,7 @@ internal class QuoteRepository : IQuoteRepository
 
         var history = new Quote(ticker)
         {
-            Dividends = (await dividendsCache.TryGetValue(ticker) ?? []).ToList(),
-            Prices = prices.ToList(),
-            Splits = (await splitsCache.TryGetValue(ticker) ?? []).ToList(),
+            Prices = prices.ToList()
         };
 
         Inspect(history);
@@ -67,9 +61,7 @@ internal class QuoteRepository : IQuoteRepository
 
         var history = new Quote(ticker)
         {
-            Dividends = (await dividendsCache.TryGetValue(ticker, true) ?? []).ToList(),
-            Prices = prices.ToList(),
-            Splits = (await splitsCache.TryGetValue(ticker, true) ?? []).ToList(),
+            Prices = prices.ToList()
         };
 
         Inspect(history);
@@ -87,10 +79,8 @@ internal class QuoteRepository : IQuoteRepository
     {
         var history = new Quote(ticker)
         {
-            Dividends = (await dividendsCache.TryGetValue(ticker) ?? []).ToList(),
             // Intentionally cause exception if ticker not found
-            Prices = (await pricesCache.Get(ticker)).ToList(),
-            Splits = (await splitsCache.TryGetValue(ticker) ?? []).ToList(),
+            Prices = (await pricesCache.Get(ticker)).ToList()
         };
 
         Inspect(history);
@@ -138,18 +128,10 @@ internal class QuoteRepository : IQuoteRepository
             $"{fundHistory.Prices[0].DateTime:yyyy-MM-dd}",
             $"{fundHistory.Prices[^1].DateTime:yyyy-MM-dd}");
 
-        await Task.WhenAll(
-            fundHistory.Dividends.Count == 0
-                ? Task.FromResult(0)
-                : dividendsCache.Put(ticker, fundHistory.Dividends, append),
-
-            fundHistory.Prices.Count == 0
-                ? Task.FromResult(0)
-                : pricesCache.Put(ticker, fundHistory.Prices, append),
-
-            fundHistory.Splits.Count == 0
-                ? Task.FromResult(0)
-                : splitsCache.Put(ticker, fundHistory.Splits, append));
+        if (fundHistory.Prices.Count > 0)
+        {
+            await pricesCache.Put(ticker, fundHistory.Prices, append);
+        }
 
         return !append
             ? fundHistory

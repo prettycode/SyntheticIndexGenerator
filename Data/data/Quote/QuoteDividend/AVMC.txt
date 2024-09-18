@@ -1,2 +1,0 @@
-{"Ticker":"AVMC","DateTime":"2024-03-21T00:00:00","Dividend":0.1450}
-{"Ticker":"AVMC","DateTime":"2024-06-24T00:00:00","Dividend":0.1590}

@@ -1,6 +1,0 @@
-{"Ticker":"AVIV","DateTime":"2021-12-16T00:00:00","Dividend":0.2900}
-{"Ticker":"AVIV","DateTime":"2022-06-21T00:00:00","Dividend":0.8790}
-{"Ticker":"AVIV","DateTime":"2022-12-15T00:00:00","Dividend":0.4000}
-{"Ticker":"AVIV","DateTime":"2023-06-20T00:00:00","Dividend":1.0710}
-{"Ticker":"AVIV","DateTime":"2023-12-18T00:00:00","Dividend":0.8010}
-{"Ticker":"AVIV","DateTime":"2024-06-24T00:00:00","Dividend":1.1440}

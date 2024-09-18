@@ -8145,3 +8145,14 @@
 {"Ticker":"AVUS","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.2478181230470854433789462300,"PeriodType":0}
 {"Ticker":"AVUS","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":0.8920894239036973344797936400,"PeriodType":0}
 {"Ticker":"AVUS","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-2.2690955576861617130073505900,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-04T00:00:00","ReturnPercentage":-0.3706126008284281665576629600,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-05T00:00:00","ReturnPercentage":-0.4376367614879649890590809600,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-06T00:00:00","ReturnPercentage":-1.5824175824175824175824175800,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-09T00:00:00","ReturnPercentage":0.9379187137114783385439928500,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-10T00:00:00","ReturnPercentage":-0.033185840707964601769911500,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-11T00:00:00","ReturnPercentage":0.7635277193758990815536129200,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-12T00:00:00","ReturnPercentage":0.8785416209092905776411157500,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-13T00:00:00","ReturnPercentage":0.979751796211626387981711300,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.3988788270806382061233290200,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.3436057124449693976162353700,"PeriodType":0}
+{"Ticker":"AVUS","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.0642054574638844301765650100,"PeriodType":0}

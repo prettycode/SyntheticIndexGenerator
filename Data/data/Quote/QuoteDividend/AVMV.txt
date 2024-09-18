@@ -1,3 +1,0 @@
-{"Ticker":"AVMV","DateTime":"2023-12-18T00:00:00","Dividend":0.1380}
-{"Ticker":"AVMV","DateTime":"2024-03-21T00:00:00","Dividend":0.1990}
-{"Ticker":"AVMV","DateTime":"2024-06-24T00:00:00","Dividend":0.1990}

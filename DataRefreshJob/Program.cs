@@ -51,12 +51,22 @@ class Program
             foreach (var periodType in periodTypes)
             {
                 Console.WriteLine();
-
-                returnsHistoryTasks.Add(returnsService.GetReturnsHistory(
-                    ticker,
-                    periodType,
-                    DateTime.MinValue,
-                    DateTime.MaxValue));
+                returnsHistoryTasks.Add(Task.Run(async () =>
+                {
+                    try
+                    {
+                        return await returnsService.GetReturnsHistory(
+                            ticker,
+                            periodType,
+                            DateTime.MinValue,
+                            DateTime.MaxValue);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Error.WriteLine($"{ticker}: {periodType}: {ex.Message}");
+                        return null; // or some other value to indicate failure
+                    }
+                }));
             }
         }
 
