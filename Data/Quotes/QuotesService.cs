@@ -210,22 +210,10 @@ internal class QuotesService(
 
         lock (downloadLocker)
         {
-            // 2024-09-06: Ran into rate-limiting with 1000, so bumped to 2500.
+            // 1000 is arbitrary here, need to look at docs
 
-            try
-            {
-                Task.Delay(1000).GetAwaiter().GetResult();
-                downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
-            }
-            catch (Exception ex)
-            {
-                logger.LogError("{ticker}: Failed at downloading history {startDate} to {endDate}.",
-                    ticker,
-                    $"{startDate:yyyy-MM-dd}",
-                    $"{endDate:yyyy-MM-dd}");
-
-                return Task.FromResult<Quote?>(null);
-            }
+            Task.Delay(1000).GetAwaiter().GetResult();
+            downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
         }
 
         // Make sure function is still a Task; when Yahoo Finance is replaced with an actual data provider, we'll

@@ -52,17 +52,42 @@ public class FmpQuoteProvider : IQuoteProvider
             return quotePriceResponse?.Historical?.Reverse()
                 ?? throw new InvalidOperationException("Downloaded history is unavailable or invalid.");
         }
-        catch(JsonException jsonException)
+        catch (JsonException jsonException)
         {
+            if (jsonResponse == "{}")
+            {
+                Logger.LogError(
+                    jsonException.InnerException,
+                    "{ticker}: Quote provider returned '{{}}' for start date '{fromDate}' at '{requestUri}'.",
+                    symbol,
+                    fromDate,
+                    requestUri);
+
+                throw new KeyNotFoundException($"Quote provider returned blank history for '{symbol}'.", jsonException);
+            }
+
+            if (String.Equals(jsonResponse, "null", StringComparison.OrdinalIgnoreCase))
+            {
+                Logger.LogError(
+                    jsonException.InnerException,
+                    "{ticker}: Quote provider returned '{jsonResponse}' for start date '{fromDate}' at '{requestUri}'.",
+                    symbol,
+                    jsonResponse,
+                    fromDate,
+                    requestUri);
+
+                throw new KeyNotFoundException($"Quote provider returned null history for '{symbol}'.", jsonException);
+            }
+
             Logger.LogError(
                 jsonException.InnerException,
-                "{ticker}: Could not parse API response '{jsonResponse}' from quote provider for start date '{fromDate}' at '{requestUri}'.",
+                "{ticker}: Could not parse API response from quote provider for start date '{fromDate}' at '{requestUri}'. Response: {jsonResponse}",
                 symbol,
-                jsonResponse,
                 fromDate,
-                requestUri);
+                requestUri,
+                jsonResponse);
 
-            throw;
+            throw new KeyNotFoundException($"Quote provider returned malformed history for '{symbol}'.", jsonException);
         }
     }
 
@@ -126,7 +151,7 @@ public class FmpQuotePrice
     public decimal ChangePercent { get; set; }
 
     [JsonPropertyName("vwap")]
-    public decimal Vwap { get; set; }
+    public decimal? Vwap { get; set; }
 
     [JsonPropertyName("label")]
     public string Label { get; set; } = string.Empty;

@@ -44,13 +44,13 @@ class Program
             "WGMI"
         ]);
 
+        /*
         var returnsHistoryTasks = new List<Task>();
 
         foreach (var ticker in tickers)
         {
             foreach (var periodType in periodTypes)
             {
-                Console.WriteLine();
                 returnsHistoryTasks.Add(Task.Run(async () =>
                 {
                     try
@@ -63,26 +63,60 @@ class Program
                     }
                     catch (Exception ex)
                     {
-                        Console.Error.WriteLine($"{ticker}: {periodType}: {ex.Message}");
-                        return null; // or some other value to indicate failure
+                        logger.LogError(ex, "{ticker}: {periodType}: {exMessage}", ticker, periodType, ex.Message);
+
+                        return null;
                     }
                 }));
             }
         }
 
         await Task.WhenAll(returnsHistoryTasks);
+        */
 
-        /*
+        var failures = new Dictionary<string, List<(PeriodType, string)>>();
+
         foreach (var ticker in indicesService.GetSyntheticIndexTickers())
         {
             foreach (var periodType in Enum.GetValues<PeriodType>().Reverse())
             {
-                await returnsService.GetReturnsHistory(
-                    ticker,
-                    periodType,
-                    DateTime.MinValue,
-                    DateTime.MaxValue);
+                try
+                {
+                    await returnsService.GetReturnsHistory(
+                        ticker,
+                        periodType,
+                        DateTime.MinValue,
+                        DateTime.MaxValue);
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "{ticker}: {periodType}: {exMessage}", ticker, periodType, ex.Message);
+
+                    if (!failures.TryGetValue(ticker, out List<(PeriodType, string)>? value))
+                    {
+                        value = ([]);
+                        failures[ticker] = value;
+                    }
+
+                    value.Add((periodType, ex.Message));
+                }
             }
-        }*/
+        }
+
+        if (failures.Count == 0)
+        {
+            return;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Failures:");
+
+        foreach (var pair in failures)
+        {
+            foreach(var (periodType, message) in pair.Value)
+            {
+                Console.WriteLine($"{pair.Key}: {periodType}: {(message.Length > 100 ? message.Substring(0, 100) : message)}");
+            }
+        }
     }
 }
