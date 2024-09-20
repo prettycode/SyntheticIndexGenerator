@@ -53,6 +53,8 @@ public class FmpQuoteProvider : IQuoteProvider
         {
             var quotePriceResponse = JsonSerializer.Deserialize<QuotePriceResponse>(jsonResponse);
 
+            // API returns historical data in DESC order, so reverse it
+
             return quotePriceResponse?.Historical?.Reverse()
                 ?? throw new InvalidOperationException("Downloaded history is unavailable or invalid.");
         }
@@ -95,9 +97,11 @@ public class FmpQuoteProvider : IQuoteProvider
 
         var prices = (await GetQuotePrices(ticker, startDate)).Select(fmp => new QuotePrice(ticker, fmp)).ToList();
 
-        // API will return intra-day data for today; discard that
+        // API returns EOD data for all historical records and current intraday quote for today's date.
+        // Discard this mutable data point.
 
-        if (prices.Count > 0 && prices[^1].DateTime.Date == DateTime.Now.Date)
+        // TODO AddDays(-1) is a dirty hack to avoid dealing with time zones. Replace with accurate adjustment.
+        while (prices.Count > 0 && prices[^1].DateTime.Date >= DateTime.Now.Date.AddDays(-1))
         {
             prices.RemoveAt(prices.Count - 1);
         }

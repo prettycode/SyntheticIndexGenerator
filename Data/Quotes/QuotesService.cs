@@ -14,8 +14,6 @@ internal class QuotesService(
 {
     private static readonly object downloadLocker = new();
 
-    private readonly bool skipDownloadingUncachedQuotes = quoteServiceOptions.Value.SkipDownloadingUncachedQuotes;
-
     private readonly AbsoluteExpirationCache<string, Task<Quote>> getQuoteTasks = new(()
         => DateTimeOffset.Now.AddMinutes(1));
 
@@ -48,7 +46,7 @@ internal class QuotesService(
 
         var fileCacheQuote = await quoteRepository.TryGetFileCacheQuote(ticker);
 
-        if (skipDownloadingUncachedQuotes)
+        if (quoteServiceOptions.Value.SkipDownloadingUncachedQuotes)
         {
             if (fileCacheQuote == null)
             {
@@ -210,9 +208,7 @@ internal class QuotesService(
 
         lock (downloadLocker)
         {
-            // 1000 is arbitrary here, need to look at docs
-
-            Task.Delay(1000).GetAwaiter().GetResult();
+            Task.Delay(quoteServiceOptions.Value.ThrottleQuoteProviderRequestsMs).GetAwaiter().GetResult();
             downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
         }
 
