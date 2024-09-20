@@ -38,6 +38,10 @@ public class FmpQuoteProvider : IQuoteProvider
         {
             query["from"] = $"{fromDate.Value:yyyy-MM-dd}";
         }
+        else
+        {
+            query["from"] = $"{DateTime.MinValue:yyyy-MM-dd}";
+        }
 
         uriBuilder.Query = query.ToString();
 
@@ -54,6 +58,8 @@ public class FmpQuoteProvider : IQuoteProvider
         }
         catch (JsonException jsonException)
         {
+            // FMP returns {} for not-found symbols
+
             if (jsonResponse == "{}")
             {
                 Logger.LogError(
@@ -63,20 +69,7 @@ public class FmpQuoteProvider : IQuoteProvider
                     fromDate,
                     requestUri);
 
-                throw new KeyNotFoundException($"Quote provider returned blank history for '{symbol}'.", jsonException);
-            }
-
-            if (String.Equals(jsonResponse, "null", StringComparison.OrdinalIgnoreCase))
-            {
-                Logger.LogError(
-                    jsonException.InnerException,
-                    "{ticker}: Quote provider returned '{jsonResponse}' for start date '{fromDate}' at '{requestUri}'.",
-                    symbol,
-                    jsonResponse,
-                    fromDate,
-                    requestUri);
-
-                throw new KeyNotFoundException($"Quote provider returned null history for '{symbol}'.", jsonException);
+                throw new KeyNotFoundException($"Quote provider could not find symbol '{symbol}'.", jsonException);
             }
 
             Logger.LogError(
@@ -100,10 +93,24 @@ public class FmpQuoteProvider : IQuoteProvider
             throw new ArgumentOutOfRangeException(nameof(endDate), "Must be null.");
         }
 
+        var prices = (await GetQuotePrices(ticker, startDate)).Select(fmp => new QuotePrice(ticker, fmp)).ToList();
+
+        // API will return intra-day data for today; discard that
+
+        if (prices.Count > 0 && prices[^1].DateTime.Date == DateTime.Now.Date)
+        {
+            prices.RemoveAt(prices.Count - 1);
+        }
+
+        if (prices.Count ==  0)
+        {
+            return null;
+        }
+
         return new Quote(ticker)
         {
             Dividends = [],
-            Prices = (await GetQuotePrices(ticker, startDate)).Select(fmp => new QuotePrice(ticker, fmp)).ToList(),
+            Prices = prices,
             Splits = []
         };
     }

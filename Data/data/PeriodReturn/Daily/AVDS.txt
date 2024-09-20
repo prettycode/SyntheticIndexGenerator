@@ -291,3 +291,4 @@
 {"Ticker":"AVDS","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.5681818181818181818181818200,"PeriodType":0}
 {"Ticker":"AVDS","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":-0.3280481137233460907599781300,"PeriodType":0}
 {"Ticker":"AVDS","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":0.0365697568111172060705796300,"PeriodType":0}
+{"Ticker":"AVDS","PeriodStart":"2024-09-19T00:00:00","ReturnPercentage":1.99232315847194297203436300,"PeriodType":0}
