@@ -12,7 +12,6 @@ import {
     faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import { FundAllocation } from '../../Fund/models/Fund/FundAllocation';
-import FundAnalysis from '../FundAnalysis/FundAnalysis';
 import cloneDeep from 'lodash.clonedeep';
 import { FundSelectionDropdown, FundSelectionDropdownOptionType } from '../FundSelectionDropdown/FundSelectionDropdown';
 import { FundSelectionTableState } from './FundSelectionTableState';
@@ -74,11 +73,12 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
     const sumSelectedFunds = (): number => rows.reduce((sum, row) => sum + (row.fundId === defaultFundId ? 0 : 1), 0);
 
     const [funds, setFunds] = useState<Array<Fund>>([]);
-    const [fundComparison, setFundComparison] = useState<Array<string>>([]);
     const [rows, setRows] = useState<Array<FundSelectionTableRow>>(
         state?.rows ?? Array.from({ length: defaultRowsCount }, () => createRow(defaultColumnsCount))
     );
     const [customPortfolios, setCustomPortfolios] = useState<Array<Array<FundAllocation>> | undefined>(undefined);
+    // TODO: create interface for the backtestData models. Disable linting for now.
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     const [backtestData, setBacktestData] = useState<any>(null);
 
     const triggerCalculation = useRef(false);
@@ -149,22 +149,6 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
         setRows(newRows);
     };
 
-    const onCompare = () => {
-        if (!fundComparison.length) {
-            throw new Error('Now funds selected to compare.');
-        }
-
-        const newRows = fundComparison.map((fundId, index) => {
-            const row = createRow();
-            row.fundId = fundId;
-            row.percentage[index] = 100;
-            return row;
-        });
-
-        setRows(newRows);
-        triggerCalculation.current = true;
-    };
-
     const onCalculate = () => {
         const portfolios = [];
         const columnsCount = getColumnsCount();
@@ -227,10 +211,6 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
         setBacktestData(data);
     };
 
-    const onFundComparisonSelected = (fundSelection: Array<FundSelectionDropdownOptionType> | null): void => {
-        setFundComparison(!fundSelection ? [] : fundSelection.map((fund) => fund.value));
-    };
-
     function deleteColumn(columnIndex: number) {
         const newRows = [...rows];
         newRows.forEach((row) => row.percentage.splice(columnIndex, 1));
@@ -273,44 +253,12 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
 
     return (
         <>
-            <h3>Custom Portfolios</h3>
             <table className="table table-borderless">
                 <thead>
                     <tr>
-                        <th></th>
-                        <th></th>
-                        <th>Compare Assets</th>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th style={{ fontWeight: 'normal', display: 'flex', alignItems: 'center', flexWrap: 'nowrap' }}>
-                            <span style={{ width: '100%' }}>
-                                <FundSelectionDropdown
-                                    onFundSelected={
-                                        onFundComparisonSelected as unknown as (
-                                            selection: FundSelectionDropdownOptionType | null
-                                        ) => void
-                                    }
-                                    isMulti
-                                    funds={funds}
-                                />
-                            </span>
-                            <button
-                                disabled={fundComparison.length === 0}
-                                type="button"
-                                onClick={onCompare}
-                                className="btn btn-outline-primary float-start me-1"
-                                style={{ marginLeft: 10 }}
-                            >
-                                Compare
-                            </button>
+                        <th colSpan={3}>
+                            <h3>Compare Portfolios</h3>
                         </th>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
                         <th
                             className="text-center"
                             colSpan={getColumnsCount()}
@@ -625,7 +573,7 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
                             },
                             series: backtestData.map((portfolioBackTest, i) => ({
                                 lineWidth: 1,
-                                name: `P${i} Drawdown`,
+                                name: `P${i + 1} Drawdown`,
                                 data: portfolioBackTest.aggregatePerformanceDrawdownsReturns.map((item) => [
                                     new Date(item.periodStart).getTime(),
                                     item.returnPercentage
@@ -636,11 +584,7 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
                 </div>
             )}
 
-            {customPortfolios && (
-                <div style={{ marginTop: '40px' }}>
-                    <FundAnalysis fundAllocations={customPortfolios} />
-                </div>
-            )}
+            {customPortfolios && <div style={{ marginTop: '40px' }}>Test</div>}
         </>
     );
 };
