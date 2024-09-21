@@ -575,17 +575,17 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
                                 shared: true
                             },
                             series: backtestData.flatMap((portfolioBackTest, i) => [
-                                {
+                                /*{
                                     lineWidth: 1,
-                                    name: `P${i} Starting Balance`,
+                                    name: `P${i+1} Starting Balance`,
                                     data: portfolioBackTest.aggregatePerformance.map((item) => [
                                         new Date(item.periodStart).getTime(),
                                         item.startingBalance
                                     ])
-                                },
+                                },*/
                                 {
                                     lineWidth: 1,
-                                    name: `P${i} Ending Balance`,
+                                    name: `P${i + 1} Ending Balance`,
                                     data: portfolioBackTest.aggregatePerformance.map((item) => [
                                         new Date(item.periodStart).getTime(),
                                         item.endingBalance
