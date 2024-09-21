@@ -1,7 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom/client';
 import BackTestApp from '../BackTestApp/BackTestApp';
 import './BackTestAppIndex.css';
 
-const BackTestAppIndex = () => <BackTestApp />;
-
-export default BackTestAppIndex;
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <BackTestApp />
+    </React.StrictMode>
+);
