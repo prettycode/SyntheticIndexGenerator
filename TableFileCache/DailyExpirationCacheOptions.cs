@@ -11,8 +11,5 @@ public class DailyExpirationCacheOptions : IOptions<DailyExpirationCacheOptions>
 
     public MemoryCacheOptions? MemoryCacheOptions { get; init; }
 
-    DailyExpirationCacheOptions IOptions<DailyExpirationCacheOptions>.Value
-    {
-        get { return this; }
-    }
+    DailyExpirationCacheOptions IOptions<DailyExpirationCacheOptions>.Value => this;
 }

@@ -8,8 +8,5 @@ public class QuotesServiceOptions : IOptions<QuotesServiceOptions>
 
     public int ThrottleQuoteProviderRequestsMs { get; init; }
 
-    QuotesServiceOptions IOptions<QuotesServiceOptions>.Value
-    {
-        get { return this; }
-    }
+    QuotesServiceOptions IOptions<QuotesServiceOptions>.Value => this;
 }

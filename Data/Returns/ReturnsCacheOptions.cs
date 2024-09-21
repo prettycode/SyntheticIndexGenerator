@@ -9,8 +9,5 @@ public class ReturnsCacheOptions : IOptions<ReturnsCacheOptions>
 
     public required TableFileCacheOptions TableCacheOptions { get; init; }
 
-    ReturnsCacheOptions IOptions<ReturnsCacheOptions>.Value
-    {
-        get { return this; }
-    }
+    ReturnsCacheOptions IOptions<ReturnsCacheOptions>.Value => this;
 }

@@ -3,25 +3,18 @@ using Microsoft.Extensions.Options;
 
 namespace TableFileCache;
 
-public class AbsoluteExpirationCache<TKey, TValue> : IDisposable where TKey : notnull
+public class AbsoluteExpirationCache<TKey, TValue>(
+    Func<DateTimeOffset> createAbsoluteExpiration,
+    IMemoryCache? memoryCache = null,
+    IOptions<MemoryCacheOptions>? memoryCacheOptions = null) : IDisposable where TKey : notnull
 {
-    protected readonly IMemoryCache cache;
+    protected readonly IMemoryCache cache = memoryCache ?? new MemoryCache(memoryCacheOptions?.Value ?? new MemoryCacheOptions());
 
-    private readonly bool shouldDisposeCache;
+    private readonly bool shouldDisposeCache = memoryCache == null;
 
     private bool disposed = false;
 
-    public AbsoluteExpirationCache(
-        Func<DateTimeOffset> createAbsoluteExpiration,
-        IMemoryCache? memoryCache = null,
-        IOptions<MemoryCacheOptions>? memoryCacheOptions = null)
-    {
-        cache = memoryCache ?? new MemoryCache(memoryCacheOptions?.Value ?? new MemoryCacheOptions());
-        shouldDisposeCache = memoryCache == null;
-        CreateAbsoluteExpiration = createAbsoluteExpiration;
-    }
-
-    private Func<DateTimeOffset> CreateAbsoluteExpiration { get; }
+    private Func<DateTimeOffset> CreateAbsoluteExpiration { get; } = createAbsoluteExpiration;
 
     public TValue Set(TKey key, TValue value) => cache.Set(key, value, CreateAbsoluteExpiration());
 

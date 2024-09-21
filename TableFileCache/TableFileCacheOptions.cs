@@ -12,8 +12,5 @@ public class TableFileCacheOptions : IOptions<TableFileCacheOptions>
 
     public required DailyExpirationCacheOptions DailyExpirationOptions { get; init; }
 
-    TableFileCacheOptions IOptions<TableFileCacheOptions>.Value
-    {
-        get { return this; }
-    }
+    TableFileCacheOptions IOptions<TableFileCacheOptions>.Value => this;
 }

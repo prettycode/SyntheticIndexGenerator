@@ -7,8 +7,5 @@ public class QuoteRepositoryOptions : IOptions<QuoteRepositoryOptions>
 {
     public required TableFileCacheOptions TableCacheOptions { get; init; }
 
-    QuoteRepositoryOptions IOptions<QuoteRepositoryOptions>.Value
-    {
-        get { return this; }
-    }
+    QuoteRepositoryOptions IOptions<QuoteRepositoryOptions>.Value => this;
 }

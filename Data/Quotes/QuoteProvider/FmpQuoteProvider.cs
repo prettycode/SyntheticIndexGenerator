@@ -1,26 +1,44 @@
 ﻿using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Web;
+using Data.Quotes.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Data.Quotes.QuoteProvider;
 
-public class FmpQuoteProvider : IQuoteProvider
+public class FmpQuoteProvider(ILogger<FmpQuoteProvider> logger, IOptions<FmpQuoteProviderOptions> options) : IQuoteProvider
 {
-    private readonly ILogger<FmpQuoteProvider> Logger;
+    private class QuotePriceResponse
+    {
+        public required string Symbol { get; set; }
+        public required IEnumerable<FmpQuotePrice> Historical { get; set; }
+    }
+
+    private class FmpQuotePrice
+    {
+        public string Date { get; set; } = string.Empty;
+        public decimal Open { get; set; }
+        public decimal High { get; set; }
+        public decimal Low { get; set; }
+        public decimal Close { get; set; }
+        public decimal AdjClose { get; set; }
+        public long Volume { get; set; }
+        public long UnadjustedVolume { get; set; }
+        public decimal Change { get; set; }
+        public decimal ChangePercent { get; set; }
+        public decimal? Vwap { get; set; }
+        public string Label { get; set; } = string.Empty;
+        public decimal ChangeOverTime { get; set; }
+    }
 
     private readonly Uri BaseUri = new("https://financialmodelingprep.com/api/v3/historical-price-full/");
 
-    private readonly string ApiKey;
+    private readonly string ApiKey = options.Value.ApiKey;
 
-    public FmpQuoteProvider(ILogger<FmpQuoteProvider> logger, IOptions<FmpQuoteProviderOptions>? options = null)
+    private readonly JsonSerializerOptions deserializeJsonOptions = new JsonSerializerOptions
     {
-        ApiKey = options == null
-            ? new FmpQuoteProviderOptions().ApiKey
-            : options.Value.ApiKey;
-        Logger = logger;
-    }
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    };
 
     private async Task<IEnumerable<FmpQuotePrice>> GetQuotePrices(string symbol, DateTime? fromDate = null)
     {
@@ -51,7 +69,7 @@ public class FmpQuoteProvider : IQuoteProvider
 
         try
         {
-            var quotePriceResponse = JsonSerializer.Deserialize<QuotePriceResponse>(jsonResponse);
+            var quotePriceResponse = JsonSerializer.Deserialize<QuotePriceResponse>(jsonResponse, deserializeJsonOptions);
 
             // API returns historical data in DESC order, so reverse it
 
@@ -64,7 +82,7 @@ public class FmpQuoteProvider : IQuoteProvider
 
             if (jsonResponse == "{}")
             {
-                Logger.LogError(
+                logger.LogError(
                     jsonException.InnerException,
                     "{ticker}: Quote provider returned '{{}}' for start date '{fromDate}' at '{requestUri}'.",
                     symbol,
@@ -74,7 +92,7 @@ public class FmpQuoteProvider : IQuoteProvider
                 throw new KeyNotFoundException($"Quote provider could not find symbol '{symbol}'.", jsonException);
             }
 
-            Logger.LogError(
+            logger.LogError(
                 jsonException.InnerException,
                 "{ticker}: Could not parse API response from quote provider for start date '{fromDate}' at '{requestUri}'. Response: {jsonResponse}",
                 symbol,
@@ -95,7 +113,19 @@ public class FmpQuoteProvider : IQuoteProvider
             throw new ArgumentOutOfRangeException(nameof(endDate), "Must be null.");
         }
 
-        var prices = (await GetQuotePrices(ticker, startDate)).Select(fmp => new QuotePrice(ticker, fmp)).ToList();
+        var prices = (from price in await GetQuotePrices(ticker, startDate)
+                      select new QuotePrice()
+                      {
+                          Ticker = ticker,
+                          DateTime = DateTime.Parse(price.Date),
+                          Open = Convert.ToDecimal(price.Open).ToQuotePrice(),
+                          High = Convert.ToDecimal(price.High).ToQuotePrice(),
+                          Low = Convert.ToDecimal(price.Low).ToQuotePrice(),
+                          Close = Convert.ToDecimal(price.Close).ToQuotePrice(),
+                          AdjustedClose = Convert.ToDecimal(price.AdjClose).ToQuotePrice(),
+                          Volume = price.Volume
+                      })
+                      .ToList();
 
         // API returns EOD data for all historical records and current intraday quote for today's date.
         // Discard this mutable data point.
@@ -106,7 +136,7 @@ public class FmpQuoteProvider : IQuoteProvider
             prices.RemoveAt(prices.Count - 1);
         }
 
-        if (prices.Count ==  0)
+        if (prices.Count == 0)
         {
             return null;
         }
@@ -118,55 +148,4 @@ public class FmpQuoteProvider : IQuoteProvider
             Splits = []
         };
     }
-}
-
-public class QuotePriceResponse
-{
-    [JsonPropertyName("symbol")]
-    public required string Symbol { get; set; }
-
-    [JsonPropertyName("historical")]
-    public required IEnumerable<FmpQuotePrice> Historical { get; set; }
-}
-
-public class FmpQuotePrice
-{
-    [JsonPropertyName("date")]
-    public string Date { get; set; } = string.Empty;
-
-    [JsonPropertyName("open")]
-    public decimal Open { get; set; }
-
-    [JsonPropertyName("high")]
-    public decimal High { get; set; }
-
-    [JsonPropertyName("low")]
-    public decimal Low { get; set; }
-
-    [JsonPropertyName("close")]
-    public decimal Close { get; set; }
-
-    [JsonPropertyName("adjClose")]
-    public decimal AdjClose { get; set; }
-
-    [JsonPropertyName("volume")]
-    public long Volume { get; set; }
-
-    [JsonPropertyName("unadjustedVolume")]
-    public long UnadjustedVolume { get; set; }
-
-    [JsonPropertyName("change")]
-    public decimal Change { get; set; }
-
-    [JsonPropertyName("changePercent")]
-    public decimal ChangePercent { get; set; }
-
-    [JsonPropertyName("vwap")]
-    public decimal? Vwap { get; set; }
-
-    [JsonPropertyName("label")]
-    public string Label { get; set; } = string.Empty;
-
-    [JsonPropertyName("changeOverTime")]
-    public decimal ChangeOverTime { get; set; }
 }

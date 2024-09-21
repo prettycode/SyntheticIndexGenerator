@@ -113,7 +113,7 @@ class Program
 
         foreach (var pair in failures)
         {
-            foreach(var (periodType, message) in pair.Value)
+            foreach (var (periodType, message) in pair.Value)
             {
                 Console.WriteLine($"{pair.Key}: {periodType}: {(message.Length > 100 ? message.Substring(0, 100) : message)}");
             }

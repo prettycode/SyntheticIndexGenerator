@@ -2,7 +2,7 @@
 
 public abstract class YahooQuoteProvider
 {
-    protected Quote? GetQuote(string ticker, List<QuoteDividend> dividends, List<QuotePrice> prices, List<QuoteSplit> splits)
+    protected static Quote? GetQuote(string ticker, List<QuoteDividend> dividends, List<QuotePrice> prices, List<QuoteSplit> splits)
     {
         // API sometimes returns a record with 0s when record is today and not yet updated after market close.
         // Other times it returns a candle with data representing the current daily performance. Discard either.

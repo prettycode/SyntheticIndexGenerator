@@ -203,8 +203,8 @@ internal class QuotesService(
 
         logger.LogInformation("{ticker}: Downloading history {startDate} to {endDate}...",
             ticker,
-            $"{startDate:yyyy-MM-dd}",
-            $"{endDate:yyyy-MM-dd}");
+            startDate == null ? "null" : $"{startDate:yyyy-MM-dd}",
+            endDate == null ? "null" : $"{endDate:yyyy-MM-dd}");
 
         lock (downloadLocker)
         {

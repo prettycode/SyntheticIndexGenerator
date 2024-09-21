@@ -87,13 +87,11 @@ internal partial class BackTestService
 
         var drawdowns = new List<BackTestPeriodReturn>();
         var drawdownStartingBalance = returns[0].StartingBalance;
-        var inDrawdown = returns[0].ReturnPercentage < 0;
 
         for (var i = 0; i < returnsCount; i++)
         {
             var currentReturn = returns[i];
-
-            inDrawdown = currentReturn.EndingBalance < drawdownStartingBalance;
+            var inDrawdown = currentReturn.EndingBalance < drawdownStartingBalance;
 
             if (!inDrawdown)
             {

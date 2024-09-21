@@ -1,4 +1,5 @@
-﻿using Data.Extensions;
+﻿using System.Text.Json;
+using Data.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Server.Controllers;
@@ -20,4 +21,6 @@ public class ControllerTestBase
 
         return serviceProvider.GetService<TController>()!;
     }
+
+    protected JsonSerializerOptions JsonOptions => new() { WriteIndented = true };
 }

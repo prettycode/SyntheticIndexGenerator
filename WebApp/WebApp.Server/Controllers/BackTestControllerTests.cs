@@ -161,8 +161,8 @@ public class BackTestControllerTests : ControllerTestBase
             ]
         };
 
-        var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, new JsonSerializerOptions() { WriteIndented = true });
-        var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
+        var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, JsonOptions);
+        var expectedJson = JsonSerializer.Serialize(expected, JsonOptions);
 
         Assert.Equal(actualOutput1, expected);
     }
@@ -192,8 +192,8 @@ public class BackTestControllerTests : ControllerTestBase
             ]
         };
 
-        var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, new JsonSerializerOptions() { WriteIndented = true });
-        var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
+        var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, JsonOptions);
+        var expectedJson = JsonSerializer.Serialize(expected, JsonOptions);
 
         Assert.Equal(actualOutput1, expected);
     }
@@ -225,8 +225,8 @@ public class BackTestControllerTests : ControllerTestBase
             ]
         };
 
-        var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, new JsonSerializerOptions() { WriteIndented = true });
-        var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
+        var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, JsonOptions);
+        var expectedJson = JsonSerializer.Serialize(expected, JsonOptions);
 
         Assert.Equal(actualOutput1, expected);
     }
@@ -278,8 +278,8 @@ public class BackTestControllerTests : ControllerTestBase
             ]
         };
 
-        var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, new JsonSerializerOptions() { WriteIndented = true });
-        var expectedJson = JsonSerializer.Serialize(expected, new JsonSerializerOptions() { WriteIndented = true });
+        var actualOutput1Json = JsonSerializer.Serialize(actualOutput1, JsonOptions);
+        var expectedJson = JsonSerializer.Serialize(expected, JsonOptions);
 
         Assert.Equal(actualOutput1, expected);
     }
@@ -397,8 +397,8 @@ public class BackTestControllerTests : ControllerTestBase
             ]
         };
 
-        var actualOutput1Json = JsonSerializer.Serialize(decomposed, new JsonSerializerOptions() { WriteIndented = true });
-        var expectedJson = JsonSerializer.Serialize(expectedDecomposed, new JsonSerializerOptions() { WriteIndented = true });
+        var actualOutput1Json = JsonSerializer.Serialize(decomposed, JsonOptions);
+        var expectedJson = JsonSerializer.Serialize(expectedDecomposed, JsonOptions);
 
         Assert.Equal(decomposed, expectedDecomposed);
         Assert.Equal(backtest.RebalancesByTicker, expectedRebalances);
@@ -472,8 +472,8 @@ public class BackTestControllerTests : ControllerTestBase
             ]
         };
 
-        var actualOutput1Json = JsonSerializer.Serialize(decomposed, new JsonSerializerOptions() { WriteIndented = true });
-        var expectedJson = JsonSerializer.Serialize(expectedDecomposed, new JsonSerializerOptions() { WriteIndented = true });
+        var actualOutput1Json = JsonSerializer.Serialize(decomposed, JsonOptions);
+        var expectedJson = JsonSerializer.Serialize(expectedDecomposed, JsonOptions);
 
         Assert.Equal(decomposed, expectedDecomposed);
         Assert.Equal(backtest.RebalancesByTicker, expectedRebalances);

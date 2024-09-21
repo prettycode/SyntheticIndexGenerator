@@ -1,4 +1,5 @@
-﻿using NodaTime;
+﻿using Data.Quotes.Extensions;
+using NodaTime;
 using YahooQuotesApi;
 
 namespace Data.Quotes.QuoteProvider;
@@ -23,13 +24,22 @@ public class YahooQuotesApiQuoteProvider : YahooQuoteProvider, IQuoteProvider
             .WithPriceHistoryFrequency(Frequency.Daily)
             .Build();
 
-        var allHistory = await yahooQuotes.GetAsync(ticker, Histories.All)
+        var allHistory = await yahooQuotes.GetAsync(ticker, Histories.PriceHistory)
             ?? throw new InvalidOperationException($"Could not fetch history for '{ticker}'.");
 
-        var divs = allHistory.DividendHistory.Value.Select(div => new QuoteDividend(ticker, div)).ToList();
-        var prices = allHistory.PriceHistory.Value.Select(price => new QuotePrice(ticker, price)).ToList();
-        var splits = allHistory.SplitHistory.Value.Select(split => new QuoteSplit(ticker, split)).ToList();
+        var prices = from priceTicker in allHistory.PriceHistory.Value
+                     select new QuotePrice()
+                     {
+                         Ticker = ticker,
+                         DateTime = priceTicker.Date.ToDateTimeUnspecified(),
+                         Open = Convert.ToDecimal(priceTicker.Open).ToQuotePrice(),
+                         High = Convert.ToDecimal(priceTicker.High).ToQuotePrice(),
+                         Low = Convert.ToDecimal(priceTicker.Low).ToQuotePrice(),
+                         Close = Convert.ToDecimal(priceTicker.Close).ToQuotePrice(),
+                         AdjustedClose = Convert.ToDecimal(priceTicker.AdjustedClose).ToQuotePrice(),
+                         Volume = priceTicker.Volume
+                     };
 
-        return GetQuote(ticker, divs, prices, splits);
+        return GetQuote(ticker, [], prices.ToList(), []);
     }
 }
