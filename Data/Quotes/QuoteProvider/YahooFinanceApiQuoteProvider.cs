@@ -5,6 +5,9 @@ namespace Data.Quotes.QuoteProvider;
 
 public class YahooFinanceApiQuoteProvider : YahooQuoteProvider, IQuoteProvider
 {
+
+    public bool RunGetQuoteSingleThreaded => true;
+
     public async Task<Quote?> GetQuote(string ticker, DateTime? startDate, DateTime? endDate)
     {
         // Yahoo! Finance goes back to 1927 for S&P 500 (^GSPC)

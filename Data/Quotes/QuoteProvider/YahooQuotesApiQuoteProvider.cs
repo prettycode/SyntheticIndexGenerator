@@ -6,6 +6,8 @@ namespace Data.Quotes.QuoteProvider;
 
 public class YahooQuotesApiQuoteProvider : YahooQuoteProvider, IQuoteProvider
 {
+    public bool RunGetQuoteSingleThreaded => true;
+
     public async Task<Quote?> GetQuote(
         string ticker,
         DateTime? startDate,

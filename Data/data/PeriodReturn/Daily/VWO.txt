@@ -4912,3 +4912,4 @@
 {"Ticker":"VWO","PeriodStart":"2024-09-16T00:00:00","ReturnPercentage":0.3834874802616738100609068400,"PeriodType":0}
 {"Ticker":"VWO","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.1123595505617977528089887600,"PeriodType":0}
 {"Ticker":"VWO","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.3591470258136924803591470300,"PeriodType":0}
+{"Ticker":"VWO","PeriodStart":"2024-09-19T00:00:00","ReturnPercentage":2.0950664564091011489074115800,"PeriodType":0}

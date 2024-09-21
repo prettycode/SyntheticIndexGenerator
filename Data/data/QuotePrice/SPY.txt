@@ -7964,3 +7964,4 @@
 {"Ticker":"SPY","DateTime":"2024-09-16T00:00:00","Open":561.7400,"High":563.1100,"Low":559.9000,"Close":562.8400,"Volume":36656122,"AdjustedClose":561.1200}
 {"Ticker":"SPY","DateTime":"2024-09-17T00:00:00","Open":565.1000,"High":566.5800,"Low":560.7900,"Close":563.0700,"Volume":49321000,"AdjustedClose":561.3500}
 {"Ticker":"SPY","DateTime":"2024-09-18T00:00:00","Open":563.7400,"High":568.6900,"Low":560.8300,"Close":561.4000,"Volume":59044937,"AdjustedClose":559.6800}
+{"Ticker":"SPY","DateTime":"2024-09-19T00:00:00","Open":571.0100,"High":572.8800,"Low":568.0800,"Close":570.9800,"Volume":75315500,"AdjustedClose":570.9800}

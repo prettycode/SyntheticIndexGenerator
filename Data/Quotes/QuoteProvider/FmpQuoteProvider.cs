@@ -40,6 +40,8 @@ public class FmpQuoteProvider(ILogger<FmpQuoteProvider> logger, IOptions<FmpQuot
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     };
 
+    public bool RunGetQuoteSingleThreaded => false;
+
     private async Task<IEnumerable<FmpQuotePrice>> GetQuotePrices(string symbol, DateTime? fromDate = null)
     {
         if (string.IsNullOrWhiteSpace(symbol))

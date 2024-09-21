@@ -1677,3 +1677,4 @@
 {"Ticker":"BLOK","DateTime":"2024-09-16T00:00:00","Open":35.1700,"High":35.5100,"Low":34.8900,"Close":35.3900,"Volume":58100,"AdjustedClose":35.3900}
 {"Ticker":"BLOK","DateTime":"2024-09-17T00:00:00","Open":35.9800,"High":36.2100,"Low":35.4300,"Close":35.6700,"Volume":89516,"AdjustedClose":35.6700}
 {"Ticker":"BLOK","DateTime":"2024-09-18T00:00:00","Open":35.7500,"High":36.7500,"Low":35.6200,"Close":35.7000,"Volume":106000,"AdjustedClose":35.7000}
+{"Ticker":"BLOK","DateTime":"2024-09-19T00:00:00","Open":37.0500,"High":37.1000,"Low":36.4600,"Close":36.5000,"Volume":106401,"AdjustedClose":36.5000}

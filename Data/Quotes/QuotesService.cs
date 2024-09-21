@@ -196,24 +196,32 @@ internal class QuotesService(
 
     private Task<Quote?> DownloadQuote(string ticker, DateTime? startDate = null, DateTime? endDate = null)
     {
-        // Across all the threads that want to download a quote, only allow one thread to do so at a time.
-        // Temporary measure to avoid rate-limiting against quote provider or accidentally DoSing.
-
-        Quote? downloadedQuote;
-
         logger.LogInformation("{ticker}: Downloading history {startDate} to {endDate}...",
             ticker,
-            startDate == null ? "null" : $"{startDate:yyyy-MM-dd}",
-            endDate == null ? "null" : $"{endDate:yyyy-MM-dd}");
+            startDate?.ToString("yyyy-MM-dd") ?? "null",
+            endDate?.ToString("yyyy-MM-dd") ?? "null");
+
+        if (!quoteProvider.RunGetQuoteSingleThreaded)
+        {
+            return quoteProvider.GetQuote(ticker, startDate, endDate);
+        }
+
+        // Across all the threads that want to download a quote, only allow one thread to do so at a time.
+        // Used to avoid rate-limiting against quote provider or accidentally DoSing.
 
         lock (downloadLocker)
         {
-            Task.Delay(quoteServiceOptions.Value.ThrottleQuoteProviderRequestsMs).GetAwaiter().GetResult();
-            downloadedQuote = quoteProvider.GetQuote(ticker, startDate, endDate).GetAwaiter().GetResult();
-        }
+            Task.Delay(quoteServiceOptions.Value.ThrottleQuoteProviderRequestsMs)
+                .GetAwaiter()
+                .GetResult();
 
-        // Make sure function is still a Task; when Yahoo Finance is replaced with an actual data provider, we'll
-        // be able to eliminate the locker in this function.
-        return Task.FromResult(downloadedQuote);
+            // Run synchronously while in locker and return Task wrapper
+
+            return Task.FromResult(
+                quoteProvider
+                    .GetQuote(ticker, startDate, endDate)
+                    .GetAwaiter()
+                    .GetResult());
+        }
     }
 }

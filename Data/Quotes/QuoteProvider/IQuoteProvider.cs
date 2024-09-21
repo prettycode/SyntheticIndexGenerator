@@ -3,4 +3,6 @@
 public interface IQuoteProvider
 {
     Task<Quote?> GetQuote(string ticker, DateTime? startDate, DateTime? endDate);
+
+    bool RunGetQuoteSingleThreaded { get; }
 }
