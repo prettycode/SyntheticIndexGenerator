@@ -32,10 +32,10 @@
         "lint:fix": "npx eslint . --fix",
         "vite:build:dev": "npx tsc && npx vite build --mode development",
         "vite:build:ci": "npx tsc && npx vite build",
-        "build:dev": "npm run versions && npm run install:fix && npm run outdated:fix && npm run audit:fix && npm run prettier:fix && npm run lint:fix && npm run vite:build:dev && npm run test",
-        "build:ci": "npm run versions && npm run install:ci && npm run outdated:ci & npm run audit:ci && npm run prettier:ci && npm run lint:ci && npm run vite:build:ci && npm run test",
-        "test:dev": "npm run vite:build:dev && npx jest",
-        "test": "npx jest",
+        "build:dev": "npm run versions && npm run install:fix && npm run outdated:fix && npm run audit:fix && npm run prettier:fix && npm run lint:fix && npm run vite:build:dev && npm run test:dev",
+        "build:ci": "npm run versions && npm run install:ci && npm run outdated:ci & npm run audit:ci && npm run prettier:ci && npm run lint:ci && npm run vite:build:ci && npm run test:ci",
+        "test:dev": "npm run vite:build:dev && npx jest --passWithNoTests",
+        "test:ci": "npx jest",
         "precommit": "npm run build:dev && npm run build:ci && npm run start:vite"
     },
     "dependencies": {

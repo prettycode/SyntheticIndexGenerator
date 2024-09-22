@@ -7038,3 +7038,4 @@
 {"Ticker":"DFISX","DateTime":"2024-09-17T00:00:00","Open":20.9000,"High":20.9000,"Low":20.9000,"Close":20.9000,"Volume":0,"AdjustedClose":20.9000}
 {"Ticker":"DFISX","DateTime":"2024-09-18T00:00:00","Open":20.8900,"High":20.8900,"Low":20.8900,"Close":20.8900,"Volume":0,"AdjustedClose":20.8900}
 {"Ticker":"DFISX","DateTime":"2024-09-19T00:00:00","Open":21.3200,"High":21.3200,"Low":21.3200,"Close":21.3200,"Volume":0,"AdjustedClose":21.3200}
+{"Ticker":"DFISX","DateTime":"2024-09-20T00:00:00","Open":21.1000,"High":21.1000,"Low":21.1000,"Close":21.1000,"Volume":0,"AdjustedClose":21.1000}

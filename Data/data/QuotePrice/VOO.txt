@@ -3529,3 +3529,4 @@
 {"Ticker":"VOO","DateTime":"2024-09-17T00:00:00","Open":519.4400,"High":520.7400,"Low":515.5000,"Close":517.5900,"Volume":8150000,"AdjustedClose":517.5900}
 {"Ticker":"VOO","DateTime":"2024-09-18T00:00:00","Open":518.1800,"High":522.7300,"Low":515.4700,"Close":515.9100,"Volume":6921300,"AdjustedClose":515.9100}
 {"Ticker":"VOO","DateTime":"2024-09-19T00:00:00","Open":524.8800,"High":526.6000,"Low":522.1900,"Close":524.9100,"Volume":5558371,"AdjustedClose":524.9100}
+{"Ticker":"VOO","DateTime":"2024-09-20T00:00:00","Open":523.5100,"High":524.9200,"Low":521.1200,"Close":523.8800,"Volume":5612678,"AdjustedClose":523.8800}

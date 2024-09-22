@@ -1251,3 +1251,4 @@
 {"Ticker":"AVDE","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":-0.4562043795620437956204379600,"PeriodType":0}
 {"Ticker":"AVDE","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.1222120378857317445768408200,"PeriodType":0}
 {"Ticker":"AVDE","PeriodStart":"2024-09-19T00:00:00","ReturnPercentage":1.9883756500458855919241358200,"PeriodType":0}
+{"Ticker":"AVDE","PeriodStart":"2024-09-20T00:00:00","ReturnPercentage":-1.0797840431913617276544691100,"PeriodType":0}

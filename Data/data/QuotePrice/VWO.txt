@@ -4914,3 +4914,4 @@
 {"Ticker":"VWO","DateTime":"2024-09-17T00:00:00","Open":44.8000,"High":44.8500,"Low":44.5800,"Close":44.6800,"Volume":7129404,"AdjustedClose":44.5500}
 {"Ticker":"VWO","DateTime":"2024-09-18T00:00:00","Open":44.7400,"High":45.0500,"Low":44.4800,"Close":44.5200,"Volume":7547442,"AdjustedClose":44.3900}
 {"Ticker":"VWO","DateTime":"2024-09-19T00:00:00","Open":45.2800,"High":45.5200,"Low":45.1000,"Close":45.4500,"Volume":7295500,"AdjustedClose":45.3200}
+{"Ticker":"VWO","DateTime":"2024-09-20T00:00:00","Open":45.4000,"High":45.4600,"Low":45.2000,"Close":45.2900,"Volume":5949437,"AdjustedClose":45.2900}

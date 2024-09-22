@@ -212,7 +212,6 @@ let fundList: Array<Fund> = [
     },
     {
         fundId: 'Custom:USDEF',
-        type: 'Custom',
         percentage: 100,
         tickerSymbol: 'USDEFX',
         name: 'U.S. Defensive',
@@ -424,7 +423,6 @@ let fundList: Array<Fund> = [
     },
     {
         fundId: 'Custom:NTSWX',
-        type: 'Custom',
         percentage: 100,
         tickerSymbol: 'World Efficient Core',
         name: '60/20/20 NTSX/NTSI/NTSE',

@@ -7,8 +7,6 @@ export type Fund = FundAllocation & {
     name: string;
     description?: string;
     assetClass: FundAssetClass;
-    type?: undefined | 'Custom';
-    tickerSymbolBackTest?: string;
 } & (
         | {
               allocations: FundAllocation[];

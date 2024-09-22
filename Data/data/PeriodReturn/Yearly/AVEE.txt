@@ -1,1 +1,1 @@
-{"Ticker":"AVEE","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":6.827612221803093172387778200,"PeriodType":2}
+{"Ticker":"AVEE","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":6.2240663900414937759336099600,"PeriodType":2}

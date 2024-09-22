@@ -57,4 +57,4 @@
 {"Ticker":"AVUV","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-3.1101511879049676025917926600,"PeriodType":1}
 {"Ticker":"AVUV","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":11.123495318769505127061970580,"PeriodType":1}
 {"Ticker":"AVUV","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":-3.8014042126379137412236710100,"PeriodType":1}
-{"Ticker":"AVUV","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":1.1260556771973725367532061300,"PeriodType":1}
+{"Ticker":"AVUV","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":-0.0104264414555312271921593200,"PeriodType":1}

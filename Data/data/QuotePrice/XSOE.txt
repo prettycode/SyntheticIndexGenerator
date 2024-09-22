@@ -2458,3 +2458,4 @@
 {"Ticker":"XSOE","DateTime":"2024-09-17T00:00:00","Open":31.1300,"High":31.2400,"Low":31.0100,"Close":31.1400,"Volume":111729,"AdjustedClose":31.1400}
 {"Ticker":"XSOE","DateTime":"2024-09-18T00:00:00","Open":31.1200,"High":31.3800,"Low":30.9400,"Close":30.9900,"Volume":68502,"AdjustedClose":30.9900}
 {"Ticker":"XSOE","DateTime":"2024-09-19T00:00:00","Open":31.5200,"High":31.7200,"Low":31.4000,"Close":31.6400,"Volume":93677,"AdjustedClose":31.6400}
+{"Ticker":"XSOE","DateTime":"2024-09-20T00:00:00","Open":31.6400,"High":31.7000,"Low":31.5400,"Close":31.5800,"Volume":143997,"AdjustedClose":31.5800}

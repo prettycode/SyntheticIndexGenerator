@@ -35,7 +35,7 @@ public class FmpQuoteProvider(ILogger<FmpQuoteProvider> logger, IOptions<FmpQuot
 
     private readonly string ApiKey = options.Value.ApiKey;
 
-    private readonly JsonSerializerOptions deserializeJsonOptions = new JsonSerializerOptions
+    private readonly JsonSerializerOptions deserializeJsonOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     };
@@ -131,7 +131,6 @@ public class FmpQuoteProvider(ILogger<FmpQuoteProvider> logger, IOptions<FmpQuot
 
         // API returns EOD data for all historical records and current intraday quote for today's date.
         // Discard this mutable data point.
-
         // TODO AddDays(-1) is a dirty hack to avoid dealing with time zones. Replace with accurate adjustment.
         while (prices.Count > 0 && prices[^1].DateTime.Date >= DateTime.Now.Date.AddDays(-1))
         {

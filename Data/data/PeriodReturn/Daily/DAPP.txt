@@ -862,3 +862,4 @@
 {"Ticker":"DAPP","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":2.0774315391879131255901794100,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-1.0175763182238667900092506900,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2024-09-19T00:00:00","ReturnPercentage":2.336448598130841121495327100,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-09-20T00:00:00","ReturnPercentage":0.6392694063926940639269406400,"PeriodType":0}

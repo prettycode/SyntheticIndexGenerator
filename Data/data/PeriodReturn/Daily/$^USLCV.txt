@@ -7951,3 +7951,4 @@
 {"Ticker":"AVLV","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.6380329909741674447556800500,"PeriodType":0}
 {"Ticker":"AVLV","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":0.1082418432039585588371733400,"PeriodType":0}
 {"Ticker":"AVLV","PeriodStart":"2024-09-19T00:00:00","ReturnPercentage":1.5755329008341056533827618200,"PeriodType":0}
+{"Ticker":"AVLV","PeriodStart":"2024-09-20T00:00:00","ReturnPercentage":-0.4257907542579075425790754300,"PeriodType":0}

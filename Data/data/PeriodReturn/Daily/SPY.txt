@@ -7964,3 +7964,4 @@
 {"Ticker":"SPY","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":0.0409894496720844026233247800,"PeriodType":0}
 {"Ticker":"SPY","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.2974971051928386924378729800,"PeriodType":0}
 {"Ticker":"SPY","PeriodStart":"2024-09-19T00:00:00","ReturnPercentage":2.0190108633504859919954259600,"PeriodType":0}
+{"Ticker":"SPY","PeriodStart":"2024-09-20T00:00:00","ReturnPercentage":-0.4781253283827804826789029400,"PeriodType":0}

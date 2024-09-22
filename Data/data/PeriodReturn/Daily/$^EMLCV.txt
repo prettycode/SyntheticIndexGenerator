@@ -6659,3 +6659,4 @@
 {"Ticker":"AVES","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":-0.061099796334012219959266800,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.3260648053800692887711432600,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2024-09-19T00:00:00","ReturnPercentage":1.7787773461459824166837047600,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2024-09-20T00:00:00","ReturnPercentage":-0.2812374447569304941743672200,"PeriodType":0}

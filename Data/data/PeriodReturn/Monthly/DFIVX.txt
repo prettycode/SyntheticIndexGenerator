@@ -364,4 +364,4 @@
 {"Ticker":"DFIVX","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-3.7735849056603773584905660400,"PeriodType":1}
 {"Ticker":"DFIVX","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":3.8737446197991391678622668600,"PeriodType":1}
 {"Ticker":"DFIVX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":1.9337016574585635359116022100,"PeriodType":1}
-{"Ticker":"DFIVX","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":0.8130081300813008130081300800,"PeriodType":1}
+{"Ticker":"DFIVX","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":0.0903342366757000903342366800,"PeriodType":1}

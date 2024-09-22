@@ -4315,3 +4315,4 @@
 {"Ticker":"VEA","PeriodStart":"2024-09-17T00:00:00","ReturnPercentage":-0.4819741661846925004819741700,"PeriodType":0}
 {"Ticker":"VEA","PeriodStart":"2024-09-18T00:00:00","ReturnPercentage":-0.3487020534676481983727237500,"PeriodType":0}
 {"Ticker":"VEA","PeriodStart":"2024-09-19T00:00:00","ReturnPercentage":1.9245723172628304821150855400,"PeriodType":0}
+{"Ticker":"VEA","PeriodStart":"2024-09-20T00:00:00","ReturnPercentage":-0.9155063894716765210757200100,"PeriodType":0}

@@ -6678,3 +6678,4 @@
 {"Ticker":"DEMSX","DateTime":"2024-09-17T00:00:00","Open":24.1500,"High":24.1500,"Low":24.1500,"Close":24.1500,"Volume":0,"AdjustedClose":24.1500}
 {"Ticker":"DEMSX","DateTime":"2024-09-18T00:00:00","Open":24.0200,"High":24.0200,"Low":24.0200,"Close":24.0200,"Volume":0,"AdjustedClose":24.0200}
 {"Ticker":"DEMSX","DateTime":"2024-09-19T00:00:00","Open":24.3400,"High":24.3400,"Low":24.3400,"Close":24.3400,"Volume":0,"AdjustedClose":24.3400}
+{"Ticker":"DEMSX","DateTime":"2024-09-20T00:00:00","Open":24.3700,"High":24.3700,"Low":24.3700,"Close":24.3700,"Volume":0,"AdjustedClose":24.3700}
