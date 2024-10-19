@@ -16,8 +16,8 @@
 {"Ticker":"VTSMX","PeriodStart":"2008-01-01T00:00:00","ReturnPercentage":-37.035539669465204676152980030,"PeriodType":2}
 {"Ticker":"VTSMX","PeriodStart":"2009-01-01T00:00:00","ReturnPercentage":28.682872967961450525974688410,"PeriodType":2}
 {"Ticker":"VTSMX","PeriodStart":"2010-01-01T00:00:00","ReturnPercentage":17.088616449279755270680513520,"PeriodType":2}
-{"Ticker":"VTSMX","PeriodStart":"2011-01-01T00:00:00","ReturnPercentage":0.9658045450562755390583306100,"PeriodType":2}
-{"Ticker":"VTSMX","PeriodStart":"2012-01-01T00:00:00","ReturnPercentage":16.253732579651376074410972300,"PeriodType":2}
+{"Ticker":"VTSMX","PeriodStart":"2011-01-01T00:00:00","ReturnPercentage":0.9654062751407884151246983100,"PeriodType":2}
+{"Ticker":"VTSMX","PeriodStart":"2012-01-01T00:00:00","ReturnPercentage":16.254191156167409569642223190,"PeriodType":2}
 {"Ticker":"VTSMX","PeriodStart":"2013-01-01T00:00:00","ReturnPercentage":33.341250559861018743468288110,"PeriodType":2}
 {"Ticker":"VTSMX","PeriodStart":"2014-01-01T00:00:00","ReturnPercentage":12.426140903562031462321045960,"PeriodType":2}
 {"Ticker":"VTSMX","PeriodStart":"2015-01-01T00:00:00","ReturnPercentage":0.2793055838482605644960503400,"PeriodType":2}

@@ -1,14 +1,9 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Runtime.Serialization;
 using System.Text.Json;
 using Data.Quotes.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
-using YahooFinanceApi;
 
 namespace Data.Quotes.QuoteProvider;
-
-using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 public class YawhooQuoteProvider : YahooQuoteProvider, IQuoteProvider
 {

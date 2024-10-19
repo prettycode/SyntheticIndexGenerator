@@ -27,8 +27,6 @@ public static class IServiceCollectionExtensions
         })
         .AddTransient<IQuoteProvider, YawhooQuoteProvider>()
         //.AddTransient<IQuoteProvider, FmpQuoteProvider>()
-        //.AddTransient<IQuoteProvider, YahooFinanceApiQuoteProvider>()
-        //.AddTransient<IQuoteProvider, YahooQuotesApiQuoteProvider>()
         .AddTransient<IQuotesService, QuotesService>()
         .AddTransient<IReturnsService, ReturnsService>()
         .AddTransient<ISyntheticIndicesService, SyntheticIndicesService>()
