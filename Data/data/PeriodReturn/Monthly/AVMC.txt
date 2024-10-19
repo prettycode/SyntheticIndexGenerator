@@ -1,10 +1,7 @@
-{"Ticker":"AVMC","PeriodStart":"2023-12-01T00:00:00","ReturnPercentage":7.952132792897124107315190120,"PeriodType":1}
-{"Ticker":"AVMC","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":-1.3052029322367244770248524900,"PeriodType":1}
-{"Ticker":"AVMC","PeriodStart":"2024-02-01T00:00:00","ReturnPercentage":6.4311594202898550724637681200,"PeriodType":1}
-{"Ticker":"AVMC","PeriodStart":"2024-03-01T00:00:00","ReturnPercentage":5.5829787234042553191489361700,"PeriodType":1}
-{"Ticker":"AVMC","PeriodStart":"2024-04-01T00:00:00","ReturnPercentage":-5.8681283250040303079155247500,"PeriodType":1}
-{"Ticker":"AVMC","PeriodStart":"2024-05-01T00:00:00","ReturnPercentage":3.3909916081520808357595478700,"PeriodType":1}
-{"Ticker":"AVMC","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-1.7724035116779857545138313700,"PeriodType":1}
-{"Ticker":"AVMC","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":5.2107925801011804384485666100,"PeriodType":1}
-{"Ticker":"AVMC","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":0.8494951113960570604263503800,"PeriodType":1}
-{"Ticker":"AVMC","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":0.9376986649713922441195168500,"PeriodType":1}
+{"Ticker":"AVMC","PeriodStart":"2024-04-01T00:00:00","ReturnPercentage":-5.857654741018607371220125300,"PeriodType":1}
+{"Ticker":"AVMC","PeriodStart":"2024-05-01T00:00:00","ReturnPercentage":3.3886292928443584907926821900,"PeriodType":1}
+{"Ticker":"AVMC","PeriodStart":"2024-06-01T00:00:00","ReturnPercentage":-1.7751331972314893193248020700,"PeriodType":1}
+{"Ticker":"AVMC","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":5.2041669834993536613185309100,"PeriodType":1}
+{"Ticker":"AVMC","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":0.8639673109077679961066057600,"PeriodType":1}
+{"Ticker":"AVMC","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":2.3294032217996980757103819900,"PeriodType":1}
+{"Ticker":"AVMC","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":2.3358232181761593526299408700,"PeriodType":1}

@@ -21,4 +21,4 @@
 {"Ticker":"VSMAX","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":17.732098486559747007002484750,"PeriodType":2}
 {"Ticker":"VSMAX","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-17.603607060629316960859554870,"PeriodType":2}
 {"Ticker":"VSMAX","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":18.162766329025497729654208870,"PeriodType":2}
-{"Ticker":"VSMAX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":11.469110257168193910730121190,"PeriodType":2}
+{"Ticker":"VSMAX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":14.464479259040299536900187210,"PeriodType":2}
