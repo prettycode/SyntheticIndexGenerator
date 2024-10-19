@@ -44,7 +44,8 @@ class Program
             "WGMI"
         ]);
 
-        /*
+        // Concurrently
+
         var returnsHistoryTasks = new List<Task>();
 
         foreach (var ticker in tickers)
@@ -72,7 +73,8 @@ class Program
         }
 
         await Task.WhenAll(returnsHistoryTasks);
-        */
+
+        // Serially
 
         var failures = new Dictionary<string, List<(PeriodType, string)>>();
 
