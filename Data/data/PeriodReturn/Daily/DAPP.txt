@@ -1,4 +1,3 @@
-{"Ticker":"DAPP","PeriodStart":"2021-04-15T00:00:00","ReturnPercentage":-11.504667268894911171333935560,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2021-04-16T00:00:00","ReturnPercentage":-1.641073451902563177755169400,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2021-04-19T00:00:00","ReturnPercentage":-7.0505413913584944823053239700,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2021-04-20T00:00:00","ReturnPercentage":-2.3365303380488222443047538200,"PeriodType":0}
@@ -575,8 +574,8 @@
 {"Ticker":"DAPP","PeriodStart":"2023-07-27T00:00:00","ReturnPercentage":-4.9353701527614571092831962400,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-07-28T00:00:00","ReturnPercentage":2.9666254635352286773794808400,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-07-31T00:00:00","ReturnPercentage":1.0804321728691476590636254500,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2023-08-01T00:00:00","ReturnPercentage":-2.8503562945368171021377672200,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2023-08-02T00:00:00","ReturnPercentage":-2.6894865525672371638141809300,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2023-08-01T00:00:00","ReturnPercentage":-2.9097387173396674584323040400,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2023-08-02T00:00:00","ReturnPercentage":-2.6299694189602446483180428100,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-08-03T00:00:00","ReturnPercentage":-2.3869346733668341708542713600,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-08-04T00:00:00","ReturnPercentage":-4.7619047619047619047619047600,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-08-07T00:00:00","ReturnPercentage":-2.297297297297297297297297300,"PeriodType":0}
@@ -632,8 +631,8 @@
 {"Ticker":"DAPP","PeriodStart":"2023-10-17T00:00:00","ReturnPercentage":3.4220532319391634980988593200,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-10-18T00:00:00","ReturnPercentage":-6.4338235294117647058823529400,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-10-19T00:00:00","ReturnPercentage":-0.1964636542239685658153241700,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2023-10-20T00:00:00","ReturnPercentage":0.1968503937007874015748031500,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2023-10-23T00:00:00","ReturnPercentage":6.0903732809430255402750491200,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2023-10-20T00:00:00","ReturnPercentage":0.0984251968503937007874015700,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2023-10-23T00:00:00","ReturnPercentage":6.1946902654867256637168141600,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-10-24T00:00:00","ReturnPercentage":9.074074074074074074074074070,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-10-25T00:00:00","ReturnPercentage":-1.1884550084889643463497453300,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-10-26T00:00:00","ReturnPercentage":-3.7800687285223367697594501700,"PeriodType":0}
@@ -652,12 +651,12 @@
 {"Ticker":"DAPP","PeriodStart":"2023-11-14T00:00:00","ReturnPercentage":0.7042253521126760563380281700,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-11-15T00:00:00","ReturnPercentage":6.6433566433566433566433566400,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-11-16T00:00:00","ReturnPercentage":-4.0983606557377049180327868900,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2023-11-17T00:00:00","ReturnPercentage":1.3675213675213675213675213700,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2023-11-20T00:00:00","ReturnPercentage":5.2276559865092748735244519400,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2023-11-17T00:00:00","ReturnPercentage":1.2820512820512820512820512800,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2023-11-20T00:00:00","ReturnPercentage":5.3164556962025316455696202500,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-11-21T00:00:00","ReturnPercentage":-3.3653846153846153846153846200,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2023-11-22T00:00:00","ReturnPercentage":2.9850746268656716417910447800,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2023-11-24T00:00:00","ReturnPercentage":4.9919484702093397745571658600,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2023-11-27T00:00:00","ReturnPercentage":-0.9202453987730061349693251500,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2023-11-22T00:00:00","ReturnPercentage":3.0514096185737976782752902200,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2023-11-24T00:00:00","ReturnPercentage":4.9887351142581268104280656600,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2023-11-27T00:00:00","ReturnPercentage":-0.9809932556713672593500919700,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-11-28T00:00:00","ReturnPercentage":8.204334365325077399380804950,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-11-29T00:00:00","ReturnPercentage":0.8583690987124463519313304700,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2023-11-30T00:00:00","ReturnPercentage":-2.6950354609929078014184397200,"PeriodType":0}
@@ -845,8 +844,8 @@
 {"Ticker":"DAPP","PeriodStart":"2024-08-22T00:00:00","ReturnPercentage":-3.6238136324417601380500431400,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2024-08-23T00:00:00","ReturnPercentage":6.4458370635631154879140555100,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2024-08-26T00:00:00","ReturnPercentage":-1.4297729184188393608074011800,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2024-08-27T00:00:00","ReturnPercentage":-3.5836177474402730375426621200,"PeriodType":0}
-{"Ticker":"DAPP","PeriodStart":"2024-08-28T00:00:00","ReturnPercentage":-4.6017699115044247787610619500,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-08-27T00:00:00","ReturnPercentage":-3.5750853242320819112627986300,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2024-08-28T00:00:00","ReturnPercentage":-4.610211485709229271745863200,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2024-08-29T00:00:00","ReturnPercentage":0.8348794063079777365491651200,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2024-08-30T00:00:00","ReturnPercentage":-1.6559337626494940202391904300,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2024-09-03T00:00:00","ReturnPercentage":-8.606173994387277829747427500,"PeriodType":0}

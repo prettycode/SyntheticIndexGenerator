@@ -74,6 +74,11 @@ class Program
 
         await Task.WhenAll(returnsHistoryTasks);
 
+        // Pause
+
+        Console.WriteLine("\n\nPress Enter key to continue...\n");
+        Console.ReadLine();
+
         // Serially
 
         var failures = new Dictionary<string, List<(PeriodType, string)>>();

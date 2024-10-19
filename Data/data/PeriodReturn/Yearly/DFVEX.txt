@@ -7,8 +7,8 @@
 {"Ticker":"DFVEX","PeriodStart":"2013-01-01T00:00:00","ReturnPercentage":40.218326166060205094277208070,"PeriodType":2}
 {"Ticker":"DFVEX","PeriodStart":"2014-01-01T00:00:00","ReturnPercentage":6.4980654902330848353307539900,"PeriodType":2}
 {"Ticker":"DFVEX","PeriodStart":"2015-01-01T00:00:00","ReturnPercentage":-4.9939746225278230665626993700,"PeriodType":2}
-{"Ticker":"DFVEX","PeriodStart":"2016-01-01T00:00:00","ReturnPercentage":21.041783249393769819063607540,"PeriodType":2}
-{"Ticker":"DFVEX","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":14.696296067991462540741711040,"PeriodType":2}
+{"Ticker":"DFVEX","PeriodStart":"2016-01-01T00:00:00","ReturnPercentage":21.042715911210595038239134490,"PeriodType":2}
+{"Ticker":"DFVEX","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":14.695412306791388636328612600,"PeriodType":2}
 {"Ticker":"DFVEX","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":-13.235116288443709943971945660,"PeriodType":2}
 {"Ticker":"DFVEX","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":26.106246080230424380386053750,"PeriodType":2}
 {"Ticker":"DFVEX","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":7.525633941180082274206422300,"PeriodType":2}

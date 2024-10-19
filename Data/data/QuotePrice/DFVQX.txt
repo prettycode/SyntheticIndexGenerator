@@ -120,7 +120,7 @@
 {"Ticker":"DFVQX","DateTime":"2009-02-05T00:00:00","Open":6.1700,"High":6.1700,"Low":6.1700,"Close":6.1700,"Volume":0,"AdjustedClose":3.7438}
 {"Ticker":"DFVQX","DateTime":"2009-02-06T00:00:00","Open":6.3000,"High":6.3000,"Low":6.3000,"Close":6.3000,"Volume":0,"AdjustedClose":3.8226}
 {"Ticker":"DFVQX","DateTime":"2009-02-09T00:00:00","Open":6.3200,"High":6.3200,"Low":6.3200,"Close":6.3200,"Volume":0,"AdjustedClose":3.8348}
-{"Ticker":"DFVQX","DateTime":"2009-02-10T00:00:00","Open":6.0500,"High":6.0500,"Low":6.0500,"Close":6.0500,"Volume":0,"AdjustedClose":3.6709}
+{"Ticker":"DFVQX","DateTime":"2009-02-10T00:00:00","Open":6.0500,"High":6.0500,"Low":6.0500,"Close":6.0500,"Volume":0,"AdjustedClose":3.6710}
 {"Ticker":"DFVQX","DateTime":"2009-02-11T00:00:00","Open":6.0800,"High":6.0800,"Low":6.0800,"Close":6.0800,"Volume":0,"AdjustedClose":3.6892}
 {"Ticker":"DFVQX","DateTime":"2009-02-12T00:00:00","Open":6.0600,"High":6.0600,"Low":6.0600,"Close":6.0600,"Volume":0,"AdjustedClose":3.6770}
 {"Ticker":"DFVQX","DateTime":"2009-02-13T00:00:00","Open":6.0100,"High":6.0100,"Low":6.0100,"Close":6.0100,"Volume":0,"AdjustedClose":3.6467}
@@ -157,7 +157,7 @@
 {"Ticker":"DFVQX","DateTime":"2009-03-31T00:00:00","Open":5.8700,"High":5.8700,"Low":5.8700,"Close":5.8700,"Volume":0,"AdjustedClose":3.5675}
 {"Ticker":"DFVQX","DateTime":"2009-04-01T00:00:00","Open":6.0300,"High":6.0300,"Low":6.0300,"Close":6.0300,"Volume":0,"AdjustedClose":3.6647}
 {"Ticker":"DFVQX","DateTime":"2009-04-02T00:00:00","Open":6.3400,"High":6.3400,"Low":6.3400,"Close":6.3400,"Volume":0,"AdjustedClose":3.8532}
-{"Ticker":"DFVQX","DateTime":"2009-04-03T00:00:00","Open":6.4300,"High":6.4300,"Low":6.4300,"Close":6.4300,"Volume":0,"AdjustedClose":3.9079}
+{"Ticker":"DFVQX","DateTime":"2009-04-03T00:00:00","Open":6.4300,"High":6.4300,"Low":6.4300,"Close":6.4300,"Volume":0,"AdjustedClose":3.9078}
 {"Ticker":"DFVQX","DateTime":"2009-04-06T00:00:00","Open":6.3600,"High":6.3600,"Low":6.3600,"Close":6.3600,"Volume":0,"AdjustedClose":3.8653}
 {"Ticker":"DFVQX","DateTime":"2009-04-07T00:00:00","Open":6.2000,"High":6.2000,"Low":6.2000,"Close":6.2000,"Volume":0,"AdjustedClose":3.7681}
 {"Ticker":"DFVQX","DateTime":"2009-04-08T00:00:00","Open":6.2400,"High":6.2400,"Low":6.2400,"Close":6.2400,"Volume":0,"AdjustedClose":3.7924}
@@ -292,9 +292,9 @@
 {"Ticker":"DFVQX","DateTime":"2009-10-12T00:00:00","Open":9.7600,"High":9.7600,"Low":9.7600,"Close":9.7600,"Volume":0,"AdjustedClose":6.0170}
 {"Ticker":"DFVQX","DateTime":"2009-10-13T00:00:00","Open":9.7400,"High":9.7400,"Low":9.7400,"Close":9.7400,"Volume":0,"AdjustedClose":6.0047}
 {"Ticker":"DFVQX","DateTime":"2009-10-14T00:00:00","Open":9.9500,"High":9.9500,"Low":9.9500,"Close":9.9500,"Volume":0,"AdjustedClose":6.1341}
-{"Ticker":"DFVQX","DateTime":"2009-10-15T00:00:00","Open":9.9700,"High":9.9700,"Low":9.9700,"Close":9.9700,"Volume":0,"AdjustedClose":6.1465}
+{"Ticker":"DFVQX","DateTime":"2009-10-15T00:00:00","Open":9.9700,"High":9.9700,"Low":9.9700,"Close":9.9700,"Volume":0,"AdjustedClose":6.1464}
 {"Ticker":"DFVQX","DateTime":"2009-10-16T00:00:00","Open":9.8400,"High":9.8400,"Low":9.8400,"Close":9.8400,"Volume":0,"AdjustedClose":6.0663}
-{"Ticker":"DFVQX","DateTime":"2009-10-19T00:00:00","Open":9.9700,"High":9.9700,"Low":9.9700,"Close":9.9700,"Volume":0,"AdjustedClose":6.1465}
+{"Ticker":"DFVQX","DateTime":"2009-10-19T00:00:00","Open":9.9700,"High":9.9700,"Low":9.9700,"Close":9.9700,"Volume":0,"AdjustedClose":6.1464}
 {"Ticker":"DFVQX","DateTime":"2009-10-20T00:00:00","Open":9.9100,"High":9.9100,"Low":9.9100,"Close":9.9100,"Volume":0,"AdjustedClose":6.1095}
 {"Ticker":"DFVQX","DateTime":"2009-10-21T00:00:00","Open":9.8800,"High":9.8800,"Low":9.8800,"Close":9.8800,"Volume":0,"AdjustedClose":6.0910}
 {"Ticker":"DFVQX","DateTime":"2009-10-22T00:00:00","Open":9.9100,"High":9.9100,"Low":9.9100,"Close":9.9100,"Volume":0,"AdjustedClose":6.1095}
@@ -394,7 +394,7 @@
 {"Ticker":"DFVQX","DateTime":"2010-03-10T00:00:00","Open":9.6200,"High":9.6200,"Low":9.6200,"Close":9.6200,"Volume":0,"AdjustedClose":5.9527}
 {"Ticker":"DFVQX","DateTime":"2010-03-11T00:00:00","Open":9.6700,"High":9.6700,"Low":9.6700,"Close":9.6700,"Volume":0,"AdjustedClose":5.9837}
 {"Ticker":"DFVQX","DateTime":"2010-03-12T00:00:00","Open":9.7400,"High":9.7400,"Low":9.7400,"Close":9.7400,"Volume":0,"AdjustedClose":6.0270}
-{"Ticker":"DFVQX","DateTime":"2010-03-15T00:00:00","Open":9.6800,"High":9.6800,"Low":9.6800,"Close":9.6800,"Volume":0,"AdjustedClose":5.9899}
+{"Ticker":"DFVQX","DateTime":"2010-03-15T00:00:00","Open":9.6800,"High":9.6800,"Low":9.6800,"Close":9.6800,"Volume":0,"AdjustedClose":5.9898}
 {"Ticker":"DFVQX","DateTime":"2010-03-16T00:00:00","Open":9.8100,"High":9.8100,"Low":9.8100,"Close":9.8100,"Volume":0,"AdjustedClose":6.0703}
 {"Ticker":"DFVQX","DateTime":"2010-03-17T00:00:00","Open":9.8700,"High":9.8700,"Low":9.8700,"Close":9.8700,"Volume":0,"AdjustedClose":6.1074}
 {"Ticker":"DFVQX","DateTime":"2010-03-18T00:00:00","Open":9.8000,"High":9.8000,"Low":9.8000,"Close":9.8000,"Volume":0,"AdjustedClose":6.0641}
@@ -545,7 +545,7 @@
 {"Ticker":"DFVQX","DateTime":"2010-10-13T00:00:00","Open":10.3400,"High":10.3400,"Low":10.3400,"Close":10.3400,"Volume":0,"AdjustedClose":6.4169}
 {"Ticker":"DFVQX","DateTime":"2010-10-14T00:00:00","Open":10.4100,"High":10.4100,"Low":10.4100,"Close":10.4100,"Volume":0,"AdjustedClose":6.4604}
 {"Ticker":"DFVQX","DateTime":"2010-10-15T00:00:00","Open":10.3300,"High":10.3300,"Low":10.3300,"Close":10.3300,"Volume":0,"AdjustedClose":6.4107}
-{"Ticker":"DFVQX","DateTime":"2010-10-18T00:00:00","Open":10.3900,"High":10.3900,"Low":10.3900,"Close":10.3900,"Volume":0,"AdjustedClose":6.4479}
+{"Ticker":"DFVQX","DateTime":"2010-10-18T00:00:00","Open":10.3900,"High":10.3900,"Low":10.3900,"Close":10.3900,"Volume":0,"AdjustedClose":6.4480}
 {"Ticker":"DFVQX","DateTime":"2010-10-19T00:00:00","Open":10.1300,"High":10.1300,"Low":10.1300,"Close":10.1300,"Volume":0,"AdjustedClose":6.2866}
 {"Ticker":"DFVQX","DateTime":"2010-10-20T00:00:00","Open":10.3000,"High":10.3000,"Low":10.3000,"Close":10.3000,"Volume":0,"AdjustedClose":6.3921}
 {"Ticker":"DFVQX","DateTime":"2010-10-21T00:00:00","Open":10.2700,"High":10.2700,"Low":10.2700,"Close":10.2700,"Volume":0,"AdjustedClose":6.3735}
@@ -568,7 +568,7 @@
 {"Ticker":"DFVQX","DateTime":"2010-11-15T00:00:00","Open":10.3500,"High":10.3500,"Low":10.3500,"Close":10.3500,"Volume":0,"AdjustedClose":6.4231}
 {"Ticker":"DFVQX","DateTime":"2010-11-16T00:00:00","Open":10.1000,"High":10.1000,"Low":10.1000,"Close":10.1000,"Volume":0,"AdjustedClose":6.2680}
 {"Ticker":"DFVQX","DateTime":"2010-11-17T00:00:00","Open":10.1500,"High":10.1500,"Low":10.1500,"Close":10.1500,"Volume":0,"AdjustedClose":6.2990}
-{"Ticker":"DFVQX","DateTime":"2010-11-18T00:00:00","Open":10.3900,"High":10.3900,"Low":10.3900,"Close":10.3900,"Volume":0,"AdjustedClose":6.4479}
+{"Ticker":"DFVQX","DateTime":"2010-11-18T00:00:00","Open":10.3900,"High":10.3900,"Low":10.3900,"Close":10.3900,"Volume":0,"AdjustedClose":6.4480}
 {"Ticker":"DFVQX","DateTime":"2010-11-19T00:00:00","Open":10.4200,"High":10.4200,"Low":10.4200,"Close":10.4200,"Volume":0,"AdjustedClose":6.4666}
 {"Ticker":"DFVQX","DateTime":"2010-11-22T00:00:00","Open":10.3700,"High":10.3700,"Low":10.3700,"Close":10.3700,"Volume":0,"AdjustedClose":6.4355}
 {"Ticker":"DFVQX","DateTime":"2010-11-23T00:00:00","Open":10.0800,"High":10.0800,"Low":10.0800,"Close":10.0800,"Volume":0,"AdjustedClose":6.2556}
@@ -588,8 +588,8 @@
 {"Ticker":"DFVQX","DateTime":"2010-12-14T00:00:00","Open":10.6200,"High":10.6200,"Low":10.6200,"Close":10.6200,"Volume":0,"AdjustedClose":6.6792}
 {"Ticker":"DFVQX","DateTime":"2010-12-15T00:00:00","Open":10.5000,"High":10.5000,"Low":10.5000,"Close":10.5000,"Volume":0,"AdjustedClose":6.6037}
 {"Ticker":"DFVQX","DateTime":"2010-12-16T00:00:00","Open":10.5500,"High":10.5500,"Low":10.5500,"Close":10.5500,"Volume":0,"AdjustedClose":6.6351}
-{"Ticker":"DFVQX","DateTime":"2010-12-17T00:00:00","Open":10.5300,"High":10.5300,"Low":10.5300,"Close":10.5300,"Volume":0,"AdjustedClose":6.6225}
-{"Ticker":"DFVQX","DateTime":"2010-12-20T00:00:00","Open":10.5300,"High":10.5300,"Low":10.5300,"Close":10.5300,"Volume":0,"AdjustedClose":6.6225}
+{"Ticker":"DFVQX","DateTime":"2010-12-17T00:00:00","Open":10.5300,"High":10.5300,"Low":10.5300,"Close":10.5300,"Volume":0,"AdjustedClose":6.6226}
+{"Ticker":"DFVQX","DateTime":"2010-12-20T00:00:00","Open":10.5300,"High":10.5300,"Low":10.5300,"Close":10.5300,"Volume":0,"AdjustedClose":6.6226}
 {"Ticker":"DFVQX","DateTime":"2010-12-21T00:00:00","Open":10.6100,"High":10.6100,"Low":10.6100,"Close":10.6100,"Volume":0,"AdjustedClose":6.6729}
 {"Ticker":"DFVQX","DateTime":"2010-12-22T00:00:00","Open":10.6200,"High":10.6200,"Low":10.6200,"Close":10.6200,"Volume":0,"AdjustedClose":6.6792}
 {"Ticker":"DFVQX","DateTime":"2010-12-23T00:00:00","Open":10.6400,"High":10.6400,"Low":10.6400,"Close":10.6400,"Volume":0,"AdjustedClose":6.6917}
@@ -599,7 +599,7 @@
 {"Ticker":"DFVQX","DateTime":"2010-12-30T00:00:00","Open":10.7600,"High":10.7600,"Low":10.7600,"Close":10.7600,"Volume":0,"AdjustedClose":6.7672}
 {"Ticker":"DFVQX","DateTime":"2010-12-31T00:00:00","Open":10.8200,"High":10.8200,"Low":10.8200,"Close":10.8200,"Volume":0,"AdjustedClose":6.8049}
 {"Ticker":"DFVQX","DateTime":"2011-01-03T00:00:00","Open":10.8900,"High":10.8900,"Low":10.8900,"Close":10.8900,"Volume":0,"AdjustedClose":6.8490}
-{"Ticker":"DFVQX","DateTime":"2011-01-04T00:00:00","Open":10.9000,"High":10.9000,"Low":10.9000,"Close":10.9000,"Volume":0,"AdjustedClose":6.8553}
+{"Ticker":"DFVQX","DateTime":"2011-01-04T00:00:00","Open":10.9000,"High":10.9000,"Low":10.9000,"Close":10.9000,"Volume":0,"AdjustedClose":6.8552}
 {"Ticker":"DFVQX","DateTime":"2011-01-05T00:00:00","Open":10.8300,"High":10.8300,"Low":10.8300,"Close":10.8300,"Volume":0,"AdjustedClose":6.8112}
 {"Ticker":"DFVQX","DateTime":"2011-01-06T00:00:00","Open":10.7700,"High":10.7700,"Low":10.7700,"Close":10.7700,"Volume":0,"AdjustedClose":6.7735}
 {"Ticker":"DFVQX","DateTime":"2011-01-07T00:00:00","Open":10.7300,"High":10.7300,"Low":10.7300,"Close":10.7300,"Volume":0,"AdjustedClose":6.7483}
@@ -654,10 +654,10 @@
 {"Ticker":"DFVQX","DateTime":"2011-03-21T00:00:00","Open":11.0700,"High":11.0700,"Low":11.0700,"Close":11.0700,"Volume":0,"AdjustedClose":6.9744}
 {"Ticker":"DFVQX","DateTime":"2011-03-22T00:00:00","Open":11.0900,"High":11.0900,"Low":11.0900,"Close":11.0900,"Volume":0,"AdjustedClose":6.9870}
 {"Ticker":"DFVQX","DateTime":"2011-03-23T00:00:00","Open":11.0900,"High":11.0900,"Low":11.0900,"Close":11.0900,"Volume":0,"AdjustedClose":6.9870}
-{"Ticker":"DFVQX","DateTime":"2011-03-24T00:00:00","Open":11.2100,"High":11.2100,"Low":11.2100,"Close":11.2100,"Volume":0,"AdjustedClose":7.0626}
+{"Ticker":"DFVQX","DateTime":"2011-03-24T00:00:00","Open":11.2100,"High":11.2100,"Low":11.2100,"Close":11.2100,"Volume":0,"AdjustedClose":7.0627}
 {"Ticker":"DFVQX","DateTime":"2011-03-25T00:00:00","Open":11.1200,"High":11.1200,"Low":11.1200,"Close":11.1200,"Volume":0,"AdjustedClose":7.0059}
 {"Ticker":"DFVQX","DateTime":"2011-03-28T00:00:00","Open":11.1200,"High":11.1200,"Low":11.1200,"Close":11.1200,"Volume":0,"AdjustedClose":7.0059}
-{"Ticker":"DFVQX","DateTime":"2011-03-29T00:00:00","Open":11.1700,"High":11.1700,"Low":11.1700,"Close":11.1700,"Volume":0,"AdjustedClose":7.0375}
+{"Ticker":"DFVQX","DateTime":"2011-03-29T00:00:00","Open":11.1700,"High":11.1700,"Low":11.1700,"Close":11.1700,"Volume":0,"AdjustedClose":7.0374}
 {"Ticker":"DFVQX","DateTime":"2011-03-30T00:00:00","Open":11.2900,"High":11.2900,"Low":11.2900,"Close":11.2900,"Volume":0,"AdjustedClose":7.1131}
 {"Ticker":"DFVQX","DateTime":"2011-03-31T00:00:00","Open":11.2600,"High":11.2600,"Low":11.2600,"Close":11.2600,"Volume":0,"AdjustedClose":7.0942}
 {"Ticker":"DFVQX","DateTime":"2011-04-01T00:00:00","Open":11.3500,"High":11.3500,"Low":11.3500,"Close":11.3500,"Volume":0,"AdjustedClose":7.1509}
@@ -745,7 +745,7 @@
 {"Ticker":"DFVQX","DateTime":"2011-07-29T00:00:00","Open":10.8000,"High":10.8000,"Low":10.8000,"Close":10.8000,"Volume":0,"AdjustedClose":6.8922}
 {"Ticker":"DFVQX","DateTime":"2011-08-01T00:00:00","Open":10.7100,"High":10.7100,"Low":10.7100,"Close":10.7100,"Volume":0,"AdjustedClose":6.8347}
 {"Ticker":"DFVQX","DateTime":"2011-08-02T00:00:00","Open":10.4300,"High":10.4300,"Low":10.4300,"Close":10.4300,"Volume":0,"AdjustedClose":6.6561}
-{"Ticker":"DFVQX","DateTime":"2011-08-03T00:00:00","Open":10.3800,"High":10.3800,"Low":10.3800,"Close":10.3800,"Volume":0,"AdjustedClose":6.6241}
+{"Ticker":"DFVQX","DateTime":"2011-08-03T00:00:00","Open":10.3800,"High":10.3800,"Low":10.3800,"Close":10.3800,"Volume":0,"AdjustedClose":6.6242}
 {"Ticker":"DFVQX","DateTime":"2011-08-04T00:00:00","Open":9.7400,"High":9.7400,"Low":9.7400,"Close":9.7400,"Volume":0,"AdjustedClose":6.2157}
 {"Ticker":"DFVQX","DateTime":"2011-08-05T00:00:00","Open":9.7400,"High":9.7400,"Low":9.7400,"Close":9.7400,"Volume":0,"AdjustedClose":6.2157}
 {"Ticker":"DFVQX","DateTime":"2011-08-08T00:00:00","Open":9.0800,"High":9.0800,"Low":9.0800,"Close":9.0800,"Volume":0,"AdjustedClose":5.7945}
@@ -961,8 +961,8 @@
 {"Ticker":"DFVQX","DateTime":"2012-06-07T00:00:00","Open":8.4700,"High":8.4700,"Low":8.4700,"Close":8.4700,"Volume":0,"AdjustedClose":5.5940}
 {"Ticker":"DFVQX","DateTime":"2012-06-08T00:00:00","Open":8.3000,"High":8.3000,"Low":8.3000,"Close":8.3000,"Volume":0,"AdjustedClose":5.5732}
 {"Ticker":"DFVQX","DateTime":"2012-06-11T00:00:00","Open":8.2000,"High":8.2000,"Low":8.2000,"Close":8.2000,"Volume":0,"AdjustedClose":5.5060}
-{"Ticker":"DFVQX","DateTime":"2012-06-12T00:00:00","Open":8.2900,"High":8.2900,"Low":8.2900,"Close":8.2900,"Volume":0,"AdjustedClose":5.5664}
-{"Ticker":"DFVQX","DateTime":"2012-06-13T00:00:00","Open":8.2200,"High":8.2200,"Low":8.2200,"Close":8.2200,"Volume":0,"AdjustedClose":5.5194}
+{"Ticker":"DFVQX","DateTime":"2012-06-12T00:00:00","Open":8.2900,"High":8.2900,"Low":8.2900,"Close":8.2900,"Volume":0,"AdjustedClose":5.5665}
+{"Ticker":"DFVQX","DateTime":"2012-06-13T00:00:00","Open":8.2200,"High":8.2200,"Low":8.2200,"Close":8.2200,"Volume":0,"AdjustedClose":5.5195}
 {"Ticker":"DFVQX","DateTime":"2012-06-14T00:00:00","Open":8.2800,"High":8.2800,"Low":8.2800,"Close":8.2800,"Volume":0,"AdjustedClose":5.5597}
 {"Ticker":"DFVQX","DateTime":"2012-06-15T00:00:00","Open":8.4200,"High":8.4200,"Low":8.4200,"Close":8.4200,"Volume":0,"AdjustedClose":5.6537}
 {"Ticker":"DFVQX","DateTime":"2012-06-18T00:00:00","Open":8.4100,"High":8.4100,"Low":8.4100,"Close":8.4100,"Volume":0,"AdjustedClose":5.6470}
@@ -971,7 +971,7 @@
 {"Ticker":"DFVQX","DateTime":"2012-06-21T00:00:00","Open":8.4000,"High":8.4000,"Low":8.4000,"Close":8.4000,"Volume":0,"AdjustedClose":5.6403}
 {"Ticker":"DFVQX","DateTime":"2012-06-22T00:00:00","Open":8.4500,"High":8.4500,"Low":8.4500,"Close":8.4500,"Volume":0,"AdjustedClose":5.6739}
 {"Ticker":"DFVQX","DateTime":"2012-06-25T00:00:00","Open":8.2800,"High":8.2800,"Low":8.2800,"Close":8.2800,"Volume":0,"AdjustedClose":5.5597}
-{"Ticker":"DFVQX","DateTime":"2012-06-26T00:00:00","Open":8.2900,"High":8.2900,"Low":8.2900,"Close":8.2900,"Volume":0,"AdjustedClose":5.5664}
+{"Ticker":"DFVQX","DateTime":"2012-06-26T00:00:00","Open":8.2900,"High":8.2900,"Low":8.2900,"Close":8.2900,"Volume":0,"AdjustedClose":5.5665}
 {"Ticker":"DFVQX","DateTime":"2012-06-27T00:00:00","Open":8.3700,"High":8.3700,"Low":8.3700,"Close":8.3700,"Volume":0,"AdjustedClose":5.6202}
 {"Ticker":"DFVQX","DateTime":"2012-06-28T00:00:00","Open":8.3600,"High":8.3600,"Low":8.3600,"Close":8.3600,"Volume":0,"AdjustedClose":5.6135}
 {"Ticker":"DFVQX","DateTime":"2012-06-29T00:00:00","Open":8.6600,"High":8.6600,"Low":8.6600,"Close":8.6600,"Volume":0,"AdjustedClose":5.8149}
@@ -990,7 +990,7 @@
 {"Ticker":"DFVQX","DateTime":"2012-07-19T00:00:00","Open":8.6600,"High":8.6600,"Low":8.6600,"Close":8.6600,"Volume":0,"AdjustedClose":5.8149}
 {"Ticker":"DFVQX","DateTime":"2012-07-20T00:00:00","Open":8.4800,"High":8.4800,"Low":8.4800,"Close":8.4800,"Volume":0,"AdjustedClose":5.6940}
 {"Ticker":"DFVQX","DateTime":"2012-07-23T00:00:00","Open":8.3000,"High":8.3000,"Low":8.3000,"Close":8.3000,"Volume":0,"AdjustedClose":5.5732}
-{"Ticker":"DFVQX","DateTime":"2012-07-24T00:00:00","Open":8.2200,"High":8.2200,"Low":8.2200,"Close":8.2200,"Volume":0,"AdjustedClose":5.5194}
+{"Ticker":"DFVQX","DateTime":"2012-07-24T00:00:00","Open":8.2200,"High":8.2200,"Low":8.2200,"Close":8.2200,"Volume":0,"AdjustedClose":5.5195}
 {"Ticker":"DFVQX","DateTime":"2012-07-25T00:00:00","Open":8.2700,"High":8.2700,"Low":8.2700,"Close":8.2700,"Volume":0,"AdjustedClose":5.5530}
 {"Ticker":"DFVQX","DateTime":"2012-07-26T00:00:00","Open":8.5000,"High":8.5000,"Low":8.5000,"Close":8.5000,"Volume":0,"AdjustedClose":5.7075}
 {"Ticker":"DFVQX","DateTime":"2012-07-27T00:00:00","Open":8.6400,"High":8.6400,"Low":8.6400,"Close":8.6400,"Volume":0,"AdjustedClose":5.8015}
@@ -1171,7 +1171,7 @@
 {"Ticker":"DFVQX","DateTime":"2013-04-11T00:00:00","Open":10.4600,"High":10.4600,"Low":10.4600,"Close":10.4600,"Volume":0,"AdjustedClose":7.1276}
 {"Ticker":"DFVQX","DateTime":"2013-04-12T00:00:00","Open":10.4300,"High":10.4300,"Low":10.4300,"Close":10.4300,"Volume":0,"AdjustedClose":7.1071}
 {"Ticker":"DFVQX","DateTime":"2013-04-15T00:00:00","Open":10.1700,"High":10.1700,"Low":10.1700,"Close":10.1700,"Volume":0,"AdjustedClose":6.9300}
-{"Ticker":"DFVQX","DateTime":"2013-04-16T00:00:00","Open":10.3100,"High":10.3100,"Low":10.3100,"Close":10.3100,"Volume":0,"AdjustedClose":7.0253}
+{"Ticker":"DFVQX","DateTime":"2013-04-16T00:00:00","Open":10.3100,"High":10.3100,"Low":10.3100,"Close":10.3100,"Volume":0,"AdjustedClose":7.0254}
 {"Ticker":"DFVQX","DateTime":"2013-04-17T00:00:00","Open":10.1000,"High":10.1000,"Low":10.1000,"Close":10.1000,"Volume":0,"AdjustedClose":6.8823}
 {"Ticker":"DFVQX","DateTime":"2013-04-18T00:00:00","Open":10.0600,"High":10.0600,"Low":10.0600,"Close":10.0600,"Volume":0,"AdjustedClose":6.8550}
 {"Ticker":"DFVQX","DateTime":"2013-04-19T00:00:00","Open":10.1500,"High":10.1500,"Low":10.1500,"Close":10.1500,"Volume":0,"AdjustedClose":6.9163}
@@ -1285,7 +1285,7 @@
 {"Ticker":"DFVQX","DateTime":"2013-09-23T00:00:00","Open":11.3800,"High":11.3800,"Low":11.3800,"Close":11.3800,"Volume":0,"AdjustedClose":7.8882}
 {"Ticker":"DFVQX","DateTime":"2013-09-24T00:00:00","Open":11.3900,"High":11.3900,"Low":11.3900,"Close":11.3900,"Volume":0,"AdjustedClose":7.8951}
 {"Ticker":"DFVQX","DateTime":"2013-09-25T00:00:00","Open":11.4000,"High":11.4000,"Low":11.4000,"Close":11.4000,"Volume":0,"AdjustedClose":7.9021}
-{"Ticker":"DFVQX","DateTime":"2013-09-26T00:00:00","Open":11.4300,"High":11.4300,"Low":11.4300,"Close":11.4300,"Volume":0,"AdjustedClose":7.9229}
+{"Ticker":"DFVQX","DateTime":"2013-09-26T00:00:00","Open":11.4300,"High":11.4300,"Low":11.4300,"Close":11.4300,"Volume":0,"AdjustedClose":7.9228}
 {"Ticker":"DFVQX","DateTime":"2013-09-27T00:00:00","Open":11.4100,"High":11.4100,"Low":11.4100,"Close":11.4100,"Volume":0,"AdjustedClose":7.9090}
 {"Ticker":"DFVQX","DateTime":"2013-09-30T00:00:00","Open":11.3500,"High":11.3500,"Low":11.3500,"Close":11.3500,"Volume":0,"AdjustedClose":7.8674}
 {"Ticker":"DFVQX","DateTime":"2013-10-01T00:00:00","Open":11.4200,"High":11.4200,"Low":11.4200,"Close":11.4200,"Volume":0,"AdjustedClose":7.9159}
@@ -1308,7 +1308,7 @@
 {"Ticker":"DFVQX","DateTime":"2013-10-24T00:00:00","Open":11.8800,"High":11.8800,"Low":11.8800,"Close":11.8800,"Volume":0,"AdjustedClose":8.2348}
 {"Ticker":"DFVQX","DateTime":"2013-10-25T00:00:00","Open":11.8400,"High":11.8400,"Low":11.8400,"Close":11.8400,"Volume":0,"AdjustedClose":8.2070}
 {"Ticker":"DFVQX","DateTime":"2013-10-28T00:00:00","Open":11.7900,"High":11.7900,"Low":11.7900,"Close":11.7900,"Volume":0,"AdjustedClose":8.1724}
-{"Ticker":"DFVQX","DateTime":"2013-10-29T00:00:00","Open":11.8100,"High":11.8100,"Low":11.8100,"Close":11.8100,"Volume":0,"AdjustedClose":8.1863}
+{"Ticker":"DFVQX","DateTime":"2013-10-29T00:00:00","Open":11.8100,"High":11.8100,"Low":11.8100,"Close":11.8100,"Volume":0,"AdjustedClose":8.1862}
 {"Ticker":"DFVQX","DateTime":"2013-10-30T00:00:00","Open":11.7900,"High":11.7900,"Low":11.7900,"Close":11.7900,"Volume":0,"AdjustedClose":8.1724}
 {"Ticker":"DFVQX","DateTime":"2013-10-31T00:00:00","Open":11.7500,"High":11.7500,"Low":11.7500,"Close":11.7500,"Volume":0,"AdjustedClose":8.1447}
 {"Ticker":"DFVQX","DateTime":"2013-11-01T00:00:00","Open":11.6600,"High":11.6600,"Low":11.6600,"Close":11.6600,"Volume":0,"AdjustedClose":8.0823}
@@ -1457,7 +1457,7 @@
 {"Ticker":"DFVQX","DateTime":"2014-05-30T00:00:00","Open":12.4500,"High":12.4500,"Low":12.4500,"Close":12.4500,"Volume":0,"AdjustedClose":8.7627}
 {"Ticker":"DFVQX","DateTime":"2014-06-02T00:00:00","Open":12.4800,"High":12.4800,"Low":12.4800,"Close":12.4800,"Volume":0,"AdjustedClose":8.7838}
 {"Ticker":"DFVQX","DateTime":"2014-06-03T00:00:00","Open":12.4500,"High":12.4500,"Low":12.4500,"Close":12.4500,"Volume":0,"AdjustedClose":8.7627}
-{"Ticker":"DFVQX","DateTime":"2014-06-04T00:00:00","Open":12.4600,"High":12.4600,"Low":12.4600,"Close":12.4600,"Volume":0,"AdjustedClose":8.7697}
+{"Ticker":"DFVQX","DateTime":"2014-06-04T00:00:00","Open":12.4600,"High":12.4600,"Low":12.4600,"Close":12.4600,"Volume":0,"AdjustedClose":8.7698}
 {"Ticker":"DFVQX","DateTime":"2014-06-05T00:00:00","Open":12.5500,"High":12.5500,"Low":12.5500,"Close":12.5500,"Volume":0,"AdjustedClose":8.8331}
 {"Ticker":"DFVQX","DateTime":"2014-06-06T00:00:00","Open":12.6400,"High":12.6400,"Low":12.6400,"Close":12.6400,"Volume":0,"AdjustedClose":8.8964}
 {"Ticker":"DFVQX","DateTime":"2014-06-09T00:00:00","Open":12.4600,"High":12.4600,"Low":12.4600,"Close":12.4600,"Volume":0,"AdjustedClose":8.8836}
@@ -1614,7 +1614,7 @@
 {"Ticker":"DFVQX","DateTime":"2015-01-13T00:00:00","Open":10.5200,"High":10.5200,"Low":10.5200,"Close":10.5200,"Volume":0,"AdjustedClose":7.6546}
 {"Ticker":"DFVQX","DateTime":"2015-01-14T00:00:00","Open":10.4800,"High":10.4800,"Low":10.4800,"Close":10.4800,"Volume":0,"AdjustedClose":7.6255}
 {"Ticker":"DFVQX","DateTime":"2015-01-15T00:00:00","Open":10.5100,"High":10.5100,"Low":10.5100,"Close":10.5100,"Volume":0,"AdjustedClose":7.6473}
-{"Ticker":"DFVQX","DateTime":"2015-01-16T00:00:00","Open":10.5900,"High":10.5900,"Low":10.5900,"Close":10.5900,"Volume":0,"AdjustedClose":7.7055}
+{"Ticker":"DFVQX","DateTime":"2015-01-16T00:00:00","Open":10.5900,"High":10.5900,"Low":10.5900,"Close":10.5900,"Volume":0,"AdjustedClose":7.7056}
 {"Ticker":"DFVQX","DateTime":"2015-01-20T00:00:00","Open":10.6300,"High":10.6300,"Low":10.6300,"Close":10.6300,"Volume":0,"AdjustedClose":7.7347}
 {"Ticker":"DFVQX","DateTime":"2015-01-21T00:00:00","Open":10.6800,"High":10.6800,"Low":10.6800,"Close":10.6800,"Volume":0,"AdjustedClose":7.7710}
 {"Ticker":"DFVQX","DateTime":"2015-01-22T00:00:00","Open":10.7100,"High":10.7100,"Low":10.7100,"Close":10.7100,"Volume":0,"AdjustedClose":7.7929}
@@ -1804,7 +1804,7 @@
 {"Ticker":"DFVQX","DateTime":"2015-10-14T00:00:00","Open":10.7300,"High":10.7300,"Low":10.7300,"Close":10.7300,"Volume":0,"AdjustedClose":7.9420}
 {"Ticker":"DFVQX","DateTime":"2015-10-15T00:00:00","Open":10.8800,"High":10.8800,"Low":10.8800,"Close":10.8800,"Volume":0,"AdjustedClose":8.0531}
 {"Ticker":"DFVQX","DateTime":"2015-10-16T00:00:00","Open":10.8400,"High":10.8400,"Low":10.8400,"Close":10.8400,"Volume":0,"AdjustedClose":8.0235}
-{"Ticker":"DFVQX","DateTime":"2015-10-19T00:00:00","Open":10.7900,"High":10.7900,"Low":10.7900,"Close":10.7900,"Volume":0,"AdjustedClose":7.9864}
+{"Ticker":"DFVQX","DateTime":"2015-10-19T00:00:00","Open":10.7900,"High":10.7900,"Low":10.7900,"Close":10.7900,"Volume":0,"AdjustedClose":7.9865}
 {"Ticker":"DFVQX","DateTime":"2015-10-20T00:00:00","Open":10.7700,"High":10.7700,"Low":10.7700,"Close":10.7700,"Volume":0,"AdjustedClose":7.9716}
 {"Ticker":"DFVQX","DateTime":"2015-10-21T00:00:00","Open":10.7800,"High":10.7800,"Low":10.7800,"Close":10.7800,"Volume":0,"AdjustedClose":7.9790}
 {"Ticker":"DFVQX","DateTime":"2015-10-22T00:00:00","Open":10.8400,"High":10.8400,"Low":10.8400,"Close":10.8400,"Volume":0,"AdjustedClose":8.0235}
@@ -1914,7 +1914,7 @@
 {"Ticker":"DFVQX","DateTime":"2016-03-23T00:00:00","Open":10.2700,"High":10.2700,"Low":10.2700,"Close":10.2700,"Volume":0,"AdjustedClose":7.6729}
 {"Ticker":"DFVQX","DateTime":"2016-03-24T00:00:00","Open":10.1900,"High":10.1900,"Low":10.1900,"Close":10.1900,"Volume":0,"AdjustedClose":7.6132}
 {"Ticker":"DFVQX","DateTime":"2016-03-28T00:00:00","Open":10.2600,"High":10.2600,"Low":10.2600,"Close":10.2600,"Volume":0,"AdjustedClose":7.6655}
-{"Ticker":"DFVQX","DateTime":"2016-03-29T00:00:00","Open":10.3700,"High":10.3700,"Low":10.3700,"Close":10.3700,"Volume":0,"AdjustedClose":7.7477}
+{"Ticker":"DFVQX","DateTime":"2016-03-29T00:00:00","Open":10.3700,"High":10.3700,"Low":10.3700,"Close":10.3700,"Volume":0,"AdjustedClose":7.7476}
 {"Ticker":"DFVQX","DateTime":"2016-03-30T00:00:00","Open":10.4100,"High":10.4100,"Low":10.4100,"Close":10.4100,"Volume":0,"AdjustedClose":7.8092}
 {"Ticker":"DFVQX","DateTime":"2016-03-31T00:00:00","Open":10.3400,"High":10.3400,"Low":10.3400,"Close":10.3400,"Volume":0,"AdjustedClose":7.7567}
 {"Ticker":"DFVQX","DateTime":"2016-04-01T00:00:00","Open":10.2400,"High":10.2400,"Low":10.2400,"Close":10.2400,"Volume":0,"AdjustedClose":7.6816}
@@ -1989,7 +1989,7 @@
 {"Ticker":"DFVQX","DateTime":"2016-07-11T00:00:00","Open":10.2000,"High":10.2000,"Low":10.2000,"Close":10.2000,"Volume":0,"AdjustedClose":7.7617}
 {"Ticker":"DFVQX","DateTime":"2016-07-12T00:00:00","Open":10.3400,"High":10.3400,"Low":10.3400,"Close":10.3400,"Volume":0,"AdjustedClose":7.8683}
 {"Ticker":"DFVQX","DateTime":"2016-07-13T00:00:00","Open":10.3500,"High":10.3500,"Low":10.3500,"Close":10.3500,"Volume":0,"AdjustedClose":7.8759}
-{"Ticker":"DFVQX","DateTime":"2016-07-14T00:00:00","Open":10.4300,"High":10.4300,"Low":10.4300,"Close":10.4300,"Volume":0,"AdjustedClose":7.9368}
+{"Ticker":"DFVQX","DateTime":"2016-07-14T00:00:00","Open":10.4300,"High":10.4300,"Low":10.4300,"Close":10.4300,"Volume":0,"AdjustedClose":7.9367}
 {"Ticker":"DFVQX","DateTime":"2016-07-15T00:00:00","Open":10.3700,"High":10.3700,"Low":10.3700,"Close":10.3700,"Volume":0,"AdjustedClose":7.8911}
 {"Ticker":"DFVQX","DateTime":"2016-07-18T00:00:00","Open":10.4100,"High":10.4100,"Low":10.4100,"Close":10.4100,"Volume":0,"AdjustedClose":7.9215}
 {"Ticker":"DFVQX","DateTime":"2016-07-19T00:00:00","Open":10.3400,"High":10.3400,"Low":10.3400,"Close":10.3400,"Volume":0,"AdjustedClose":7.8683}
@@ -2016,7 +2016,7 @@
 {"Ticker":"DFVQX","DateTime":"2016-08-17T00:00:00","Open":10.8200,"High":10.8200,"Low":10.8200,"Close":10.8200,"Volume":0,"AdjustedClose":8.2335}
 {"Ticker":"DFVQX","DateTime":"2016-08-18T00:00:00","Open":10.9100,"High":10.9100,"Low":10.9100,"Close":10.9100,"Volume":0,"AdjustedClose":8.3020}
 {"Ticker":"DFVQX","DateTime":"2016-08-19T00:00:00","Open":10.8400,"High":10.8400,"Low":10.8400,"Close":10.8400,"Volume":0,"AdjustedClose":8.2487}
-{"Ticker":"DFVQX","DateTime":"2016-08-22T00:00:00","Open":10.8500,"High":10.8500,"Low":10.8500,"Close":10.8500,"Volume":0,"AdjustedClose":8.2563}
+{"Ticker":"DFVQX","DateTime":"2016-08-22T00:00:00","Open":10.8500,"High":10.8500,"Low":10.8500,"Close":10.8500,"Volume":0,"AdjustedClose":8.2564}
 {"Ticker":"DFVQX","DateTime":"2016-08-23T00:00:00","Open":10.8800,"High":10.8800,"Low":10.8800,"Close":10.8800,"Volume":0,"AdjustedClose":8.2792}
 {"Ticker":"DFVQX","DateTime":"2016-08-24T00:00:00","Open":10.8400,"High":10.8400,"Low":10.8400,"Close":10.8400,"Volume":0,"AdjustedClose":8.2487}
 {"Ticker":"DFVQX","DateTime":"2016-08-25T00:00:00","Open":10.8100,"High":10.8100,"Low":10.8100,"Close":10.8100,"Volume":0,"AdjustedClose":8.2259}
@@ -2040,12 +2040,12 @@
 {"Ticker":"DFVQX","DateTime":"2016-09-21T00:00:00","Open":10.9300,"High":10.9300,"Low":10.9300,"Close":10.9300,"Volume":0,"AdjustedClose":8.3172}
 {"Ticker":"DFVQX","DateTime":"2016-09-22T00:00:00","Open":11.0300,"High":11.0300,"Low":11.0300,"Close":11.0300,"Volume":0,"AdjustedClose":8.3933}
 {"Ticker":"DFVQX","DateTime":"2016-09-23T00:00:00","Open":10.9400,"High":10.9400,"Low":10.9400,"Close":10.9400,"Volume":0,"AdjustedClose":8.3248}
-{"Ticker":"DFVQX","DateTime":"2016-09-26T00:00:00","Open":10.8500,"High":10.8500,"Low":10.8500,"Close":10.8500,"Volume":0,"AdjustedClose":8.2563}
+{"Ticker":"DFVQX","DateTime":"2016-09-26T00:00:00","Open":10.8500,"High":10.8500,"Low":10.8500,"Close":10.8500,"Volume":0,"AdjustedClose":8.2564}
 {"Ticker":"DFVQX","DateTime":"2016-09-27T00:00:00","Open":10.8700,"High":10.8700,"Low":10.8700,"Close":10.8700,"Volume":0,"AdjustedClose":8.2716}
 {"Ticker":"DFVQX","DateTime":"2016-09-28T00:00:00","Open":10.9900,"High":10.9900,"Low":10.9900,"Close":10.9900,"Volume":0,"AdjustedClose":8.3629}
 {"Ticker":"DFVQX","DateTime":"2016-09-29T00:00:00","Open":10.8800,"High":10.8800,"Low":10.8800,"Close":10.8800,"Volume":0,"AdjustedClose":8.2988}
-{"Ticker":"DFVQX","DateTime":"2016-09-30T00:00:00","Open":10.9300,"High":10.9300,"Low":10.9300,"Close":10.9300,"Volume":0,"AdjustedClose":8.3370}
-{"Ticker":"DFVQX","DateTime":"2016-10-03T00:00:00","Open":10.9300,"High":10.9300,"Low":10.9300,"Close":10.9300,"Volume":0,"AdjustedClose":8.3370}
+{"Ticker":"DFVQX","DateTime":"2016-09-30T00:00:00","Open":10.9300,"High":10.9300,"Low":10.9300,"Close":10.9300,"Volume":0,"AdjustedClose":8.3369}
+{"Ticker":"DFVQX","DateTime":"2016-10-03T00:00:00","Open":10.9300,"High":10.9300,"Low":10.9300,"Close":10.9300,"Volume":0,"AdjustedClose":8.3369}
 {"Ticker":"DFVQX","DateTime":"2016-10-04T00:00:00","Open":10.8900,"High":10.8900,"Low":10.8900,"Close":10.8900,"Volume":0,"AdjustedClose":8.3064}
 {"Ticker":"DFVQX","DateTime":"2016-10-05T00:00:00","Open":10.9500,"High":10.9500,"Low":10.9500,"Close":10.9500,"Volume":0,"AdjustedClose":8.3522}
 {"Ticker":"DFVQX","DateTime":"2016-10-06T00:00:00","Open":10.8900,"High":10.8900,"Low":10.8900,"Close":10.8900,"Volume":0,"AdjustedClose":8.3064}
@@ -2194,14 +2194,14 @@
 {"Ticker":"DFVQX","DateTime":"2017-05-03T00:00:00","Open":12.0200,"High":12.0200,"Low":12.0200,"Close":12.0200,"Volume":0,"AdjustedClose":9.2593}
 {"Ticker":"DFVQX","DateTime":"2017-05-04T00:00:00","Open":12.0800,"High":12.0800,"Low":12.0800,"Close":12.0800,"Volume":0,"AdjustedClose":9.3055}
 {"Ticker":"DFVQX","DateTime":"2017-05-05T00:00:00","Open":12.1900,"High":12.1900,"Low":12.1900,"Close":12.1900,"Volume":0,"AdjustedClose":9.3903}
-{"Ticker":"DFVQX","DateTime":"2017-05-08T00:00:00","Open":12.1500,"High":12.1500,"Low":12.1500,"Close":12.1500,"Volume":0,"AdjustedClose":9.3595}
+{"Ticker":"DFVQX","DateTime":"2017-05-08T00:00:00","Open":12.1500,"High":12.1500,"Low":12.1500,"Close":12.1500,"Volume":0,"AdjustedClose":9.3594}
 {"Ticker":"DFVQX","DateTime":"2017-05-09T00:00:00","Open":12.1300,"High":12.1300,"Low":12.1300,"Close":12.1300,"Volume":0,"AdjustedClose":9.3440}
 {"Ticker":"DFVQX","DateTime":"2017-05-10T00:00:00","Open":12.1700,"High":12.1700,"Low":12.1700,"Close":12.1700,"Volume":0,"AdjustedClose":9.3749}
 {"Ticker":"DFVQX","DateTime":"2017-05-11T00:00:00","Open":12.1300,"High":12.1300,"Low":12.1300,"Close":12.1300,"Volume":0,"AdjustedClose":9.3440}
-{"Ticker":"DFVQX","DateTime":"2017-05-12T00:00:00","Open":12.1500,"High":12.1500,"Low":12.1500,"Close":12.1500,"Volume":0,"AdjustedClose":9.3595}
+{"Ticker":"DFVQX","DateTime":"2017-05-12T00:00:00","Open":12.1500,"High":12.1500,"Low":12.1500,"Close":12.1500,"Volume":0,"AdjustedClose":9.3594}
 {"Ticker":"DFVQX","DateTime":"2017-05-15T00:00:00","Open":12.2000,"High":12.2000,"Low":12.2000,"Close":12.2000,"Volume":0,"AdjustedClose":9.3980}
 {"Ticker":"DFVQX","DateTime":"2017-05-16T00:00:00","Open":12.2800,"High":12.2800,"Low":12.2800,"Close":12.2800,"Volume":0,"AdjustedClose":9.4596}
-{"Ticker":"DFVQX","DateTime":"2017-05-17T00:00:00","Open":12.1500,"High":12.1500,"Low":12.1500,"Close":12.1500,"Volume":0,"AdjustedClose":9.3595}
+{"Ticker":"DFVQX","DateTime":"2017-05-17T00:00:00","Open":12.1500,"High":12.1500,"Low":12.1500,"Close":12.1500,"Volume":0,"AdjustedClose":9.3594}
 {"Ticker":"DFVQX","DateTime":"2017-05-18T00:00:00","Open":12.1300,"High":12.1300,"Low":12.1300,"Close":12.1300,"Volume":0,"AdjustedClose":9.3440}
 {"Ticker":"DFVQX","DateTime":"2017-05-19T00:00:00","Open":12.3000,"High":12.3000,"Low":12.3000,"Close":12.3000,"Volume":0,"AdjustedClose":9.4750}
 {"Ticker":"DFVQX","DateTime":"2017-05-22T00:00:00","Open":12.3400,"High":12.3400,"Low":12.3400,"Close":12.3400,"Volume":0,"AdjustedClose":9.5058}
@@ -2396,7 +2396,7 @@
 {"Ticker":"DFVQX","DateTime":"2018-02-21T00:00:00","Open":13.6400,"High":13.6400,"Low":13.6400,"Close":13.6400,"Volume":0,"AdjustedClose":10.8304}
 {"Ticker":"DFVQX","DateTime":"2018-02-22T00:00:00","Open":13.6700,"High":13.6700,"Low":13.6700,"Close":13.6700,"Volume":0,"AdjustedClose":10.8543}
 {"Ticker":"DFVQX","DateTime":"2018-02-23T00:00:00","Open":13.8200,"High":13.8200,"Low":13.8200,"Close":13.8200,"Volume":0,"AdjustedClose":10.9734}
-{"Ticker":"DFVQX","DateTime":"2018-02-26T00:00:00","Open":13.8900,"High":13.8900,"Low":13.8900,"Close":13.8900,"Volume":0,"AdjustedClose":11.0289}
+{"Ticker":"DFVQX","DateTime":"2018-02-26T00:00:00","Open":13.8900,"High":13.8900,"Low":13.8900,"Close":13.8900,"Volume":0,"AdjustedClose":11.0290}
 {"Ticker":"DFVQX","DateTime":"2018-02-27T00:00:00","Open":13.7100,"High":13.7100,"Low":13.7100,"Close":13.7100,"Volume":0,"AdjustedClose":10.8860}
 {"Ticker":"DFVQX","DateTime":"2018-02-28T00:00:00","Open":13.5700,"High":13.5700,"Low":13.5700,"Close":13.5700,"Volume":0,"AdjustedClose":10.7749}
 {"Ticker":"DFVQX","DateTime":"2018-03-01T00:00:00","Open":13.4300,"High":13.4300,"Low":13.4300,"Close":13.4300,"Volume":0,"AdjustedClose":10.6637}
@@ -2449,7 +2449,7 @@
 {"Ticker":"DFVQX","DateTime":"2018-05-08T00:00:00","Open":13.7000,"High":13.7000,"Low":13.7000,"Close":13.7000,"Volume":0,"AdjustedClose":10.8781}
 {"Ticker":"DFVQX","DateTime":"2018-05-09T00:00:00","Open":13.7500,"High":13.7500,"Low":13.7500,"Close":13.7500,"Volume":0,"AdjustedClose":10.9178}
 {"Ticker":"DFVQX","DateTime":"2018-05-10T00:00:00","Open":13.8300,"High":13.8300,"Low":13.8300,"Close":13.8300,"Volume":0,"AdjustedClose":10.9813}
-{"Ticker":"DFVQX","DateTime":"2018-05-11T00:00:00","Open":13.8900,"High":13.8900,"Low":13.8900,"Close":13.8900,"Volume":0,"AdjustedClose":11.0289}
+{"Ticker":"DFVQX","DateTime":"2018-05-11T00:00:00","Open":13.8900,"High":13.8900,"Low":13.8900,"Close":13.8900,"Volume":0,"AdjustedClose":11.0290}
 {"Ticker":"DFVQX","DateTime":"2018-05-14T00:00:00","Open":13.9000,"High":13.9000,"Low":13.9000,"Close":13.9000,"Volume":0,"AdjustedClose":11.0369}
 {"Ticker":"DFVQX","DateTime":"2018-05-15T00:00:00","Open":13.8000,"High":13.8000,"Low":13.8000,"Close":13.8000,"Volume":0,"AdjustedClose":10.9575}
 {"Ticker":"DFVQX","DateTime":"2018-05-16T00:00:00","Open":13.8200,"High":13.8200,"Low":13.8200,"Close":13.8200,"Volume":0,"AdjustedClose":10.9734}
@@ -2505,7 +2505,7 @@
 {"Ticker":"DFVQX","DateTime":"2018-07-27T00:00:00","Open":13.2600,"High":13.2600,"Low":13.2600,"Close":13.2600,"Volume":0,"AdjustedClose":10.6117}
 {"Ticker":"DFVQX","DateTime":"2018-07-30T00:00:00","Open":13.2800,"High":13.2800,"Low":13.2800,"Close":13.2800,"Volume":0,"AdjustedClose":10.6277}
 {"Ticker":"DFVQX","DateTime":"2018-07-31T00:00:00","Open":13.2600,"High":13.2600,"Low":13.2600,"Close":13.2600,"Volume":0,"AdjustedClose":10.6117}
-{"Ticker":"DFVQX","DateTime":"2018-08-01T00:00:00","Open":13.2300,"High":13.2300,"Low":13.2300,"Close":13.2300,"Volume":0,"AdjustedClose":10.5876}
+{"Ticker":"DFVQX","DateTime":"2018-08-01T00:00:00","Open":13.2300,"High":13.2300,"Low":13.2300,"Close":13.2300,"Volume":0,"AdjustedClose":10.5877}
 {"Ticker":"DFVQX","DateTime":"2018-08-02T00:00:00","Open":13.1200,"High":13.1200,"Low":13.1200,"Close":13.1200,"Volume":0,"AdjustedClose":10.4996}
 {"Ticker":"DFVQX","DateTime":"2018-08-03T00:00:00","Open":13.1100,"High":13.1100,"Low":13.1100,"Close":13.1100,"Volume":0,"AdjustedClose":10.4916}
 {"Ticker":"DFVQX","DateTime":"2018-08-06T00:00:00","Open":13.0500,"High":13.0500,"Low":13.0500,"Close":13.0500,"Volume":0,"AdjustedClose":10.4436}
@@ -2711,7 +2711,7 @@
 {"Ticker":"DFVQX","DateTime":"2019-05-23T00:00:00","Open":11.0500,"High":11.0500,"Low":11.0500,"Close":11.0500,"Volume":0,"AdjustedClose":9.2713}
 {"Ticker":"DFVQX","DateTime":"2019-05-24T00:00:00","Open":11.1500,"High":11.1500,"Low":11.1500,"Close":11.1500,"Volume":0,"AdjustedClose":9.3552}
 {"Ticker":"DFVQX","DateTime":"2019-05-28T00:00:00","Open":11.1000,"High":11.1000,"Low":11.1000,"Close":11.1000,"Volume":0,"AdjustedClose":9.3133}
-{"Ticker":"DFVQX","DateTime":"2019-05-29T00:00:00","Open":11.0100,"High":11.0100,"Low":11.0100,"Close":11.0100,"Volume":0,"AdjustedClose":9.2378}
+{"Ticker":"DFVQX","DateTime":"2019-05-29T00:00:00","Open":11.0100,"High":11.0100,"Low":11.0100,"Close":11.0100,"Volume":0,"AdjustedClose":9.2377}
 {"Ticker":"DFVQX","DateTime":"2019-05-30T00:00:00","Open":11.0300,"High":11.0300,"Low":11.0300,"Close":11.0300,"Volume":0,"AdjustedClose":9.2545}
 {"Ticker":"DFVQX","DateTime":"2019-05-31T00:00:00","Open":10.9700,"High":10.9700,"Low":10.9700,"Close":10.9700,"Volume":0,"AdjustedClose":9.2042}
 {"Ticker":"DFVQX","DateTime":"2019-06-03T00:00:00","Open":11.0000,"High":11.0000,"Low":11.0000,"Close":11.0000,"Volume":0,"AdjustedClose":9.2294}
@@ -2741,10 +2741,10 @@
 {"Ticker":"DFVQX","DateTime":"2019-07-08T00:00:00","Open":11.4200,"High":11.4200,"Low":11.4200,"Close":11.4200,"Volume":0,"AdjustedClose":9.7285}
 {"Ticker":"DFVQX","DateTime":"2019-07-09T00:00:00","Open":11.3400,"High":11.3400,"Low":11.3400,"Close":11.3400,"Volume":0,"AdjustedClose":9.6603}
 {"Ticker":"DFVQX","DateTime":"2019-07-10T00:00:00","Open":11.3800,"High":11.3800,"Low":11.3800,"Close":11.3800,"Volume":0,"AdjustedClose":9.6944}
-{"Ticker":"DFVQX","DateTime":"2019-07-11T00:00:00","Open":11.4000,"High":11.4000,"Low":11.4000,"Close":11.4000,"Volume":0,"AdjustedClose":9.7115}
+{"Ticker":"DFVQX","DateTime":"2019-07-11T00:00:00","Open":11.4000,"High":11.4000,"Low":11.4000,"Close":11.4000,"Volume":0,"AdjustedClose":9.7114}
 {"Ticker":"DFVQX","DateTime":"2019-07-12T00:00:00","Open":11.4500,"High":11.4500,"Low":11.4500,"Close":11.4500,"Volume":0,"AdjustedClose":9.7540}
 {"Ticker":"DFVQX","DateTime":"2019-07-15T00:00:00","Open":11.4500,"High":11.4500,"Low":11.4500,"Close":11.4500,"Volume":0,"AdjustedClose":9.7540}
-{"Ticker":"DFVQX","DateTime":"2019-07-16T00:00:00","Open":11.4000,"High":11.4000,"Low":11.4000,"Close":11.4000,"Volume":0,"AdjustedClose":9.7115}
+{"Ticker":"DFVQX","DateTime":"2019-07-16T00:00:00","Open":11.4000,"High":11.4000,"Low":11.4000,"Close":11.4000,"Volume":0,"AdjustedClose":9.7114}
 {"Ticker":"DFVQX","DateTime":"2019-07-17T00:00:00","Open":11.3700,"High":11.3700,"Low":11.3700,"Close":11.3700,"Volume":0,"AdjustedClose":9.6859}
 {"Ticker":"DFVQX","DateTime":"2019-07-18T00:00:00","Open":11.3700,"High":11.3700,"Low":11.3700,"Close":11.3700,"Volume":0,"AdjustedClose":9.6859}
 {"Ticker":"DFVQX","DateTime":"2019-07-19T00:00:00","Open":11.3600,"High":11.3600,"Low":11.3600,"Close":11.3600,"Volume":0,"AdjustedClose":9.6774}
@@ -2790,11 +2790,11 @@
 {"Ticker":"DFVQX","DateTime":"2019-09-16T00:00:00","Open":11.3900,"High":11.3900,"Low":11.3900,"Close":11.3900,"Volume":0,"AdjustedClose":9.7029}
 {"Ticker":"DFVQX","DateTime":"2019-09-17T00:00:00","Open":11.4100,"High":11.4100,"Low":11.4100,"Close":11.4100,"Volume":0,"AdjustedClose":9.7200}
 {"Ticker":"DFVQX","DateTime":"2019-09-18T00:00:00","Open":11.3400,"High":11.3400,"Low":11.3400,"Close":11.3400,"Volume":0,"AdjustedClose":9.6603}
-{"Ticker":"DFVQX","DateTime":"2019-09-19T00:00:00","Open":11.4000,"High":11.4000,"Low":11.4000,"Close":11.4000,"Volume":0,"AdjustedClose":9.7115}
+{"Ticker":"DFVQX","DateTime":"2019-09-19T00:00:00","Open":11.4000,"High":11.4000,"Low":11.4000,"Close":11.4000,"Volume":0,"AdjustedClose":9.7114}
 {"Ticker":"DFVQX","DateTime":"2019-09-20T00:00:00","Open":11.3800,"High":11.3800,"Low":11.3800,"Close":11.3800,"Volume":0,"AdjustedClose":9.6944}
 {"Ticker":"DFVQX","DateTime":"2019-09-23T00:00:00","Open":11.3300,"High":11.3300,"Low":11.3300,"Close":11.3300,"Volume":0,"AdjustedClose":9.6518}
 {"Ticker":"DFVQX","DateTime":"2019-09-24T00:00:00","Open":11.3000,"High":11.3000,"Low":11.3000,"Close":11.3000,"Volume":0,"AdjustedClose":9.6263}
-{"Ticker":"DFVQX","DateTime":"2019-09-25T00:00:00","Open":11.2400,"High":11.2400,"Low":11.2400,"Close":11.2400,"Volume":0,"AdjustedClose":9.5751}
+{"Ticker":"DFVQX","DateTime":"2019-09-25T00:00:00","Open":11.2400,"High":11.2400,"Low":11.2400,"Close":11.2400,"Volume":0,"AdjustedClose":9.5752}
 {"Ticker":"DFVQX","DateTime":"2019-09-26T00:00:00","Open":11.2600,"High":11.2600,"Low":11.2600,"Close":11.2600,"Volume":0,"AdjustedClose":9.5922}
 {"Ticker":"DFVQX","DateTime":"2019-09-27T00:00:00","Open":11.1800,"High":11.1800,"Low":11.1800,"Close":11.1800,"Volume":0,"AdjustedClose":9.5691}
 {"Ticker":"DFVQX","DateTime":"2019-09-30T00:00:00","Open":11.1800,"High":11.1800,"Low":11.1800,"Close":11.1800,"Volume":0,"AdjustedClose":9.5691}
@@ -2976,7 +2976,7 @@
 {"Ticker":"DFVQX","DateTime":"2020-06-11T00:00:00","Open":9.9800,"High":9.9800,"Low":9.9800,"Close":9.9800,"Volume":0,"AdjustedClose":8.6131}
 {"Ticker":"DFVQX","DateTime":"2020-06-12T00:00:00","Open":10.1300,"High":10.1300,"Low":10.1300,"Close":10.1300,"Volume":0,"AdjustedClose":8.7425}
 {"Ticker":"DFVQX","DateTime":"2020-06-15T00:00:00","Open":10.1900,"High":10.1900,"Low":10.1900,"Close":10.1900,"Volume":0,"AdjustedClose":8.7943}
-{"Ticker":"DFVQX","DateTime":"2020-06-16T00:00:00","Open":10.3400,"High":10.3400,"Low":10.3400,"Close":10.3400,"Volume":0,"AdjustedClose":8.9238}
+{"Ticker":"DFVQX","DateTime":"2020-06-16T00:00:00","Open":10.3400,"High":10.3400,"Low":10.3400,"Close":10.3400,"Volume":0,"AdjustedClose":8.9237}
 {"Ticker":"DFVQX","DateTime":"2020-06-17T00:00:00","Open":10.3200,"High":10.3200,"Low":10.3200,"Close":10.3200,"Volume":0,"AdjustedClose":8.9065}
 {"Ticker":"DFVQX","DateTime":"2020-06-18T00:00:00","Open":10.2800,"High":10.2800,"Low":10.2800,"Close":10.2800,"Volume":0,"AdjustedClose":8.8720}
 {"Ticker":"DFVQX","DateTime":"2020-06-19T00:00:00","Open":10.2200,"High":10.2200,"Low":10.2200,"Close":10.2200,"Volume":0,"AdjustedClose":8.8202}
@@ -3182,7 +3182,7 @@
 {"Ticker":"DFVQX","DateTime":"2021-04-07T00:00:00","Open":13.9600,"High":13.9600,"Low":13.9600,"Close":13.9600,"Volume":0,"AdjustedClose":12.3205}
 {"Ticker":"DFVQX","DateTime":"2021-04-08T00:00:00","Open":14.0000,"High":14.0000,"Low":14.0000,"Close":14.0000,"Volume":0,"AdjustedClose":12.3558}
 {"Ticker":"DFVQX","DateTime":"2021-04-09T00:00:00","Open":14.0100,"High":14.0100,"Low":14.0100,"Close":14.0100,"Volume":0,"AdjustedClose":12.3646}
-{"Ticker":"DFVQX","DateTime":"2021-04-12T00:00:00","Open":13.9500,"High":13.9500,"Low":13.9500,"Close":13.9500,"Volume":0,"AdjustedClose":12.3116}
+{"Ticker":"DFVQX","DateTime":"2021-04-12T00:00:00","Open":13.9500,"High":13.9500,"Low":13.9500,"Close":13.9500,"Volume":0,"AdjustedClose":12.3117}
 {"Ticker":"DFVQX","DateTime":"2021-04-13T00:00:00","Open":14.0300,"High":14.0300,"Low":14.0300,"Close":14.0300,"Volume":0,"AdjustedClose":12.3823}
 {"Ticker":"DFVQX","DateTime":"2021-04-14T00:00:00","Open":14.0400,"High":14.0400,"Low":14.0400,"Close":14.0400,"Volume":0,"AdjustedClose":12.3911}
 {"Ticker":"DFVQX","DateTime":"2021-04-15T00:00:00","Open":14.1500,"High":14.1500,"Low":14.1500,"Close":14.1500,"Volume":0,"AdjustedClose":12.4882}
@@ -3225,7 +3225,7 @@
 {"Ticker":"DFVQX","DateTime":"2021-06-08T00:00:00","Open":14.8500,"High":14.8500,"Low":14.8500,"Close":14.8500,"Volume":0,"AdjustedClose":13.1059}
 {"Ticker":"DFVQX","DateTime":"2021-06-09T00:00:00","Open":14.7800,"High":14.7800,"Low":14.7800,"Close":14.7800,"Volume":0,"AdjustedClose":13.0442}
 {"Ticker":"DFVQX","DateTime":"2021-06-10T00:00:00","Open":14.8000,"High":14.8000,"Low":14.8000,"Close":14.8000,"Volume":0,"AdjustedClose":13.0618}
-{"Ticker":"DFVQX","DateTime":"2021-06-11T00:00:00","Open":14.8100,"High":14.8100,"Low":14.8100,"Close":14.8100,"Volume":0,"AdjustedClose":13.0707}
+{"Ticker":"DFVQX","DateTime":"2021-06-11T00:00:00","Open":14.8100,"High":14.8100,"Low":14.8100,"Close":14.8100,"Volume":0,"AdjustedClose":13.0706}
 {"Ticker":"DFVQX","DateTime":"2021-06-14T00:00:00","Open":14.8200,"High":14.8200,"Low":14.8200,"Close":14.8200,"Volume":0,"AdjustedClose":13.0795}
 {"Ticker":"DFVQX","DateTime":"2021-06-15T00:00:00","Open":14.7900,"High":14.7900,"Low":14.7900,"Close":14.7900,"Volume":0,"AdjustedClose":13.0530}
 {"Ticker":"DFVQX","DateTime":"2021-06-16T00:00:00","Open":14.6700,"High":14.6700,"Low":14.6700,"Close":14.6700,"Volume":0,"AdjustedClose":12.9471}
@@ -3291,7 +3291,7 @@
 {"Ticker":"DFVQX","DateTime":"2021-09-10T00:00:00","Open":14.6800,"High":14.6800,"Low":14.6800,"Close":14.6800,"Volume":0,"AdjustedClose":13.0507}
 {"Ticker":"DFVQX","DateTime":"2021-09-13T00:00:00","Open":14.8100,"High":14.8100,"Low":14.8100,"Close":14.8100,"Volume":0,"AdjustedClose":13.1663}
 {"Ticker":"DFVQX","DateTime":"2021-09-14T00:00:00","Open":14.7500,"High":14.7500,"Low":14.7500,"Close":14.7500,"Volume":0,"AdjustedClose":13.1130}
-{"Ticker":"DFVQX","DateTime":"2021-09-15T00:00:00","Open":14.7800,"High":14.7800,"Low":14.7800,"Close":14.7800,"Volume":0,"AdjustedClose":13.1397}
+{"Ticker":"DFVQX","DateTime":"2021-09-15T00:00:00","Open":14.7800,"High":14.7800,"Low":14.7800,"Close":14.7800,"Volume":0,"AdjustedClose":13.1396}
 {"Ticker":"DFVQX","DateTime":"2021-09-16T00:00:00","Open":14.7400,"High":14.7400,"Low":14.7400,"Close":14.7400,"Volume":0,"AdjustedClose":13.1041}
 {"Ticker":"DFVQX","DateTime":"2021-09-17T00:00:00","Open":14.5800,"High":14.5800,"Low":14.5800,"Close":14.5800,"Volume":0,"AdjustedClose":12.9618}
 {"Ticker":"DFVQX","DateTime":"2021-09-20T00:00:00","Open":14.2700,"High":14.2700,"Low":14.2700,"Close":14.2700,"Volume":0,"AdjustedClose":12.6863}
@@ -3314,7 +3314,7 @@
 {"Ticker":"DFVQX","DateTime":"2021-10-13T00:00:00","Open":14.2800,"High":14.2800,"Low":14.2800,"Close":14.2800,"Volume":0,"AdjustedClose":12.7549}
 {"Ticker":"DFVQX","DateTime":"2021-10-14T00:00:00","Open":14.4200,"High":14.4200,"Low":14.4200,"Close":14.4200,"Volume":0,"AdjustedClose":12.8800}
 {"Ticker":"DFVQX","DateTime":"2021-10-15T00:00:00","Open":14.5300,"High":14.5300,"Low":14.5300,"Close":14.5300,"Volume":0,"AdjustedClose":12.9782}
-{"Ticker":"DFVQX","DateTime":"2021-10-18T00:00:00","Open":14.5000,"High":14.5000,"Low":14.5000,"Close":14.5000,"Volume":0,"AdjustedClose":12.9514}
+{"Ticker":"DFVQX","DateTime":"2021-10-18T00:00:00","Open":14.5000,"High":14.5000,"Low":14.5000,"Close":14.5000,"Volume":0,"AdjustedClose":12.9515}
 {"Ticker":"DFVQX","DateTime":"2021-10-19T00:00:00","Open":14.5800,"High":14.5800,"Low":14.5800,"Close":14.5800,"Volume":0,"AdjustedClose":13.0229}
 {"Ticker":"DFVQX","DateTime":"2021-10-20T00:00:00","Open":14.6100,"High":14.6100,"Low":14.6100,"Close":14.6100,"Volume":0,"AdjustedClose":13.0497}
 {"Ticker":"DFVQX","DateTime":"2021-10-21T00:00:00","Open":14.5200,"High":14.5200,"Low":14.5200,"Close":14.5200,"Volume":0,"AdjustedClose":12.9693}
@@ -3363,7 +3363,7 @@
 {"Ticker":"DFVQX","DateTime":"2021-12-22T00:00:00","Open":13.6600,"High":13.6600,"Low":13.6600,"Close":13.6600,"Volume":0,"AdjustedClose":12.6185}
 {"Ticker":"DFVQX","DateTime":"2021-12-23T00:00:00","Open":13.7500,"High":13.7500,"Low":13.7500,"Close":13.7500,"Volume":0,"AdjustedClose":12.7016}
 {"Ticker":"DFVQX","DateTime":"2021-12-27T00:00:00","Open":13.8400,"High":13.8400,"Low":13.8400,"Close":13.8400,"Volume":0,"AdjustedClose":12.7848}
-{"Ticker":"DFVQX","DateTime":"2021-12-28T00:00:00","Open":13.8600,"High":13.8600,"Low":13.8600,"Close":13.8600,"Volume":0,"AdjustedClose":12.8032}
+{"Ticker":"DFVQX","DateTime":"2021-12-28T00:00:00","Open":13.8600,"High":13.8600,"Low":13.8600,"Close":13.8600,"Volume":0,"AdjustedClose":12.8033}
 {"Ticker":"DFVQX","DateTime":"2021-12-29T00:00:00","Open":13.9300,"High":13.9300,"Low":13.9300,"Close":13.9300,"Volume":0,"AdjustedClose":12.8679}
 {"Ticker":"DFVQX","DateTime":"2021-12-30T00:00:00","Open":13.8900,"High":13.8900,"Low":13.8900,"Close":13.8900,"Volume":0,"AdjustedClose":12.8310}
 {"Ticker":"DFVQX","DateTime":"2021-12-31T00:00:00","Open":13.9300,"High":13.9300,"Low":13.9300,"Close":13.9300,"Volume":0,"AdjustedClose":12.8679}
@@ -3388,7 +3388,7 @@
 {"Ticker":"DFVQX","DateTime":"2022-01-28T00:00:00","Open":13.3800,"High":13.3800,"Low":13.3800,"Close":13.3800,"Volume":0,"AdjustedClose":12.3598}
 {"Ticker":"DFVQX","DateTime":"2022-01-31T00:00:00","Open":13.6100,"High":13.6100,"Low":13.6100,"Close":13.6100,"Volume":0,"AdjustedClose":12.5723}
 {"Ticker":"DFVQX","DateTime":"2022-02-01T00:00:00","Open":13.7400,"High":13.7400,"Low":13.7400,"Close":13.7400,"Volume":0,"AdjustedClose":12.6924}
-{"Ticker":"DFVQX","DateTime":"2022-02-02T00:00:00","Open":13.8600,"High":13.8600,"Low":13.8600,"Close":13.8600,"Volume":0,"AdjustedClose":12.8032}
+{"Ticker":"DFVQX","DateTime":"2022-02-02T00:00:00","Open":13.8600,"High":13.8600,"Low":13.8600,"Close":13.8600,"Volume":0,"AdjustedClose":12.8033}
 {"Ticker":"DFVQX","DateTime":"2022-02-03T00:00:00","Open":13.7100,"High":13.7100,"Low":13.7100,"Close":13.7100,"Volume":0,"AdjustedClose":12.6647}
 {"Ticker":"DFVQX","DateTime":"2022-02-04T00:00:00","Open":13.7200,"High":13.7200,"Low":13.7200,"Close":13.7200,"Volume":0,"AdjustedClose":12.6739}
 {"Ticker":"DFVQX","DateTime":"2022-02-07T00:00:00","Open":13.7600,"High":13.7600,"Low":13.7600,"Close":13.7600,"Volume":0,"AdjustedClose":12.7109}
@@ -3507,7 +3507,7 @@
 {"Ticker":"DFVQX","DateTime":"2022-07-21T00:00:00","Open":11.5700,"High":11.5700,"Low":11.5700,"Close":11.5700,"Volume":0,"AdjustedClose":10.8134}
 {"Ticker":"DFVQX","DateTime":"2022-07-22T00:00:00","Open":11.5300,"High":11.5300,"Low":11.5300,"Close":11.5300,"Volume":0,"AdjustedClose":10.7760}
 {"Ticker":"DFVQX","DateTime":"2022-07-25T00:00:00","Open":11.6100,"High":11.6100,"Low":11.6100,"Close":11.6100,"Volume":0,"AdjustedClose":10.8507}
-{"Ticker":"DFVQX","DateTime":"2022-07-26T00:00:00","Open":11.4600,"High":11.4600,"Low":11.4600,"Close":11.4600,"Volume":0,"AdjustedClose":10.7106}
+{"Ticker":"DFVQX","DateTime":"2022-07-26T00:00:00","Open":11.4600,"High":11.4600,"Low":11.4600,"Close":11.4600,"Volume":0,"AdjustedClose":10.7105}
 {"Ticker":"DFVQX","DateTime":"2022-07-27T00:00:00","Open":11.6900,"High":11.6900,"Low":11.6900,"Close":11.6900,"Volume":0,"AdjustedClose":10.9255}
 {"Ticker":"DFVQX","DateTime":"2022-07-28T00:00:00","Open":11.7800,"High":11.7800,"Low":11.7800,"Close":11.7800,"Volume":0,"AdjustedClose":11.0096}
 {"Ticker":"DFVQX","DateTime":"2022-07-29T00:00:00","Open":11.9500,"High":11.9500,"Low":11.9500,"Close":11.9500,"Volume":0,"AdjustedClose":11.1685}
@@ -3642,7 +3642,7 @@
 {"Ticker":"DFVQX","DateTime":"2023-02-02T00:00:00","Open":13.0000,"High":13.0000,"Low":13.0000,"Close":13.0000,"Volume":0,"AdjustedClose":12.3578}
 {"Ticker":"DFVQX","DateTime":"2023-02-03T00:00:00","Open":12.8000,"High":12.8000,"Low":12.8000,"Close":12.8000,"Volume":0,"AdjustedClose":12.1677}
 {"Ticker":"DFVQX","DateTime":"2023-02-06T00:00:00","Open":12.6800,"High":12.6800,"Low":12.6800,"Close":12.6800,"Volume":0,"AdjustedClose":12.0536}
-{"Ticker":"DFVQX","DateTime":"2023-02-07T00:00:00","Open":12.7900,"High":12.7900,"Low":12.7900,"Close":12.7900,"Volume":0,"AdjustedClose":12.1582}
+{"Ticker":"DFVQX","DateTime":"2023-02-07T00:00:00","Open":12.7900,"High":12.7900,"Low":12.7900,"Close":12.7900,"Volume":0,"AdjustedClose":12.1581}
 {"Ticker":"DFVQX","DateTime":"2023-02-08T00:00:00","Open":12.7400,"High":12.7400,"Low":12.7400,"Close":12.7400,"Volume":0,"AdjustedClose":12.1106}
 {"Ticker":"DFVQX","DateTime":"2023-02-09T00:00:00","Open":12.7500,"High":12.7500,"Low":12.7500,"Close":12.7500,"Volume":0,"AdjustedClose":12.1201}
 {"Ticker":"DFVQX","DateTime":"2023-02-10T00:00:00","Open":12.7000,"High":12.7000,"Low":12.7000,"Close":12.7000,"Volume":0,"AdjustedClose":12.0726}

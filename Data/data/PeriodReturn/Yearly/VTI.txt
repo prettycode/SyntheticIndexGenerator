@@ -1,8 +1,8 @@
 {"Ticker":"VTI","PeriodStart":"2002-01-01T00:00:00","ReturnPercentage":-20.479447354576023057391861290,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2003-01-01T00:00:00","ReturnPercentage":30.742650442986998043953515130,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2004-01-01T00:00:00","ReturnPercentage":12.781791529959214655222201750,"PeriodType":2}
-{"Ticker":"VTI","PeriodStart":"2005-01-01T00:00:00","ReturnPercentage":6.3037843189372011304918224700,"PeriodType":2}
-{"Ticker":"VTI","PeriodStart":"2006-01-01T00:00:00","ReturnPercentage":15.696727516298189192041070060,"PeriodType":2}
+{"Ticker":"VTI","PeriodStart":"2005-01-01T00:00:00","ReturnPercentage":6.3040281696322975368641288300,"PeriodType":2}
+{"Ticker":"VTI","PeriodStart":"2006-01-01T00:00:00","ReturnPercentage":15.696462119700233289519864020,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2007-01-01T00:00:00","ReturnPercentage":5.3699099463484850287291371700,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2008-01-01T00:00:00","ReturnPercentage":-36.985981748047793771756515190,"PeriodType":2}
 {"Ticker":"VTI","PeriodStart":"2009-01-01T00:00:00","ReturnPercentage":28.904588996918372709682042950,"PeriodType":2}

@@ -3,8 +3,8 @@
 {"Ticker":"AVLV","PeriodStart":"2021-12-01T00:00:00","ReturnPercentage":3.5817230273752012882447665100,"PeriodType":1}
 {"Ticker":"AVLV","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-2.9514529901242532948304877200,"PeriodType":1}
 {"Ticker":"AVLV","PeriodStart":"2022-02-01T00:00:00","ReturnPercentage":-0.8554162344865700452137138900,"PeriodType":1}
-{"Ticker":"AVLV","PeriodStart":"2022-03-01T00:00:00","ReturnPercentage":4.0645562615372808169101697700,"PeriodType":1}
-{"Ticker":"AVLV","PeriodStart":"2022-04-01T00:00:00","ReturnPercentage":-5.9379845863924744642985372400,"PeriodType":1}
+{"Ticker":"AVLV","PeriodStart":"2022-03-01T00:00:00","ReturnPercentage":4.0643542960087572253167829300,"PeriodType":1}
+{"Ticker":"AVLV","PeriodStart":"2022-04-01T00:00:00","ReturnPercentage":-5.937802033156205240869622600,"PeriodType":1}
 {"Ticker":"AVLV","PeriodStart":"2022-05-01T00:00:00","ReturnPercentage":3.343147712946934261538429800,"PeriodType":1}
 {"Ticker":"AVLV","PeriodStart":"2022-06-01T00:00:00","ReturnPercentage":-11.847080855957481641796408620,"PeriodType":1}
 {"Ticker":"AVLV","PeriodStart":"2022-07-01T00:00:00","ReturnPercentage":8.112735772136761428493776160,"PeriodType":1}

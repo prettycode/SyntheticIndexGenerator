@@ -92,8 +92,8 @@
 {"Ticker":"DFVQX","PeriodStart":"2016-04-01T00:00:00","ReturnPercentage":3.287480500728402542318253900,"PeriodType":1}
 {"Ticker":"DFVQX","PeriodStart":"2016-05-01T00:00:00","ReturnPercentage":-0.3744523634185004431019633800,"PeriodType":1}
 {"Ticker":"DFVQX","PeriodStart":"2016-06-01T00:00:00","ReturnPercentage":-3.8049538318904494030093839700,"PeriodType":1}
-{"Ticker":"DFVQX","PeriodStart":"2016-07-01T00:00:00","ReturnPercentage":5.4519406095337327429017973400,"PeriodType":1}
-{"Ticker":"DFVQX","PeriodStart":"2016-08-01T00:00:00","ReturnPercentage":0.7509324901810636563495788400,"PeriodType":1}
+{"Ticker":"DFVQX","PeriodStart":"2016-07-01T00:00:00","ReturnPercentage":5.4506381870278718416254232900,"PeriodType":1}
+{"Ticker":"DFVQX","PeriodStart":"2016-08-01T00:00:00","ReturnPercentage":0.7521768665472735132464645200,"PeriodType":1}
 {"Ticker":"DFVQX","PeriodStart":"2016-09-01T00:00:00","ReturnPercentage":2.2016819084512222031529654100,"PeriodType":1}
 {"Ticker":"DFVQX","PeriodStart":"2016-10-01T00:00:00","ReturnPercentage":-1.3733957058894086601895166100,"PeriodType":1}
 {"Ticker":"DFVQX","PeriodStart":"2016-11-01T00:00:00","ReturnPercentage":-1.112800243235025843721495900,"PeriodType":1}
