@@ -16,6 +16,7 @@ import cloneDeep from 'lodash.clonedeep';
 import { FundSelectionDropdown, FundSelectionDropdownOptionType } from '../FundSelectionDropdown/FundSelectionDropdown';
 import { FundSelectionTableState } from './FundSelectionTableState';
 import { FundSelectionTableRow } from './FundSelectionTableRow';
+import { fetchFundByFundId } from '../../Fund/services/fetchFundByFundId';
 import { displayPercentage } from '../utils/displayPercentage';
 import { sum } from '../../Fund/utils/sum';
 import Highcharts from 'highcharts';
@@ -185,6 +186,20 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
     };
 
     const fetchBacktestData = async (portfolios: Array<Array<FundAllocation>>) => {
+        const tickerByFundId: Record<string, string> = {};
+
+        for (const portfolio of portfolios) {
+            for (const allocation of portfolio) {
+                const fundId = allocation.fundId;
+
+                if (tickerByFundId[fundId] !== undefined) {
+                    continue;
+                }
+
+                tickerByFundId[fundId] = (await fetchFundByFundId(fundId)).tickerSymbol;
+            }
+        }
+
         const response = await fetch('https://localhost:7118/api/BackTest/GetPortfolioBackTests', {
             method: 'POST',
             headers: {
@@ -192,9 +207,9 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
             },
             body: JSON.stringify({
                 portfolios: portfolios.map((portfolio) =>
-                    portfolio.map((fund) => ({
-                        Ticker: fund.fundId.replace('Custom:', ''),
-                        Percentage: fund.percentage
+                    portfolio.map((allocation) => ({
+                        Ticker: tickerByFundId[allocation.fundId],
+                        Percentage: allocation.percentage
                     }))
                 ),
                 startingBalance: 10000,

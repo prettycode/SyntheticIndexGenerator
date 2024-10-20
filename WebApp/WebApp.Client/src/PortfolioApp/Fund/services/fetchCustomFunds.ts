@@ -6,7 +6,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:CASH',
         percentage: 100,
-        tickerSymbol: 'CASHX',
+        tickerSymbol: 'USFR',
         name: 'U.S. Treasury Money Market (USFR, TFLO)',
         marketRegion: 'U.S.',
         assetClass: 'Cash',
@@ -15,7 +15,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:GOLD',
         percentage: 100,
-        tickerSymbol: 'GOLDX',
+        tickerSymbol: 'GLD',
         name: 'Gold (GLD, GLDM, IAUM)',
         marketRegion: 'Global (All-World)',
         assetClass: 'Commodity',
@@ -24,7 +24,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:DBMF',
         percentage: 100,
-        tickerSymbol: 'DBMFX',
+        tickerSymbol: 'DBMF',
         name: 'SG CTA Index (DBMF)',
         marketRegion: 'Global (All-World)',
         assetClass: 'Trend',
@@ -33,7 +33,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:KMLM',
         percentage: 100,
-        tickerSymbol: 'KMLMX',
+        tickerSymbol: 'KMLM',
         name: 'KFA MLM Index (KMLM)',
         marketRegion: 'Global (All-World)',
         assetClass: 'Trend',
@@ -42,7 +42,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:SPY',
         percentage: 100,
-        tickerSymbol: 'SPYTR',
+        tickerSymbol: 'SPY',
         name: 'S&P 500 Index (SPY, VOO, IVV, SPLG)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
@@ -60,7 +60,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:VT',
         percentage: 100,
-        tickerSymbol: 'VTSIM',
+        tickerSymbol: 'VT',
         name: 'Total World Market (VT, AVGE, DFAW)',
         assetClass: 'Equity',
         marketRegion: 'Global (All-World)',
@@ -69,7 +69,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:VXUS',
         percentage: 100,
-        tickerSymbol: 'VXUSX',
+        tickerSymbol: 'VXUS',
         name: 'Total Ex-U.S. Market (VXUS, DFAX, AVNM)',
         assetClass: 'Equity',
         marketRegion: 'Ex-U.S.',
@@ -218,7 +218,7 @@ let fundList: Array<Fund> = [
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []
-    },
+    } /*
     {
         fundId: 'Custom:USDEF',
         percentage: 100,
@@ -255,7 +255,7 @@ let fundList: Array<Fund> = [
                 percentage: -100
             }
         ]
-    },
+    },*/,
     {
         fundId: 'Custom:VGSH',
         percentage: 100,
@@ -286,12 +286,30 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:ZROZ',
         percentage: 100,
-        tickerSymbol: 'ZROZX',
+        tickerSymbol: 'ZROZ',
         name: 'U.S. 25+ Year STRIPS Treasury (ZROZ, EDV, GOVZ)',
         marketRegion: 'U.S.',
         assetClass: 'Treasury',
         allocations: []
     },
+    {
+        fundId: 'Custom:UBT',
+        percentage: 100,
+        tickerSymbol: 'UBT',
+        name: 'U.S. 20+ Year Treasury 2x (UBT)',
+        marketRegion: 'U.S.',
+        assetClass: 'Treasury',
+        allocations: []
+    },
+    {
+        fundId: 'Custom:UPRO',
+        percentage: 100,
+        tickerSymbol: 'TMF',
+        name: 'U.S. 20+ Year Treasury 3x (TMF)',
+        marketRegion: 'U.S.',
+        assetClass: 'Treasury',
+        allocations: []
+    } /*
     {
         fundId: 'Custom:GOVT',
         percentage: 100,
@@ -475,21 +493,31 @@ let fundList: Array<Fund> = [
                 percentage: -80
             }
         ]
-    },
+    },*/,
     {
         fundId: 'Custom:SSO',
         percentage: 100,
-        tickerSymbol: 'SPYTR?L=2',
-        name: 'S&P 500 2x (SSO)',
+        tickerSymbol: 'SSO',
+        name: 'S&P 500 2x (SSO, SPUU)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []
     },
     {
+        fundId: 'Custom:UPRO',
+        percentage: 100,
+        tickerSymbol: 'UPRO',
+        name: 'S&P 500 3x (UPRO, SPXL)',
+        assetClass: 'Equity',
+        marketRegion: 'U.S.',
+        allocations: []
+    }
+    /*
+    {
         fundId: 'Custom:AOR',
         percentage: 100,
         tickerSymbol: 'AOR',
-        name: '60/40 VT/GOVT (AOR)',
+        name: '60/40 VT/GOVT',
         assetClass: 'Composite',
         marketRegion: 'U.S.',
         allocations: [
@@ -503,7 +531,7 @@ let fundList: Array<Fund> = [
                 percentage: 40
             }
         ]
-    }
+    }*/
 ];
 
 export const fetchCustomFunds = async (): Promise<Array<Fund>> => Promise.resolve(fundList);
