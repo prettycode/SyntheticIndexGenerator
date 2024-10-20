@@ -7,7 +7,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:CASH',
         percentage: 100,
         tickerSymbol: 'CASHX',
-        name: 'U.S. Treasury Money Market (CASHX)',
+        name: 'U.S. Treasury Money Market (USFR, TFLO)',
         marketRegion: 'U.S.',
         assetClass: 'Cash',
         allocations: []
@@ -16,7 +16,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:GOLD',
         percentage: 100,
         tickerSymbol: 'GOLDX',
-        name: 'Gold',
+        name: 'Gold (GLD, GLDM, IAUM)',
         marketRegion: 'Global (All-World)',
         assetClass: 'Commodity',
         allocations: []
@@ -43,7 +43,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:SPY',
         percentage: 100,
         tickerSymbol: 'SPYTR',
-        name: 'S&P 500 Index (SPY, VOO)',
+        name: 'S&P 500 Index (SPY, VOO, IVV, SPLG)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []
@@ -70,7 +70,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:VXUS',
         percentage: 100,
         tickerSymbol: 'VXUSX',
-        name: 'Total Ex-U.S. Market (VXUS)',
+        name: 'Total Ex-U.S. Market (VXUS, DFAX, AVNM)',
         assetClass: 'Equity',
         marketRegion: 'Ex-U.S.',
         allocations: []
@@ -157,6 +157,15 @@ let fundList: Array<Fund> = [
         allocations: []
     },
     {
+        fundId: 'Custom:DGS',
+        percentage: 100,
+        tickerSymbol: 'DGS',
+        name: 'Emerging Small Cap Value (DGS)',
+        assetClass: 'Equity',
+        marketRegion: 'Emerging',
+        allocations: []
+    },
+    {
         fundId: 'Custom:AVES',
         percentage: 100,
         tickerSymbol: 'DFEVX',
@@ -178,7 +187,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:REET',
         percentage: 100,
         tickerSymbol: 'DFGEX',
-        name: 'Global Real Estate (DFGR, REET)',
+        name: 'Global Real Estate (AVRE, DFGR, REET)',
         assetClass: 'Equity',
         marketRegion: 'Global (All-World)',
         allocations: []
@@ -187,7 +196,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:XLU',
         percentage: 100,
         tickerSymbol: 'XLU',
-        name: 'U.S. Utilities',
+        name: 'U.S. Utilities (VPU, XLU)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []
@@ -196,7 +205,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:XLV',
         percentage: 100,
         tickerSymbol: 'XLV',
-        name: 'U.S. Healthcare',
+        name: 'U.S. Healthcare (VHT, XLV)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []
@@ -205,7 +214,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:XLP',
         percentage: 100,
         tickerSymbol: 'XLP',
-        name: 'U.S. Staples',
+        name: 'U.S. Staples (VDC, XLP)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []
@@ -214,7 +223,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:USDEF',
         percentage: 100,
         tickerSymbol: 'USDEFX',
-        name: 'U.S. Defensive',
+        name: 'U.S. Defensive (XLU/XLV/XLP)',
         description: '1:1:1 XLU:XLV:XLP',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
@@ -228,7 +237,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:RSST',
         percentage: 100,
         tickerSymbol: 'RSST',
-        name: '100/100 SPY/Trend (RSST)',
+        name: '100/100 SPY/DBMF (RSST)',
         description: '2x 50/50 SPY/Trend',
         marketRegion: undefined,
         assetClass: 'Composite',
@@ -251,7 +260,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:VGSH',
         percentage: 100,
         tickerSymbol: 'VFISX',
-        name: 'U.S. Short-Term Treasury',
+        name: 'U.S. Short-Term Treasury (SHV, VGSH)',
         marketRegion: 'U.S.',
         assetClass: 'Treasury',
         allocations: []
@@ -260,7 +269,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:VGIT',
         percentage: 100,
         tickerSymbol: 'VFITX',
-        name: 'U.S. Intermediate-Term Treasury',
+        name: 'U.S. Intermediate-Term Treasury (VGIT)',
         marketRegion: 'U.S.',
         assetClass: 'Treasury',
         allocations: []
@@ -269,7 +278,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:VGLT',
         percentage: 100,
         tickerSymbol: 'VUSTX',
-        name: 'U.S. Long-Term Treasury',
+        name: 'U.S. Long-Term Treasury (TLT, VGLT)',
         marketRegion: 'U.S.',
         assetClass: 'Treasury',
         allocations: []
@@ -278,7 +287,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:ZROZ',
         percentage: 100,
         tickerSymbol: 'ZROZX',
-        name: 'U.S. 25+ Year STRIPS Treasury',
+        name: 'U.S. 25+ Year STRIPS Treasury (ZROZ, EDV, GOVZ)',
         marketRegion: 'U.S.',
         assetClass: 'Treasury',
         allocations: []
@@ -287,7 +296,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:GOVT',
         percentage: 100,
         tickerSymbol: 'GOVT',
-        name: '1:1:1 VGSH:VGIT:VGLT (GOVT)',
+        name: 'U.S. Treasury Bond Ladder (GOVT, VGSH/VGIT/VGLT)',
         description: 'U.S. Treasury Bond Ladder',
         marketRegion: 'U.S.',
         assetClass: 'Treasury',
@@ -333,7 +342,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:RSBT',
         percentage: 100,
         tickerSymbol: 'RSBT',
-        name: '100/100 GOVT/Trend (RSBT)',
+        name: '100/100 GOVT/DBMF (RSBT)',
         description: '2x 50/50 U.S. Treasuries/Trend',
         marketRegion: undefined,
         assetClass: 'Composite',
@@ -480,7 +489,7 @@ let fundList: Array<Fund> = [
         fundId: 'Custom:AOR',
         percentage: 100,
         tickerSymbol: 'AOR',
-        name: '60/40 (AOR)',
+        name: '60/40 VT/GOVT (AOR)',
         assetClass: 'Composite',
         marketRegion: 'U.S.',
         allocations: [
