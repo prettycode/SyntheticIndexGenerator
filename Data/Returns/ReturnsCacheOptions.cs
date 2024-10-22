@@ -5,7 +5,9 @@ namespace Data.Returns;
 
 public class ReturnsCacheOptions : IOptions<ReturnsCacheOptions>
 {
-    public required string SyntheticReturnsFilePath { get; init; }
+    public required string SyntheticUsMarketReturnsFilePath { get; init; }
+
+    public required string SyntheticAlternativesFilePathPattern { get; init; }
 
     public required TableFileCacheOptions TableCacheOptions { get; init; }
 

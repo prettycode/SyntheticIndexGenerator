@@ -11,7 +11,9 @@ internal class ReturnsCache : IReturnsCache
 
     private static bool havePutSyntheticsInRepository = false;
 
-    private readonly string syntheticReturnsFilePath;
+    private readonly string syntheticUsMarketReturnsFilePath;
+
+    private readonly string syntheticAlternativesFilePathPattern;
 
     private readonly TableFileCache<string, PeriodReturn> dailyCache;
 
@@ -61,11 +63,18 @@ internal class ReturnsCache : IReturnsCache
         monthlyCache = new(tableCacheOptions, $"{PeriodType.Monthly}");
         yearlyCache = new(tableCacheOptions, $"{PeriodType.Yearly}");
 
-        syntheticReturnsFilePath = options.SyntheticReturnsFilePath;
+        syntheticUsMarketReturnsFilePath = options.SyntheticUsMarketReturnsFilePath;
 
-        if (!File.Exists(syntheticReturnsFilePath))
+        if (!File.Exists(syntheticUsMarketReturnsFilePath))
         {
-            throw new ArgumentException($"{syntheticReturnsFilePath} file does not exist.", nameof(returnRepositoryOptions));
+            throw new ArgumentException($"{syntheticUsMarketReturnsFilePath} file does not exist.", nameof(returnRepositoryOptions));
+        }
+
+        syntheticAlternativesFilePathPattern = options.SyntheticAlternativesFilePathPattern;
+
+        if (!Directory.Exists(Path.GetDirectoryName(syntheticAlternativesFilePathPattern)))
+        {
+            throw new ArgumentException($"Directory for {syntheticAlternativesFilePathPattern} does not exist.", nameof(returnRepositoryOptions));
         }
 
         this.logger = logger;
@@ -218,37 +227,33 @@ internal class ReturnsCache : IReturnsCache
         const int dateColumnIndex = 0;
         const int balanceColumnIndex = 1;
 
-        var syntheticTickers = new HashSet<string>() { "TBILL", "GOLDX", "KMLMX", "DBMFX" };
+        var directoryName = Path.GetDirectoryName(syntheticAlternativesFilePathPattern)
+            ?? throw new InvalidOperationException("Directory name is null.");
+        var fileNamePattern = Path.GetFileName(syntheticAlternativesFilePathPattern);
 
         async Task ProcessTickerAsync(string ticker)
         {
             var tickerReturns = new List<PeriodReturn>();
-            // TODO hacky, fix
-            var filePath = Path.Combine(Path.GetDirectoryName(syntheticReturnsFilePath), $"{ticker}.csv");
+            var filePath = Path.Combine(directoryName, $"{ticker}.csv");
             var fileLines = await ThreadSafeFile.ReadAllLinesAsync(filePath);
-            var fileLinesSansHeader = fileLines.Skip(headerLinesCount).ToList();
-            decimal? previousEndingBalance = null;
+            var previousEndingBalance = (decimal?)null;
 
-            for (var i = 0; i < fileLinesSansHeader.Count; i++)
+            foreach (var line in fileLines.Skip(headerLinesCount))
             {
-                var line = fileLinesSansHeader[i];
                 var cells = line.Replace("\"", string.Empty).Split(',');
-                var endingBalanceOnDate = decimal.Parse(cells[balanceColumnIndex]);
                 var dateOfEndingBalance = DateTime.ParseExact(cells[dateColumnIndex], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                var endingBalanceOnDate = decimal.Parse(cells[balanceColumnIndex], NumberStyles.Number, CultureInfo.InvariantCulture);
 
-                if (previousEndingBalance == null)
+                if (previousEndingBalance.HasValue)
                 {
-                    previousEndingBalance = endingBalanceOnDate;
-                    continue;
+                    tickerReturns.Add(new PeriodReturn
+                    {
+                        PeriodStart = dateOfEndingBalance,
+                        PeriodType = PeriodType.Daily,
+                        Ticker = ticker,
+                        ReturnPercentage = 100 * ((endingBalanceOnDate - previousEndingBalance.Value) / previousEndingBalance.Value)
+                    });
                 }
-
-                tickerReturns.Add(new PeriodReturn()
-                {
-                    PeriodStart = dateOfEndingBalance,
-                    PeriodType = PeriodType.Daily,
-                    Ticker = ticker,
-                    ReturnPercentage = 100 * ((endingBalanceOnDate - previousEndingBalance.Value) / previousEndingBalance.Value)
-                });
 
                 previousEndingBalance = endingBalanceOnDate;
             }
@@ -256,9 +261,10 @@ internal class ReturnsCache : IReturnsCache
             await Put(ticker, tickerReturns, PeriodType.Daily);
         }
 
-        return syntheticTickers.Select(ticker => ProcessTickerAsync(ticker));
+        return Directory
+            .GetFiles(directoryName, fileNamePattern)
+            .Select(f => ProcessTickerAsync(Path.GetFileNameWithoutExtension(f)));
     }
-
 
     private async Task<Dictionary<string, List<PeriodReturn>>> CreateSyntheticUsMarketMonthlyReturns()
     {
@@ -280,7 +286,7 @@ internal class ReturnsCache : IReturnsCache
         const int dateColumnIndex = 0;
 
         var returns = new Dictionary<string, List<PeriodReturn>>();
-        var fileLines = await File.ReadAllLinesAsync(syntheticReturnsFilePath);
+        var fileLines = await File.ReadAllLinesAsync(syntheticUsMarketReturnsFilePath);
         var fileLinesSansHeader = fileLines.Skip(headerLinesCount);
 
         foreach (var line in fileLinesSansHeader)
