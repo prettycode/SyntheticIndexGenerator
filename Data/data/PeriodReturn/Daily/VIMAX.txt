@@ -5770,3 +5770,4 @@
 {"Ticker":"VIMAX","PeriodStart":"2024-10-16T00:00:00","ReturnPercentage":0.7085355926071094762866704900,"PeriodType":0}
 {"Ticker":"VIMAX","PeriodStart":"2024-10-17T00:00:00","ReturnPercentage":-0.1526854679360517334291359800,"PeriodType":0}
 {"Ticker":"VIMAX","PeriodStart":"2024-10-18T00:00:00","ReturnPercentage":0.3718029444394470930406884400,"PeriodType":0}
+{"Ticker":"VIMAX","PeriodStart":"2024-10-21T00:00:00","ReturnPercentage":-0.7169529499626587005227781900,"PeriodType":0}

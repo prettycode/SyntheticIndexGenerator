@@ -41,7 +41,14 @@ class Program
             "BITQ",
             "DAPP",
             "BKCH",
-            "WGMI"
+            "WGMI",
+            "GLD",
+            "SGOL",
+            "GLDM",
+            "DBMF",
+            "KMLM",
+            "CTA",
+            "USFR"
         ]);
 
         // Concurrently

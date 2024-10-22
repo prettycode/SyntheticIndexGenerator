@@ -120,9 +120,10 @@ internal class ReturnsCache : IReturnsCache
 
     private async Task PutSyntheticsInRepository()
     {
-        var monthlyReturnsTask = CreateSyntheticMonthlyReturns();
-        var yearlyReturnsTask = CreateSyntheticYearlyReturns();
-        var allPutTasks = new List<Task>();
+        var allPutTasks = new List<Task>(CreateSyntheticAlternativesReturns());
+
+        var monthlyReturnsTask = CreateSyntheticUsMarketMonthlyReturns();
+        var yearlyReturnsTask = CreateSyntheticUsMarketYearlyReturns();
 
         logger.LogInformation("Getting synthetic monthly and yearly returns...");
 
@@ -198,29 +199,68 @@ internal class ReturnsCache : IReturnsCache
             (Ticker: "#3X", ReturnPercentage: 200m)
         };
 
-        var allReturns = tickerData
-            .SelectMany(td => new[]
-            {
-                GetReturns(td.Ticker, dailyDates, td.ReturnPercentage, PeriodType.Daily),
-                GetReturns(td.Ticker, monthlyDates, td.ReturnPercentage, PeriodType.Monthly)
-            }
-            .SelectMany(x => x));
+        return tickerData.SelectMany(td =>
+        {
+            var dailyReturns = GetReturns(td.Ticker, dailyDates, td.ReturnPercentage, PeriodType.Daily);
+            var monthlyReturns = GetReturns(td.Ticker, monthlyDates, td.ReturnPercentage, PeriodType.Monthly);
 
-        return tickerData
-            .SelectMany(td => new[]
+            return new[]
             {
-                Put(
-                    td.Ticker,
-                    allReturns.Where(r => r.Ticker == td.Ticker && r.PeriodType == PeriodType.Daily),
-                    PeriodType.Daily),
-                Put(
-                    td.Ticker,
-                    allReturns.Where(r => r.Ticker == td.Ticker && r.PeriodType == PeriodType.Monthly),
-                    PeriodType.Monthly)
-            });
+                Put(td.Ticker, dailyReturns, PeriodType.Daily),
+                Put(td.Ticker, monthlyReturns, PeriodType.Monthly)
+            };
+        });
     }
 
-    private async Task<Dictionary<string, List<PeriodReturn>>> CreateSyntheticMonthlyReturns()
+    private IEnumerable<Task> CreateSyntheticAlternativesReturns()
+    {
+        const int headerLinesCount = 1;
+        const int dateColumnIndex = 0;
+        const int balanceColumnIndex = 1;
+
+        var syntheticTickers = new HashSet<string>() { "TBILL", "GOLDX", "KMLMX", "DBMFX" };
+
+        async Task ProcessTickerAsync(string ticker)
+        {
+            var tickerReturns = new List<PeriodReturn>();
+            // TODO hacky, fix
+            var filePath = Path.Combine(Path.GetDirectoryName(syntheticReturnsFilePath), $"{ticker}.csv");
+            var fileLines = await ThreadSafeFile.ReadAllLinesAsync(filePath);
+            var fileLinesSansHeader = fileLines.Skip(headerLinesCount).ToList();
+            decimal? previousEndingBalance = null;
+
+            for (var i = 0; i < fileLinesSansHeader.Count; i++)
+            {
+                var line = fileLinesSansHeader[i];
+                var cells = line.Replace("\"", string.Empty).Split(',');
+                var endingBalanceOnDate = decimal.Parse(cells[balanceColumnIndex]);
+                var dateOfEndingBalance = DateTime.ParseExact(cells[dateColumnIndex], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+                if (previousEndingBalance == null)
+                {
+                    previousEndingBalance = endingBalanceOnDate;
+                    continue;
+                }
+
+                tickerReturns.Add(new PeriodReturn()
+                {
+                    PeriodStart = dateOfEndingBalance,
+                    PeriodType = PeriodType.Daily,
+                    Ticker = ticker,
+                    ReturnPercentage = 100 * ((endingBalanceOnDate - previousEndingBalance.Value) / previousEndingBalance.Value)
+                });
+
+                previousEndingBalance = endingBalanceOnDate;
+            }
+
+            await Put(ticker, tickerReturns, PeriodType.Daily);
+        }
+
+        return syntheticTickers.Select(ticker => ProcessTickerAsync(ticker));
+    }
+
+
+    private async Task<Dictionary<string, List<PeriodReturn>>> CreateSyntheticUsMarketMonthlyReturns()
     {
         var columnIndexToCategory = new Dictionary<int, string>
         {
@@ -246,7 +286,7 @@ internal class ReturnsCache : IReturnsCache
         foreach (var line in fileLinesSansHeader)
         {
             var cells = line.Split(',');
-            var date = DateTime.Parse(cells[dateColumnIndex]);
+            var date = DateTime.ParseExact(cells[dateColumnIndex], "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
             foreach (var (cellIndex, ticker) in columnIndexToCategory)
             {
@@ -271,7 +311,7 @@ internal class ReturnsCache : IReturnsCache
         return returns;
     }
 
-    private async Task<Dictionary<string, List<PeriodReturn>>> CreateSyntheticYearlyReturns()
+    private async Task<Dictionary<string, List<PeriodReturn>>> CreateSyntheticUsMarketYearlyReturns()
     {
         static List<PeriodReturn> CalculateYearlyFromMonthly(string ticker, List<PeriodReturn> monthlyReturns)
         {
@@ -304,7 +344,7 @@ internal class ReturnsCache : IReturnsCache
             return result;
         }
 
-        var monthlyReturns = await CreateSyntheticMonthlyReturns();
+        var monthlyReturns = await CreateSyntheticUsMarketMonthlyReturns();
         var yearlyReturns = monthlyReturns.ToDictionary(pair => pair.Key, pair => CalculateYearlyFromMonthly(pair.Key, pair.Value));
 
         return yearlyReturns;

@@ -8376,3 +8376,4 @@
 {"Ticker":"DFALX","DateTime":"2024-10-16T00:00:00","Open":28.4700,"High":28.4700,"Low":28.4700,"Close":28.4700,"Volume":0,"AdjustedClose":28.4700}
 {"Ticker":"DFALX","DateTime":"2024-10-17T00:00:00","Open":28.5000,"High":28.5000,"Low":28.5000,"Close":28.5000,"Volume":0,"AdjustedClose":28.5000}
 {"Ticker":"DFALX","DateTime":"2024-10-18T00:00:00","Open":28.6400,"High":28.6400,"Low":28.6400,"Close":28.6400,"Volume":0,"AdjustedClose":28.6400}
+{"Ticker":"DFALX","DateTime":"2024-10-21T00:00:00","Open":28.3400,"High":28.3400,"Low":28.3400,"Close":28.3400,"Volume":0,"AdjustedClose":28.3400}

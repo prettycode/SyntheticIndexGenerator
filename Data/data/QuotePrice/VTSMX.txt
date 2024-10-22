@@ -8179,3 +8179,4 @@
 {"Ticker":"VTSMX","DateTime":"2024-10-16T00:00:00","Open":140.1000,"High":140.1000,"Low":140.1000,"Close":140.1000,"Volume":0,"AdjustedClose":140.1000}
 {"Ticker":"VTSMX","DateTime":"2024-10-17T00:00:00","Open":140.0600,"High":140.0600,"Low":140.0600,"Close":140.0600,"Volume":0,"AdjustedClose":140.0600}
 {"Ticker":"VTSMX","DateTime":"2024-10-18T00:00:00","Open":140.5800,"High":140.5800,"Low":140.5800,"Close":140.5800,"Volume":0,"AdjustedClose":140.5800}
+{"Ticker":"VTSMX","DateTime":"2024-10-21T00:00:00","Open":140.1400,"High":140.1400,"Low":140.1400,"Close":140.1400,"Volume":0,"AdjustedClose":140.1400}

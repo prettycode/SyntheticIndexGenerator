@@ -4069,3 +4069,4 @@
 {"Ticker":"DFVQX","PeriodStart":"2024-10-16T00:00:00","ReturnPercentage":0.3494060097833682739343116700,"PeriodType":0}
 {"Ticker":"DFVQX","PeriodStart":"2024-10-17T00:00:00","ReturnPercentage":0,"PeriodType":0}
 {"Ticker":"DFVQX","PeriodStart":"2024-10-18T00:00:00","ReturnPercentage":0.487465181058495821727019500,"PeriodType":0}
+{"Ticker":"DFVQX","PeriodStart":"2024-10-21T00:00:00","ReturnPercentage":-1.0395010395010395010395010400,"PeriodType":0}

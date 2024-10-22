@@ -675,3 +675,4 @@
 {"Ticker":"WGMI","PeriodStart":"2024-10-16T00:00:00","ReturnPercentage":6.8136272545090180360721442900,"PeriodType":0}
 {"Ticker":"WGMI","PeriodStart":"2024-10-17T00:00:00","ReturnPercentage":-2.0168855534709193245778611600,"PeriodType":0}
 {"Ticker":"WGMI","PeriodStart":"2024-10-18T00:00:00","ReturnPercentage":5.4092867400670177118238391600,"PeriodType":0}
+{"Ticker":"WGMI","PeriodStart":"2024-10-21T00:00:00","ReturnPercentage":2.1798365122615803814713896500,"PeriodType":0}

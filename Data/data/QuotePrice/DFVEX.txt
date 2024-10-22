@@ -4729,3 +4729,4 @@
 {"Ticker":"DFVEX","DateTime":"2024-10-16T00:00:00","Open":27.7200,"High":27.7200,"Low":27.7200,"Close":27.7200,"Volume":0,"AdjustedClose":27.7200}
 {"Ticker":"DFVEX","DateTime":"2024-10-17T00:00:00","Open":27.7500,"High":27.7500,"Low":27.7500,"Close":27.7500,"Volume":0,"AdjustedClose":27.7500}
 {"Ticker":"DFVEX","DateTime":"2024-10-18T00:00:00","Open":27.7500,"High":27.7500,"Low":27.7500,"Close":27.7500,"Volume":0,"AdjustedClose":27.7500}
+{"Ticker":"DFVEX","DateTime":"2024-10-21T00:00:00","Open":27.5000,"High":27.5000,"Low":27.5000,"Close":27.5000,"Volume":0,"AdjustedClose":27.5000}

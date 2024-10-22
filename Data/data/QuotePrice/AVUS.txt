@@ -1273,3 +1273,4 @@
 {"Ticker":"AVUS","DateTime":"2024-10-16T00:00:00","Open":96.6200,"High":97.1540,"Low":96.5900,"Close":97.0200,"Volume":107400,"AdjustedClose":97.0200}
 {"Ticker":"AVUS","DateTime":"2024-10-17T00:00:00","Open":97.5100,"High":97.5100,"Low":97.0200,"Close":97.0400,"Volume":561200,"AdjustedClose":97.0400}
 {"Ticker":"AVUS","DateTime":"2024-10-18T00:00:00","Open":97.3600,"High":97.3900,"Low":97.0170,"Close":97.2200,"Volume":142600,"AdjustedClose":97.2200}
+{"Ticker":"AVUS","DateTime":"2024-10-21T00:00:00","Open":97.2100,"High":97.2100,"Low":96.3700,"Close":96.7200,"Volume":206900,"AdjustedClose":96.7200}

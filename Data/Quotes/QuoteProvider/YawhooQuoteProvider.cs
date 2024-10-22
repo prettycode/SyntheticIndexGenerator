@@ -89,23 +89,23 @@ public class YawhooQuoteProvider : YahooQuoteProvider, IQuoteProvider
 
     private class Quote
     {
-        public List<long> Volume { get; set; }
-        public List<decimal> Close { get; set; }
-        public List<decimal> High { get; set; }
-        public List<decimal> Open { get; set; }
-        public List<decimal> Low { get; set; }
+        public List<long?> Volume { get; set; }
+        public List<decimal?> Close { get; set; }
+        public List<decimal?> High { get; set; }
+        public List<decimal?> Open { get; set; }
+        public List<decimal?> Low { get; set; }
     }
 
     private class AdjClose
     {
-        public List<decimal> Adjclose { get; set; }
+        public List<decimal?> Adjclose { get; set; }
     }
 
     public bool RunGetQuoteSingleThreaded => true;
 
     public async Task<Data.Quotes.Quote?> GetQuote(string ticker, DateTime? startDate, DateTime? endDate)
     {
-        // TODO Yahoo! Finance goes back to 1927 for S&P 500 (^GSPC)
+        // Yahoo! Finance goes back to 1927 for S&P 500 (^GSPC)
 
         startDate ??= new DateTime(1927, 1, 1);
         endDate ??= DateTime.Now.AddDays(1);
@@ -116,16 +116,24 @@ public class YawhooQuoteProvider : YahooQuoteProvider, IQuoteProvider
 
         for (var i = 0; i < tickerHistory.Timestamp.Count; i++)
         {
+            var quote = tickerHistory.Indicators.Quote[0];
+            var open = quote.Open[i];
+
+            if (open == null && i == tickerHistory.Timestamp.Count - 1)
+            {
+                break;
+            }
+
             prices.Add(new QuotePrice()
             {
                 Ticker = ticker,
                 DateTime = DateTimeOffset.FromUnixTimeSeconds(tickerHistory.Timestamp[i]).DateTime.Date,
-                Open = tickerHistory.Indicators.Quote[0].Open[i].ToQuotePrice(),
-                High = tickerHistory.Indicators.Quote[0].High[i].ToQuotePrice(),
-                Low = tickerHistory.Indicators.Quote[0].Low[i].ToQuotePrice(),
-                Close = tickerHistory.Indicators.Quote[0].Close[i].ToQuotePrice(),
-                AdjustedClose = tickerHistory.Indicators.Adjclose[0].Adjclose[i].ToQuotePrice(),
-                Volume = tickerHistory.Indicators.Quote[0].Volume[i]
+                Open = open.Value.ToQuotePrice(),
+                High = quote.High[i].Value.ToQuotePrice(),
+                Low = quote.Low[i].Value.ToQuotePrice(),
+                Close = quote.Close[i].Value.ToQuotePrice(),
+                AdjustedClose = tickerHistory.Indicators.Adjclose[0].Adjclose[i].Value.ToQuotePrice(),
+                Volume = quote.Volume[i].Value
             });
         }
 

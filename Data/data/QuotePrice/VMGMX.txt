@@ -3285,3 +3285,4 @@
 {"Ticker":"VMGMX","DateTime":"2024-10-16T00:00:00","Open":108.1200,"High":108.1200,"Low":108.1200,"Close":108.1200,"Volume":0,"AdjustedClose":108.1200}
 {"Ticker":"VMGMX","DateTime":"2024-10-17T00:00:00","Open":107.7700,"High":107.7700,"Low":107.7700,"Close":107.7700,"Volume":0,"AdjustedClose":107.7700}
 {"Ticker":"VMGMX","DateTime":"2024-10-18T00:00:00","Open":108.2600,"High":108.2600,"Low":108.2600,"Close":108.2600,"Volume":0,"AdjustedClose":108.2600}
+{"Ticker":"VMGMX","DateTime":"2024-10-21T00:00:00","Open":107.7000,"High":107.7000,"Low":107.7000,"Close":107.7000,"Volume":0,"AdjustedClose":107.7000}

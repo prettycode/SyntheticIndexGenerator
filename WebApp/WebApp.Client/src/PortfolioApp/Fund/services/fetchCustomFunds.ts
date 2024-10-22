@@ -42,8 +42,8 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:SPY',
         percentage: 100,
-        tickerSymbol: 'SPY',
-        name: 'S&P 500 Index (SPY, VOO, IVV, SPLG)',
+        tickerSymbol: '$^USLCB',
+        name: 'U.S. Large Cap Blend (SPY, VOO, IVV, SPLG)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []
@@ -51,8 +51,8 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:VTI',
         percentage: 100,
-        tickerSymbol: 'VTSMX',
-        name: 'Total U.S. Market (VTI, AVUS, DFAC)',
+        tickerSymbol: '$^USTSM',
+        name: 'Total U.S. Market (VTSMX, VTI, AVUS, DFAC)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []
@@ -96,8 +96,8 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:AVLV',
         percentage: 100,
-        tickerSymbol: 'DFLVX',
-        name: 'U.S. Large Cap Value (AVLV, DFLV)',
+        tickerSymbol: '$^USLCV',
+        name: 'U.S. Large Cap Value (DFLVX, AVLV, DFLV)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []
@@ -105,8 +105,8 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:AVUV',
         percentage: 100,
-        tickerSymbol: 'DFSVX',
-        name: 'U.S. Small Cap Value (AVUV, DFSV)',
+        tickerSymbol: '$^USSCV',
+        name: 'U.S. Small Cap Value (DFSVX, AVUV, DFSV)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []
@@ -114,8 +114,8 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:AVSC',
         percentage: 100,
-        tickerSymbol: 'DFSTX',
-        name: 'U.S. Small Cap (AVSC, DFAS)',
+        tickerSymbol: '$^USSCB',
+        name: 'U.S. Small Cap (DFSTX, AVSC, DFAS)',
         assetClass: 'Equity',
         marketRegion: 'U.S.',
         allocations: []

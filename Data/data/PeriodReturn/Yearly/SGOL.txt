@@ -1,0 +1,15 @@
+{"Ticker":"SGOL","PeriodStart":"2010-01-01T00:00:00","ReturnPercentage":29.229503701672607622703591990,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2011-01-01T00:00:00","ReturnPercentage":9.576349105311549614541339560,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2012-01-01T00:00:00","ReturnPercentage":6.6094365197185825856838572300,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2013-01-01T00:00:00","ReturnPercentage":-28.340497669068232729914633410,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2014-01-01T00:00:00","ReturnPercentage":-2.1206488678607637715444406900,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2015-01-01T00:00:00","ReturnPercentage":-10.668968493741907639188605960,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2016-01-01T00:00:00","ReturnPercentage":7.991110252198280027055754180,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":12.857909806728704366499642090,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":-1.9424403393324347895028938400,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":18.208279430789133247089262610,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":25.034199726402188782489740080,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":-3.9387308533916849015317286700,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-0.512528473804100227790432800,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":12.993703491700057240984544930,"PeriodType":2}
+{"Ticker":"SGOL","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":31.610942249240121580547112460,"PeriodType":2}
