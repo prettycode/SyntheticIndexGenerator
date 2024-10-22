@@ -31,7 +31,7 @@ Highcharts.setOptions({
 function BackTestApp() {
     const portfolioOptions = [
         {
-            name: 'Aggressive ($^USLCB 25%, $^USSCV 75%)',
+            name: 'Aggressive Value Tilt ($^USLCB 25%, $^USSCV 75%)',
             id: 'aggressive',
             portfolio: [
                 { Ticker: '$^USLCB', Percentage: 25 },
@@ -39,7 +39,7 @@ function BackTestApp() {
             ]
         },
         {
-            name: 'Barbell ($^USLCB 50%, $^USSCV 50%)',
+            name: 'Value Barbell ($^USLCB 50%, $^USSCV 50%)',
             id: 'default',
             portfolio: [
                 { Ticker: '$^USLCB', Percentage: 50 },
@@ -47,7 +47,7 @@ function BackTestApp() {
             ]
         },
         {
-            name: 'Conservative ($^USLCB 75%, $^USSCV 25%)',
+            name: 'Conservative Value Tilt ($^USLCB 75%, $^USSCV 25%)',
             id: 'conservative',
             portfolio: [
                 { Ticker: '$^USLCB', Percentage: 75 },
@@ -58,6 +58,26 @@ function BackTestApp() {
             name: 'AVUV',
             id: 'AVUV',
             portfolio: [{ Ticker: 'AVUV', Percentage: 100 }]
+        },
+        {
+            name: '$TBILL',
+            id: 'TBILL',
+            portfolio: [{ Ticker: '$TBILL', Percentage: 100 }]
+        },
+        {
+            name: '$GOLD',
+            id: 'GOLD',
+            portfolio: [{ Ticker: '$GOLD', Percentage: 100 }]
+        },
+        {
+            name: '$KMLM',
+            id: 'KMLM',
+            portfolio: [{ Ticker: '$KMLM', Percentage: 100 }]
+        },
+        {
+            name: '$DBMF',
+            id: 'DBMF',
+            portfolio: [{ Ticker: '$DBMF', Percentage: 100 }]
         }
     ];
 
@@ -493,12 +513,12 @@ function BackTestApp() {
 
         const multiPortfolioBackTestRequest = {
             portfolios: [
-                [{ Ticker: 'BLOK', Percentage: 100 }],
-                [{ Ticker: 'FDIG', Percentage: 100 }],
-                [{ Ticker: 'BITQ', Percentage: 100 }],
-                [{ Ticker: 'BKCH', Percentage: 100 }],
-                [{ Ticker: 'DAPP', Percentage: 100 }],
-                [{ Ticker: 'WGMI', Percentage: 100 }]
+                [{ Ticker: '$USLCB', Percentage: 100 }],
+                [{ Ticker: '$USSCV', Percentage: 100 }],
+                [{ Ticker: '$KMLM', Percentage: 100 }],
+                [{ Ticker: '$DBMF', Percentage: 100 }],
+                [{ Ticker: '$GOLD', Percentage: 100 }],
+                [{ Ticker: '$TBILL', Percentage: 100 }]
             ],
             startingBalance,
             periodType,
