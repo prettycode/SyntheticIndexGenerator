@@ -54,7 +54,7 @@ internal class ReturnsService(
 
         if (IsSyntheticReturnTicker(ticker))
         {
-            // Synthetic returns are pre-generated put in the repo by returnRepository during its startup
+            // Synthetic returns must be pre-generated and put in the repo by returnRepository itself during its startup
 
             throw new KeyNotFoundException(
                 $"No synthetic returns for ticker '{ticker}' and period '{periodType}' in repository.");

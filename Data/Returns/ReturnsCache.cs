@@ -129,32 +129,38 @@ internal class ReturnsCache : IReturnsCache
 
     private async Task PutSyntheticsInRepository()
     {
-        var allPutTasks = new List<Task>(CreateSyntheticAlternativesReturns());
-
-        var monthlyReturnsTask = CreateSyntheticUsMarketMonthlyReturns();
-        var yearlyReturnsTask = CreateSyntheticUsMarketYearlyReturns();
-
-        logger.LogInformation("Getting synthetic monthly and yearly returns...");
-
-        await Task.WhenAll(monthlyReturnsTask, yearlyReturnsTask);
-
-        logger.LogInformation("Got synthetic monthly and yearly returns. Adding to returns repository...");
-
-        foreach (var (ticker, returns) in monthlyReturnsTask.Result)
+        Task<IEnumerable<Task>> GetSyntheticUsMarketPutTasks()
         {
-            allPutTasks.Add(Put(ticker, returns, PeriodType.Monthly));
+            var monthlyReturnsTask = CreateSyntheticUsMarketMonthlyReturns();
+            var yearlyReturnsTask = CreateSyntheticUsMarketYearlyReturns();
+
+            return Task.WhenAll(monthlyReturnsTask, yearlyReturnsTask).ContinueWith(_ =>
+            {
+                var allPutTasks = new List<Task>();
+
+                foreach (var (ticker, returns) in monthlyReturnsTask.Result)
+                {
+                    allPutTasks.Add(Put(ticker, returns, PeriodType.Monthly));
+                }
+
+                foreach (var (ticker, returns) in yearlyReturnsTask.Result)
+                {
+                    allPutTasks.Add(Put(ticker, returns, PeriodType.Yearly));
+                }
+
+                return (IEnumerable<Task>)allPutTasks;
+            });
         }
 
-        foreach (var (ticker, returns) in yearlyReturnsTask.Result)
-        {
-            allPutTasks.Add(Put(ticker, returns, PeriodType.Yearly));
-        }
+        logger.LogInformation("Putting synthetic into into returns repository...");
 
-        allPutTasks.AddRange(CreateFakeSyntheticReturnsPutTasks());
+        await Task.WhenAll([
+            .. CreateSyntheticAlternativesReturns(),
+            .. await GetSyntheticUsMarketPutTasks(),
+            .. CreateFakeSyntheticReturnsPutTasks()
+        ]);
 
-        await Task.WhenAll(allPutTasks);
-
-        logger.LogInformation("Synthetic monthly and yearly returns added to repository.");
+        logger.LogInformation("Finished putting synthetics into the returns repository.");
     }
 
     private IEnumerable<Task> CreateFakeSyntheticReturnsPutTasks()
