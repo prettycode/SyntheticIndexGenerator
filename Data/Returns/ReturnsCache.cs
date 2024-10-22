@@ -231,9 +231,10 @@ internal class ReturnsCache : IReturnsCache
             ?? throw new InvalidOperationException("Directory name is null.");
         var fileNamePattern = Path.GetFileName(syntheticAlternativesFilePathPattern);
 
-        async Task ProcessTickerAsync(string ticker)
+        async Task<List<Task>> ProcessTickerAsync(string ticker)
         {
-            var tickerReturns = new List<PeriodReturn>();
+            var syntheticTicker = $"${ticker}";
+            var dailyReturns = new List<PeriodReturn>();
             var filePath = Path.Combine(directoryName, $"{ticker}.csv");
             var fileLines = await ThreadSafeFile.ReadAllLinesAsync(filePath);
             var previousEndingBalance = (decimal?)null;
@@ -246,11 +247,11 @@ internal class ReturnsCache : IReturnsCache
 
                 if (previousEndingBalance.HasValue)
                 {
-                    tickerReturns.Add(new PeriodReturn
+                    dailyReturns.Add(new PeriodReturn
                     {
                         PeriodStart = dateOfEndingBalance,
                         PeriodType = PeriodType.Daily,
-                        Ticker = ticker,
+                        Ticker = syntheticTicker,
                         ReturnPercentage = 100 * ((endingBalanceOnDate - previousEndingBalance.Value) / previousEndingBalance.Value)
                     });
                 }
@@ -258,12 +259,18 @@ internal class ReturnsCache : IReturnsCache
                 previousEndingBalance = endingBalanceOnDate;
             }
 
-            await Put(ticker, tickerReturns, PeriodType.Daily);
+            // TODO
+            return [
+                Put(syntheticTicker, dailyReturns, PeriodType.Daily),
+                Put(syntheticTicker, dailyReturns, PeriodType.Monthly),
+                Put(syntheticTicker, dailyReturns, PeriodType.Yearly)
+            ];
         }
 
         return Directory
             .GetFiles(directoryName, fileNamePattern)
-            .Select(f => ProcessTickerAsync(Path.GetFileNameWithoutExtension(f)));
+            .Select(f => Path.GetFileNameWithoutExtension(f))
+            .Select(ProcessTickerAsync);
     }
 
     private async Task<Dictionary<string, List<PeriodReturn>>> CreateSyntheticUsMarketMonthlyReturns()
