@@ -90,18 +90,16 @@ internal class ReturnsService(
         HashSet<string> backfillTickers,
         PeriodType periodType)
     {
-        // <TODO:hacky inefficient quick fix>
-        var availableBackfillTickers = await backfillTickers
-            .ToAsyncEnumerable()
-            .WhereAwait(async (ticker) => await returnRepository.TryGetValue(ticker, periodType) != null)
-            .ToListAsync();
-        var backfillReturns = await Task.WhenAll(availableBackfillTickers.Select(ticker
-            => returnRepository.Get(ticker, periodType)));
-        // </TODO>
+        var backfillReturnsTasks = backfillTickers
+            .Select(ticker => returnRepository.TryGetValue(ticker, periodType));
+
+        var backfillReturns = (await Task.WhenAll(backfillReturnsTasks))
+            .Where(returns => returns != null)
+            .ToList();
 
         var collatedReturns = backfillReturns
             .Select((returns, index) =>
-                (returns, nextStartDate: index < backfillReturns.Length - 1
+                (returns, nextStartDate: index < backfillReturns.Count - 1
                     ? backfillReturns[index + 1]?.First().PeriodStart
                     : DateTime.MaxValue
                 )
