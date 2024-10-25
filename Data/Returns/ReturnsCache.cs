@@ -130,34 +130,38 @@ internal class ReturnsCache : IReturnsCache
 
     private async Task PutSyntheticsInRepository()
     {
-        Task<IEnumerable<Task>> GetSyntheticUsMarketPutTasks()
+        IEnumerable<Task> GetSyntheticUsMarketPutTasks()
         {
             var monthlyReturnsTask = CreateSyntheticUsMarketMonthlyReturns();
             var yearlyReturnsTask = CreateSyntheticUsMarketYearlyReturns();
 
-            return Task.WhenAll(monthlyReturnsTask, yearlyReturnsTask).ContinueWith(_ =>
-            {
-                var allPutTasks = new List<Task>();
-
-                foreach (var (ticker, returns) in monthlyReturnsTask.Result)
+            return [
+                yearlyReturnsTask.ContinueWith(_ =>
                 {
-                    allPutTasks.Add(Put(ticker, returns, PeriodType.Monthly));
-                }
-
-                foreach (var (ticker, returns) in yearlyReturnsTask.Result)
+                    var allPutTasks = new List<Task>();
+                    foreach (var (ticker, returns) in yearlyReturnsTask.Result)
+                    {
+                        allPutTasks.Add(Put(ticker, returns, PeriodType.Yearly));
+                    }
+                    return (IEnumerable<Task>)allPutTasks;
+                }),
+                monthlyReturnsTask.ContinueWith(_ =>
                 {
-                    allPutTasks.Add(Put(ticker, returns, PeriodType.Yearly));
-                }
-
-                return (IEnumerable<Task>)allPutTasks;
-            });
+                    var allPutTasks = new List<Task>();
+                    foreach (var (ticker, returns) in monthlyReturnsTask.Result)
+                    {
+                        allPutTasks.Add(Put(ticker, returns, PeriodType.Monthly));
+                    }
+                    return (IEnumerable<Task>)allPutTasks;
+                })
+            ];
         }
 
         logger.LogInformation("Putting synthetic into into returns repository...");
-
+        
         await Task.WhenAll([
             .. CreateSyntheticAlternativesReturns(),
-            .. await GetSyntheticUsMarketPutTasks(),
+            .. GetSyntheticUsMarketPutTasks(),
             .. CreateFakeSyntheticReturnsPutTasks()
         ]);
 
