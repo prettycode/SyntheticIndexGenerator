@@ -158,7 +158,7 @@ internal class ReturnsCache : IReturnsCache
         }
 
         logger.LogInformation("Putting synthetic into into returns repository...");
-        
+
         await Task.WhenAll([
             .. CreateSyntheticAlternativesReturns(),
             .. GetSyntheticUsMarketPutTasks(),
@@ -242,7 +242,7 @@ internal class ReturnsCache : IReturnsCache
             ?? throw new InvalidOperationException("Directory name is null.");
         var fileNamePattern = Path.GetFileName(syntheticAlternativesFilePathPattern);
 
-        async Task<IEnumerable<IEnumerable<PeriodReturn>>> ProcessTickerAsync(string ticker)
+        async Task<IEnumerable<Task>> ProcessTickerAsync(string ticker)
         {
             var syntheticTicker = $"${ticker}";
             var dailyBalances = new List<QuotePrice>();
@@ -266,9 +266,9 @@ internal class ReturnsCache : IReturnsCache
             var dailyQuotes = dailyBalances.Select(quote => (quote.DateTime, quote.AdjustedClose));
 
             return [
-                ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Daily),
-                ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Monthly),
-                ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Yearly)
+                Put(syntheticTicker, ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Daily), PeriodType.Daily),
+                Put(syntheticTicker, ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Monthly), PeriodType.Monthly),
+                Put(syntheticTicker, ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Yearly), PeriodType.Yearly)
             ];
         }
 
