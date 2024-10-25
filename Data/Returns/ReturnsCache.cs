@@ -130,42 +130,47 @@ internal class ReturnsCache : IReturnsCache
 
     private async Task PutSyntheticsInRepository()
     {
-        IEnumerable<Task> GetSyntheticUsMarketPutTasks()
-        {
-            var monthlyReturnsTask = CreateSyntheticUsMarketMonthlyReturns();
-            var yearlyReturnsTask = CreateSyntheticUsMarketYearlyReturns();
-
-            return [
-                yearlyReturnsTask.ContinueWith(_ =>
-                {
-                    var allPutTasks = new List<Task>();
-                    foreach (var (ticker, returns) in yearlyReturnsTask.Result)
-                    {
-                        allPutTasks.Add(Put(ticker, returns, PeriodType.Yearly));
-                    }
-                    return (IEnumerable<Task>)allPutTasks;
-                }),
-                monthlyReturnsTask.ContinueWith(_ =>
-                {
-                    var allPutTasks = new List<Task>();
-                    foreach (var (ticker, returns) in monthlyReturnsTask.Result)
-                    {
-                        allPutTasks.Add(Put(ticker, returns, PeriodType.Monthly));
-                    }
-                    return (IEnumerable<Task>)allPutTasks;
-                })
-            ];
-        }
-
         logger.LogInformation("Putting synthetic into into returns repository...");
 
         await Task.WhenAll([
-            .. CreateSyntheticAlternativesReturns(),
-            .. GetSyntheticUsMarketPutTasks(),
+            .. CreateSyntheticAlternativesPuTasks(),
+            .. CreateSyntheticUsMarketPutTasks(),
             .. CreateFakeSyntheticReturnsPutTasks()
         ]);
 
         logger.LogInformation("Finished putting synthetics into the returns repository.");
+    }
+
+    private IEnumerable<Task> CreateSyntheticUsMarketPutTasks()
+    {
+        var monthlyReturnsTask = CreateSyntheticUsMarketMonthlyReturns();
+        var yearlyReturnsTask = CreateSyntheticUsMarketYearlyReturns();
+
+        var monthlyPutTasks = monthlyReturnsTask.ContinueWith(_ =>
+        {
+            var allPutTasks = new List<Task>();
+            
+            foreach (var (ticker, returns) in monthlyReturnsTask.Result)
+            {
+                allPutTasks.Add(Put(ticker, returns, PeriodType.Monthly));
+            }
+            
+            return Task.WhenAll(allPutTasks);
+        });
+
+        var yearlyPutTasks = yearlyReturnsTask.ContinueWith(_ =>
+        {
+            var allPutTasks = new List<Task>();
+            
+            foreach (var (ticker, returns) in yearlyReturnsTask.Result)
+            {
+                allPutTasks.Add(Put(ticker, returns, PeriodType.Yearly));
+            }
+
+            return Task.WhenAll(allPutTasks);
+        });
+
+        return [monthlyPutTasks, yearlyPutTasks];
     }
 
     private IEnumerable<Task> CreateFakeSyntheticReturnsPutTasks()
@@ -232,7 +237,7 @@ internal class ReturnsCache : IReturnsCache
         });
     }
 
-    private IEnumerable<Task> CreateSyntheticAlternativesReturns()
+    private IEnumerable<Task> CreateSyntheticAlternativesPuTasks()
     {
         const int headerLinesCount = 1;
         const int dateColumnIndex = 0;
