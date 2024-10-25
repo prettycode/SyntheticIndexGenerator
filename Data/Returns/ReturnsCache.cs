@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Data.Quotes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TableFileCache;
@@ -237,13 +238,12 @@ internal class ReturnsCache : IReturnsCache
             ?? throw new InvalidOperationException("Directory name is null.");
         var fileNamePattern = Path.GetFileName(syntheticAlternativesFilePathPattern);
 
-        async Task<List<Task>> ProcessTickerAsync(string ticker)
+        async Task<IEnumerable<IEnumerable<PeriodReturn>>> ProcessTickerAsync(string ticker)
         {
             var syntheticTicker = $"${ticker}";
-            var dailyReturns = new List<PeriodReturn>();
+            var dailyBalances = new List<QuotePrice>();
             var filePath = Path.Combine(directoryName, $"{ticker}.csv");
             var fileLines = await ThreadSafeFile.ReadAllLinesAsync(filePath);
-            var previousEndingBalance = (decimal?)null;
 
             foreach (var line in fileLines.Skip(headerLinesCount))
             {
@@ -251,25 +251,20 @@ internal class ReturnsCache : IReturnsCache
                 var dateOfEndingBalance = DateTime.ParseExact(cells[dateColumnIndex], "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 var endingBalanceOnDate = decimal.Parse(cells[balanceColumnIndex], NumberStyles.Number, CultureInfo.InvariantCulture);
 
-                if (previousEndingBalance.HasValue)
+                dailyBalances.Add(new QuotePrice()
                 {
-                    dailyReturns.Add(new PeriodReturn
-                    {
-                        PeriodStart = dateOfEndingBalance,
-                        PeriodType = PeriodType.Daily,
-                        Ticker = syntheticTicker,
-                        ReturnPercentage = 100 * ((endingBalanceOnDate - previousEndingBalance.Value) / previousEndingBalance.Value)
-                    });
-                }
-
-                previousEndingBalance = endingBalanceOnDate;
+                    Ticker = syntheticTicker,
+                    DateTime = dateOfEndingBalance,
+                    AdjustedClose = endingBalanceOnDate
+                });
             }
 
-            // TODO
+            var dailyQuotes = dailyBalances.Select(quote => (quote.DateTime, quote.AdjustedClose));
+
             return [
-                Put(syntheticTicker, dailyReturns, PeriodType.Daily),
-                Put(syntheticTicker, dailyReturns, PeriodType.Monthly),
-                Put(syntheticTicker, dailyReturns, PeriodType.Yearly)
+                ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Daily),
+                ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Monthly),
+                ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Yearly)
             ];
         }
 
