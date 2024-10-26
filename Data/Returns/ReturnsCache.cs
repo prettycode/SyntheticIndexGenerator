@@ -90,7 +90,6 @@ internal class ReturnsCache : IReturnsCache
         DateTime? lastPeriod = null)
     {
         ArgumentNullException.ThrowIfNull(ticker);
-        ArgumentNullException.ThrowIfNull(periodType);
 
         var cache = GetPeriodTypeCache(periodType);
         var cacheRecords = await cache.Get(ticker);
@@ -114,7 +113,6 @@ internal class ReturnsCache : IReturnsCache
     {
         ArgumentNullException.ThrowIfNull(ticker);
         ArgumentNullException.ThrowIfNull(returns);
-        ArgumentNullException.ThrowIfNull(periodType);
 
         if (!returns.Any())
         {
@@ -149,19 +147,19 @@ internal class ReturnsCache : IReturnsCache
         var monthlyPutTasks = monthlyReturnsTask.ContinueWith(_ =>
         {
             var allPutTasks = new List<Task>();
-            
+
             foreach (var (ticker, returns) in monthlyReturnsTask.Result)
             {
                 allPutTasks.Add(Put(ticker, returns, PeriodType.Monthly));
             }
-            
+
             return Task.WhenAll(allPutTasks);
         });
 
         var yearlyPutTasks = yearlyReturnsTask.ContinueWith(_ =>
         {
             var allPutTasks = new List<Task>();
-            
+
             foreach (var (ticker, returns) in yearlyReturnsTask.Result)
             {
                 allPutTasks.Add(Put(ticker, returns, PeriodType.Yearly));

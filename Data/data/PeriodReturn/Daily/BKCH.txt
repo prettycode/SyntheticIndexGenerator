@@ -824,3 +824,4 @@
 {"Ticker":"BKCH","PeriodStart":"2024-10-22T00:00:00","ReturnPercentage":0.1272727272727272727272727300,"PeriodType":0}
 {"Ticker":"BKCH","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-3.9404394407118213183221354600,"PeriodType":0}
 {"Ticker":"BKCH","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":1.7013232514177693761814744800,"PeriodType":0}
+{"Ticker":"BKCH","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-2.3791821561338289962825278800,"PeriodType":0}

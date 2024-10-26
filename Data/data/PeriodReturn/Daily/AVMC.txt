@@ -154,3 +154,4 @@
 {"Ticker":"AVMC","PeriodStart":"2024-10-22T00:00:00","ReturnPercentage":-0.6599140577041129527317372600,"PeriodType":0}
 {"Ticker":"AVMC","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.4943611926463772593851382700,"PeriodType":0}
 {"Ticker":"AVMC","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":0.3415618692749573047663406300,"PeriodType":0}
+{"Ticker":"AVMC","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-0.5105987931301253287946773900,"PeriodType":0}

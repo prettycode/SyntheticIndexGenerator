@@ -25,7 +25,7 @@ public static class IServiceCollectionExtensions
 
             return ReturnsCache.Create(options, logger).GetAwaiter().GetResult();
         })
-        .AddTransient<IQuoteProvider, YawhooQuoteProvider>()
+        .AddTransient<IQuoteProvider, YahooFinanceChartProvider>()
         //.AddTransient<IQuoteProvider, FmpQuoteProvider>()
         .AddTransient<IQuotesService, QuotesService>()
         .AddTransient<IReturnsService, ReturnsService>()

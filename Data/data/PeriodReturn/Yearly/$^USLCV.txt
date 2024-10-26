@@ -95,4 +95,4 @@
 {"Ticker":"DFLVX","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":28.103966951226209581459491450,"PeriodType":2}
 {"Ticker":"AVLV","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-5.5307679452150627484968732600,"PeriodType":2}
 {"Ticker":"AVLV","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":17.423215457498256649929134620,"PeriodType":2}
-{"Ticker":"AVLV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":16.548973167283601333489829780,"PeriodType":2}
+{"Ticker":"AVLV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":16.163571482377507957668880390,"PeriodType":2}

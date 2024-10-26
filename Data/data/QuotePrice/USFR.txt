@@ -2698,3 +2698,4 @@
 {"Ticker":"USFR","DateTime":"2024-10-22T00:00:00","Open":50.4000,"High":50.4000,"Low":50.3900,"Close":50.4000,"Volume":2636400,"AdjustedClose":50.4000}
 {"Ticker":"USFR","DateTime":"2024-10-23T00:00:00","Open":50.4000,"High":50.4100,"Low":50.4000,"Close":50.4000,"Volume":4550000,"AdjustedClose":50.4000}
 {"Ticker":"USFR","DateTime":"2024-10-24T00:00:00","Open":50.4000,"High":50.4200,"Low":50.4000,"Close":50.4200,"Volume":2621600,"AdjustedClose":50.4200}
+{"Ticker":"USFR","DateTime":"2024-10-25T00:00:00","Open":50.4300,"High":50.4400,"Low":50.4200,"Close":50.4200,"Volume":2734300,"AdjustedClose":50.4200}

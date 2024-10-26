@@ -5,11 +5,11 @@ using Microsoft.Extensions.Logging;
 namespace Data.Returns;
 
 internal class ReturnsService(
-        IQuotesService quotesService,
-        ISyntheticIndicesService syntheticIndexService,
-        IReturnsCache returnRepository,
-        ILogger<ReturnsService> logger)
-            : IReturnsService
+    IQuotesService quotesService,
+    ISyntheticIndicesService syntheticIndexService,
+    IReturnsCache returnRepository,
+    ILogger<ReturnsService> logger)
+        : IReturnsService
 {
     public async Task<Dictionary<string, List<PeriodReturn>>> GetReturnsHistory(
         HashSet<string> tickers,

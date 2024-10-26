@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace Data.Returns;
+﻿namespace Data.Returns;
 
 internal static class ReturnsCalculations
 {

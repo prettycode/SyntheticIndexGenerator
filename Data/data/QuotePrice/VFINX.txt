@@ -11297,3 +11297,4 @@
 {"Ticker":"VFINX","DateTime":"2024-10-22T00:00:00","Open":540.3300,"High":540.3300,"Low":540.3300,"Close":540.3300,"Volume":0,"AdjustedClose":540.3300}
 {"Ticker":"VFINX","DateTime":"2024-10-23T00:00:00","Open":535.3700,"High":535.3700,"Low":535.3700,"Close":535.3700,"Volume":0,"AdjustedClose":535.3700}
 {"Ticker":"VFINX","DateTime":"2024-10-24T00:00:00","Open":536.5200,"High":536.5200,"Low":536.5200,"Close":536.5200,"Volume":0,"AdjustedClose":536.5200}
+{"Ticker":"VFINX","DateTime":"2024-10-25T00:00:00","Open":536.3600,"High":536.3600,"Low":536.3600,"Close":536.3600,"Volume":0,"AdjustedClose":536.3600}

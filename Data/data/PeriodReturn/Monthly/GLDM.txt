@@ -73,4 +73,4 @@
 {"Ticker":"GLDM","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":5.380776741158602733781731400,"PeriodType":1}
 {"Ticker":"GLDM","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":2.1000617665225447807288449700,"PeriodType":1}
 {"Ticker":"GLDM","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":5.1220004033071183706392417800,"PeriodType":1}
-{"Ticker":"GLDM","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":3.9900249376558603491271820400,"PeriodType":1}
+{"Ticker":"GLDM","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":4.2585843084596201803184346800,"PeriodType":1}

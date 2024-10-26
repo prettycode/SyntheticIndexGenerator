@@ -7505,3 +7505,4 @@
 {"Ticker":"DISVX","PeriodStart":"2024-10-22T00:00:00","ReturnPercentage":-0.1716001716001716001716001700,"PeriodType":0}
 {"Ticker":"DISVX","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-1.3321873657069187795444778700,"PeriodType":0}
 {"Ticker":"DISVX","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":0.2177700348432055749128919900,"PeriodType":0}
+{"Ticker":"DISVX","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-0.39113428943937418513689700,"PeriodType":0}

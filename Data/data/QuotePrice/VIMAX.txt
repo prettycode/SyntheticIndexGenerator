@@ -5775,3 +5775,4 @@
 {"Ticker":"VIMAX","DateTime":"2024-10-22T00:00:00","Open":330.3500,"High":330.3500,"Low":330.3500,"Close":330.3500,"Volume":0,"AdjustedClose":330.3500}
 {"Ticker":"VIMAX","DateTime":"2024-10-23T00:00:00","Open":329.3600,"High":329.3600,"Low":329.3600,"Close":329.3600,"Volume":0,"AdjustedClose":329.3600}
 {"Ticker":"VIMAX","DateTime":"2024-10-24T00:00:00","Open":329.6200,"High":329.6200,"Low":329.6200,"Close":329.6200,"Volume":0,"AdjustedClose":329.6200}
+{"Ticker":"VIMAX","DateTime":"2024-10-25T00:00:00","Open":328.3700,"High":328.3700,"Low":328.3700,"Close":328.3700,"Volume":0,"AdjustedClose":328.3700}

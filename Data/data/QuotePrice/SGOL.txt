@@ -3806,3 +3806,4 @@
 {"Ticker":"SGOL","DateTime":"2024-10-22T00:00:00","Open":26.1700,"High":26.2500,"Low":26.1000,"Close":26.2500,"Volume":3228600,"AdjustedClose":26.2500}
 {"Ticker":"SGOL","DateTime":"2024-10-23T00:00:00","Open":26.1700,"High":26.1700,"Low":25.8700,"Close":25.9300,"Volume":3823900,"AdjustedClose":25.9300}
 {"Ticker":"SGOL","DateTime":"2024-10-24T00:00:00","Open":26.1800,"High":26.1900,"Low":25.9900,"Close":26.1200,"Volume":4266000,"AdjustedClose":26.1200}
+{"Ticker":"SGOL","DateTime":"2024-10-25T00:00:00","Open":26.0600,"High":26.2100,"Low":26.0300,"Close":26.1900,"Volume":2964900,"AdjustedClose":26.1900}

@@ -155,3 +155,4 @@
 {"Ticker":"AVMC","DateTime":"2024-10-22T00:00:00","Open":64.8450,"High":64.8450,"Low":64.6100,"Close":64.7300,"Volume":11300,"AdjustedClose":64.7300}
 {"Ticker":"AVMC","DateTime":"2024-10-23T00:00:00","Open":64.6140,"High":64.6650,"Low":64.2400,"Close":64.4100,"Volume":5400,"AdjustedClose":64.4100}
 {"Ticker":"AVMC","DateTime":"2024-10-24T00:00:00","Open":64.5500,"High":64.6500,"Low":64.3700,"Close":64.6300,"Volume":6700,"AdjustedClose":64.6300}
+{"Ticker":"AVMC","DateTime":"2024-10-25T00:00:00","Open":64.9300,"High":64.9300,"Low":64.2090,"Close":64.3000,"Volume":6900,"AdjustedClose":64.3000}

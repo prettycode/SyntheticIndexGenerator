@@ -1,9 +1,8 @@
 ﻿using Data.Returns;
-using Microsoft.Extensions.Logging;
 
 namespace Data.BackTest;
 
-internal partial class BackTestService(IReturnsService returnsService, ILogger<BackTestService> logger) : IBackTestService
+internal partial class BackTestService(IReturnsService returnsService/*, ILogger<BackTestService> logger*/) : IBackTestService
 {
     public async Task<IEnumerable<BackTest>> GetPortfolioBackTests(
         IEnumerable<IEnumerable<BackTestAllocation>> portfolios,

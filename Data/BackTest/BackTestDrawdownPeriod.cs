@@ -2,10 +2,9 @@
 
 namespace Data.BackTest;
 
-// TODO add `required` modifiers
 public readonly struct BackTestDrawdownPeriod(BackTestPeriodReturn currentReturnPeriod)
 {
-    public string Ticker { get; init; }
+    public required string Ticker { get; init; }
 
     public DateTime FirstNegativePeriodStart { get; init; }
 

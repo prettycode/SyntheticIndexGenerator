@@ -6,7 +6,7 @@ namespace WebApp.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-public class BackTestController(IBackTestService backTestService, ILogger<BackTestController> logger) : ControllerBase
+public class BackTestController(IBackTestService backTestService/*, ILogger<BackTestController> logger*/) : ControllerBase
 {
     [HttpPost]
     public Task<IEnumerable<BackTest>> GetPortfolioBackTests(BackTestRequest backTestRequest)

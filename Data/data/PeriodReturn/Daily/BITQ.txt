@@ -867,3 +867,4 @@
 {"Ticker":"BITQ","PeriodStart":"2024-10-22T00:00:00","ReturnPercentage":0.6369426751592356687898089200,"PeriodType":0}
 {"Ticker":"BITQ","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-4.1139240506329113924050632900,"PeriodType":0}
 {"Ticker":"BITQ","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":3.300330033003300330033003300,"PeriodType":0}
+{"Ticker":"BITQ","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-2.6198083067092651757188498400,"PeriodType":0}

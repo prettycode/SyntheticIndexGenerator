@@ -7679,3 +7679,4 @@
 {"Ticker":"DFEMX","DateTime":"2024-10-22T00:00:00","Open":30.5800,"High":30.5800,"Low":30.5800,"Close":30.5800,"Volume":0,"AdjustedClose":30.5800}
 {"Ticker":"DFEMX","DateTime":"2024-10-23T00:00:00","Open":30.3800,"High":30.3800,"Low":30.3800,"Close":30.3800,"Volume":0,"AdjustedClose":30.3800}
 {"Ticker":"DFEMX","DateTime":"2024-10-24T00:00:00","Open":30.3200,"High":30.3200,"Low":30.3200,"Close":30.3200,"Volume":0,"AdjustedClose":30.3200}
+{"Ticker":"DFEMX","DateTime":"2024-10-25T00:00:00","Open":30.3100,"High":30.3100,"Low":30.3100,"Close":30.3100,"Volume":0,"AdjustedClose":30.3100}

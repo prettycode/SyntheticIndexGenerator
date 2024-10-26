@@ -1277,3 +1277,4 @@
 {"Ticker":"AVUV","DateTime":"2024-10-22T00:00:00","Open":96.0900,"High":96.2540,"Low":95.5700,"Close":95.9600,"Volume":648600,"AdjustedClose":95.9600}
 {"Ticker":"AVUV","DateTime":"2024-10-23T00:00:00","Open":95.5500,"High":95.6300,"Low":94.2200,"Close":95.0700,"Volume":569800,"AdjustedClose":95.0700}
 {"Ticker":"AVUV","DateTime":"2024-10-24T00:00:00","Open":95.5600,"High":95.6200,"Low":94.6500,"Close":95.4200,"Volume":728400,"AdjustedClose":95.4200}
+{"Ticker":"AVUV","DateTime":"2024-10-25T00:00:00","Open":95.9600,"High":96.2200,"Low":94.5800,"Close":94.9200,"Volume":511400,"AdjustedClose":94.9200}

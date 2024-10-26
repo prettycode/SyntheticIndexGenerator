@@ -316,4 +316,4 @@
 {"Ticker":"DEMSX","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":0.2502085070892410341951626400,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":0.790349417637271214642262900,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":4.0858439950474618241848947600,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-4.2030134813639968279143536900,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-4.6391752577319587628865979400,"PeriodType":1}

@@ -4074,3 +4074,4 @@
 {"Ticker":"DFVQX","DateTime":"2024-10-22T00:00:00","Open":14.2200,"High":14.2200,"Low":14.2200,"Close":14.2200,"Volume":0,"AdjustedClose":14.2200}
 {"Ticker":"DFVQX","DateTime":"2024-10-23T00:00:00","Open":14.0700,"High":14.0700,"Low":14.0700,"Close":14.0700,"Volume":0,"AdjustedClose":14.0700}
 {"Ticker":"DFVQX","DateTime":"2024-10-24T00:00:00","Open":14.1200,"High":14.1200,"Low":14.1200,"Close":14.1200,"Volume":0,"AdjustedClose":14.1200}
+{"Ticker":"DFVQX","DateTime":"2024-10-25T00:00:00","Open":14.0700,"High":14.0700,"Low":14.0700,"Close":14.0700,"Volume":0,"AdjustedClose":14.0700}

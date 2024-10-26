@@ -8182,3 +8182,4 @@
 {"Ticker":"VTSMX","PeriodStart":"2024-10-22T00:00:00","ReturnPercentage":-0.099900099900099900099900100,"PeriodType":0}
 {"Ticker":"VTSMX","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.8928571428571428571428571400,"PeriodType":0}
 {"Ticker":"VTSMX","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":0.2306306306306306306306306300,"PeriodType":0}
+{"Ticker":"VTSMX","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-0.08628748112461350399079600,"PeriodType":0}
