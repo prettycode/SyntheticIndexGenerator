@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 class Program
 {
-    static async Task Main(string[] args)
+    static async Task Main()
     {
         using var serviceProvider = BuildServiceProvider();
         var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
@@ -129,7 +129,7 @@ class Program
         {
             foreach (var (periodType, message) in pair.Value)
             {
-                Console.WriteLine($"{pair.Key}: {periodType}: {(message.Length > 100 ? message.Substring(0, 100) : message)}");
+                Console.WriteLine($"{pair.Key}: {periodType}: {(message.Length > 100 ? message[..100] : message)}");
             }
         }
     }

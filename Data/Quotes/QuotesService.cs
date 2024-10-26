@@ -12,7 +12,7 @@ internal class QuotesService(
     ILogger<QuotesService> logger)
         : IQuotesService
 {
-    private static readonly object downloadLocker = new();
+    private static readonly Lock downloadLocker = new();
 
     private readonly AbsoluteExpirationCache<string, Task<Quote>> getQuoteTasks = new(()
         => DateTimeOffset.Now.AddMinutes(1));
