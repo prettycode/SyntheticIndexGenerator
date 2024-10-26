@@ -5012,3 +5012,6 @@
 {"Ticker":"GLD","DateTime":"2024-10-17T00:00:00","Open":247.7500,"High":249.0600,"Low":247.6200,"Close":248.6300,"Volume":5176200,"AdjustedClose":248.6300}
 {"Ticker":"GLD","DateTime":"2024-10-18T00:00:00","Open":250.0000,"High":251.3700,"Low":249.9000,"Close":251.2700,"Volume":7833600,"AdjustedClose":251.2700}
 {"Ticker":"GLD","DateTime":"2024-10-21T00:00:00","Open":252.7400,"High":253.1400,"Low":250.7300,"Close":251.2200,"Volume":9254600,"AdjustedClose":251.2200}
+{"Ticker":"GLD","DateTime":"2024-10-22T00:00:00","Open":253.0600,"High":253.9400,"Low":252.5200,"Close":253.9300,"Volume":5756300,"AdjustedClose":253.9300}
+{"Ticker":"GLD","DateTime":"2024-10-23T00:00:00","Open":253.0800,"High":253.1800,"Low":250.2000,"Close":250.8700,"Volume":8081000,"AdjustedClose":250.8700}
+{"Ticker":"GLD","DateTime":"2024-10-24T00:00:00","Open":253.2700,"High":253.3200,"Low":251.4000,"Close":252.8000,"Volume":5962200,"AdjustedClose":252.8000}

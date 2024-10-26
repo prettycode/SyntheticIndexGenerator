@@ -5871,3 +5871,6 @@
 {"Ticker":"VTI","PeriodStart":"2024-10-17T00:00:00","ReturnPercentage":-0.0208463623097769439232853900,"PeriodType":0}
 {"Ticker":"VTI","PeriodStart":"2024-10-18T00:00:00","ReturnPercentage":0.3926883514039477342229635800,"PeriodType":0}
 {"Ticker":"VTI","PeriodStart":"2024-10-21T00:00:00","ReturnPercentage":-0.3149987884661982069299733500,"PeriodType":0}
+{"Ticker":"VTI","PeriodStart":"2024-10-22T00:00:00","ReturnPercentage":-0.1145912910618792971734148200,"PeriodType":0}
+{"Ticker":"VTI","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.9038762384842690770033026200,"PeriodType":0}
+{"Ticker":"VTI","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":0.2666198912471496228731801400,"PeriodType":0}

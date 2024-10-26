@@ -1,1 +1,1 @@
-{"Ticker":"DXIV","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-3.0516252390057361376673040200,"PeriodType":1}
+{"Ticker":"DXIV","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-4.2409177820267686424474187400,"PeriodType":1}

@@ -7721,3 +7721,6 @@
 {"Ticker":"AVIV","PeriodStart":"2024-10-17T00:00:00","ReturnPercentage":-0.1455074572571844307020734800,"PeriodType":0}
 {"Ticker":"AVIV","PeriodStart":"2024-10-18T00:00:00","ReturnPercentage":0.6010928961748633879781420800,"PeriodType":0}
 {"Ticker":"AVIV","PeriodStart":"2024-10-21T00:00:00","ReturnPercentage":-1.2131088176715553141408654700,"PeriodType":0}
+{"Ticker":"AVIV","PeriodStart":"2024-10-22T00:00:00","ReturnPercentage":-0.2492668621700879765395894400,"PeriodType":0}
+{"Ticker":"AVIV","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.944436278112597383507276200,"PeriodType":0}
+{"Ticker":"AVIV","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":0.5008347245409015025041736200,"PeriodType":0}

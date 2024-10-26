@@ -975,3 +975,6 @@
 {"Ticker":"KMLM","DateTime":"2024-10-17T00:00:00","Open":28.3400,"High":28.3700,"Low":28.2500,"Close":28.2800,"Volume":41300,"AdjustedClose":28.2800}
 {"Ticker":"KMLM","DateTime":"2024-10-18T00:00:00","Open":28.4800,"High":28.6000,"Low":28.4700,"Close":28.6000,"Volume":70800,"AdjustedClose":28.6000}
 {"Ticker":"KMLM","DateTime":"2024-10-21T00:00:00","Open":28.4100,"High":28.4100,"Low":28.1800,"Close":28.2200,"Volume":106500,"AdjustedClose":28.2200}
+{"Ticker":"KMLM","DateTime":"2024-10-22T00:00:00","Open":28.1700,"High":28.2050,"Low":27.9500,"Close":28.0700,"Volume":101400,"AdjustedClose":28.0700}
+{"Ticker":"KMLM","DateTime":"2024-10-23T00:00:00","Open":28.0500,"High":28.0800,"Low":27.9100,"Close":27.9500,"Volume":54600,"AdjustedClose":27.9500}
+{"Ticker":"KMLM","DateTime":"2024-10-24T00:00:00","Open":27.9900,"High":28.0500,"Low":27.9000,"Close":27.9000,"Volume":239100,"AdjustedClose":27.9000}

@@ -1279,3 +1279,6 @@
 {"Ticker":"AVEM","DateTime":"2024-10-17T00:00:00","Open":63.9500,"High":64.1100,"Low":63.7200,"Close":63.8600,"Volume":349400,"AdjustedClose":63.8600}
 {"Ticker":"AVEM","DateTime":"2024-10-18T00:00:00","Open":64.8300,"High":64.8300,"Low":64.3500,"Close":64.3700,"Volume":221700,"AdjustedClose":64.3700}
 {"Ticker":"AVEM","DateTime":"2024-10-21T00:00:00","Open":63.8600,"High":64.1280,"Low":63.5600,"Close":63.9500,"Volume":867800,"AdjustedClose":63.9500}
+{"Ticker":"AVEM","DateTime":"2024-10-22T00:00:00","Open":63.7300,"High":63.9200,"Low":63.6300,"Close":63.8300,"Volume":548600,"AdjustedClose":63.8300}
+{"Ticker":"AVEM","DateTime":"2024-10-23T00:00:00","Open":63.7100,"High":63.8100,"Low":63.2500,"Close":63.5400,"Volume":623400,"AdjustedClose":63.5400}
+{"Ticker":"AVEM","DateTime":"2024-10-24T00:00:00","Open":63.4000,"High":63.5000,"Low":63.0760,"Close":63.3800,"Volume":544800,"AdjustedClose":63.3800}

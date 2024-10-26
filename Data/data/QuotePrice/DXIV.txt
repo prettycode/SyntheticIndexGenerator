@@ -26,3 +26,6 @@
 {"Ticker":"DXIV","DateTime":"2024-10-17T00:00:00","Open":51.0300,"High":51.0800,"Low":50.9700,"Close":50.9700,"Volume":2700,"AdjustedClose":50.9700}
 {"Ticker":"DXIV","DateTime":"2024-10-18T00:00:00","Open":51.2100,"High":51.2920,"Low":51.2100,"Close":51.2920,"Volume":100,"AdjustedClose":51.2920}
 {"Ticker":"DXIV","DateTime":"2024-10-21T00:00:00","Open":50.8800,"High":51.1400,"Low":50.7000,"Close":50.7040,"Volume":1800,"AdjustedClose":50.7040}
+{"Ticker":"DXIV","DateTime":"2024-10-22T00:00:00","Open":50.6100,"High":50.6400,"Low":50.4200,"Close":50.4890,"Volume":1300,"AdjustedClose":50.4890}
+{"Ticker":"DXIV","DateTime":"2024-10-23T00:00:00","Open":50.0200,"High":50.2600,"Low":49.8820,"Close":49.8820,"Volume":1000,"AdjustedClose":49.8820}
+{"Ticker":"DXIV","DateTime":"2024-10-24T00:00:00","Open":50.0820,"High":50.0820,"Low":50.0820,"Close":50.0820,"Volume":100,"AdjustedClose":50.0820}

@@ -7675,3 +7675,6 @@
 {"Ticker":"DFEMX","PeriodStart":"2024-10-17T00:00:00","ReturnPercentage":-0.585937500,"PeriodType":0}
 {"Ticker":"DFEMX","PeriodStart":"2024-10-18T00:00:00","ReturnPercentage":1.0805500982318271119842829100,"PeriodType":0}
 {"Ticker":"DFEMX","PeriodStart":"2024-10-21T00:00:00","ReturnPercentage":-0.453514739229024943310657600,"PeriodType":0}
+{"Ticker":"DFEMX","PeriodStart":"2024-10-22T00:00:00","ReturnPercentage":-0.4881223560039049788480312400,"PeriodType":0}
+{"Ticker":"DFEMX","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.6540222367560497056899934600,"PeriodType":0}
+{"Ticker":"DFEMX","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":-0.197498354180381830151415400,"PeriodType":0}

@@ -3285,3 +3285,6 @@
 {"Ticker":"VMGMX","PeriodStart":"2024-10-17T00:00:00","ReturnPercentage":-0.3237143914169441361450240500,"PeriodType":0}
 {"Ticker":"VMGMX","PeriodStart":"2024-10-18T00:00:00","ReturnPercentage":0.4546719866382110049178806700,"PeriodType":0}
 {"Ticker":"VMGMX","PeriodStart":"2024-10-21T00:00:00","ReturnPercentage":-0.5172732311102900424903011300,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-10-22T00:00:00","ReturnPercentage":-0.584958217270194986072423400,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.691136639581582142523582700,"PeriodType":0}
+{"Ticker":"VMGMX","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":0.3949967083607636603028308100,"PeriodType":0}

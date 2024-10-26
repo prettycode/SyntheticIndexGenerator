@@ -6019,3 +6019,6 @@
 {"Ticker":"VIGAX","DateTime":"2024-10-17T00:00:00","Open":200.5400,"High":200.5400,"Low":200.5400,"Close":200.5400,"Volume":0,"AdjustedClose":200.5400}
 {"Ticker":"VIGAX","DateTime":"2024-10-18T00:00:00","Open":201.8500,"High":201.8500,"Low":201.8500,"Close":201.8500,"Volume":0,"AdjustedClose":201.8500}
 {"Ticker":"VIGAX","DateTime":"2024-10-21T00:00:00","Open":202.6300,"High":202.6300,"Low":202.6300,"Close":202.6300,"Volume":0,"AdjustedClose":202.6300}
+{"Ticker":"VIGAX","DateTime":"2024-10-22T00:00:00","Open":202.6800,"High":202.6800,"Low":202.6800,"Close":202.6800,"Volume":0,"AdjustedClose":202.6800}
+{"Ticker":"VIGAX","DateTime":"2024-10-23T00:00:00","Open":199.7100,"High":199.7100,"Low":199.7100,"Close":199.7100,"Volume":0,"AdjustedClose":199.7100}
+{"Ticker":"VIGAX","DateTime":"2024-10-24T00:00:00","Open":201.1100,"High":201.1100,"Low":201.1100,"Close":201.1100,"Volume":0,"AdjustedClose":201.1100}

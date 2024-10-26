@@ -884,3 +884,6 @@
 {"Ticker":"DAPP","DateTime":"2024-10-17T00:00:00","Open":13.0000,"High":13.0000,"Low":12.6450,"Close":12.7900,"Volume":153900,"AdjustedClose":12.7900}
 {"Ticker":"DAPP","DateTime":"2024-10-18T00:00:00","Open":13.1400,"High":13.6900,"Low":13.0000,"Close":13.6200,"Volume":178600,"AdjustedClose":13.6200}
 {"Ticker":"DAPP","DateTime":"2024-10-21T00:00:00","Open":13.4900,"High":13.8530,"Low":13.0500,"Close":13.8200,"Volume":376000,"AdjustedClose":13.8200}
+{"Ticker":"DAPP","DateTime":"2024-10-22T00:00:00","Open":13.7900,"High":14.0500,"Low":13.5300,"Close":13.9300,"Volume":129300,"AdjustedClose":13.9300}
+{"Ticker":"DAPP","DateTime":"2024-10-23T00:00:00","Open":13.6800,"High":13.8300,"Low":13.0200,"Close":13.3400,"Volume":414400,"AdjustedClose":13.3400}
+{"Ticker":"DAPP","DateTime":"2024-10-24T00:00:00","Open":13.6900,"High":13.9900,"Low":13.3700,"Close":13.8000,"Volume":111000,"AdjustedClose":13.8000}

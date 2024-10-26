@@ -627,3 +627,6 @@
 {"Ticker":"FDIG","DateTime":"2024-10-17T00:00:00","Open":30.0000,"High":30.0000,"Low":29.0300,"Close":29.5100,"Volume":36100,"AdjustedClose":29.5100}
 {"Ticker":"FDIG","DateTime":"2024-10-18T00:00:00","Open":29.7800,"High":31.0400,"Low":29.7800,"Close":30.9700,"Volume":67600,"AdjustedClose":30.9700}
 {"Ticker":"FDIG","DateTime":"2024-10-21T00:00:00","Open":30.8600,"High":31.3900,"Low":29.7400,"Close":31.3900,"Volume":38100,"AdjustedClose":31.3900}
+{"Ticker":"FDIG","DateTime":"2024-10-22T00:00:00","Open":31.0800,"High":31.3900,"Low":30.4800,"Close":31.3800,"Volume":24000,"AdjustedClose":31.3800}
+{"Ticker":"FDIG","DateTime":"2024-10-23T00:00:00","Open":30.6300,"High":31.0000,"Low":29.5200,"Close":30.2000,"Volume":38300,"AdjustedClose":30.2000}
+{"Ticker":"FDIG","DateTime":"2024-10-24T00:00:00","Open":30.7500,"High":31.0000,"Low":30.0000,"Close":30.5200,"Volume":13800,"AdjustedClose":30.5200}

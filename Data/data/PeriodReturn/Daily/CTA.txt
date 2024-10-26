@@ -657,3 +657,6 @@
 {"Ticker":"CTA","PeriodStart":"2024-10-17T00:00:00","ReturnPercentage":0.0751879699248120300751879700,"PeriodType":0}
 {"Ticker":"CTA","PeriodStart":"2024-10-18T00:00:00","ReturnPercentage":0.7513148009015777610818933100,"PeriodType":0}
 {"Ticker":"CTA","PeriodStart":"2024-10-21T00:00:00","ReturnPercentage":-0.2609992542878448918717375100,"PeriodType":0}
+{"Ticker":"CTA","PeriodStart":"2024-10-22T00:00:00","ReturnPercentage":-0.7476635514018691588785046700,"PeriodType":0}
+{"Ticker":"CTA","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.5273069679849340866290018800,"PeriodType":0}
+{"Ticker":"CTA","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":-0.7194244604316546762589928100,"PeriodType":0}

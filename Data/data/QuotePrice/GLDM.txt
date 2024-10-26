@@ -1589,3 +1589,6 @@
 {"Ticker":"GLDM","DateTime":"2024-10-17T00:00:00","Open":53.1500,"High":53.4300,"Low":53.1150,"Close":53.3400,"Volume":2209600,"AdjustedClose":53.3400}
 {"Ticker":"GLDM","DateTime":"2024-10-18T00:00:00","Open":53.6400,"High":53.9250,"Low":53.6100,"Close":53.9000,"Volume":1495800,"AdjustedClose":53.9000}
 {"Ticker":"GLDM","DateTime":"2024-10-21T00:00:00","Open":54.2200,"High":54.3050,"Low":53.7850,"Close":53.9000,"Volume":3210300,"AdjustedClose":53.9000}
+{"Ticker":"GLDM","DateTime":"2024-10-22T00:00:00","Open":54.2900,"High":54.4750,"Low":54.1650,"Close":54.4700,"Volume":3664400,"AdjustedClose":54.4700}
+{"Ticker":"GLDM","DateTime":"2024-10-23T00:00:00","Open":54.3000,"High":54.3100,"Low":53.6750,"Close":53.8200,"Volume":2732000,"AdjustedClose":53.8200}
+{"Ticker":"GLDM","DateTime":"2024-10-24T00:00:00","Open":54.3400,"High":54.3450,"Low":53.9300,"Close":54.2100,"Volume":2276400,"AdjustedClose":54.2100}

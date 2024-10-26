@@ -1372,3 +1372,6 @@
 {"Ticker":"DBMF","DateTime":"2024-10-17T00:00:00","Open":27.5900,"High":27.6300,"Low":27.5200,"Close":27.5200,"Volume":549900,"AdjustedClose":27.5200}
 {"Ticker":"DBMF","DateTime":"2024-10-18T00:00:00","Open":27.5800,"High":27.6900,"Low":27.5800,"Close":27.6500,"Volume":333700,"AdjustedClose":27.6500}
 {"Ticker":"DBMF","DateTime":"2024-10-21T00:00:00","Open":27.5500,"High":27.5730,"Low":27.4000,"Close":27.4300,"Volume":360700,"AdjustedClose":27.4300}
+{"Ticker":"DBMF","DateTime":"2024-10-22T00:00:00","Open":27.4000,"High":27.4300,"Low":27.3200,"Close":27.4200,"Volume":434900,"AdjustedClose":27.4200}
+{"Ticker":"DBMF","DateTime":"2024-10-23T00:00:00","Open":27.3200,"High":27.3300,"Low":27.0900,"Close":27.1600,"Volume":274100,"AdjustedClose":27.1600}
+{"Ticker":"DBMF","DateTime":"2024-10-24T00:00:00","Open":27.2400,"High":27.3050,"Low":27.2270,"Close":27.2600,"Volume":316100,"AdjustedClose":27.2600}

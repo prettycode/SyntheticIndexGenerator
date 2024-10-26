@@ -772,3 +772,6 @@
 {"Ticker":"AVLV","DateTime":"2024-10-17T00:00:00","Open":67.5100,"High":67.5100,"Low":67.1900,"Close":67.2600,"Volume":199000,"AdjustedClose":67.2600}
 {"Ticker":"AVLV","DateTime":"2024-10-18T00:00:00","Open":67.3600,"High":67.4100,"Low":67.1090,"Close":67.3400,"Volume":309000,"AdjustedClose":67.3400}
 {"Ticker":"AVLV","DateTime":"2024-10-21T00:00:00","Open":67.3700,"High":67.3700,"Low":66.6860,"Close":66.8200,"Volume":194900,"AdjustedClose":66.8200}
+{"Ticker":"AVLV","DateTime":"2024-10-22T00:00:00","Open":66.5700,"High":66.8400,"Low":66.3900,"Close":66.7500,"Volume":155500,"AdjustedClose":66.7500}
+{"Ticker":"AVLV","DateTime":"2024-10-23T00:00:00","Open":66.5900,"High":66.7600,"Low":65.9550,"Close":66.3200,"Volume":173300,"AdjustedClose":66.3200}
+{"Ticker":"AVLV","DateTime":"2024-10-24T00:00:00","Open":66.6300,"High":66.6300,"Low":66.1200,"Close":66.5300,"Volume":238200,"AdjustedClose":66.5300}
