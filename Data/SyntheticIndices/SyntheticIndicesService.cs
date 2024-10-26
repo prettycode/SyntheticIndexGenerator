@@ -86,7 +86,7 @@ internal class SyntheticIndicesService(ILogger<SyntheticIndicesService> logger) 
 
     private static HashSet<Index> GetIndices() => [
         new (IndexRegion.Us, IndexMarketCap.Total, IndexStyle.Blend, ["$USTSM", "VTSMX", "VTI", "AVUS"]),
-        new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Blend, ["$USLCB", "VFINX", "VOO"]),
+        new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Blend, ["$SPYTR", /*"$USLCB",*/ "VFINX", "VOO"]),
         new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Value, ["$USLCV", "DFLVX", "AVLV"]),
         new (IndexRegion.Us, IndexMarketCap.Large, IndexStyle.Growth, ["$USLCG", "VIGAX"]),
         new (IndexRegion.Us, IndexMarketCap.Mid, IndexStyle.Blend, ["$USMCB", "VIMAX", "AVMC"]),
