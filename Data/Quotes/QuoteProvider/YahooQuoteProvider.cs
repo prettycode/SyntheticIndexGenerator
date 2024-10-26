@@ -7,7 +7,7 @@ public abstract class YahooQuoteProvider
         // API sometimes returns a record with 0s when record is today and not yet updated after market close.
         // Other times it returns a candle with data representing the current daily performance. Discard either.
 
-        if (prices[^1].Open == 0 ||
+        if (prices[^1].AdjustedClose == 0 ||
             prices[^1].DateTime == DateTime.Today)
         {
             var incompleteDate = prices[^1].DateTime;

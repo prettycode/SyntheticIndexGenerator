@@ -120,10 +120,6 @@ public class FmpQuoteProvider(ILogger<FmpQuoteProvider> logger, IOptions<FmpQuot
                       {
                           Ticker = ticker,
                           DateTime = DateTime.Parse(price.Date),
-                          Open = Convert.ToDecimal(price.Open).ToQuotePrice(),
-                          High = Convert.ToDecimal(price.High).ToQuotePrice(),
-                          Low = Convert.ToDecimal(price.Low).ToQuotePrice(),
-                          Close = Convert.ToDecimal(price.Close).ToQuotePrice(),
                           AdjustedClose = Convert.ToDecimal(price.AdjClose).ToQuotePrice(),
                           Volume = price.Volume
                       })

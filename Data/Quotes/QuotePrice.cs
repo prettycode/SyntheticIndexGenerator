@@ -1,20 +1,16 @@
-﻿namespace Data.Quotes;
+﻿using System.Text.Json.Serialization;
+using Data.JsonConverters;
+
+namespace Data.Quotes;
 
 public readonly struct QuotePrice
 {
     public string Ticker { get; init; }
 
+    [JsonConverter(typeof(DateOnlyJsonConverter))]
     public DateTime DateTime { get; init; }
 
-    public decimal Open { get; init; }
-
-    public decimal High { get; init; }
-
-    public decimal Low { get; init; }
-
-    public decimal Close { get; init; }
+    public decimal AdjustedClose { get; init; }
 
     public long Volume { get; init; }
-
-    public decimal AdjustedClose { get; init; }
 }

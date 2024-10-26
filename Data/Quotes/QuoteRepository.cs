@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Data.JsonConverters;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TableFileCache;
 
@@ -16,7 +17,7 @@ internal class QuoteRepository : IQuoteRepository
 
         var tableCacheOptions = quoteRepositoryOptions.Value.TableCacheOptions;
 
-        pricesCache = new(tableCacheOptions);
+        pricesCache = new(tableCacheOptions, new DateOnlyJsonConverter());
 
         this.logger = logger;
     }
@@ -178,46 +179,10 @@ internal class QuoteRepository : IQuoteRepository
 
         foreach (var price in fundHistory.Prices)
         {
-            if (price.Open == 0)
-            {
-                logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
-                    nameof(price.Open),
-                    nameof(fundHistory.Prices),
-                    price.DateTime,
-                    fundHistory.Ticker);
-            }
-
-            if (price.Close == 0)
-            {
-                logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
-                    nameof(price.Close),
-                    nameof(fundHistory.Prices),
-                    price.DateTime,
-                    fundHistory.Ticker);
-            }
-
             if (price.AdjustedClose == 0)
             {
                 logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
                     nameof(price.AdjustedClose),
-                    nameof(fundHistory.Prices),
-                    price.DateTime,
-                    fundHistory.Ticker);
-            }
-
-            if (price.High == 0)
-            {
-                logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
-                    nameof(price.High),
-                    nameof(fundHistory.Prices),
-                    price.DateTime,
-                    fundHistory.Ticker);
-            }
-
-            if (price.Low == 0)
-            {
-                logger.LogWarning("Zero-dollar {Property} in {Collection} on {Date:yyyy-MM-dd} for {Ticker}",
-                    nameof(price.Low),
                     nameof(fundHistory.Prices),
                     price.DateTime,
                     fundHistory.Ticker);

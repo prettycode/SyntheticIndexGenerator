@@ -6,9 +6,9 @@
 {"Ticker":"USFR","PeriodStart":"2014-08-01T00:00:00","ReturnPercentage":0.040117113819993806480673400,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2014-09-01T00:00:00","ReturnPercentage":-0.0802020528911433013697666400,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2014-10-01T00:00:00","ReturnPercentage":-0.4003933524376820369835782400,"PeriodType":1}
-{"Ticker":"USFR","PeriodStart":"2014-11-01T00:00:00","ReturnPercentage":0.0402945508100147275405007400,"PeriodType":1}
+{"Ticker":"USFR","PeriodStart":"2014-11-01T00:00:00","ReturnPercentage":0.0400589101620029455081001500,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2014-12-01T00:00:00","ReturnPercentage":0,"PeriodType":1}
-{"Ticker":"USFR","PeriodStart":"2015-01-01T00:00:00","ReturnPercentage":0.0400427751056422625581209100,"PeriodType":1}
+{"Ticker":"USFR","PeriodStart":"2015-01-01T00:00:00","ReturnPercentage":0.0402784157156485178249655500,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2015-02-01T00:00:00","ReturnPercentage":0.0402621987398638148786483200,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2015-03-01T00:00:00","ReturnPercentage":-0.522256505847437083271552200,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2015-04-01T00:00:00","ReturnPercentage":1.1304380743278412370938892900,"PeriodType":1}
@@ -29,8 +29,8 @@
 {"Ticker":"USFR","PeriodStart":"2016-07-01T00:00:00","ReturnPercentage":0.3815958800819654775712433900,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2016-08-01T00:00:00","ReturnPercentage":-0.3002256966009576285685491900,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2016-09-01T00:00:00","ReturnPercentage":0.2209695391139591629485799200,"PeriodType":1}
-{"Ticker":"USFR","PeriodStart":"2016-10-01T00:00:00","ReturnPercentage":0.1843607654020988042351373800,"PeriodType":1}
-{"Ticker":"USFR","PeriodStart":"2016-11-01T00:00:00","ReturnPercentage":-0.2041561701051685224899560800,"PeriodType":1}
+{"Ticker":"USFR","PeriodStart":"2016-10-01T00:00:00","ReturnPercentage":0.1841262097209256505401817300,"PeriodType":1}
+{"Ticker":"USFR","PeriodStart":"2016-11-01T00:00:00","ReturnPercentage":-0.2039225234885501366117020200,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2016-12-01T00:00:00","ReturnPercentage":0.3291480157277854414759344200,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":-0.0399855023324876360617787700,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2017-02-01T00:00:00","ReturnPercentage":0.2002414125440952175987873200,"PeriodType":1}
@@ -42,9 +42,9 @@
 {"Ticker":"USFR","PeriodStart":"2017-08-01T00:00:00","ReturnPercentage":-0.2274802668420208798537062600,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2017-09-01T00:00:00","ReturnPercentage":0.2801661900192832589639207400,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2017-10-01T00:00:00","ReturnPercentage":0.2120341577041786753554997700,"PeriodType":1}
-{"Ticker":"USFR","PeriodStart":"2017-11-01T00:00:00","ReturnPercentage":0.0920037821202120953687567200,"PeriodType":1}
-{"Ticker":"USFR","PeriodStart":"2017-12-01T00:00:00","ReturnPercentage":0.0472330464620364389061382100,"PeriodType":1}
-{"Ticker":"USFR","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":0.2318880827576630680043045100,"PeriodType":1}
+{"Ticker":"USFR","PeriodStart":"2017-11-01T00:00:00","ReturnPercentage":0.0917720345581964477733694200,"PeriodType":1}
+{"Ticker":"USFR","PeriodStart":"2017-12-01T00:00:00","ReturnPercentage":0.0476962259782357027089604100,"PeriodType":1}
+{"Ticker":"USFR","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":0.2316561214146528860973927700,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2018-02-01T00:00:00","ReturnPercentage":0.2320442754330915916851955800,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2018-03-01T00:00:00","ReturnPercentage":0.2674425033171163202122954400,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2018-04-01T00:00:00","ReturnPercentage":0.0317042407868165496136907200,"PeriodType":1}
@@ -94,8 +94,8 @@
 {"Ticker":"USFR","PeriodStart":"2021-12-01T00:00:00","ReturnPercentage":-0.0716213617342980111808903600,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":0.1592726548760659654245611700,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2022-02-01T00:00:00","ReturnPercentage":0,"PeriodType":1}
-{"Ticker":"USFR","PeriodStart":"2022-03-01T00:00:00","ReturnPercentage":0.0598531279333002042957318800,"PeriodType":1}
-{"Ticker":"USFR","PeriodStart":"2022-04-01T00:00:00","ReturnPercentage":0.2207281379815736150412982300,"PeriodType":1}
+{"Ticker":"USFR","PeriodStart":"2022-03-01T00:00:00","ReturnPercentage":0.0596322676826238197780354500,"PeriodType":1}
+{"Ticker":"USFR","PeriodStart":"2022-04-01T00:00:00","ReturnPercentage":0.220949353816949751128475100,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2022-05-01T00:00:00","ReturnPercentage":-0.0218039581892583570827625400,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2022-06-01T00:00:00","ReturnPercentage":0.0953855846607643623594824900,"PeriodType":1}
 {"Ticker":"USFR","PeriodStart":"2022-07-01T00:00:00","ReturnPercentage":0.0435758616136273603591707400,"PeriodType":1}

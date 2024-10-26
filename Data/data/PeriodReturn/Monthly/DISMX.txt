@@ -46,8 +46,8 @@
 {"Ticker":"DISMX","PeriodStart":"2016-10-01T00:00:00","ReturnPercentage":-3.3510376708960361955345726400,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2016-11-01T00:00:00","ReturnPercentage":-3.4672257105930004172475906500,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2016-12-01T00:00:00","ReturnPercentage":1.5792358944083663658598296400,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":4.1295638997862050355978994100,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2017-02-01T00:00:00","ReturnPercentage":2.0990102957152681570370665700,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":4.1285260601531851298337380900,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2017-02-01T00:00:00","ReturnPercentage":2.1000279073476059482518040100,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2017-03-01T00:00:00","ReturnPercentage":3.1521197981237614580384423900,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2017-04-01T00:00:00","ReturnPercentage":4.0684029223606011280614755600,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2017-05-01T00:00:00","ReturnPercentage":3.9793756308710795056698827800,"PeriodType":1}
@@ -61,8 +61,8 @@
 {"Ticker":"DISMX","PeriodStart":"2018-01-01T00:00:00","ReturnPercentage":5.4647631088018994465086878100,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2018-02-01T00:00:00","ReturnPercentage":-3.8118279962868482797435878700,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2018-03-01T00:00:00","ReturnPercentage":-0.4194656372534119578102677900,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2018-04-01T00:00:00","ReturnPercentage":-0.1869601050028997893837184500,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2018-05-01T00:00:00","ReturnPercentage":0.7492412021498635310667512700,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2018-04-01T00:00:00","ReturnPercentage":-0.1861970025335001984066420400,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2018-05-01T00:00:00","ReturnPercentage":0.7484709480122324159021406700,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2018-06-01T00:00:00","ReturnPercentage":-1.6436609778492779577929715700,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2018-07-01T00:00:00","ReturnPercentage":0.3819061359585844012560468500,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2018-08-01T00:00:00","ReturnPercentage":-0.5072708826513358133243151800,"PeriodType":1}
@@ -75,8 +75,8 @@
 {"Ticker":"DISMX","PeriodStart":"2019-03-01T00:00:00","ReturnPercentage":0.1309597235482480968595013400,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2019-04-01T00:00:00","ReturnPercentage":3.9860942351829350614283785600,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2019-05-01T00:00:00","ReturnPercentage":-5.4359115842773215618812684600,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2019-06-01T00:00:00","ReturnPercentage":5.3365025699992277130868307900,"PeriodType":1}
-{"Ticker":"DISMX","PeriodStart":"2019-07-01T00:00:00","ReturnPercentage":-2.1921535403564795203493108300,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2019-06-01T00:00:00","ReturnPercentage":5.3373606665694157220453589800,"PeriodType":1}
+{"Ticker":"DISMX","PeriodStart":"2019-07-01T00:00:00","ReturnPercentage":-2.1929503001865474066652003600,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2019-08-01T00:00:00","ReturnPercentage":-2.9642277099904218548286344900,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2019-09-01T00:00:00","ReturnPercentage":2.2273530976945393370298525400,"PeriodType":1}
 {"Ticker":"DISMX","PeriodStart":"2019-10-01T00:00:00","ReturnPercentage":4.1729288586997590280518215600,"PeriodType":1}

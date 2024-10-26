@@ -1,7 +1,7 @@
 {"Ticker":"AVSC","PeriodStart":"2022-02-01T00:00:00","ReturnPercentage":1.879630862061315941257376100,"PeriodType":1}
 {"Ticker":"AVSC","PeriodStart":"2022-03-01T00:00:00","ReturnPercentage":0.4905792667658131792280072200,"PeriodType":1}
-{"Ticker":"AVSC","PeriodStart":"2022-04-01T00:00:00","ReturnPercentage":-7.6718395860508855789523863200,"PeriodType":1}
-{"Ticker":"AVSC","PeriodStart":"2022-05-01T00:00:00","ReturnPercentage":2.0758038019244308847688336100,"PeriodType":1}
+{"Ticker":"AVSC","PeriodStart":"2022-04-01T00:00:00","ReturnPercentage":-7.6716229041442581461562796600,"PeriodType":1}
+{"Ticker":"AVSC","PeriodStart":"2022-05-01T00:00:00","ReturnPercentage":2.0755642441580751981337757900,"PeriodType":1}
 {"Ticker":"AVSC","PeriodStart":"2022-06-01T00:00:00","ReturnPercentage":-8.664083964639207256089850440,"PeriodType":1}
 {"Ticker":"AVSC","PeriodStart":"2022-07-01T00:00:00","ReturnPercentage":9.949630092055349002293202710,"PeriodType":1}
 {"Ticker":"AVSC","PeriodStart":"2022-08-01T00:00:00","ReturnPercentage":-2.5550210972396156479016087900,"PeriodType":1}

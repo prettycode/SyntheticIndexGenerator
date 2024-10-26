@@ -60,9 +60,9 @@ internal class ReturnsCache : IReturnsCache
         var options = returnRepositoryOptions.Value;
         var tableCacheOptions = options.TableCacheOptions;
 
-        dailyCache = new(tableCacheOptions, $"{PeriodType.Daily}");
-        monthlyCache = new(tableCacheOptions, $"{PeriodType.Monthly}");
-        yearlyCache = new(tableCacheOptions, $"{PeriodType.Yearly}");
+        dailyCache = new(tableCacheOptions, cacheNamespace: $"{PeriodType.Daily}");
+        monthlyCache = new(tableCacheOptions, cacheNamespace: $"{PeriodType.Monthly}");
+        yearlyCache = new(tableCacheOptions, cacheNamespace: $"{PeriodType.Yearly}");
 
         syntheticUsMarketReturnsFilePath = options.SyntheticUsMarketReturnsFilePath;
 

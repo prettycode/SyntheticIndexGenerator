@@ -11,8 +11,8 @@
 {"Ticker":"AVES","PeriodStart":"2021-10-15T00:00:00","ReturnPercentage":1.0824278617367195684227261900,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2021-10-18T00:00:00","ReturnPercentage":-0.1081609831876463782230141600,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2021-10-19T00:00:00","ReturnPercentage":0.9639339029077630219511195600,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2021-10-20T00:00:00","ReturnPercentage":-0.0702856288320622102587109300,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2021-10-21T00:00:00","ReturnPercentage":-0.8557789127353498902217157900,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2021-10-20T00:00:00","ReturnPercentage":-0.0700719947018735713217543600,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2021-10-21T00:00:00","ReturnPercentage":-0.8559908671503884454059970700,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2021-10-22T00:00:00","ReturnPercentage":-0.1041491467532635555613056800,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2021-10-25T00:00:00","ReturnPercentage":1.2970697749716690950299498100,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2021-10-26T00:00:00","ReturnPercentage":-0.5906870892679060014831104400,"PeriodType":0}
@@ -122,8 +122,8 @@
 {"Ticker":"AVES","PeriodStart":"2022-03-25T00:00:00","ReturnPercentage":-0.7686915269780525011683582100,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-03-28T00:00:00","ReturnPercentage":0.0713109892233766753084033700,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-03-29T00:00:00","ReturnPercentage":0.947249712517371054606159900,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2022-03-30T00:00:00","ReturnPercentage":-0.2018784814691827440079695800,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2022-03-31T00:00:00","ReturnPercentage":-0.8087067082992699604020175800,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2022-03-30T00:00:00","ReturnPercentage":-0.2016585702693252464654772400,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2022-03-31T00:00:00","ReturnPercentage":-0.8089252818347685825848589300,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-04-01T00:00:00","ReturnPercentage":1.6308223423327357428005891500,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-04-04T00:00:00","ReturnPercentage":1.2037632081699389265588591500,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-04-05T00:00:00","ReturnPercentage":-1.24884176513912857540891900,"PeriodType":0}
@@ -222,8 +222,8 @@
 {"Ticker":"AVES","PeriodStart":"2022-08-18T00:00:00","ReturnPercentage":-0.4880601798986317286695915200,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-08-19T00:00:00","ReturnPercentage":-0.8691779046622058597790063600,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-08-22T00:00:00","ReturnPercentage":-0.5607552553352981344543361400,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2022-08-23T00:00:00","ReturnPercentage":0.639736140752162236676843900,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2022-08-24T00:00:00","ReturnPercentage":-0.1128782690307688405245668800,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2022-08-23T00:00:00","ReturnPercentage":0.6399914225321910324616311500,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2022-08-24T00:00:00","ReturnPercentage":-0.1131316410936735061423378700,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-08-25T00:00:00","ReturnPercentage":1.574717167997765278007034300,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-08-26T00:00:00","ReturnPercentage":-1.1605406189216622581790362700,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-08-29T00:00:00","ReturnPercentage":-0.5633068922255048767655510100,"PeriodType":0}
@@ -269,8 +269,8 @@
 {"Ticker":"AVES","PeriodStart":"2022-10-25T00:00:00","ReturnPercentage":1.2597738586096577850155342300,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-10-26T00:00:00","ReturnPercentage":0.9529648269864126947917706300,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-10-27T00:00:00","ReturnPercentage":-0.2621194959848829359643201100,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2022-10-28T00:00:00","ReturnPercentage":-0.4208332271338311965993503400,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2022-10-31T00:00:00","ReturnPercentage":-0.9265605492245956606934131200,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2022-10-28T00:00:00","ReturnPercentage":-0.4205500284614665726447074400,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2022-10-31T00:00:00","ReturnPercentage":-0.9268423088298864696380224300,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-11-01T00:00:00","ReturnPercentage":1.7880671135159961534597333300,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-11-02T00:00:00","ReturnPercentage":-0.9946586800679086504565785100,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-11-03T00:00:00","ReturnPercentage":0.9516701940085510742963593800,"PeriodType":0}
@@ -301,8 +301,8 @@
 {"Ticker":"AVES","PeriodStart":"2022-12-09T00:00:00","ReturnPercentage":-0.352346190256817848157016800,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-12-12T00:00:00","ReturnPercentage":0.5187032925720266006899109400,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-12-13T00:00:00","ReturnPercentage":0.0937541064804051390391088600,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2022-12-14T00:00:00","ReturnPercentage":0.2696377311045300653644275100,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2022-12-15T00:00:00","ReturnPercentage":-2.2610819453362037491659427700,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2022-12-14T00:00:00","ReturnPercentage":0.2693852613188516664268203700,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2022-12-15T00:00:00","ReturnPercentage":-2.2608358470517733675098324600,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-12-16T00:00:00","ReturnPercentage":0.4191408514201069105429252300,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-12-19T00:00:00","ReturnPercentage":-0.1977927255375806178521403200,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2022-12-20T00:00:00","ReturnPercentage":0.0735159922988142333130264700,"PeriodType":0}
@@ -317,8 +317,8 @@
 {"Ticker":"AVES","PeriodStart":"2023-01-04T00:00:00","ReturnPercentage":2.0388634420812228077114459600,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2023-01-05T00:00:00","ReturnPercentage":-0.0952797749296655204751484800,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2023-01-06T00:00:00","ReturnPercentage":2.5001627058228659253956254700,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2023-01-09T00:00:00","ReturnPercentage":0.3484890666744814179866270100,"PeriodType":0}
-{"Ticker":"AVES","PeriodStart":"2023-01-10T00:00:00","ReturnPercentage":0.8101550464944793129379010900,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2023-01-09T00:00:00","ReturnPercentage":0.3482448556957326573573441600,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2023-01-10T00:00:00","ReturnPercentage":0.8104003815939334352215094400,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2023-01-11T00:00:00","ReturnPercentage":0.1605357306669112925419686300,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2023-01-12T00:00:00","ReturnPercentage":0.8025972335702561803602287800,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2023-01-13T00:00:00","ReturnPercentage":0.6594410292827203974817864700,"PeriodType":0}

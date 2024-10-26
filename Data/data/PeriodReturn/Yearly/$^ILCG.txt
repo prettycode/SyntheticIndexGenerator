@@ -1,8 +1,8 @@
 {"Ticker":"EFG","PeriodStart":"2006-01-01T00:00:00","ReturnPercentage":21.773256742054555322790980960,"PeriodType":2}
-{"Ticker":"EFG","PeriodStart":"2007-01-01T00:00:00","ReturnPercentage":14.993142949338496289125524360,"PeriodType":2}
-{"Ticker":"EFG","PeriodStart":"2008-01-01T00:00:00","ReturnPercentage":-40.195762054922814119000599810,"PeriodType":2}
-{"Ticker":"EFG","PeriodStart":"2009-01-01T00:00:00","ReturnPercentage":24.244192696037748575483954220,"PeriodType":2}
-{"Ticker":"EFG","PeriodStart":"2010-01-01T00:00:00","ReturnPercentage":13.058697458363231239850447520,"PeriodType":2}
+{"Ticker":"EFG","PeriodStart":"2007-01-01T00:00:00","ReturnPercentage":14.993344627299128751210067760,"PeriodType":2}
+{"Ticker":"EFG","PeriodStart":"2008-01-01T00:00:00","ReturnPercentage":-40.195866940964567516043094940,"PeriodType":2}
+{"Ticker":"EFG","PeriodStart":"2009-01-01T00:00:00","ReturnPercentage":24.243899434885760118242896480,"PeriodType":2}
+{"Ticker":"EFG","PeriodStart":"2010-01-01T00:00:00","ReturnPercentage":13.058964318337924246393949910,"PeriodType":2}
 {"Ticker":"EFG","PeriodStart":"2011-01-01T00:00:00","ReturnPercentage":-12.893197964880195578604101560,"PeriodType":2}
 {"Ticker":"EFG","PeriodStart":"2012-01-01T00:00:00","ReturnPercentage":18.348065344939985427771599490,"PeriodType":2}
 {"Ticker":"EFG","PeriodStart":"2013-01-01T00:00:00","ReturnPercentage":21.566427561737270801521306800,"PeriodType":2}

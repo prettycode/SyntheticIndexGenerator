@@ -139,10 +139,10 @@
 {"Ticker":"DFEMX","PeriodStart":"2005-11-01T00:00:00","ReturnPercentage":7.2236575298755571109487097700,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2005-12-01T00:00:00","ReturnPercentage":5.9651918480191224045079724700,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2006-01-01T00:00:00","ReturnPercentage":9.308329936132626715586356840,"PeriodType":1}
-{"Ticker":"DFEMX","PeriodStart":"2006-02-01T00:00:00","ReturnPercentage":-0.3066467760649759655229570700,"PeriodType":1}
-{"Ticker":"DFEMX","PeriodStart":"2006-03-01T00:00:00","ReturnPercentage":1.35838390556155956438606700,"PeriodType":1}
-{"Ticker":"DFEMX","PeriodStart":"2006-04-01T00:00:00","ReturnPercentage":5.9569896000787375742265673700,"PeriodType":1}
-{"Ticker":"DFEMX","PeriodStart":"2006-05-01T00:00:00","ReturnPercentage":-11.571597761384659447157995770,"PeriodType":1}
+{"Ticker":"DFEMX","PeriodStart":"2006-02-01T00:00:00","ReturnPercentage":-0.3074755511354218465108569500,"PeriodType":1}
+{"Ticker":"DFEMX","PeriodStart":"2006-03-01T00:00:00","ReturnPercentage":1.359226529441594825794544800,"PeriodType":1}
+{"Ticker":"DFEMX","PeriodStart":"2006-04-01T00:00:00","ReturnPercentage":5.956169417013877497457432500,"PeriodType":1}
+{"Ticker":"DFEMX","PeriodStart":"2006-05-01T00:00:00","ReturnPercentage":-11.570913256854457913396188440,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2006-06-01T00:00:00","ReturnPercentage":-0.1785745548766610059699924700,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2006-07-01T00:00:00","ReturnPercentage":1.8266481926442990686988091300,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2006-08-01T00:00:00","ReturnPercentage":3.1278796386403369015734130200,"PeriodType":1}
@@ -212,8 +212,8 @@
 {"Ticker":"DFEMX","PeriodStart":"2011-12-01T00:00:00","ReturnPercentage":-2.9913724684104443949593746600,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2012-01-01T00:00:00","ReturnPercentage":10.728201626858468021989664390,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2012-02-01T00:00:00","ReturnPercentage":5.3948172757475083056478405300,"PeriodType":1}
-{"Ticker":"DFEMX","PeriodStart":"2012-03-01T00:00:00","ReturnPercentage":-2.6312073191643886742588539100,"PeriodType":1}
-{"Ticker":"DFEMX","PeriodStart":"2012-04-01T00:00:00","ReturnPercentage":-1.8144900210818566537343893300,"PeriodType":1}
+{"Ticker":"DFEMX","PeriodStart":"2012-03-01T00:00:00","ReturnPercentage":-2.6317116717270040449075521800,"PeriodType":1}
+{"Ticker":"DFEMX","PeriodStart":"2012-04-01T00:00:00","ReturnPercentage":-1.8139814354384220122658710400,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2012-05-01T00:00:00","ReturnPercentage":-10.784262004494761387256401870,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2012-06-01T00:00:00","ReturnPercentage":4.8890676001703013387577463500,"PeriodType":1}
 {"Ticker":"DFEMX","PeriodStart":"2012-07-01T00:00:00","ReturnPercentage":0.8112526778667268012177246600,"PeriodType":1}
@@ -309,8 +309,8 @@
 {"Ticker":"AVEM","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":-6.4284074074826710993970700900,"PeriodType":1}
 {"Ticker":"AVEM","PeriodStart":"2020-02-01T00:00:00","ReturnPercentage":-4.3158733709331694403241954300,"PeriodType":1}
 {"Ticker":"AVEM","PeriodStart":"2020-03-01T00:00:00","ReturnPercentage":-19.307065525772259924192559980,"PeriodType":1}
-{"Ticker":"AVEM","PeriodStart":"2020-04-01T00:00:00","ReturnPercentage":9.248013501160255959496519230,"PeriodType":1}
-{"Ticker":"AVEM","PeriodStart":"2020-05-01T00:00:00","ReturnPercentage":3.0651074654226012090503702300,"PeriodType":1}
+{"Ticker":"AVEM","PeriodStart":"2020-04-01T00:00:00","ReturnPercentage":9.247732226988256803319035230,"PeriodType":1}
+{"Ticker":"AVEM","PeriodStart":"2020-05-01T00:00:00","ReturnPercentage":3.0653728215281550348478255800,"PeriodType":1}
 {"Ticker":"AVEM","PeriodStart":"2020-06-01T00:00:00","ReturnPercentage":6.5414467323992216013129857200,"PeriodType":1}
 {"Ticker":"AVEM","PeriodStart":"2020-07-01T00:00:00","ReturnPercentage":8.054959612656654825965134410,"PeriodType":1}
 {"Ticker":"AVEM","PeriodStart":"2020-08-01T00:00:00","ReturnPercentage":2.7000167082927379684017975500,"PeriodType":1}
@@ -322,8 +322,8 @@
 {"Ticker":"AVEM","PeriodStart":"2021-02-01T00:00:00","ReturnPercentage":3.0032956457319310683846489400,"PeriodType":1}
 {"Ticker":"AVEM","PeriodStart":"2021-03-01T00:00:00","ReturnPercentage":0.62932397665535731990327400,"PeriodType":1}
 {"Ticker":"AVEM","PeriodStart":"2021-04-01T00:00:00","ReturnPercentage":2.6553534570861749951572070800,"PeriodType":1}
-{"Ticker":"AVEM","PeriodStart":"2021-05-01T00:00:00","ReturnPercentage":2.230901746948655423772101200,"PeriodType":1}
-{"Ticker":"AVEM","PeriodStart":"2021-06-01T00:00:00","ReturnPercentage":1.5113542516982447095440636600,"PeriodType":1}
+{"Ticker":"AVEM","PeriodStart":"2021-05-01T00:00:00","ReturnPercentage":2.2310644202567310148048977700,"PeriodType":1}
+{"Ticker":"AVEM","PeriodStart":"2021-06-01T00:00:00","ReturnPercentage":1.5111927236157875642061981700,"PeriodType":1}
 {"Ticker":"AVEM","PeriodStart":"2021-07-01T00:00:00","ReturnPercentage":-5.1757137415529022276354709900,"PeriodType":1}
 {"Ticker":"AVEM","PeriodStart":"2021-08-01T00:00:00","ReturnPercentage":1.6602112996199516302074809500,"PeriodType":1}
 {"Ticker":"AVEM","PeriodStart":"2021-09-01T00:00:00","ReturnPercentage":-3.7881769073412188641323260100,"PeriodType":1}

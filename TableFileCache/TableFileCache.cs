@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.Extensions.Options;
 
 namespace TableFileCache;
@@ -20,7 +21,10 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
     private readonly DailyExpirationCacheOptions dailyExpirationCacheOptions;
 
-    public TableFileCache(IOptions<TableFileCacheOptions> tableCacheOptions, string? cacheNamespace = null)
+    private readonly JsonSerializerOptions serializerOptions = new();
+
+
+    public TableFileCache(IOptions<TableFileCacheOptions> tableCacheOptions, JsonConverter? jsonConverter = null, string? cacheNamespace = null)
     {
         DateTimeOffset GetNextExpirationDateTimeOffset()
         {
@@ -50,6 +54,11 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
             cacheInstances[instanceKey] = new AbsoluteExpirationCache<TKey, IEnumerable<TValue>>(
                 GetNextExpirationDateTimeOffset,
                 memoryCacheOptions: dailyExpirationCacheOptions.MemoryCacheOptions);
+        }
+
+        if (jsonConverter != null)
+        {
+            serializerOptions.Converters.Add(jsonConverter);
         }
     }
 
@@ -94,7 +103,7 @@ public class TableFileCache<TKey, TValue> where TKey : notnull
 
         Directory.CreateDirectory(filePathDirectory);
 
-        var cacheFileLines = value.Select(item => JsonSerializer.Serialize(item));
+        var cacheFileLines = value.Select(item => JsonSerializer.Serialize(item, this.serializerOptions));
 
         if (append)
         {

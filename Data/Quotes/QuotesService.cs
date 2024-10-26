@@ -126,9 +126,7 @@ internal class QuotesService(
 
         var firstDeltaPrice = deltaQuote.Prices[0];
 
-        if (firstDeltaPrice.Open != staleHistoryLastTick.Open ||
-            firstDeltaPrice.Close != staleHistoryLastTick.Close ||
-            firstDeltaPrice.AdjustedClose != staleHistoryLastTick.AdjustedClose)
+        if (firstDeltaPrice.AdjustedClose != staleHistoryLastTick.AdjustedClose)
         {
             logger.LogWarning("{ticker}: All history has changed. Downloading entire history...", ticker);
 

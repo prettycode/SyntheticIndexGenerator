@@ -78,8 +78,8 @@
 {"Ticker":"DFLVX","PeriodStart":"2004-01-01T00:00:00","ReturnPercentage":18.243291337461741049184995370,"PeriodType":2}
 {"Ticker":"DFLVX","PeriodStart":"2005-01-01T00:00:00","ReturnPercentage":10.231559515209888434063729030,"PeriodType":2}
 {"Ticker":"DFLVX","PeriodStart":"2006-01-01T00:00:00","ReturnPercentage":20.170201146809866205515609360,"PeriodType":2}
-{"Ticker":"DFLVX","PeriodStart":"2007-01-01T00:00:00","ReturnPercentage":-2.7751058463542652861827904100,"PeriodType":2}
-{"Ticker":"DFLVX","PeriodStart":"2008-01-01T00:00:00","ReturnPercentage":-40.805658775230394104403779790,"PeriodType":2}
+{"Ticker":"DFLVX","PeriodStart":"2007-01-01T00:00:00","ReturnPercentage":-2.7743484484704349736046837500,"PeriodType":2}
+{"Ticker":"DFLVX","PeriodStart":"2008-01-01T00:00:00","ReturnPercentage":-40.806119905272342016701981800,"PeriodType":2}
 {"Ticker":"DFLVX","PeriodStart":"2009-01-01T00:00:00","ReturnPercentage":30.354275787645092517042613110,"PeriodType":2}
 {"Ticker":"DFLVX","PeriodStart":"2010-01-01T00:00:00","ReturnPercentage":20.387477158231618055345226200,"PeriodType":2}
 {"Ticker":"DFLVX","PeriodStart":"2011-01-01T00:00:00","ReturnPercentage":-3.1498176024151956056857729900,"PeriodType":2}
