@@ -3,7 +3,7 @@ using System.Text.Json;
 using Data.Quotes.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace Data.Quotes.QuoteProvider.YahooFinanceChartProvider;
+namespace Data.Quotes.QuoteProvider;
 
 public class YahooFinanceChartProvider : YahooQuoteProvider, IQuoteProvider
 {
@@ -17,12 +17,12 @@ public class YahooFinanceChartProvider : YahooQuoteProvider, IQuoteProvider
     public async Task<Quote?> GetQuote(string ticker, DateTime? startDate, DateTime? endDate)
     {
         var response = await GetRequestResponse(ticker, startDate, endDate);
-        
+
         var history = response.Chart.Result[0];
         var timestamps = history.Timestamp;
         var candles = history.Indicators.Quote[0];
         var adjCloses = history.Indicators.Adjclose[0].Adjclose;
-        
+
         var prices = new List<QuotePrice>();
 
         for (var i = 0; i < history.Timestamp.Count; i++)
@@ -55,8 +55,8 @@ public class YahooFinanceChartProvider : YahooQuoteProvider, IQuoteProvider
     }
 
     private static async Task<YahooFinanceResponse> GetRequestResponse(
-        string ticker, 
-        DateTime? startDate, 
+        string ticker,
+        DateTime? startDate,
         DateTime? endDate)
     {
         // Data goes back to 1927 for Yahoo! Finance (e.g. ticker ^GSPC)
