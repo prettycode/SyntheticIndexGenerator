@@ -11297,3 +11297,12 @@
 {"Ticker":"VFINX","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.9179575444635685599541021200,"PeriodType":0}
 {"Ticker":"VFINX","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":0.2148047144965164278909912800,"PeriodType":0}
 {"Ticker":"VFINX","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-0.0298218146574219041228658800,"PeriodType":0}
+{"Ticker":"VFINX","PeriodStart":"2024-10-28T00:00:00","ReturnPercentage":0.2647475576105600715937057200,"PeriodType":0}
+{"Ticker":"VFINX","PeriodStart":"2024-10-29T00:00:00","ReturnPercentage":0.1617761910074751757224143700,"PeriodType":0}
+{"Ticker":"VFINX","PeriodStart":"2024-10-30T00:00:00","ReturnPercentage":-0.3285992759676970203285992800,"PeriodType":0}
+{"Ticker":"VFINX","PeriodStart":"2024-10-31T00:00:00","ReturnPercentage":-1.8533005513336313515124422600,"PeriodType":0}
+{"Ticker":"VFINX","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":0.4118194067523200425103903700,"PeriodType":0}
+{"Ticker":"VFINX","PeriodStart":"2024-11-04T00:00:00","ReturnPercentage":-0.2778302778302778302778302800,"PeriodType":0}
+{"Ticker":"VFINX","PeriodStart":"2024-11-05T00:00:00","ReturnPercentage":1.2281333510224968254269090100,"PeriodType":0}
+{"Ticker":"VFINX","PeriodStart":"2024-11-06T00:00:00","ReturnPercentage":2.5294415008144389732452116600,"PeriodType":0}
+{"Ticker":"VFINX","PeriodStart":"2024-11-07T00:00:00","ReturnPercentage":0.7450421825353347211570066800,"PeriodType":0}

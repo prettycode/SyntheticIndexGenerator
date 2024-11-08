@@ -4837,3 +4837,12 @@
 {"Ticker":"EFG","DateTime":"2024-10-23","AdjustedClose":102.1300,"Volume":334300}
 {"Ticker":"EFG","DateTime":"2024-10-24","AdjustedClose":102.6600,"Volume":881100}
 {"Ticker":"EFG","DateTime":"2024-10-25","AdjustedClose":102.4100,"Volume":410600}
+{"Ticker":"EFG","DateTime":"2024-10-28","AdjustedClose":103.2900,"Volume":294900}
+{"Ticker":"EFG","DateTime":"2024-10-29","AdjustedClose":102.8700,"Volume":525900}
+{"Ticker":"EFG","DateTime":"2024-10-30","AdjustedClose":101.8200,"Volume":555600}
+{"Ticker":"EFG","DateTime":"2024-10-31","AdjustedClose":100.8400,"Volume":1110200}
+{"Ticker":"EFG","DateTime":"2024-11-01","AdjustedClose":101.0900,"Volume":863100}
+{"Ticker":"EFG","DateTime":"2024-11-04","AdjustedClose":100.9900,"Volume":513800}
+{"Ticker":"EFG","DateTime":"2024-11-05","AdjustedClose":102.0600,"Volume":298900}
+{"Ticker":"EFG","DateTime":"2024-11-06","AdjustedClose":100.7200,"Volume":270100}
+{"Ticker":"EFG","DateTime":"2024-11-07","AdjustedClose":102.4400,"Volume":360600}

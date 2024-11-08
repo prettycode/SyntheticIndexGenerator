@@ -770,3 +770,12 @@
 {"Ticker":"AVES","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.5655930871956009426551453300,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":0.0158002844051192921472586500,"PeriodType":0}
 {"Ticker":"AVES","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-0.2369668246445497630331753600,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2024-10-28T00:00:00","ReturnPercentage":0.5443388756927949326999208200,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2024-10-29T00:00:00","ReturnPercentage":-0.6988876857958460478393542700,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2024-10-30T00:00:00","ReturnPercentage":-0.6938937351308485329103885800,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2024-10-31T00:00:00","ReturnPercentage":-0.3793172289878219205430225600,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":0.1202404809619238476953907800,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2024-11-04T00:00:00","ReturnPercentage":0.3402722177742193755004003200,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2024-11-05T00:00:00","ReturnPercentage":1.3764213046080191502094554200,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2024-11-06T00:00:00","ReturnPercentage":-1.0428964974419519874065328600,"PeriodType":0}
+{"Ticker":"AVES","PeriodStart":"2024-11-07T00:00:00","ReturnPercentage":2.2071982501491350169019685800,"PeriodType":0}

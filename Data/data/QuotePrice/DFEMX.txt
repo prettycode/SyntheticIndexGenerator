@@ -7680,3 +7680,12 @@
 {"Ticker":"DFEMX","DateTime":"2024-10-23","AdjustedClose":30.3800,"Volume":0}
 {"Ticker":"DFEMX","DateTime":"2024-10-24","AdjustedClose":30.3200,"Volume":0}
 {"Ticker":"DFEMX","DateTime":"2024-10-25","AdjustedClose":30.3100,"Volume":0}
+{"Ticker":"DFEMX","DateTime":"2024-10-28","AdjustedClose":30.4200,"Volume":0}
+{"Ticker":"DFEMX","DateTime":"2024-10-29","AdjustedClose":30.3400,"Volume":0}
+{"Ticker":"DFEMX","DateTime":"2024-10-30","AdjustedClose":30.0300,"Volume":0}
+{"Ticker":"DFEMX","DateTime":"2024-10-31","AdjustedClose":29.7800,"Volume":0}
+{"Ticker":"DFEMX","DateTime":"2024-11-01","AdjustedClose":29.9700,"Volume":0}
+{"Ticker":"DFEMX","DateTime":"2024-11-04","AdjustedClose":30.0800,"Volume":0}
+{"Ticker":"DFEMX","DateTime":"2024-11-05","AdjustedClose":30.5000,"Volume":0}
+{"Ticker":"DFEMX","DateTime":"2024-11-06","AdjustedClose":30.2900,"Volume":0}
+{"Ticker":"DFEMX","DateTime":"2024-11-07","AdjustedClose":30.6800,"Volume":0}

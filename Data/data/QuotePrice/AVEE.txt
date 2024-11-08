@@ -236,3 +236,12 @@
 {"Ticker":"AVEE","DateTime":"2024-10-23","AdjustedClose":57.0640,"Volume":500}
 {"Ticker":"AVEE","DateTime":"2024-10-24","AdjustedClose":56.9050,"Volume":800}
 {"Ticker":"AVEE","DateTime":"2024-10-25","AdjustedClose":56.5560,"Volume":6400}
+{"Ticker":"AVEE","DateTime":"2024-10-28","AdjustedClose":57.0410,"Volume":4700}
+{"Ticker":"AVEE","DateTime":"2024-10-29","AdjustedClose":56.7260,"Volume":700}
+{"Ticker":"AVEE","DateTime":"2024-10-30","AdjustedClose":56.7230,"Volume":4500}
+{"Ticker":"AVEE","DateTime":"2024-10-31","AdjustedClose":56.8700,"Volume":1200}
+{"Ticker":"AVEE","DateTime":"2024-11-01","AdjustedClose":56.8570,"Volume":500}
+{"Ticker":"AVEE","DateTime":"2024-11-04","AdjustedClose":57.0210,"Volume":700}
+{"Ticker":"AVEE","DateTime":"2024-11-05","AdjustedClose":57.6620,"Volume":1100}
+{"Ticker":"AVEE","DateTime":"2024-11-06","AdjustedClose":57.2330,"Volume":2600}
+{"Ticker":"AVEE","DateTime":"2024-11-07","AdjustedClose":58.3580,"Volume":2700}

@@ -1283,3 +1283,12 @@
 {"Ticker":"AVEM","DateTime":"2024-10-23","AdjustedClose":63.5400,"Volume":623400}
 {"Ticker":"AVEM","DateTime":"2024-10-24","AdjustedClose":63.3800,"Volume":544800}
 {"Ticker":"AVEM","DateTime":"2024-10-25","AdjustedClose":63.3000,"Volume":227400}
+{"Ticker":"AVEM","DateTime":"2024-10-28","AdjustedClose":63.5400,"Volume":412800}
+{"Ticker":"AVEM","DateTime":"2024-10-29","AdjustedClose":63.3000,"Volume":323500}
+{"Ticker":"AVEM","DateTime":"2024-10-30","AdjustedClose":62.7500,"Volume":471400}
+{"Ticker":"AVEM","DateTime":"2024-10-31","AdjustedClose":62.4900,"Volume":537800}
+{"Ticker":"AVEM","DateTime":"2024-11-01","AdjustedClose":62.5900,"Volume":373800}
+{"Ticker":"AVEM","DateTime":"2024-11-04","AdjustedClose":62.7400,"Volume":649600}
+{"Ticker":"AVEM","DateTime":"2024-11-05","AdjustedClose":63.6700,"Volume":344000}
+{"Ticker":"AVEM","DateTime":"2024-11-06","AdjustedClose":62.9000,"Volume":400100}
+{"Ticker":"AVEM","DateTime":"2024-11-07","AdjustedClose":64.3500,"Volume":307900}

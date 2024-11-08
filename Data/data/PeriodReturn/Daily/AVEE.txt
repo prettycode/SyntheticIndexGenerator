@@ -235,3 +235,12 @@
 {"Ticker":"AVEE","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.2517130471262760453083484800,"PeriodType":0}
 {"Ticker":"AVEE","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":-0.2786345156315715687648955600,"PeriodType":0}
 {"Ticker":"AVEE","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-0.6133028732097355241191459400,"PeriodType":0}
+{"Ticker":"AVEE","PeriodStart":"2024-10-28T00:00:00","ReturnPercentage":0.8575571115354692693967041500,"PeriodType":0}
+{"Ticker":"AVEE","PeriodStart":"2024-10-29T00:00:00","ReturnPercentage":-0.5522343577426763205413649800,"PeriodType":0}
+{"Ticker":"AVEE","PeriodStart":"2024-10-30T00:00:00","ReturnPercentage":-0.0052885801925043190071572100,"PeriodType":0}
+{"Ticker":"AVEE","PeriodStart":"2024-10-31T00:00:00","ReturnPercentage":0.2591541350069636655325000400,"PeriodType":0}
+{"Ticker":"AVEE","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":-0.022859152452962897837172500,"PeriodType":0}
+{"Ticker":"AVEE","PeriodStart":"2024-11-04T00:00:00","ReturnPercentage":0.2884429357862708197759290900,"PeriodType":0}
+{"Ticker":"AVEE","PeriodStart":"2024-11-05T00:00:00","ReturnPercentage":1.1241472439978253625857140400,"PeriodType":0}
+{"Ticker":"AVEE","PeriodStart":"2024-11-06T00:00:00","ReturnPercentage":-0.7439908431896222815719191100,"PeriodType":0}
+{"Ticker":"AVEE","PeriodStart":"2024-11-07T00:00:00","ReturnPercentage":1.9656491884052906539933255300,"PeriodType":0}

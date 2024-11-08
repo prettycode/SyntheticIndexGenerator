@@ -4275,3 +4275,12 @@
 {"Ticker":"DGS","DateTime":"2024-10-23","AdjustedClose":51.6400,"Volume":200900}
 {"Ticker":"DGS","DateTime":"2024-10-24","AdjustedClose":51.6100,"Volume":140700}
 {"Ticker":"DGS","DateTime":"2024-10-25","AdjustedClose":51.3100,"Volume":269800}
+{"Ticker":"DGS","DateTime":"2024-10-28","AdjustedClose":51.4500,"Volume":101100}
+{"Ticker":"DGS","DateTime":"2024-10-29","AdjustedClose":51.2000,"Volume":146200}
+{"Ticker":"DGS","DateTime":"2024-10-30","AdjustedClose":51.1100,"Volume":198100}
+{"Ticker":"DGS","DateTime":"2024-10-31","AdjustedClose":51.1700,"Volume":322500}
+{"Ticker":"DGS","DateTime":"2024-11-01","AdjustedClose":51.2800,"Volume":142900}
+{"Ticker":"DGS","DateTime":"2024-11-04","AdjustedClose":51.3700,"Volume":281300}
+{"Ticker":"DGS","DateTime":"2024-11-05","AdjustedClose":51.7800,"Volume":196300}
+{"Ticker":"DGS","DateTime":"2024-11-06","AdjustedClose":51.3400,"Volume":177400}
+{"Ticker":"DGS","DateTime":"2024-11-07","AdjustedClose":52.1000,"Volume":170800}

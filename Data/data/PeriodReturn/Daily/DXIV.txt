@@ -29,3 +29,12 @@
 {"Ticker":"DXIV","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-1.2022420725306502406464774500,"PeriodType":0}
 {"Ticker":"DXIV","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":0.4009462331101399302353554400,"PeriodType":0}
 {"Ticker":"DXIV","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-0.3514236651890898925761750700,"PeriodType":0}
+{"Ticker":"DXIV","PeriodStart":"2024-10-28T00:00:00","ReturnPercentage":0.7253636837254037590670460500,"PeriodType":0}
+{"Ticker":"DXIV","PeriodStart":"2024-10-29T00:00:00","ReturnPercentage":-0.4456115222407893689822551100,"PeriodType":0}
+{"Ticker":"DXIV","PeriodStart":"2024-10-30T00:00:00","ReturnPercentage":-0.3776676524658300695388058500,"PeriodType":0}
+{"Ticker":"DXIV","PeriodStart":"2024-10-31T00:00:00","ReturnPercentage":-0.5034600340988867716377494700,"PeriodType":0}
+{"Ticker":"DXIV","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":0.2096605112490928150955568100,"PeriodType":0}
+{"Ticker":"DXIV","PeriodStart":"2024-11-04T00:00:00","ReturnPercentage":0.179045626458517743622756900,"PeriodType":0}
+{"Ticker":"DXIV","PeriodStart":"2024-11-05T00:00:00","ReturnPercentage":1.0000602445930477739622868800,"PeriodType":0}
+{"Ticker":"DXIV","PeriodStart":"2024-11-06T00:00:00","ReturnPercentage":-1.2665274878218510786360473200,"PeriodType":0}
+{"Ticker":"DXIV","PeriodStart":"2024-11-07T00:00:00","ReturnPercentage":1.7419146965242257038140883600,"PeriodType":0}

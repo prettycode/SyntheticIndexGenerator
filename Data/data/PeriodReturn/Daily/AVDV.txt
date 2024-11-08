@@ -1277,3 +1277,12 @@
 {"Ticker":"AVDV","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-1.549707602339181286549707600,"PeriodType":0}
 {"Ticker":"AVDV","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":0.4158004158004158004158004200,"PeriodType":0}
 {"Ticker":"AVDV","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-0.340136054421768707482993200,"PeriodType":0}
+{"Ticker":"AVDV","PeriodStart":"2024-10-28T00:00:00","ReturnPercentage":0.0741949844190532719988128800,"PeriodType":0}
+{"Ticker":"AVDV","PeriodStart":"2024-10-29T00:00:00","ReturnPercentage":-0.4893238434163701067615658400,"PeriodType":0}
+{"Ticker":"AVDV","PeriodStart":"2024-10-30T00:00:00","ReturnPercentage":-0.1192072716435702577857249300,"PeriodType":0}
+{"Ticker":"AVDV","PeriodStart":"2024-10-31T00:00:00","ReturnPercentage":-0.0149186931224824705355810800,"PeriodType":0}
+{"Ticker":"AVDV","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":-0.1193673530289465831095195500,"PeriodType":0}
+{"Ticker":"AVDV","PeriodStart":"2024-11-04T00:00:00","ReturnPercentage":0.0746937556020316701523752600,"PeriodType":0}
+{"Ticker":"AVDV","PeriodStart":"2024-11-05T00:00:00","ReturnPercentage":0.9852216748768472906403940900,"PeriodType":0}
+{"Ticker":"AVDV","PeriodStart":"2024-11-06T00:00:00","ReturnPercentage":-0.8425720620842572062084257200,"PeriodType":0}
+{"Ticker":"AVDV","PeriodStart":"2024-11-07T00:00:00","ReturnPercentage":1.9081693500298151460942158600,"PeriodType":0}

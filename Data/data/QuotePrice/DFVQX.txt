@@ -4075,3 +4075,12 @@
 {"Ticker":"DFVQX","DateTime":"2024-10-23","AdjustedClose":14.0700,"Volume":0}
 {"Ticker":"DFVQX","DateTime":"2024-10-24","AdjustedClose":14.1200,"Volume":0}
 {"Ticker":"DFVQX","DateTime":"2024-10-25","AdjustedClose":14.0700,"Volume":0}
+{"Ticker":"DFVQX","DateTime":"2024-10-28","AdjustedClose":14.1400,"Volume":0}
+{"Ticker":"DFVQX","DateTime":"2024-10-29","AdjustedClose":14.1000,"Volume":0}
+{"Ticker":"DFVQX","DateTime":"2024-10-30","AdjustedClose":14.0600,"Volume":0}
+{"Ticker":"DFVQX","DateTime":"2024-10-31","AdjustedClose":13.9700,"Volume":0}
+{"Ticker":"DFVQX","DateTime":"2024-11-01","AdjustedClose":14.0000,"Volume":0}
+{"Ticker":"DFVQX","DateTime":"2024-11-04","AdjustedClose":14.0200,"Volume":0}
+{"Ticker":"DFVQX","DateTime":"2024-11-05","AdjustedClose":14.1700,"Volume":0}
+{"Ticker":"DFVQX","DateTime":"2024-11-06","AdjustedClose":14.0100,"Volume":0}
+{"Ticker":"DFVQX","DateTime":"2024-11-07","AdjustedClose":14.2400,"Volume":0}

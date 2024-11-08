@@ -1278,3 +1278,12 @@
 {"Ticker":"AVDE","DateTime":"2024-10-23","AdjustedClose":64.1900,"Volume":143300}
 {"Ticker":"AVDE","DateTime":"2024-10-24","AdjustedClose":64.5200,"Volume":242400}
 {"Ticker":"AVDE","DateTime":"2024-10-25","AdjustedClose":64.2500,"Volume":178100}
+{"Ticker":"AVDE","DateTime":"2024-10-28","AdjustedClose":64.6800,"Volume":130300}
+{"Ticker":"AVDE","DateTime":"2024-10-29","AdjustedClose":64.4300,"Volume":216700}
+{"Ticker":"AVDE","DateTime":"2024-10-30","AdjustedClose":64.1800,"Volume":154400}
+{"Ticker":"AVDE","DateTime":"2024-10-31","AdjustedClose":63.7600,"Volume":192700}
+{"Ticker":"AVDE","DateTime":"2024-11-01","AdjustedClose":63.8700,"Volume":199800}
+{"Ticker":"AVDE","DateTime":"2024-11-04","AdjustedClose":63.9700,"Volume":205300}
+{"Ticker":"AVDE","DateTime":"2024-11-05","AdjustedClose":64.7100,"Volume":180300}
+{"Ticker":"AVDE","DateTime":"2024-11-06","AdjustedClose":63.9700,"Volume":211900}
+{"Ticker":"AVDE","DateTime":"2024-11-07","AdjustedClose":65.0500,"Volume":228200}

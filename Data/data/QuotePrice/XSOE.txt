@@ -2472,3 +2472,12 @@
 {"Ticker":"XSOE","DateTime":"2024-10-23","AdjustedClose":32.5700,"Volume":52700}
 {"Ticker":"XSOE","DateTime":"2024-10-24","AdjustedClose":32.5200,"Volume":339300}
 {"Ticker":"XSOE","DateTime":"2024-10-25","AdjustedClose":32.5100,"Volume":70000}
+{"Ticker":"XSOE","DateTime":"2024-10-28","AdjustedClose":32.6300,"Volume":111600}
+{"Ticker":"XSOE","DateTime":"2024-10-29","AdjustedClose":32.4900,"Volume":62300}
+{"Ticker":"XSOE","DateTime":"2024-10-30","AdjustedClose":32.2000,"Volume":46400}
+{"Ticker":"XSOE","DateTime":"2024-10-31","AdjustedClose":32.0200,"Volume":121800}
+{"Ticker":"XSOE","DateTime":"2024-11-01","AdjustedClose":32.0400,"Volume":64000}
+{"Ticker":"XSOE","DateTime":"2024-11-04","AdjustedClose":32.1800,"Volume":104700}
+{"Ticker":"XSOE","DateTime":"2024-11-05","AdjustedClose":32.6500,"Volume":53400}
+{"Ticker":"XSOE","DateTime":"2024-11-06","AdjustedClose":32.3500,"Volume":161900}
+{"Ticker":"XSOE","DateTime":"2024-11-07","AdjustedClose":32.9300,"Volume":4112100}

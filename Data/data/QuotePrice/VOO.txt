@@ -3555,3 +3555,12 @@
 {"Ticker":"VOO","DateTime":"2024-10-23","AdjustedClose":531.2700,"Volume":5227800}
 {"Ticker":"VOO","DateTime":"2024-10-24","AdjustedClose":532.4700,"Volume":4477800}
 {"Ticker":"VOO","DateTime":"2024-10-25","AdjustedClose":532.2600,"Volume":4318600}
+{"Ticker":"VOO","DateTime":"2024-10-28","AdjustedClose":533.9200,"Volume":3408000}
+{"Ticker":"VOO","DateTime":"2024-10-29","AdjustedClose":534.7700,"Volume":3027600}
+{"Ticker":"VOO","DateTime":"2024-10-30","AdjustedClose":533.1600,"Volume":3067000}
+{"Ticker":"VOO","DateTime":"2024-10-31","AdjustedClose":522.6700,"Volume":7972800}
+{"Ticker":"VOO","DateTime":"2024-11-01","AdjustedClose":524.9400,"Volume":6106900}
+{"Ticker":"VOO","DateTime":"2024-11-04","AdjustedClose":523.8000,"Volume":3681500}
+{"Ticker":"VOO","DateTime":"2024-11-05","AdjustedClose":530.1000,"Volume":3300300}
+{"Ticker":"VOO","DateTime":"2024-11-06","AdjustedClose":543.3000,"Volume":7483300}
+{"Ticker":"VOO","DateTime":"2024-11-07","AdjustedClose":547.5300,"Volume":6043400}

@@ -30,3 +30,12 @@
 {"Ticker":"DXIV","DateTime":"2024-10-23","AdjustedClose":49.8820,"Volume":1000}
 {"Ticker":"DXIV","DateTime":"2024-10-24","AdjustedClose":50.0820,"Volume":100}
 {"Ticker":"DXIV","DateTime":"2024-10-25","AdjustedClose":49.9060,"Volume":400}
+{"Ticker":"DXIV","DateTime":"2024-10-28","AdjustedClose":50.2680,"Volume":5800}
+{"Ticker":"DXIV","DateTime":"2024-10-29","AdjustedClose":50.0440,"Volume":5200}
+{"Ticker":"DXIV","DateTime":"2024-10-30","AdjustedClose":49.8550,"Volume":1100}
+{"Ticker":"DXIV","DateTime":"2024-10-31","AdjustedClose":49.6040,"Volume":11500}
+{"Ticker":"DXIV","DateTime":"2024-11-01","AdjustedClose":49.7080,"Volume":6000}
+{"Ticker":"DXIV","DateTime":"2024-11-04","AdjustedClose":49.7970,"Volume":1300}
+{"Ticker":"DXIV","DateTime":"2024-11-05","AdjustedClose":50.2950,"Volume":1100}
+{"Ticker":"DXIV","DateTime":"2024-11-06","AdjustedClose":49.6580,"Volume":700}
+{"Ticker":"DXIV","DateTime":"2024-11-07","AdjustedClose":50.5230,"Volume":5200}

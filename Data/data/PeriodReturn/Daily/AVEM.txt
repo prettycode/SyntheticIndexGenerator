@@ -1282,3 +1282,12 @@
 {"Ticker":"AVEM","PeriodStart":"2024-10-23T00:00:00","ReturnPercentage":-0.4543318188939370202099326300,"PeriodType":0}
 {"Ticker":"AVEM","PeriodStart":"2024-10-24T00:00:00","ReturnPercentage":-0.2518098835379288637079005400,"PeriodType":0}
 {"Ticker":"AVEM","PeriodStart":"2024-10-25T00:00:00","ReturnPercentage":-0.1262227832123698327548122400,"PeriodType":0}
+{"Ticker":"AVEM","PeriodStart":"2024-10-28T00:00:00","ReturnPercentage":0.3791469194312796208530805700,"PeriodType":0}
+{"Ticker":"AVEM","PeriodStart":"2024-10-29T00:00:00","ReturnPercentage":-0.377714825306893295561850800,"PeriodType":0}
+{"Ticker":"AVEM","PeriodStart":"2024-10-30T00:00:00","ReturnPercentage":-0.8688783570300157977883096400,"PeriodType":0}
+{"Ticker":"AVEM","PeriodStart":"2024-10-31T00:00:00","ReturnPercentage":-0.4143426294820717131474103600,"PeriodType":0}
+{"Ticker":"AVEM","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":0.160025604096655464874379900,"PeriodType":0}
+{"Ticker":"AVEM","PeriodStart":"2024-11-04T00:00:00","ReturnPercentage":0.2396548969483943121904457600,"PeriodType":0}
+{"Ticker":"AVEM","PeriodStart":"2024-11-05T00:00:00","ReturnPercentage":1.4823079375199234937838699400,"PeriodType":0}
+{"Ticker":"AVEM","PeriodStart":"2024-11-06T00:00:00","ReturnPercentage":-1.2093607664520182189414166800,"PeriodType":0}
+{"Ticker":"AVEM","PeriodStart":"2024-11-07T00:00:00","ReturnPercentage":2.3052464228934817170111287800,"PeriodType":0}
