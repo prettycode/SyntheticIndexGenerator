@@ -131,7 +131,7 @@ internal class ReturnsCache : IReturnsCache
         logger.LogInformation("Putting synthetic into into returns repository...");
 
         await Task.WhenAll([
-            .. CreateSyntheticAlternativesPuTasks(),
+            .. CreateSyntheticAlternativesPutTasks(),
             .. CreateSyntheticUsMarketPutTasks(),
             .. CreateFakeSyntheticReturnsPutTasks()
         ]);
@@ -235,7 +235,7 @@ internal class ReturnsCache : IReturnsCache
         });
     }
 
-    private IEnumerable<Task> CreateSyntheticAlternativesPuTasks()
+    private IEnumerable<Task> CreateSyntheticAlternativesPutTasks()
     {
         const int headerLinesCount = 1;
         const int dateColumnIndex = 0;
@@ -245,34 +245,25 @@ internal class ReturnsCache : IReturnsCache
             ?? throw new InvalidOperationException("Directory name is null.");
         var fileNamePattern = Path.GetFileName(syntheticAlternativesFilePathPattern);
 
-        async Task<IEnumerable<Task>> ProcessTickerAsync(string ticker)
+        async Task<IEnumerable<List<PeriodReturn>>> ProcessTickerAsync(string ticker)
         {
             var syntheticTicker = $"${ticker}";
-            var dailyBalances = new List<QuotePrice>();
             var filePath = Path.Combine(directoryName, $"{ticker}.csv");
             var fileLines = await ThreadSafeFile.ReadAllLinesAsync(filePath);
 
-            foreach (var line in fileLines.Skip(headerLinesCount))
-            {
-                var cells = line.Replace("\"", string.Empty).Split(',');
-                var dateOfEndingBalance = DateTime.ParseExact(cells[dateColumnIndex], "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                var endingBalanceOnDate = decimal.Parse(cells[balanceColumnIndex], NumberStyles.Number, CultureInfo.InvariantCulture);
-
-                dailyBalances.Add(new QuotePrice()
+            var dailyQuotes = fileLines
+                .Skip(headerLinesCount)
+                .Select(line => line.Replace("\"", string.Empty).Split(','))
+                .Select(cells => new QuotePrice
                 {
                     Ticker = syntheticTicker,
-                    DateTime = dateOfEndingBalance,
-                    AdjustedClose = endingBalanceOnDate
-                });
-            }
+                    DateTime = DateTime.ParseExact(cells[dateColumnIndex], "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                    AdjustedClose = decimal.Parse(cells[balanceColumnIndex], NumberStyles.Number, CultureInfo.InvariantCulture)
+                })
+                .Select(quote => (quote.DateTime, quote.AdjustedClose));
 
-            var dailyQuotes = dailyBalances.Select(quote => (quote.DateTime, quote.AdjustedClose));
-
-            return [
-                Put(syntheticTicker, ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Daily), PeriodType.Daily),
-                Put(syntheticTicker, ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Monthly), PeriodType.Monthly),
-                Put(syntheticTicker, ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, PeriodType.Yearly), PeriodType.Yearly)
-            ];
+            return await Task.WhenAll(Enum.GetValues<PeriodType>().Select(periodType
+                => Put(syntheticTicker, ReturnsCalculations.CalculateReturnsForPeriodType(syntheticTicker, dailyQuotes, periodType), periodType)));
         }
 
         return Directory
