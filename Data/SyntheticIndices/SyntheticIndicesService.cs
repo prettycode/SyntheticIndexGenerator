@@ -107,18 +107,5 @@ internal class SyntheticIndicesService(/*ILogger<SyntheticIndicesService> logger
         new (IndexRegion.Emerging, IndexMarketCap.Large, IndexStyle.Growth, ["XSOE"]),
         new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Blend, ["DEMSX", "AVEE"]),
         new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Value, ["DGS"])
-        /*new (IndexRegion.IntlDeveloped, IndexMarketCap.Total, IndexStyle.Blend, ["$USTSM", "DFALX", "AVDE"]),
-        new (IndexRegion.IntlDeveloped, IndexMarketCap.Large, IndexStyle.Blend, ["$USLCB", "DFALX", "AVDE"]),
-        new (IndexRegion.IntlDeveloped, IndexMarketCap.Large, IndexStyle.Value, ["$USLCV", "DFIVX", "AVIV"]),
-        new (IndexRegion.IntlDeveloped, IndexMarketCap.Large, IndexStyle.Growth, ["$USLCG", "EFG"]),
-        new (IndexRegion.IntlDeveloped, IndexMarketCap.Small, IndexStyle.Blend, ["$USSCB", "DFISX", "AVDS"]),
-        new (IndexRegion.IntlDeveloped, IndexMarketCap.Small, IndexStyle.Value, ["$USSCV", "DISVX", "AVDV"]),
-        new (IndexRegion.IntlDeveloped, IndexMarketCap.Small, IndexStyle.Growth, ["$USSCG", "DISMX"]),
-        new (IndexRegion.Emerging, IndexMarketCap.Total, IndexStyle.Blend, ["$USTSM", "DFEMX", "AVEM"]),
-        new (IndexRegion.Emerging, IndexMarketCap.Large, IndexStyle.Blend, ["$USLCB", "DFEMX", "AVEM"]),
-        new (IndexRegion.Emerging, IndexMarketCap.Large, IndexStyle.Value, ["$USLCV", "DFEVX", "AVES"]),
-        new (IndexRegion.Emerging, IndexMarketCap.Large, IndexStyle.Growth, ["$USLCG", "XSOE"]),
-        new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Blend, ["$USSCB", "DEMSX", "AVEE"]),
-        new (IndexRegion.Emerging, IndexMarketCap.Small, IndexStyle.Value, ["$USSCV", "DGS"])*/
     ];
 }
