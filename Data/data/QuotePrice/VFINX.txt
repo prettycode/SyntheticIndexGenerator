@@ -11307,3 +11307,9 @@
 {"Ticker":"VFINX","DateTime":"2024-11-05","AdjustedClose":534.1100,"Volume":0}
 {"Ticker":"VFINX","DateTime":"2024-11-06","AdjustedClose":547.6200,"Volume":0}
 {"Ticker":"VFINX","DateTime":"2024-11-07","AdjustedClose":551.7000,"Volume":0}
+{"Ticker":"VFINX","DateTime":"2024-11-08","AdjustedClose":553.8900,"Volume":0}
+{"Ticker":"VFINX","DateTime":"2024-11-11","AdjustedClose":554.4200,"Volume":0}
+{"Ticker":"VFINX","DateTime":"2024-11-12","AdjustedClose":552.8500,"Volume":0}
+{"Ticker":"VFINX","DateTime":"2024-11-13","AdjustedClose":553.0000,"Volume":0}
+{"Ticker":"VFINX","DateTime":"2024-11-14","AdjustedClose":549.7200,"Volume":0}
+{"Ticker":"VFINX","DateTime":"2024-11-15","AdjustedClose":542.5300,"Volume":0}

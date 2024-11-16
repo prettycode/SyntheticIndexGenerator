@@ -20,8 +20,7 @@ public class BackTestController(IBackTestService backTestService/*, ILogger<Back
             backTestRequest.RebalanceBandThreshold,
             backTestRequest.IncludeIncompleteEndingPeriod);
 
-    [HttpPost]
-    public async Task<BackTest> GetPortfolioBackTest(
+    internal async Task<BackTest> GetPortfolioBackTest(
         IEnumerable<BackTestAllocation> portfolio,
         decimal? startingBalance,
         PeriodType? periodType,
