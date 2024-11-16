@@ -6,7 +6,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:CASH',
         percentage: 100,
-        tickerSymbol: 'USFR',
+        tickerSymbol: '$TBILL,USFR',
         name: 'U.S. Treasury Money Market (USFR, TFLO)',
         marketRegion: 'U.S.',
         assetClass: 'Cash',
@@ -15,7 +15,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:GOLD',
         percentage: 100,
-        tickerSymbol: 'GLD',
+        tickerSymbol: '$GOLDX,GLD,GLDM',
         name: 'Gold (GLD, GLDM, IAUM)',
         marketRegion: 'Global (All-World)',
         assetClass: 'Commodity',
@@ -24,7 +24,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:DBMF',
         percentage: 100,
-        tickerSymbol: 'DBMF',
+        tickerSymbol: '$DBMFX,DBMF',
         name: 'SG CTA Index (DBMF)',
         marketRegion: 'Global (All-World)',
         assetClass: 'Trend',
@@ -33,7 +33,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:KMLM',
         percentage: 100,
-        tickerSymbol: 'KMLM',
+        tickerSymbol: '$KMLMX,KMLM',
         name: 'KFA MLM Index (KMLM)',
         marketRegion: 'Global (All-World)',
         assetClass: 'Trend',

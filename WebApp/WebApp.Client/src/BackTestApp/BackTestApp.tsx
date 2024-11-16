@@ -65,19 +65,19 @@ function BackTestApp() {
             portfolio: [{ Ticker: '$TBILL', Percentage: 100 }]
         },
         {
-            name: '$GOLD',
+            name: '$GOLDX',
             id: 'GOLD',
-            portfolio: [{ Ticker: '$GOLD', Percentage: 100 }]
+            portfolio: [{ Ticker: '$GOLDX', Percentage: 100 }]
         },
         {
-            name: '$KMLM',
+            name: '$KMLMX',
             id: 'KMLM',
-            portfolio: [{ Ticker: '$KMLM', Percentage: 100 }]
+            portfolio: [{ Ticker: '$KMLMX', Percentage: 100 }]
         },
         {
-            name: '$DBMF',
+            name: '$DBMFX',
             id: 'DBMF',
-            portfolio: [{ Ticker: '$DBMF', Percentage: 100 }]
+            portfolio: [{ Ticker: '$DBMFX', Percentage: 100 }]
         }
     ];
 
@@ -482,9 +482,9 @@ function BackTestApp() {
     );
 
     async function fetchPortfolio(portfolioId, periodType, rebalanceStrategy, startingBalance) {
-        /* Not working, not sure what's going on. Not important for now, may disappear completely.
+        // Not working, not sure what's going on. Not important for now, may disappear completely.
 
-        let portfolio = portfolioOptions.find(option => option.id = portfolioId)?.portfolio;
+        const portfolio = portfolioOptions.find((option) => (option.id = portfolioId))?.portfolio;
 
         if (!portfolio) {
             throw new Error('Unrecognized portfolio type.');
@@ -500,25 +500,27 @@ function BackTestApp() {
         const fetchSinglePortfolioBackTest = fetch(`https://localhost:7118/api/BackTest/GetPortfolioBackTest`, {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(singlePortfolioBackTestRequest)
         });
 
         await fetchSinglePortfolioBackTest
-            .then(response => response.json())
-            .then(backTest => setPortfolioBackTests([backTest]))
+            .then((response) => response.json())
+            .then((backTest) => {
+                debugger;
+                setPortfolioBackTests([backTest]);
+            })
             .catch(console.error);
-        */
-
+        /*
         const multiPortfolioBackTestRequest = {
             portfolios: [
-                [{ Ticker: '$USLCB', Percentage: 100 }],
-                [{ Ticker: '$USSCV', Percentage: 100 }],
-                [{ Ticker: '$KMLM', Percentage: 100 }],
-                [{ Ticker: '$DBMF', Percentage: 100 }],
-                [{ Ticker: '$GOLD', Percentage: 100 }],
-                [{ Ticker: '$TBILL', Percentage: 100 }]
+                [{ Ticker: '$^USLCB', Percentage: 100 }],
+                [{ Ticker: '$^USSCV', Percentage: 100 }],
+                [{ Ticker: '$KMLMX,KMLM', Percentage: 100 }],
+                [{ Ticker: '$DBMFX,DBMF', Percentage: 100 }],
+                [{ Ticker: '$GOLDX,GLD,GLDM', Percentage: 100 }],
+                [{ Ticker: '$TBILL,USFR', Percentage: 100 }]
             ],
             startingBalance,
             periodType,
@@ -536,7 +538,7 @@ function BackTestApp() {
         await fetchMultiPortfolioBackTest
             .then((response) => response.json())
             .then(setPortfolioBackTests)
-            .catch(console.error);
+            .catch(console.error);*/
     }
 }
 

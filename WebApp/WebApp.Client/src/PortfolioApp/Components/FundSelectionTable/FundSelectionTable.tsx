@@ -51,7 +51,7 @@ Highcharts.setOptions({
 
 export const UNSELECTED_FUND_FUNDID: string = '00000000-0000-0000-0000-000000000000';
 
-export interface FundSelectionTableProps {
+interface FundSelectionTableProps {
     onCalculatePortfolios: (rows: Array<FundSelectionTableRow>) => void;
     state?: FundSelectionTableState;
 }

@@ -12,7 +12,7 @@
         "clean:obj": "rmdir obj /s /q || exit /b 0",
         "clean:dist": "rmdir dist /s /q || exit /b 0",
         "clean:node_modules": "rmdir node_modules /s /q || exit /b 0",
-        "postclean:node_modules": "npm run install:fix",
+        "postclean:node_modules": "npm run install:dev",
         "clean:all": "npm run clean:obj && npm run clean:dist && npm run clean:node_modules && npm run clean:node_modules",
         "start": "npm run install:ci && npm run start:vite",
         "preview": "vite preview",
@@ -21,19 +21,21 @@
         "start:vite": "vite --open",
         "versions": "echo node: && node -v && echo npm: && npm -v",
         "install:ci": "npm ci",
-        "install:fix": "npm install",
+        "install:dev": "npm install",
         "outdated:ci": "npm outdated || exit /b 0",
-        "outdated:fix": "npm update --save",
+        "outdated:dev": "npm update --save",
         "audit:ci": "npm audit --audit-level=none",
-        "audit:fix": "npm audit fix --force",
+        "audit:dev": "npm audit fix --force",
+        "knip:ci": "knip",
+        "knip:dev": "knip --fix",
         "prettier:ci": "prettier . --check",
-        "prettier:fix": "prettier . --write",
+        "prettier:dev": "prettier . --write",
         "lint:ci": "eslint . --max-warnings=0",
-        "lint:fix": "eslint . --fix",
+        "lint:dev": "eslint . --fix",
         "vite:build:dev": "tsc && vite build --mode development",
         "vite:build:ci": "tsc && vite build",
-        "build:dev": "npm run versions && npm run install:fix && npm run outdated:fix && npm run audit:fix && npm run prettier:fix && npm run lint:fix && npm run vite:build:dev && npm run test:dev",
-        "build:ci": "npm run versions && npm run install:ci && npm run outdated:ci & npm run audit:ci && npm run prettier:ci && npm run lint:ci && npm run vite:build:ci && npm run test:ci",
+        "build:dev": "npm run versions && npm run install:dev && npm run audit:dev && npm run prettier:dev && npm run lint:dev && npm run vite:build:dev && npm run test:dev",
+        "build:ci": "npm run versions && npm run install:ci && npm run outdated:ci && npm run audit:ci && npm run knip:ci && npm run prettier:ci && npm run lint:ci && npm run vite:build:ci && npm run test:ci",
         "test:dev": "npm run vite:build:dev && jest --passWithNoTests",
         "test:ci": "jest",
         "precommit": "npm run build:dev && npm run build:ci && npm run start:vite"
@@ -73,5 +75,11 @@
     "jest": {
         "preset": "ts-jest",
         "testEnvironment": "node"
+    },
+    "knip": {
+        "entry": [
+            "**/BackTestAppIndex.tsx",
+            "**/PortfolioAppIndex.tsx"
+        ]
     }
 }
