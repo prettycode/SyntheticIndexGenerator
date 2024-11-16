@@ -41,9 +41,10 @@ internal class ReturnsService(
         ArgumentNullException.ThrowIfNull(ticker);
 
         bool IsSyntheticReturnTicker(string ticker) => !IsSyntheticIndexTicker(ticker) &&
-            (ticker.StartsWith('$') || ticker.StartsWith('#'));
-        bool IsSyntheticIndexTicker(string ticker) => ticker.StartsWith("$^");
-        bool IsQuoteTicker(string ticker) => !IsSyntheticIndexTicker(ticker) && !IsSyntheticReturnTicker(ticker);
+            (ticker.StartsWith('$') || ticker.StartsWith('#')) && !IsScriptedTicker(ticker);
+        bool IsSyntheticIndexTicker(string ticker) => ticker.StartsWith("$^") && !IsScriptedTicker(ticker);
+        bool IsScriptedTicker(string ticker) => ticker.Contains(',');
+        bool IsQuoteTicker(string ticker) => !IsSyntheticIndexTicker(ticker) && !IsSyntheticReturnTicker(ticker) && !IsScriptedTicker(ticker);
 
         var cachedReturns = await returnRepository.TryGetValue(ticker, periodType);
 
@@ -74,6 +75,16 @@ internal class ReturnsService(
             return await GetReturnsHistory(ticker, periodType, firstPeriod, lastPeriod);
         }
 
+        if (IsScriptedTicker(ticker))
+        {
+            var tickers = ticker.Split(',').ToHashSet();
+
+            await Task.WhenAll(tickers.Select(quoteTicker
+                => GetReturnsHistory(quoteTicker, periodType, firstPeriod, lastPeriod)));
+
+            return await CalculateReturnsForSyntheticIndexByPeriod(tickers, periodType);
+        }
+
         if (IsQuoteTicker(ticker))
         {
             var dailyPricesByTicker = await quotesService.GetDailyQuoteHistory(ticker);
@@ -84,7 +95,6 @@ internal class ReturnsService(
 
         throw new InvalidOperationException("All scenarios should have been handled.");
     }
-
     private async Task<List<PeriodReturn>> CalculateAndPutReturnsForSyntheticIndexByPeriod(
         string syntheticIndexTicker,
         HashSet<string> backfillTickers,
@@ -107,6 +117,29 @@ internal class ReturnsService(
             .SelectMany(item => item.returns!.TakeWhile(pair => pair.PeriodStart < item.nextStartDate));
 
         return [.. await returnRepository.Put(syntheticIndexTicker, collatedReturns.ToList(), periodType)];
+    }
+
+    private async Task<List<PeriodReturn>> CalculateReturnsForSyntheticIndexByPeriod(
+        HashSet<string> backfillTickers,
+        PeriodType periodType)
+    {
+        var backfillReturnsTasks = backfillTickers
+            .Select(ticker => returnRepository.TryGetValue(ticker, periodType));
+
+        var backfillReturns = (await Task.WhenAll(backfillReturnsTasks))
+            .Where(returns => returns != null)
+            .ToList();
+
+        var collatedReturns = backfillReturns
+            .Select((returns, index) =>
+                (returns, nextStartDate: index < backfillReturns.Count - 1
+                    ? backfillReturns[index + 1]?.First().PeriodStart
+                    : DateTime.MaxValue
+                )
+            )
+            .SelectMany(item => item.returns!.TakeWhile(pair => pair.PeriodStart < item.nextStartDate));
+
+        return collatedReturns.ToList();
     }
 
     private async Task<PeriodReturn[]> CalculateAndPutReturnsForPeriodType(

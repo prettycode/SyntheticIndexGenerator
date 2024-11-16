@@ -1,4 +1,5 @@
-﻿using Data.Extensions;
+﻿using Data.BackTest;
+using Data.Extensions;
 using Data.Returns;
 using Data.SyntheticIndices;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ class Program
         using var serviceProvider = BuildServiceProvider();
         var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
 
+        await RunBackTests(serviceProvider, logger);
         await PrimeReturnsCache(serviceProvider, logger);
     }
 
@@ -26,6 +28,77 @@ class Program
             .AddLogging(builder => builder.AddConfiguration(configuration.GetSection("Logging")).AddConsole())
             .AddDataLibraryConfiguration(configuration)
             .BuildServiceProvider();
+    }
+
+    static async Task RunBackTests(IServiceProvider provider, ILogger<Program> logger)
+    {
+        var backTestService = provider.GetRequiredService<IBackTestService>();
+
+        var dailyTickers = new List<string>
+        {
+            /* $^ITSM */    "DFALX,AVDE",
+            /* $^ILCB */    "DFALX,AVDE",
+            /* $^ILCV */    "DFIVX,AVIV",
+            /* $^ILCG */    "EFG",
+            /* $^IMCV */    "DFVQX,DXIV",
+            /* $^ISCB */    "DFISX,AVDS",
+            /* $^ISCV */    "DISVX,AVDV",
+            /* $^ISCG */    "DISMX",
+            /* $^EMTSM */   "DFEMX,AVEM",
+            /* $^EMLCB */   "DFEMX,AVEM",
+            /* $^EMLCV */   "DFEVX,AVES",
+            /* $^EMLCG */   "XSOE",
+            /* $^EMSCB */   "DEMSX,AVEE",
+            /* $^EMSCV */   "DGS",
+            "$SPYTR,^GSPC,VFINX,VOO",
+            "BTC-USD,IBIT",
+            "ETH-USD,ETHA"
+        };
+
+        var monthlyTickers = new List<string>
+        {
+            /* $^USTSM */   "$USTSM,VTSMX,VTI,AVUS",
+            /* $^USLCB */   "$SPYTR,VFINX,VOO",
+            /* $^USLCV */   "$USLCV,DFLVX,AVLV",
+            /* $^USLCG */   "$USLCG,VIGAX",
+            /* $^USMCB */   "$USMCB,VIMAX,AVMC",
+            /* $^USMCV */   "$USMCV,DFVEX,AVMV",
+            /* $^USMCG */   "$USMCG,VMGMX",
+            /* $^USSCB */   "$USSCB,VSMAX,AVSC",
+            /* $^USSCV */   "$USSCV,DFSVX,AVUV",
+            /* $^USSCG */   "$USSCG,VSGAX"
+        };
+
+        async Task ProcessTickers(List<string> tickers, PeriodType periodType)
+        {
+            var percentage = Math.Round(100m / tickers.Count, 2, MidpointRounding.ToZero);
+            var remainder = 100m - (percentage * tickers.Count);
+
+            await backTestService.GetPortfolioBackTests(
+                new List<List<BackTestAllocation>>
+                {
+                    tickers
+                        .Select(ticker => new BackTestAllocation
+                        {
+                            Percentage = percentage,
+                            Ticker = ticker
+                        })
+                        .Append(new BackTestAllocation
+                        {
+                            Percentage = remainder,
+                            Ticker = "$TBILL"
+                        })
+                        .ToList()
+                },
+                periodType: periodType
+            );
+        }
+
+        await DataRefreshJob.Utils.Timer.Exec("Get stuff", () => Task.WhenAll(
+            ProcessTickers(dailyTickers, PeriodType.Daily),
+            ProcessTickers(monthlyTickers, PeriodType.Monthly),
+            ProcessTickers(monthlyTickers, PeriodType.Yearly)
+        ));
     }
 
     static async Task PrimeReturnsCache(IServiceProvider provider, ILogger<Program> logger)
