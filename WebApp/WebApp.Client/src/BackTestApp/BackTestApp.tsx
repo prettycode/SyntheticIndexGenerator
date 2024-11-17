@@ -126,7 +126,7 @@ function BackTestApp() {
             updatePerformanceChartOptions();
             updateDrawdownChartOptions();
         }
-    }, [portfolioBackTests]);
+    }, [portfolioBackTests, selectedIsLogScale]);
 
     const handlePortfolioChange = (event) => {
         setSelectedPortfolioId(event.target.value);
@@ -482,7 +482,7 @@ function BackTestApp() {
     );
 
     async function fetchPortfolio(portfolioId, periodType, rebalanceStrategy, startingBalance) {
-        const portfolio = portfolioOptions.find((option) => (option.id === portfolioId))?.portfolio;
+        const portfolio = portfolioOptions.find((option) => option.id === portfolioId)?.portfolio;
 
         if (!portfolio) {
             throw new Error('Unrecognized portfolio type.');
