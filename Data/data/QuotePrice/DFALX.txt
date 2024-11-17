@@ -8390,3 +8390,9 @@
 {"Ticker":"DFALX","DateTime":"2024-11-05","AdjustedClose":28.1000,"Volume":0}
 {"Ticker":"DFALX","DateTime":"2024-11-06","AdjustedClose":27.7900,"Volume":0}
 {"Ticker":"DFALX","DateTime":"2024-11-07","AdjustedClose":28.2000,"Volume":0}
+{"Ticker":"DFALX","DateTime":"2024-11-08","AdjustedClose":27.8400,"Volume":0}
+{"Ticker":"DFALX","DateTime":"2024-11-11","AdjustedClose":27.8400,"Volume":0}
+{"Ticker":"DFALX","DateTime":"2024-11-12","AdjustedClose":27.4200,"Volume":0}
+{"Ticker":"DFALX","DateTime":"2024-11-13","AdjustedClose":27.2500,"Volume":0}
+{"Ticker":"DFALX","DateTime":"2024-11-14","AdjustedClose":27.2800,"Volume":0}
+{"Ticker":"DFALX","DateTime":"2024-11-15","AdjustedClose":27.1400,"Volume":0}

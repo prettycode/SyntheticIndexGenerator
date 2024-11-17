@@ -7,3 +7,11 @@ table.table tbody td:nth-child(n + 3) {
     padding-right: 3px;
     padding-left: 3px;
 }
+
+h3 {
+    margin-bottom: 1.5rem !important;
+}
+
+table.table-properties td:nth-child(2) {
+    text-align: right;
+}

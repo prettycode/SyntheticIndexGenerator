@@ -56,6 +56,28 @@ interface FundSelectionTableProps {
     state?: FundSelectionTableState;
 }
 
+const formatNumber = (number) =>
+    number.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+const formatCurrency = (number) =>
+    new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    }).format(number);
+
+const rebalanceOptions = [
+    { name: 'None', id: 0 },
+    { name: 'Daily', id: 1 },
+    { name: 'Weekly', id: 2 },
+    { name: 'Monthly', id: 3 },
+    { name: 'Quarterly', id: 4 },
+    { name: 'Semi-Annually', id: 5 },
+    { name: 'Annually', id: 6 }
+];
+
 const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalculatePortfolios }) => {
     const defaultFundId = UNSELECTED_FUND_FUNDID;
     const defaultColumnsCount = 3;
@@ -513,6 +535,83 @@ const FundSelectionTable: React.FC<FundSelectionTableProps> = ({ state, onCalcul
 
             {backtestData && (
                 <div style={{ marginTop: '40px' }}>
+                    <h3>Overview</h3>
+                    <div style={{ marginBottom: '25px' }}>
+                        {backtestData.map((backTest, idx) => (
+                            <div
+                                key={backTest.id}
+                                style={{ display: 'block', float: 'left', marginRight: '25px' }}
+                            >
+                                <strong>Portfolio P{idx + 1}</strong>
+                                <table className="table-properties">
+                                    <tbody>
+                                        <tr>
+                                            <td>First Period</td>
+                                            <td>{backTest.aggregatePerformance[0].periodStart.substr(0, 10)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Last Period</td>
+                                            <td>
+                                                {backTest.aggregatePerformance[
+                                                    backTest.aggregatePerformance.length - 1
+                                                ].periodStart.substr(0, 10)}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Periods</td>
+                                            <td>{backTest.aggregatePerformance.length.toLocaleString()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Starting Balance</td>
+                                            <td>{formatCurrency(backTest.aggregatePerformance[0].startingBalance)}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ending Balance</td>
+                                            <td>
+                                                {formatCurrency(
+                                                    backTest.aggregatePerformance[
+                                                        backTest.aggregatePerformance.length - 1
+                                                    ].endingBalance
+                                                )}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>CAGR</td>
+                                            <td>{formatNumber(backTest.cagr * 100)}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Time to 2x @ CAGR</td>
+                                            <td>{formatNumber(backTest.yearsBeforeDoubling)} years</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maximum Drawdown</td>
+                                            <td>{formatNumber(backTest.maximumDrawdownPercentage)}%</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rebalances</td>
+                                            <td>
+                                                {backTest.rebalancesByTicker[
+                                                    Object.keys(backTest.rebalancesByTicker)[0]
+                                                ].length.toLocaleString()}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Rebalance Strategy</td>
+                                            <td>
+                                                {
+                                                    rebalanceOptions.find(
+                                                        (option) => option.id === backTest.rebalanceStrategy
+                                                    ).name
+                                                }
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        ))}
+                        <div style={{ clear: 'both' }}></div>
+                    </div>
+
                     <h3>Portfolio Value</h3>
                     <HighchartsReact
                         highcharts={Highcharts}
