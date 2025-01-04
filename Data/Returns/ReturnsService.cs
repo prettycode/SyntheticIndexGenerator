@@ -82,7 +82,9 @@ internal class ReturnsService(
             await Task.WhenAll(tickers.Select(quoteTicker
                 => GetReturnsHistory(quoteTicker, periodType, firstPeriod, lastPeriod)));
 
-            return await CalculateReturnsForSyntheticIndexByPeriod(tickers, periodType);
+            await CalculateAndPutReturnsForSyntheticIndexByPeriod(ticker, tickers, periodType);
+
+            return await GetReturnsHistory(ticker, periodType, firstPeriod, lastPeriod);
         }
 
         if (IsQuoteTicker(ticker))

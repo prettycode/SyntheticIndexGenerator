@@ -36,6 +36,17 @@ class Program
 
         var dailyTickers = new List<string>
         {
+            /* $^USTSM */   "VTSMX,VTI,AVUS",
+            /* $^USLCB */   "VFINX,VOO",
+            /* $^USLCV */   "DFLVX,AVLV",
+            /* $^USLCG */   "VIGAX",
+            /* $^USMCB */   "VIMAX,AVMC",
+            /* $^USMCV */   "DFVEX,AVMV",
+            /* $^USMCG */   "VMGMX",
+            /* $^USSCB */   "VSMAX,AVSC",
+            /* $^USSCV */   "DFSVX,AVUV",
+            /* $^USSCG */   "VSGAX",
+
             /* $^ITSM */    "DFALX,AVDE",
             /* $^ILCB */    "DFALX,AVDE",
             /* $^ILCV */    "DFIVX,AVIV",
@@ -44,15 +55,21 @@ class Program
             /* $^ISCB */    "DFISX,AVDS",
             /* $^ISCV */    "DISVX,AVDV",
             /* $^ISCG */    "DISMX",
+
             /* $^EMTSM */   "DFEMX,AVEM",
             /* $^EMLCB */   "DFEMX,AVEM",
             /* $^EMLCV */   "DFEVX,AVES",
             /* $^EMLCG */   "XSOE",
             /* $^EMSCB */   "DEMSX,AVEE",
             /* $^EMSCV */   "DGS",
+
             "$SPYTR,^GSPC,VFINX,VOO",
             "BTC-USD,IBIT",
-            "ETH-USD,ETHA"
+            "ETH-USD,ETHA",
+            "$KMLMX,KMLM",
+            "$DBMFX,DBMF",
+            "$ZROZX,ZROZ,GOVZ",
+            "$GOLDX,GLD,GLDM"
         };
 
         var monthlyTickers = new List<string>
