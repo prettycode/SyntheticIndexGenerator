@@ -94,11 +94,10 @@ internal class ReturnsCache : IReturnsCache
         var cache = GetPeriodTypeCache(periodType);
         var cacheRecords = await cache.Get(ticker);
 
-        return cacheRecords
+        return [.. cacheRecords
             .Where(pair =>
                 (firstPeriod == null || pair.PeriodStart >= firstPeriod) &&
-                (lastPeriod == null || pair.PeriodStart <= lastPeriod))
-            .ToList();
+                (lastPeriod == null || pair.PeriodStart <= lastPeriod))];
     }
 
     private TableFileCache<string, PeriodReturn> GetPeriodTypeCache(PeriodType periodType) => periodType switch

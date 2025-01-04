@@ -73,14 +73,13 @@ internal class SyntheticIndicesService(/*ILogger<SyntheticIndicesService> logger
         Growth
     }
 
-    public HashSet<string> GetSyntheticIndexTickers() => GetIndices().Select(index => index.Ticker).ToHashSet();
+    public HashSet<string> GetSyntheticIndexTickers() => [.. GetIndices().Select(index => index.Ticker)];
 
     public HashSet<string> GetSyntheticIndexBackfillTickers(string syntheticIndexTicker, bool filterSynthetic = true)
-        => GetIndices()
+        => [.. GetIndices()
             .Single(index => index.Ticker == syntheticIndexTicker)
             .BackfillTickers
-            .Where(backfillTicker => !filterSynthetic || !backfillTicker.StartsWith('$'))
-            .ToHashSet();
+            .Where(backfillTicker => !filterSynthetic || !backfillTicker.StartsWith('$'))];
 
     private static HashSet<Index> GetIndices() => [
         new (IndexRegion.Us, IndexMarketCap.Total, IndexStyle.Blend, ["$USTSM", "VTSMX", "VTI", "AVUS"]),

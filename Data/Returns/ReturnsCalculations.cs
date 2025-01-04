@@ -21,15 +21,14 @@ internal static class ReturnsCalculations
         {
             static decimal CalculateChange(decimal x, decimal y) => (y - x) / x * 100m;
 
-            return prices
+            return [.. prices
                 .Zip(prices.Skip(1), (prev, current) => new PeriodReturn
                 {
                     Ticker = ticker,
                     PeriodStart = current.date,
                     ReturnPercentage = CalculateChange(prev.endingPriceOnDate, current.endingPriceOnDate),
                     PeriodType = periodType
-                })
-                .ToList();
+                })];
         }
 
         var groupedPrices = periodType switch

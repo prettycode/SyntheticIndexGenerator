@@ -118,7 +118,7 @@ internal class ReturnsService(
             )
             .SelectMany(item => item.returns!.TakeWhile(pair => pair.PeriodStart < item.nextStartDate));
 
-        return [.. await returnRepository.Put(syntheticIndexTicker, collatedReturns.ToList(), periodType)];
+        return [.. await returnRepository.Put(syntheticIndexTicker, [.. collatedReturns], periodType)];
     }
 
     private async Task<List<PeriodReturn>> CalculateReturnsForSyntheticIndexByPeriod(
@@ -141,7 +141,7 @@ internal class ReturnsService(
             )
             .SelectMany(item => item.returns!.TakeWhile(pair => pair.PeriodStart < item.nextStartDate));
 
-        return collatedReturns.ToList();
+        return [.. collatedReturns];
     }
 
     private async Task<PeriodReturn[]> CalculateAndPutReturnsForPeriodType(

@@ -121,7 +121,7 @@ internal partial class BackTestService(IReturnsService returnsService/*, ILogger
 
         var firstTickerBackTest = decomposedBackTest.Values.First();
 
-        return firstTickerBackTest
+        return [.. firstTickerBackTest
             .Select((_, currentPeriod) => new BackTestPeriodReturn
             {
                 PeriodStart = firstTickerBackTest[currentPeriod].PeriodStart,
@@ -129,8 +129,7 @@ internal partial class BackTestService(IReturnsService returnsService/*, ILogger
                 Ticker = null!,
                 StartingBalance = decomposedBackTest.Sum(pair => pair.Value[currentPeriod].StartingBalance),
                 ReturnPercentage = CalculateReturnPercentage(decomposedBackTest, currentPeriod)
-            })
-            .ToArray();
+            })];
     }
 
     private async Task<Dictionary<string, PeriodReturn[]>> GetOverlappingReturns(
@@ -232,7 +231,7 @@ internal partial class BackTestService(IReturnsService returnsService/*, ILogger
             ?? throw new InvalidOperationException("No portfolio tickers.");
 
         var allReturnsByTicker = await GetOverlappingReturns(
-            new(allTickers),
+            [.. allTickers],
             periodType,
             firstPeriod,
             lastPeriod,
@@ -261,7 +260,7 @@ internal partial class BackTestService(IReturnsService returnsService/*, ILogger
 
             // TODO: GET RID OF AWAIT, USE THREAD.WHENALL
             var dateFilteredReturnsByTicker = await GetOverlappingReturns(
-                new(dedupedPortfolioConstituents.Keys),
+                [.. dedupedPortfolioConstituents.Keys],
                 periodType,
                 firstPeriod,
                 lastPeriod,

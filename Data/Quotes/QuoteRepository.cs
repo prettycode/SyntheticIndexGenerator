@@ -35,7 +35,7 @@ internal class QuoteRepository : IQuoteRepository
 
         var history = new Quote(ticker)
         {
-            Prices = prices.ToList()
+            Prices = [.. prices]
         };
 
         Inspect(history);
@@ -62,7 +62,7 @@ internal class QuoteRepository : IQuoteRepository
 
         var history = new Quote(ticker)
         {
-            Prices = prices.ToList()
+            Prices = [.. prices]
         };
 
         Inspect(history);
@@ -81,7 +81,7 @@ internal class QuoteRepository : IQuoteRepository
         var history = new Quote(ticker)
         {
             // Intentionally cause exception if ticker not found
-            Prices = (await pricesCache.Get(ticker)).ToList()
+            Prices = [.. (await pricesCache.Get(ticker))]
         };
 
         Inspect(history);
@@ -108,9 +108,9 @@ internal class QuoteRepository : IQuoteRepository
         var lastZeroVolumeDate = unfilteredQuote.Prices[lastZeroVolumeIndex].DateTime;
         var filteredQuote = new Quote(ticker)
         {
-            Dividends = unfilteredQuote.Dividends.Where(div => div.DateTime > lastZeroVolumeDate).ToList(),
-            Prices = unfilteredQuote.Prices.Skip(lastZeroVolumeIndex + 1).ToList(),
-            Splits = unfilteredQuote.Splits.Where(split => split.DateTime > lastZeroVolumeDate).ToList()
+            Dividends = [.. unfilteredQuote.Dividends.Where(div => div.DateTime > lastZeroVolumeDate)],
+            Prices = [.. unfilteredQuote.Prices.Skip(lastZeroVolumeIndex + 1)],
+            Splits = [.. unfilteredQuote.Splits.Where(split => split.DateTime > lastZeroVolumeDate)]
         };
 
         return filteredQuote;
