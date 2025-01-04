@@ -1,4 +1,5 @@
-{"Ticker":"KMLM","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":7.0404631826393574646845003600,"PeriodType":2}
-{"Ticker":"KMLM","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":24.243558042686100989068193650,"PeriodType":2}
-{"Ticker":"KMLM","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":-5.6628477905073649754500818300,"PeriodType":2}
-{"Ticker":"KMLM","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":-3.157529493407356002775850100,"PeriodType":2}
+{"Ticker":"KMLM","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":7.0400589890229504167416465100,"PeriodType":2}
+{"Ticker":"KMLM","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":24.243989847424337478831715730,"PeriodType":2}
+{"Ticker":"KMLM","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":-5.662942855728453325852708700,"PeriodType":2}
+{"Ticker":"KMLM","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":-1.6953184581907740531614925500,"PeriodType":2}
+{"Ticker":"KMLM","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.676156583629893238434163700,"PeriodType":2}

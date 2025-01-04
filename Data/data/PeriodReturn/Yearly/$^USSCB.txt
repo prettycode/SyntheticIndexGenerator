@@ -94,5 +94,6 @@
 {"Ticker":"VSMAX","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":19.062225587083951357726190200,"PeriodType":2}
 {"Ticker":"VSMAX","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":17.738816742076337326318690380,"PeriodType":2}
 {"Ticker":"VSMAX","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-17.609308134833271459446703560,"PeriodType":2}
-{"Ticker":"AVSC","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":19.677421642823198972969522450,"PeriodType":2}
-{"Ticker":"AVSC","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":5.1766509415325289018482959200,"PeriodType":2}
+{"Ticker":"AVSC","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":19.677603017578820012810476120,"PeriodType":2}
+{"Ticker":"AVSC","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":7.7551602947210675610582841200,"PeriodType":2}
+{"Ticker":"AVSC","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":-0.3311258278145695364238410600,"PeriodType":2}

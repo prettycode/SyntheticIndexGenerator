@@ -1,1 +1,2 @@
-{"Ticker":"AVDS","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":4.8420490739995721774011543400,"PeriodType":2}
+{"Ticker":"AVDS","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":3.2049941754532692135368439900,"PeriodType":2}
+{"Ticker":"AVDS","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":-0.0540248514316585629389519200,"PeriodType":2}

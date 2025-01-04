@@ -63,8 +63,8 @@
 {"Ticker":"DEMSX","PeriodStart":"2003-06-01T00:00:00","ReturnPercentage":4.3026761454572523914095358600,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2003-07-01T00:00:00","ReturnPercentage":1.9912214966277700460336152400,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2003-08-01T00:00:00","ReturnPercentage":5.9969910080123158741821489800,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2003-09-01T00:00:00","ReturnPercentage":3.819112064697144743356989600,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2003-10-01T00:00:00","ReturnPercentage":8.616304209589215312221798300,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2003-09-01T00:00:00","ReturnPercentage":3.8158111899653408153160587600,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2003-10-01T00:00:00","ReturnPercentage":8.619757718355537184827191500,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2003-11-01T00:00:00","ReturnPercentage":1.9846613195948714946431707700,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2003-12-01T00:00:00","ReturnPercentage":9.933983926521239954075774970,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2004-01-01T00:00:00","ReturnPercentage":2.9685908984099631863397822500,"PeriodType":1}
@@ -88,8 +88,8 @@
 {"Ticker":"DEMSX","PeriodStart":"2005-07-01T00:00:00","ReturnPercentage":5.4792894726431142936266170800,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2005-08-01T00:00:00","ReturnPercentage":0.6507388793038781786812692200,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2005-09-01T00:00:00","ReturnPercentage":6.5584766447429710644482122600,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2005-10-01T00:00:00","ReturnPercentage":-4.8783899564616810337290832500,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2005-11-01T00:00:00","ReturnPercentage":7.1322218341574603408025587800,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2005-10-01T00:00:00","ReturnPercentage":-4.876641429595565735867531600,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2005-11-01T00:00:00","ReturnPercentage":7.1302525642439616190581228600,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2005-12-01T00:00:00","ReturnPercentage":6.32796280091281892898200100,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2006-01-01T00:00:00","ReturnPercentage":9.890429085510497184075908920,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2006-02-01T00:00:00","ReturnPercentage":1.0514258862227965579018473400,"PeriodType":1}
@@ -112,8 +112,8 @@
 {"Ticker":"DEMSX","PeriodStart":"2007-07-01T00:00:00","ReturnPercentage":4.8601596609488317714327469400,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2007-08-01T00:00:00","ReturnPercentage":-4.1671384894122975880421243300,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2007-09-01T00:00:00","ReturnPercentage":6.8679046346540143066197656800,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2007-10-01T00:00:00","ReturnPercentage":7.497342122049755475228577500,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2007-11-01T00:00:00","ReturnPercentage":-8.020413007358177070970804650,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2007-10-01T00:00:00","ReturnPercentage":7.496491601105677227301722300,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2007-11-01T00:00:00","ReturnPercentage":-8.019685257419553916875677470,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2007-12-01T00:00:00","ReturnPercentage":1.194807875925782560450052900,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2008-01-01T00:00:00","ReturnPercentage":-12.059468557147957362166573160,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2008-02-01T00:00:00","ReturnPercentage":2.8949784930646174665313421300,"PeriodType":1}
@@ -134,8 +134,8 @@
 {"Ticker":"DEMSX","PeriodStart":"2009-05-01T00:00:00","ReturnPercentage":22.905688953396649102325434640,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2009-06-01T00:00:00","ReturnPercentage":-0.5006097169629677170913291800,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2009-07-01T00:00:00","ReturnPercentage":12.685286718699606527768818940,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2009-08-01T00:00:00","ReturnPercentage":1.1883500480835279571369693600,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2009-09-01T00:00:00","ReturnPercentage":8.339556038286606476138755010,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2009-08-01T00:00:00","ReturnPercentage":1.1872052021797866007235426100,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2009-09-01T00:00:00","ReturnPercentage":8.340781806867681167618939870,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2009-10-01T00:00:00","ReturnPercentage":-0.1138297983437242185949852200,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2009-11-01T00:00:00","ReturnPercentage":5.9018484442957510873201739700,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2009-12-01T00:00:00","ReturnPercentage":5.4564481257342560690274747500,"PeriodType":1}
@@ -168,8 +168,8 @@
 {"Ticker":"DEMSX","PeriodStart":"2012-03-01T00:00:00","ReturnPercentage":-2.6095017381228273464658169200,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2012-04-01T00:00:00","ReturnPercentage":-2.3922837743511644139856589900,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2012-05-01T00:00:00","ReturnPercentage":-9.166558314913535301001170200,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2012-06-01T00:00:00","ReturnPercentage":3.8326653306613226452905811600,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2012-07-01T00:00:00","ReturnPercentage":-1.2553851456143374116836119200,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2012-06-01T00:00:00","ReturnPercentage":3.8317706842255940452333237900,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2012-07-01T00:00:00","ReturnPercentage":-1.2545343316761302440999836300,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2012-08-01T00:00:00","ReturnPercentage":2.5950455049169742502377773700,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2012-09-01T00:00:00","ReturnPercentage":5.8463815201952762870289257300,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2012-10-01T00:00:00","ReturnPercentage":-0.3921222007054985496299748500,"PeriodType":1}
@@ -219,8 +219,8 @@
 {"Ticker":"DEMSX","PeriodStart":"2016-06-01T00:00:00","ReturnPercentage":5.5533453464697760408134609500,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2016-07-01T00:00:00","ReturnPercentage":5.8080584131488707579519924300,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2016-08-01T00:00:00","ReturnPercentage":0.5985849089550258082991667300,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2016-09-01T00:00:00","ReturnPercentage":1.6316271836031882689477046100,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2016-10-01T00:00:00","ReturnPercentage":-0.3914522674172348303706841200,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2016-09-01T00:00:00","ReturnPercentage":1.6309328741633571250034715500,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2016-10-01T00:00:00","ReturnPercentage":-0.3907717742541519501014503600,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2016-11-01T00:00:00","ReturnPercentage":-6.0814101025342066458626247400,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2016-12-01T00:00:00","ReturnPercentage":0.5739823861893703719931647900,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2017-01-01T00:00:00","ReturnPercentage":5.8217885045453225291162034200,"PeriodType":1}
@@ -240,8 +240,8 @@
 {"Ticker":"DEMSX","PeriodStart":"2018-03-01T00:00:00","ReturnPercentage":-0.5749817194741521255385521800,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2018-04-01T00:00:00","ReturnPercentage":-0.9910052910052910052910052900,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2018-05-01T00:00:00","ReturnPercentage":-2.2113324106088378480924719600,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2018-06-01T00:00:00","ReturnPercentage":-6.7402958647787571930553202700,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2018-07-01T00:00:00","ReturnPercentage":1.6008906858867305382203861600,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2018-06-01T00:00:00","ReturnPercentage":-6.7408423457147697402576111100,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2018-07-01T00:00:00","ReturnPercentage":1.6014860477926096077443247700,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2018-08-01T00:00:00","ReturnPercentage":-2.926978377848396938640151800,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2018-09-01T00:00:00","ReturnPercentage":-3.2107039307951898854508294100,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2018-10-01T00:00:00","ReturnPercentage":-9.477742038451150342524615120,"PeriodType":1}
@@ -249,8 +249,8 @@
 {"Ticker":"DEMSX","PeriodStart":"2018-12-01T00:00:00","ReturnPercentage":-1.839299290218300995994301300,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":7.3642351348536915547224825600,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2019-02-01T00:00:00","ReturnPercentage":0.2982486981929281111521977700,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2019-03-01T00:00:00","ReturnPercentage":1.0401619775769846786135202900,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2019-04-01T00:00:00","ReturnPercentage":0.9319519548260515863521079600,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2019-03-01T00:00:00","ReturnPercentage":1.0407663715209573600072527300,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2019-04-01T00:00:00","ReturnPercentage":0.9313482117755432864568690700,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2019-05-01T00:00:00","ReturnPercentage":-4.9563217845840198181753529200,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2019-06-01T00:00:00","ReturnPercentage":5.0426822804621783240111990300,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2019-07-01T00:00:00","ReturnPercentage":-2.4379964145365610419214284900,"PeriodType":1}
@@ -316,4 +316,7 @@
 {"Ticker":"DEMSX","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":0.2502085070892410341951626400,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":0.790349417637271214642262900,"PeriodType":1}
 {"Ticker":"DEMSX","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":4.0858439950474618241848947600,"PeriodType":1}
-{"Ticker":"DEMSX","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-4.6391752577319587628865979400,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-4.321966693100713719270420300,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":-1.1603812681309573145462080400,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2024-12-01T00:00:00","ReturnPercentage":-2.6834381551362683438155136300,"PeriodType":1}
+{"Ticker":"DEMSX","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":-0.2585092632485997414907367500,"PeriodType":1}

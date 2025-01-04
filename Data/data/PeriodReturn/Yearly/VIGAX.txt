@@ -21,4 +21,5 @@
 {"Ticker":"VIGAX","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":27.257213945918878317476214320,"PeriodType":2}
 {"Ticker":"VIGAX","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-33.137405476593486792392506620,"PeriodType":2}
 {"Ticker":"VIGAX","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":46.758578961016509637825222580,"PeriodType":2}
-{"Ticker":"VIGAX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":26.593144396010223192159796590,"PeriodType":2}
+{"Ticker":"VIGAX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":32.345099778881802329479272600,"PeriodType":2}
+{"Ticker":"VIGAX","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":-0.1941104062115329987690559600,"PeriodType":2}

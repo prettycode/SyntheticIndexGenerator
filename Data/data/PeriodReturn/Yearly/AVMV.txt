@@ -1,1 +1,2 @@
-{"Ticker":"AVMV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":16.430696745078414759064984620,"PeriodType":2}
+{"Ticker":"AVMV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":18.435519044387919867340607340,"PeriodType":2}
+{"Ticker":"AVMV","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":-0.0459558823529411764705882400,"PeriodType":2}

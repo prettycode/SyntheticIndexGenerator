@@ -191,4 +191,7 @@
 {"Ticker":"DFVQX","PeriodStart":"2024-07-01T00:00:00","ReturnPercentage":4.1545189504373177842565597700,"PeriodType":1}
 {"Ticker":"DFVQX","PeriodStart":"2024-08-01T00:00:00","ReturnPercentage":2.379286214135759272218334500,"PeriodType":1}
 {"Ticker":"DFVQX","PeriodStart":"2024-09-01T00:00:00","ReturnPercentage":0.68352699931647300068352700,"PeriodType":1}
-{"Ticker":"DFVQX","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-4.4806517311608961303462321800,"PeriodType":1}
+{"Ticker":"DFVQX","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-5.1595383570943652410047522100,"PeriodType":1}
+{"Ticker":"DFVQX","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":0.5726556907659269863994273400,"PeriodType":1}
+{"Ticker":"DFVQX","PeriodStart":"2024-12-01T00:00:00","ReturnPercentage":-3.9145907473309608540925266900,"PeriodType":1}
+{"Ticker":"DFVQX","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":-0.1481481481481481481481481500,"PeriodType":1}

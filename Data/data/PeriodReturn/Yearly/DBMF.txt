@@ -1,5 +1,6 @@
-{"Ticker":"DBMF","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":1.7329794875887939979248144300,"PeriodType":2}
-{"Ticker":"DBMF","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":11.492218223185477939373731230,"PeriodType":2}
-{"Ticker":"DBMF","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":21.603078614623419461242440900,"PeriodType":2}
-{"Ticker":"DBMF","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":-8.935423787048590390422973290,"PeriodType":2}
-{"Ticker":"DBMF","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":8.066674874597381140558165770,"PeriodType":2}
+{"Ticker":"DBMF","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":1.7326516005787519759436901100,"PeriodType":2}
+{"Ticker":"DBMF","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":11.492286512531886463942989030,"PeriodType":2}
+{"Ticker":"DBMF","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":21.603217693683551084518934820,"PeriodType":2}
+{"Ticker":"DBMF","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":-8.935677754134468212192481430,"PeriodType":2}
+{"Ticker":"DBMF","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":7.2421228693007124878040781500,"PeriodType":2}
+{"Ticker":"DBMF","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.7262996941896024464831804300,"PeriodType":2}

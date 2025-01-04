@@ -1,6 +1,7 @@
-{"Ticker":"BLOK","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":29.542413700829542413700829540,"PeriodType":2}
-{"Ticker":"BLOK","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":90.17107659950047886424668081,"PeriodType":2}
-{"Ticker":"BLOK","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":30.763584416268383563086726970,"PeriodType":2}
-{"Ticker":"BLOK","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-62.359885718600933885441707680,"PeriodType":2}
-{"Ticker":"BLOK","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":99.62415820130942747657676335,"PeriodType":2}
-{"Ticker":"BLOK","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":34.740368509212730318257956450,"PeriodType":2}
+{"Ticker":"BLOK","PeriodStart":"2019-01-01T00:00:00","ReturnPercentage":29.543055734328742437894194880,"PeriodType":2}
+{"Ticker":"BLOK","PeriodStart":"2020-01-01T00:00:00","ReturnPercentage":90.17110152818902645018978160,"PeriodType":2}
+{"Ticker":"BLOK","PeriodStart":"2021-01-01T00:00:00","ReturnPercentage":30.763389622694086830518865300,"PeriodType":2}
+{"Ticker":"BLOK","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-62.359951625706568355327298980,"PeriodType":2}
+{"Ticker":"BLOK","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":99.62421180017409396828092822,"PeriodType":2}
+{"Ticker":"BLOK","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":53.115306212886643623149871490,"PeriodType":2}
+{"Ticker":"BLOK","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":2.7089604075017365130817318800,"PeriodType":2}
