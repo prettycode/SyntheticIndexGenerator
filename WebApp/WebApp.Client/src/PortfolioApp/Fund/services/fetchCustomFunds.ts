@@ -286,7 +286,7 @@ let fundList: Array<Fund> = [
     {
         fundId: 'Custom:ZROZ',
         percentage: 100,
-        tickerSymbol: 'ZROZ',
+        tickerSymbol: '$ZROZX,ZROZ,GOVZ',
         name: 'U.S. 25+ Year STRIPS Treasury (ZROZ, EDV, GOVZ)',
         marketRegion: 'U.S.',
         assetClass: 'Treasury',
