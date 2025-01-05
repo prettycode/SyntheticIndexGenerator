@@ -1,4 +1,4 @@
-These are back-test results from aHR0cHM6Ly90ZXN0Zm9sLmlvLw==.
+These are back-test results from test.
 
 KMLMX: synthetic KMLM w/0.9% ER back to 1992.
 GOLDX: synthetic gold ETF w/0% ER back to 1979.

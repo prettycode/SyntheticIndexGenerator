@@ -63,7 +63,13 @@ class Program
             /* $^EMSCB */   "DEMSX,AVEE",
             /* $^EMSCV */   "DGS",
 
+            // NOTE: ^XYZ indices do NOT include dividends!
+
             "$SPYTR,^GSPC,VFINX,VOO",
+            "^DJI,DIA",
+            "^RUT,IWM",
+            "^IXIC,ONEQ",
+            "^NDX,QQQ,QQQM",
             "BTC-USD,IBIT",
             "ETH-USD,ETHA",
             "$KMLMX,KMLM",
