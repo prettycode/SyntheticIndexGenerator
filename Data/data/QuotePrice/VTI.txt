@@ -5922,3 +5922,4 @@
 {"Ticker":"VTI","DateTime":"2024-12-30","AdjustedClose":290.8200,"Volume":4968500}
 {"Ticker":"VTI","DateTime":"2024-12-31","AdjustedClose":289.8100,"Volume":3893200}
 {"Ticker":"VTI","DateTime":"2025-01-02","AdjustedClose":289.2600,"Volume":3796400}
+{"Ticker":"VTI","DateTime":"2025-01-03","AdjustedClose":293.0600,"Volume":2726800}

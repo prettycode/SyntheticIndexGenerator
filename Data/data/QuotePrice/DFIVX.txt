@@ -7772,3 +7772,4 @@
 {"Ticker":"DFIVX","DateTime":"2024-12-30","AdjustedClose":20.5700,"Volume":0}
 {"Ticker":"DFIVX","DateTime":"2024-12-31","AdjustedClose":20.5900,"Volume":0}
 {"Ticker":"DFIVX","DateTime":"2025-01-02","AdjustedClose":20.5300,"Volume":0}
+{"Ticker":"DFIVX","DateTime":"2025-01-03","AdjustedClose":20.6500,"Volume":0}

@@ -365,3 +365,4 @@
 {"Ticker":"AVDS","DateTime":"2024-12-30","AdjustedClose":51.8300,"Volume":1700}
 {"Ticker":"AVDS","DateTime":"2024-12-31","AdjustedClose":51.8280,"Volume":14800}
 {"Ticker":"AVDS","DateTime":"2025-01-02","AdjustedClose":51.8000,"Volume":4400}
+{"Ticker":"AVDS","DateTime":"2025-01-03","AdjustedClose":52.0650,"Volume":1600}

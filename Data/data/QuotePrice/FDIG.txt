@@ -677,3 +677,4 @@
 {"Ticker":"FDIG","DateTime":"2024-12-30","AdjustedClose":32.9400,"Volume":160700}
 {"Ticker":"FDIG","DateTime":"2024-12-31","AdjustedClose":32.4900,"Volume":93900}
 {"Ticker":"FDIG","DateTime":"2025-01-02","AdjustedClose":33.3000,"Volume":158800}
+{"Ticker":"FDIG","DateTime":"2025-01-03","AdjustedClose":35.5400,"Volume":101600}

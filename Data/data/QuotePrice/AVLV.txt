@@ -822,3 +822,4 @@
 {"Ticker":"AVLV","DateTime":"2024-12-30","AdjustedClose":66.6400,"Volume":274600}
 {"Ticker":"AVLV","DateTime":"2024-12-31","AdjustedClose":66.7700,"Volume":307500}
 {"Ticker":"AVLV","DateTime":"2025-01-02","AdjustedClose":66.7100,"Volume":357500}
+{"Ticker":"AVLV","DateTime":"2025-01-03","AdjustedClose":67.3300,"Volume":264400}

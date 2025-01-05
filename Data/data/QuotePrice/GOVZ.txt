@@ -1072,3 +1072,4 @@
 {"Ticker":"GOVZ","DateTime":"2024-12-30","AdjustedClose":9.9800,"Volume":1103400}
 {"Ticker":"GOVZ","DateTime":"2024-12-31","AdjustedClose":9.8800,"Volume":1363100}
 {"Ticker":"GOVZ","DateTime":"2025-01-02","AdjustedClose":9.9000,"Volume":820600}
+{"Ticker":"GOVZ","DateTime":"2025-01-03","AdjustedClose":9.8300,"Volume":296000}

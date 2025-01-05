@@ -112,3 +112,4 @@
 {"Ticker":"ETHA","DateTime":"2024-12-30","AdjustedClose":25.7200,"Volume":5466600}
 {"Ticker":"ETHA","DateTime":"2024-12-31","AdjustedClose":25.2900,"Volume":5166700}
 {"Ticker":"ETHA","DateTime":"2025-01-02","AdjustedClose":26.2000,"Volume":7317400}
+{"Ticker":"ETHA","DateTime":"2025-01-03","AdjustedClose":27.3300,"Volume":8397900}

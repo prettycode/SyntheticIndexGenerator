@@ -8024,3 +8024,4 @@
 {"Ticker":"DFLVX","DateTime":"2024-12-30","AdjustedClose":49.1400,"Volume":0}
 {"Ticker":"DFLVX","DateTime":"2024-12-31","AdjustedClose":49.2900,"Volume":0}
 {"Ticker":"DFLVX","DateTime":"2025-01-02","AdjustedClose":49.1900,"Volume":0}
+{"Ticker":"DFLVX","DateTime":"2025-01-03","AdjustedClose":49.6000,"Volume":0}

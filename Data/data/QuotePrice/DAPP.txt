@@ -934,3 +934,4 @@
 {"Ticker":"DAPP","DateTime":"2024-12-30","AdjustedClose":14.6800,"Volume":673400}
 {"Ticker":"DAPP","DateTime":"2024-12-31","AdjustedClose":14.3700,"Volume":270800}
 {"Ticker":"DAPP","DateTime":"2025-01-02","AdjustedClose":15.0900,"Volume":320800}
+{"Ticker":"DAPP","DateTime":"2025-01-03","AdjustedClose":16.5900,"Volume":288800}

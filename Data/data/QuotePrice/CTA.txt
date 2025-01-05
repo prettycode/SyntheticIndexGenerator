@@ -708,3 +708,4 @@
 {"Ticker":"CTA","DateTime":"2024-12-30","AdjustedClose":27.7700,"Volume":538000}
 {"Ticker":"CTA","DateTime":"2024-12-31","AdjustedClose":27.8900,"Volume":541600}
 {"Ticker":"CTA","DateTime":"2025-01-02","AdjustedClose":27.9800,"Volume":485800}
+{"Ticker":"CTA","DateTime":"2025-01-03","AdjustedClose":27.9300,"Volume":504400}

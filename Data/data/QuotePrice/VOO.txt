@@ -3601,3 +3601,4 @@
 {"Ticker":"VOO","DateTime":"2024-12-30","AdjustedClose":540.9900,"Volume":6505100}
 {"Ticker":"VOO","DateTime":"2024-12-31","AdjustedClose":538.8100,"Volume":6040800}
 {"Ticker":"VOO","DateTime":"2025-01-02","AdjustedClose":537.4600,"Volume":7142700}
+{"Ticker":"VOO","DateTime":"2025-01-03","AdjustedClose":544.4000,"Volume":6416300}

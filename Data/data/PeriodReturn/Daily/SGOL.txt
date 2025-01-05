@@ -3852,3 +3852,4 @@
 {"Ticker":"SGOL","PeriodStart":"2024-12-30T00:00:00","ReturnPercentage":-0.2804487179487179487179487200,"PeriodType":0}
 {"Ticker":"SGOL","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":0.6428284451586982723985536400,"PeriodType":0}
 {"Ticker":"SGOL","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":1.3572854291417165668662674700,"PeriodType":0}
+{"Ticker":"SGOL","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":-0.8270972823946435604568727800,"PeriodType":0}

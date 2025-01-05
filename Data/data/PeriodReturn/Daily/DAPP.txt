@@ -933,3 +933,4 @@
 {"Ticker":"DAPP","PeriodStart":"2024-12-30T00:00:00","ReturnPercentage":-4.5513654096228868660598179500,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":-2.1117166212534059945504087200,"PeriodType":0}
 {"Ticker":"DAPP","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":5.0104384133611691022964509400,"PeriodType":0}
+{"Ticker":"DAPP","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":9.940357852882703777335984100,"PeriodType":0}

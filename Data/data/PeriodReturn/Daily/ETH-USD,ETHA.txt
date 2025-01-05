@@ -2559,3 +2559,4 @@
 {"Ticker":"ETHA","PeriodStart":"2024-12-30T00:00:00","ReturnPercentage":1.9017432646592709984152139500,"PeriodType":0}
 {"Ticker":"ETHA","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":-1.6718506998444790046656298600,"PeriodType":0}
 {"Ticker":"ETHA","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":3.5982601818900751285092922100,"PeriodType":0}
+{"Ticker":"ETHA","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":4.312977099236641221374045800,"PeriodType":0}

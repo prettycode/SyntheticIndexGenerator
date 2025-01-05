@@ -3336,3 +3336,4 @@
 {"Ticker":"VSGAX","DateTime":"2024-12-30","AdjustedClose":98.5900,"Volume":0}
 {"Ticker":"VSGAX","DateTime":"2024-12-31","AdjustedClose":98.4300,"Volume":0}
 {"Ticker":"VSGAX","DateTime":"2025-01-02","AdjustedClose":98.6700,"Volume":0}
+{"Ticker":"VSGAX","DateTime":"2025-01-03","AdjustedClose":100.6500,"Volume":0}

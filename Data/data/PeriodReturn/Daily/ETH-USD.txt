@@ -2609,3 +2609,5 @@
 {"Ticker":"ETH-USD","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":-0.7109090873338238202527320600,"PeriodType":0}
 {"Ticker":"ETH-USD","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.6293263466931162275215566600,"PeriodType":0}
 {"Ticker":"ETH-USD","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":2.9189884420004602946374720500,"PeriodType":0}
+{"Ticker":"ETH-USD","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":4.4508758580521960903549483200,"PeriodType":0}
+{"Ticker":"ETH-USD","PeriodStart":"2025-01-04T00:00:00","ReturnPercentage":1.4617713383192467326995893300,"PeriodType":0}

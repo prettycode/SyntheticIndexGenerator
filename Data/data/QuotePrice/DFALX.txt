@@ -8427,3 +8427,4 @@
 {"Ticker":"DFALX","DateTime":"2024-12-30","AdjustedClose":26.7600,"Volume":0}
 {"Ticker":"DFALX","DateTime":"2024-12-31","AdjustedClose":26.7300,"Volume":0}
 {"Ticker":"DFALX","DateTime":"2025-01-02","AdjustedClose":26.6800,"Volume":0}
+{"Ticker":"DFALX","DateTime":"2025-01-03","AdjustedClose":26.8100,"Volume":0}

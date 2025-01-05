@@ -7726,3 +7726,4 @@
 {"Ticker":"DFEMX","DateTime":"2024-12-30","AdjustedClose":28.6200,"Volume":0}
 {"Ticker":"DFEMX","DateTime":"2024-12-31","AdjustedClose":28.5700,"Volume":0}
 {"Ticker":"DFEMX","DateTime":"2025-01-02","AdjustedClose":28.5600,"Volume":0}
+{"Ticker":"DFEMX","DateTime":"2025-01-03","AdjustedClose":28.7600,"Volume":0}

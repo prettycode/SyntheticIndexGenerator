@@ -96,4 +96,4 @@
 {"Ticker":"DFVEX","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-9.954328648753396724170582720,"PeriodType":2}
 {"Ticker":"DFVEX","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":17.603384607859920275855322690,"PeriodType":2}
 {"Ticker":"AVMV","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":18.435519044387919867340607340,"PeriodType":2}
-{"Ticker":"AVMV","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":-0.0459558823529411764705882400,"PeriodType":2}
+{"Ticker":"AVMV","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.9803921568627450980392156900,"PeriodType":2}

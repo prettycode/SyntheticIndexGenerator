@@ -727,3 +727,4 @@
 {"Ticker":"WGMI","DateTime":"2024-12-30","AdjustedClose":22.6000,"Volume":497400}
 {"Ticker":"WGMI","DateTime":"2024-12-31","AdjustedClose":22.1900,"Volume":394100}
 {"Ticker":"WGMI","DateTime":"2025-01-02","AdjustedClose":23.2000,"Volume":483300}
+{"Ticker":"WGMI","DateTime":"2025-01-03","AdjustedClose":25.7300,"Volume":631700}

@@ -194,4 +194,4 @@
 {"Ticker":"DXIV","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-5.1547978680417925381462738800,"PeriodType":1}
 {"Ticker":"DXIV","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":0.4475371256999107360220725500,"PeriodType":1}
 {"Ticker":"DXIV","PeriodStart":"2024-12-01T00:00:00","ReturnPercentage":-2.9014836627444327302545210700,"PeriodType":1}
-{"Ticker":"DXIV","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":-0.1206423163324735834928030600,"PeriodType":1}
+{"Ticker":"DXIV","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.1726433147516432315500457600,"PeriodType":1}

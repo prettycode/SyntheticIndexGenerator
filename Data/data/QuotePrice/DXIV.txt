@@ -76,3 +76,4 @@
 {"Ticker":"DXIV","DateTime":"2024-12-30","AdjustedClose":48.0850,"Volume":8000}
 {"Ticker":"DXIV","DateTime":"2024-12-31","AdjustedClose":48.0760,"Volume":7000}
 {"Ticker":"DXIV","DateTime":"2025-01-02","AdjustedClose":48.0180,"Volume":38500}
+{"Ticker":"DXIV","DateTime":"2025-01-03","AdjustedClose":48.1590,"Volume":2800}

@@ -1422,3 +1422,4 @@
 {"Ticker":"DBMF","DateTime":"2024-12-30","AdjustedClose":26.0100,"Volume":1126600}
 {"Ticker":"DBMF","DateTime":"2024-12-31","AdjustedClose":26.1600,"Volume":822600}
 {"Ticker":"DBMF","DateTime":"2025-01-02","AdjustedClose":26.3500,"Volume":532600}
+{"Ticker":"DBMF","DateTime":"2025-01-03","AdjustedClose":26.3400,"Volume":388000}

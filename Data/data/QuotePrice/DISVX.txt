@@ -7553,3 +7553,4 @@
 {"Ticker":"DISVX","DateTime":"2024-12-30","AdjustedClose":21.9100,"Volume":0}
 {"Ticker":"DISVX","DateTime":"2024-12-31","AdjustedClose":21.9300,"Volume":0}
 {"Ticker":"DISVX","DateTime":"2025-01-02","AdjustedClose":21.9100,"Volume":0}
+{"Ticker":"DISVX","DateTime":"2025-01-03","AdjustedClose":21.9900,"Volume":0}

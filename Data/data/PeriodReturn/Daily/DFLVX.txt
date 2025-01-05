@@ -8023,3 +8023,4 @@
 {"Ticker":"DFLVX","PeriodStart":"2024-12-30T00:00:00","ReturnPercentage":-0.9274193548387096774193548400,"PeriodType":0}
 {"Ticker":"DFLVX","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":0.3052503052503052503052503100,"PeriodType":0}
 {"Ticker":"DFLVX","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":-0.2028809089064719009941164500,"PeriodType":0}
+{"Ticker":"DFLVX","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":0.833502744460256149623907300,"PeriodType":0}

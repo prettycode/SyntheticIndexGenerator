@@ -1639,3 +1639,4 @@
 {"Ticker":"GLDM","DateTime":"2024-12-30","AdjustedClose":51.6500,"Volume":1483400}
 {"Ticker":"GLDM","DateTime":"2024-12-31","AdjustedClose":51.9900,"Volume":954800}
 {"Ticker":"GLDM","DateTime":"2025-01-02","AdjustedClose":52.6900,"Volume":2246800}
+{"Ticker":"GLDM","DateTime":"2025-01-03","AdjustedClose":52.2800,"Volume":1701000}

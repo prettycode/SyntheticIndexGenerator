@@ -1744,3 +1744,4 @@
 {"Ticker":"BLOK","DateTime":"2024-12-30","AdjustedClose":43.7500,"Volume":512000}
 {"Ticker":"BLOK","DateTime":"2024-12-31","AdjustedClose":43.1900,"Volume":686100}
 {"Ticker":"BLOK","DateTime":"2025-01-02","AdjustedClose":44.3600,"Volume":443400}
+{"Ticker":"BLOK","DateTime":"2025-01-03","AdjustedClose":46.7600,"Volume":312000}

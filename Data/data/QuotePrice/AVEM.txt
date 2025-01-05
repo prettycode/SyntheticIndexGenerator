@@ -1329,3 +1329,4 @@
 {"Ticker":"AVEM","DateTime":"2024-12-30","AdjustedClose":58.7500,"Volume":640000}
 {"Ticker":"AVEM","DateTime":"2024-12-31","AdjustedClose":58.7900,"Volume":573700}
 {"Ticker":"AVEM","DateTime":"2025-01-02","AdjustedClose":58.7400,"Volume":465500}
+{"Ticker":"AVEM","DateTime":"2025-01-03","AdjustedClose":59.1900,"Volume":398400}

@@ -6287,3 +6287,4 @@
 {"Ticker":"DBMF","PeriodStart":"2024-12-30T00:00:00","ReturnPercentage":-0.3066308930624760444614794900,"PeriodType":0}
 {"Ticker":"DBMF","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":0.5767012687427912341407151100,"PeriodType":0}
 {"Ticker":"DBMF","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":0.7262996941896024464831804300,"PeriodType":0}
+{"Ticker":"DBMF","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":-0.0379506641366223908918406100,"PeriodType":0}

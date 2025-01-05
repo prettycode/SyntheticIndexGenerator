@@ -8230,3 +8230,4 @@
 {"Ticker":"VTSMX","DateTime":"2024-12-30","AdjustedClose":141.5500,"Volume":0}
 {"Ticker":"VTSMX","DateTime":"2024-12-31","AdjustedClose":141.0000,"Volume":0}
 {"Ticker":"VTSMX","DateTime":"2025-01-02","AdjustedClose":140.7700,"Volume":0}
+{"Ticker":"VTSMX","DateTime":"2025-01-03","AdjustedClose":142.6400,"Volume":0}

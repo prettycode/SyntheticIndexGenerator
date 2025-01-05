@@ -744,3 +744,4 @@
 {"Ticker":"AVSC","DateTime":"2024-12-30","AdjustedClose":54.2000,"Volume":85700}
 {"Ticker":"AVSC","DateTime":"2024-12-31","AdjustedClose":54.3600,"Volume":56100}
 {"Ticker":"AVSC","DateTime":"2025-01-02","AdjustedClose":54.1800,"Volume":64900}
+{"Ticker":"AVSC","DateTime":"2025-01-03","AdjustedClose":54.8000,"Volume":43500}

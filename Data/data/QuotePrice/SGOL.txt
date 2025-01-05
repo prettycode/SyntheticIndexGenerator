@@ -3853,3 +3853,4 @@
 {"Ticker":"SGOL","DateTime":"2024-12-30","AdjustedClose":24.8900,"Volume":3470400}
 {"Ticker":"SGOL","DateTime":"2024-12-31","AdjustedClose":25.0500,"Volume":3182200}
 {"Ticker":"SGOL","DateTime":"2025-01-02","AdjustedClose":25.3900,"Volume":5224500}
+{"Ticker":"SGOL","DateTime":"2025-01-03","AdjustedClose":25.1800,"Volume":3390300}

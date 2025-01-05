@@ -1,3 +1,3 @@
 {"Ticker":"CTA","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":-2.2342527395054528996544611100,"PeriodType":2}
 {"Ticker":"CTA","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":24.147570464540711856560368930,"PeriodType":2}
-{"Ticker":"CTA","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.3226963069200430261742560100,"PeriodType":2}
+{"Ticker":"CTA","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.1434205808533524560774471100,"PeriodType":2}

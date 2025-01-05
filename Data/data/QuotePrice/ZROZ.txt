@@ -3813,3 +3813,4 @@
 {"Ticker":"ZROZ","DateTime":"2024-12-30","AdjustedClose":69.1900,"Volume":631100}
 {"Ticker":"ZROZ","DateTime":"2024-12-31","AdjustedClose":68.6200,"Volume":706300}
 {"Ticker":"ZROZ","DateTime":"2025-01-02","AdjustedClose":68.6300,"Volume":788800}
+{"Ticker":"ZROZ","DateTime":"2025-01-03","AdjustedClose":68.1800,"Volume":849300}

@@ -1,3 +1,3 @@
 {"Ticker":"WGMI","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":304.07387411706483106132181581,"PeriodType":2}
 {"Ticker":"WGMI","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":23.533767195354818596313471810,"PeriodType":2}
-{"Ticker":"WGMI","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":4.5515998197386210004506534500,"PeriodType":2}
+{"Ticker":"WGMI","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":15.953132041460117169896349710,"PeriodType":2}

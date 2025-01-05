@@ -915,3 +915,4 @@
 {"Ticker":"BITQ","DateTime":"2024-12-30","AdjustedClose":17.1800,"Volume":273400}
 {"Ticker":"BITQ","DateTime":"2024-12-31","AdjustedClose":16.8900,"Volume":174400}
 {"Ticker":"BITQ","DateTime":"2025-01-02","AdjustedClose":17.4900,"Volume":132600}
+{"Ticker":"BITQ","DateTime":"2025-01-03","AdjustedClose":19.0600,"Volume":141200}

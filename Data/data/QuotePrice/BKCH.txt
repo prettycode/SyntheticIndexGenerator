@@ -872,3 +872,4 @@
 {"Ticker":"BKCH","DateTime":"2024-12-30","AdjustedClose":52.2900,"Volume":118600}
 {"Ticker":"BKCH","DateTime":"2024-12-31","AdjustedClose":51.2300,"Volume":100200}
 {"Ticker":"BKCH","DateTime":"2025-01-02","AdjustedClose":53.3500,"Volume":67000}
+{"Ticker":"BKCH","DateTime":"2025-01-03","AdjustedClose":58.5700,"Volume":100100}

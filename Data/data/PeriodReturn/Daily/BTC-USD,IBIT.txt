@@ -3646,3 +3646,4 @@
 {"Ticker":"IBIT","PeriodStart":"2024-12-30T00:00:00","ReturnPercentage":-0.2421758569299552906110283200,"PeriodType":0}
 {"Ticker":"IBIT","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":-0.9337068160597572362278244600,"PeriodType":0}
 {"Ticker":"IBIT","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":4.3732327992459943449575871800,"PeriodType":0}
+{"Ticker":"IBIT","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":1.0655589669496117030883149700,"PeriodType":0}

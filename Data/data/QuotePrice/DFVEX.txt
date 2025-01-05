@@ -4780,3 +4780,4 @@
 {"Ticker":"DFVEX","DateTime":"2024-12-30","AdjustedClose":27.3300,"Volume":0}
 {"Ticker":"DFVEX","DateTime":"2024-12-31","AdjustedClose":27.3300,"Volume":0}
 {"Ticker":"DFVEX","DateTime":"2025-01-02","AdjustedClose":27.2800,"Volume":0}
+{"Ticker":"DFVEX","DateTime":"2025-01-03","AdjustedClose":27.5700,"Volume":0}

@@ -225,4 +225,4 @@
 {"Ticker":"DFVEX","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-0.8471454880294659300184162100,"PeriodType":1}
 {"Ticker":"DFVEX","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":7.986627043090638930163447250,"PeriodType":1}
 {"Ticker":"DFVEX","PeriodStart":"2024-12-01T00:00:00","ReturnPercentage":-5.9855521155830753353973168200,"PeriodType":1}
-{"Ticker":"DFVEX","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":-0.1829491401390413465056714200,"PeriodType":1}
+{"Ticker":"DFVEX","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.8781558726673984632272228300,"PeriodType":1}

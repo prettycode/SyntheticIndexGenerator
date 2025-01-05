@@ -3812,3 +3812,4 @@
 {"Ticker":"ZROZ","PeriodStart":"2024-12-30T00:00:00","ReturnPercentage":1.1993564428843059821559163400,"PeriodType":0}
 {"Ticker":"ZROZ","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":-0.8238184708772944067061714100,"PeriodType":0}
 {"Ticker":"ZROZ","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":0.0145730107840279801807053300,"PeriodType":0}
+{"Ticker":"ZROZ","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":-0.6556899315168293749089319500,"PeriodType":0}

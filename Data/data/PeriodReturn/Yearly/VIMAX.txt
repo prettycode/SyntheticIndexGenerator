@@ -21,4 +21,4 @@
 {"Ticker":"VIMAX","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":-18.703491487695288346593017020,"PeriodType":2}
 {"Ticker":"VIMAX","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":15.951671558058830568530533850,"PeriodType":2}
 {"Ticker":"VIMAX","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":14.351863837075794012016268910,"PeriodType":2}
-{"Ticker":"VIMAX","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":-0.0550677639428518983081959200,"PeriodType":2}
+{"Ticker":"VIMAX","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":1.1808976045522684859424235900,"PeriodType":2}

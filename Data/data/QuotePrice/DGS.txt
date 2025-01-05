@@ -4321,3 +4321,4 @@
 {"Ticker":"DGS","DateTime":"2024-12-30","AdjustedClose":48.8700,"Volume":317000}
 {"Ticker":"DGS","DateTime":"2024-12-31","AdjustedClose":48.9200,"Volume":287100}
 {"Ticker":"DGS","DateTime":"2025-01-02","AdjustedClose":48.7800,"Volume":462700}
+{"Ticker":"DGS","DateTime":"2025-01-03","AdjustedClose":48.9300,"Volume":475300}

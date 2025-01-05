@@ -15856,3 +15856,4 @@
 {"Ticker":"GOVZ","PeriodStart":"2024-12-30T00:00:00","ReturnPercentage":1.217038539553752535496957400,"PeriodType":0}
 {"Ticker":"GOVZ","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":-1.0020040080160320641282565100,"PeriodType":0}
 {"Ticker":"GOVZ","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":0.2024291497975708502024291500,"PeriodType":0}
+{"Ticker":"GOVZ","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":-0.7070707070707070707070707100,"PeriodType":0}

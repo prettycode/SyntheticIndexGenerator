@@ -1324,3 +1324,4 @@
 {"Ticker":"AVUS","DateTime":"2024-12-30","AdjustedClose":97.0700,"Volume":347200}
 {"Ticker":"AVUS","DateTime":"2024-12-31","AdjustedClose":96.9300,"Volume":290800}
 {"Ticker":"AVUS","DateTime":"2025-01-02","AdjustedClose":96.8300,"Volume":553900}
+{"Ticker":"AVUS","DateTime":"2025-01-03","AdjustedClose":97.9400,"Volume":430700}

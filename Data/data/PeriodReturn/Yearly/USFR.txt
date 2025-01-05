@@ -8,4 +8,4 @@
 {"Ticker":"USFR","PeriodStart":"2022-01-01T00:00:00","ReturnPercentage":1.979509247594733497586372200,"PeriodType":2}
 {"Ticker":"USFR","PeriodStart":"2023-01-01T00:00:00","ReturnPercentage":4.7110345385494989866039315800,"PeriodType":2}
 {"Ticker":"USFR","PeriodStart":"2024-01-01T00:00:00","ReturnPercentage":5.069740248893343355884072500,"PeriodType":2}
-{"Ticker":"USFR","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.019872813990461049284578700,"PeriodType":2}
+{"Ticker":"USFR","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.0397456279809220985691573900,"PeriodType":2}

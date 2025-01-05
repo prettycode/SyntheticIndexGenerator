@@ -30,4 +30,4 @@
 {"Ticker":"FDIG","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":7.1531623082086867510542263600,"PeriodType":1}
 {"Ticker":"FDIG","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":37.453100555178667848094255770,"PeriodType":1}
 {"Ticker":"FDIG","PeriodStart":"2024-12-01T00:00:00","ReturnPercentage":-18.186762824709662473182179870,"PeriodType":1}
-{"Ticker":"FDIG","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":2.4930747922437673130193905800,"PeriodType":1}
+{"Ticker":"FDIG","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":9.387503847337642351492767010,"PeriodType":1}

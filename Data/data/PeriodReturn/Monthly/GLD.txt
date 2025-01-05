@@ -239,4 +239,4 @@
 {"Ticker":"GLD","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":4.2993499547436846869085822400,"PeriodType":1}
 {"Ticker":"GLD","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":-3.1241371149067097944854246400,"PeriodType":1}
 {"Ticker":"GLD","PeriodStart":"2024-12-01T00:00:00","ReturnPercentage":-1.4088521519605847143613339300,"PeriodType":1}
-{"Ticker":"GLD","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":1.3587742122000578201792425600,"PeriodType":1}
+{"Ticker":"GLD","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.5616817412133977615330607500,"PeriodType":1}

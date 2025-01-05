@@ -1324,3 +1324,4 @@
 {"Ticker":"AVUV","DateTime":"2024-12-30","AdjustedClose":96.1600,"Volume":937800}
 {"Ticker":"AVUV","DateTime":"2024-12-31","AdjustedClose":96.5300,"Volume":932800}
 {"Ticker":"AVUV","DateTime":"2025-01-02","AdjustedClose":96.3800,"Volume":934300}
+{"Ticker":"AVUV","DateTime":"2025-01-03","AdjustedClose":97.2400,"Volume":781800}

@@ -4883,3 +4883,4 @@
 {"Ticker":"EFG","DateTime":"2024-12-30","AdjustedClose":97.0200,"Volume":931300}
 {"Ticker":"EFG","DateTime":"2024-12-31","AdjustedClose":96.8300,"Volume":704500}
 {"Ticker":"EFG","DateTime":"2025-01-02","AdjustedClose":96.5700,"Volume":583600}
+{"Ticker":"EFG","DateTime":"2025-01-03","AdjustedClose":97.0400,"Volume":763700}

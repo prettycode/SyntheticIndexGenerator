@@ -2745,3 +2745,4 @@
 {"Ticker":"USFR","DateTime":"2024-12-30","AdjustedClose":50.2900,"Volume":4113700}
 {"Ticker":"USFR","DateTime":"2024-12-31","AdjustedClose":50.3200,"Volume":7577500}
 {"Ticker":"USFR","DateTime":"2025-01-02","AdjustedClose":50.3300,"Volume":6634000}
+{"Ticker":"USFR","DateTime":"2025-01-03","AdjustedClose":50.3400,"Volume":5577300}

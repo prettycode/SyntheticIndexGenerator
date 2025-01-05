@@ -1328,3 +1328,4 @@
 {"Ticker":"AVEM","PeriodStart":"2024-12-30T00:00:00","ReturnPercentage":-0.9608900876601483479433580600,"PeriodType":0}
 {"Ticker":"AVEM","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":0.0680851063829787234042553200,"PeriodType":0}
 {"Ticker":"AVEM","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":-0.0850484776322503827181493500,"PeriodType":0}
+{"Ticker":"AVEM","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":0.7660878447395301327885597500,"PeriodType":0}

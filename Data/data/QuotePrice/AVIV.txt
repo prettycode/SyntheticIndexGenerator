@@ -817,3 +817,4 @@
 {"Ticker":"AVIV","DateTime":"2024-12-30","AdjustedClose":51.8200,"Volume":180700}
 {"Ticker":"AVIV","DateTime":"2024-12-31","AdjustedClose":51.9000,"Volume":94500}
 {"Ticker":"AVIV","DateTime":"2025-01-02","AdjustedClose":51.7900,"Volume":77600}
+{"Ticker":"AVIV","DateTime":"2025-01-03","AdjustedClose":51.9900,"Volume":46100}

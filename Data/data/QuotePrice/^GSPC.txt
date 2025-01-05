@@ -24366,3 +24366,4 @@
 {"Ticker":"^GSPC","DateTime":"2024-12-30","AdjustedClose":5906.9399,"Volume":3433250000}
 {"Ticker":"^GSPC","DateTime":"2024-12-31","AdjustedClose":5881.6299,"Volume":3128350000}
 {"Ticker":"^GSPC","DateTime":"2025-01-02","AdjustedClose":5868.5498,"Volume":3621680000}
+{"Ticker":"^GSPC","DateTime":"2025-01-03","AdjustedClose":5942.4702,"Volume":3667340000}

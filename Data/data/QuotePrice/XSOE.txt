@@ -2518,3 +2518,4 @@
 {"Ticker":"XSOE","DateTime":"2024-12-30","AdjustedClose":30.6060,"Volume":252500}
 {"Ticker":"XSOE","DateTime":"2024-12-31","AdjustedClose":30.4800,"Volume":134500}
 {"Ticker":"XSOE","DateTime":"2025-01-02","AdjustedClose":30.4800,"Volume":147200}
+{"Ticker":"XSOE","DateTime":"2025-01-03","AdjustedClose":30.7800,"Volume":278800}

@@ -202,3 +202,4 @@
 {"Ticker":"AVMC","DateTime":"2024-12-30","AdjustedClose":65.0100,"Volume":20300}
 {"Ticker":"AVMC","DateTime":"2024-12-31","AdjustedClose":64.9900,"Volume":14900}
 {"Ticker":"AVMC","DateTime":"2025-01-02","AdjustedClose":64.9000,"Volume":29500}
+{"Ticker":"AVMC","DateTime":"2025-01-03","AdjustedClose":65.6900,"Volume":13900}

@@ -3759,3 +3759,5 @@
 {"Ticker":"BTC-USD","DateTime":"2024-12-31","AdjustedClose":93429.2031,"Volume":43625106843}
 {"Ticker":"BTC-USD","DateTime":"2025-01-01","AdjustedClose":94419.7578,"Volume":24519888919}
 {"Ticker":"BTC-USD","DateTime":"2025-01-02","AdjustedClose":96886.8750,"Volume":46009564411}
+{"Ticker":"BTC-USD","DateTime":"2025-01-03","AdjustedClose":98107.4297,"Volume":35611391163}
+{"Ticker":"BTC-USD","DateTime":"2025-01-04","AdjustedClose":98236.2266,"Volume":22342608078}

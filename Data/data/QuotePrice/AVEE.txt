@@ -282,3 +282,4 @@
 {"Ticker":"AVEE","DateTime":"2024-12-30","AdjustedClose":53.2410,"Volume":3700}
 {"Ticker":"AVEE","DateTime":"2024-12-31","AdjustedClose":53.3040,"Volume":6000}
 {"Ticker":"AVEE","DateTime":"2025-01-02","AdjustedClose":53.1700,"Volume":22500}
+{"Ticker":"AVEE","DateTime":"2025-01-03","AdjustedClose":53.4500,"Volume":9000}

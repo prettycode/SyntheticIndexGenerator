@@ -3336,3 +3336,4 @@
 {"Ticker":"VMGMX","DateTime":"2024-12-30","AdjustedClose":109.7800,"Volume":0}
 {"Ticker":"VMGMX","DateTime":"2024-12-31","AdjustedClose":109.2700,"Volume":0}
 {"Ticker":"VMGMX","DateTime":"2025-01-02","AdjustedClose":109.6100,"Volume":0}
+{"Ticker":"VMGMX","DateTime":"2025-01-03","AdjustedClose":111.6400,"Volume":0}

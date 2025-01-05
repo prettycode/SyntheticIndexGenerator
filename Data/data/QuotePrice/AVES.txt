@@ -817,3 +817,4 @@
 {"Ticker":"AVES","DateTime":"2024-12-30","AdjustedClose":46.2800,"Volume":103500}
 {"Ticker":"AVES","DateTime":"2024-12-31","AdjustedClose":46.2000,"Volume":70300}
 {"Ticker":"AVES","DateTime":"2025-01-02","AdjustedClose":46.2000,"Volume":71600}
+{"Ticker":"AVES","DateTime":"2025-01-03","AdjustedClose":46.3500,"Volume":35900}

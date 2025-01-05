@@ -1324,3 +1324,4 @@
 {"Ticker":"AVDE","DateTime":"2024-12-30","AdjustedClose":61.3100,"Volume":610800}
 {"Ticker":"AVDE","DateTime":"2024-12-31","AdjustedClose":61.3700,"Volume":819300}
 {"Ticker":"AVDE","DateTime":"2025-01-02","AdjustedClose":61.2700,"Volume":320900}
+{"Ticker":"AVDE","DateTime":"2025-01-03","AdjustedClose":61.5500,"Volume":401000}

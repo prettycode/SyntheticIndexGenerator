@@ -244,3 +244,4 @@
 {"Ticker":"IBIT","DateTime":"2024-12-30","AdjustedClose":53.5500,"Volume":39340000}
 {"Ticker":"IBIT","DateTime":"2024-12-31","AdjustedClose":53.0500,"Volume":30143600}
 {"Ticker":"IBIT","DateTime":"2025-01-02","AdjustedClose":55.3700,"Volume":41029200}
+{"Ticker":"IBIT","DateTime":"2025-01-03","AdjustedClose":55.9600,"Volume":32544600}

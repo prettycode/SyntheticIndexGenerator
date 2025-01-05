@@ -5822,3 +5822,4 @@
 {"Ticker":"VIMAX","DateTime":"2024-12-30","AdjustedClose":327.1200,"Volume":0}
 {"Ticker":"VIMAX","DateTime":"2024-12-31","AdjustedClose":326.8700,"Volume":0}
 {"Ticker":"VIMAX","DateTime":"2025-01-02","AdjustedClose":326.6900,"Volume":0}
+{"Ticker":"VIMAX","DateTime":"2025-01-03","AdjustedClose":330.7300,"Volume":0}

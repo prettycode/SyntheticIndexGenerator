@@ -3758,3 +3758,5 @@
 {"Ticker":"BTC-USD","PeriodStart":"2024-12-31T00:00:00","ReturnPercentage":0.8484077703744614058923987500,"PeriodType":0}
 {"Ticker":"BTC-USD","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":1.0602195749649929316372388100,"PeriodType":0}
 {"Ticker":"BTC-USD","PeriodStart":"2025-01-02T00:00:00","ReturnPercentage":2.6129247283453633260643674300,"PeriodType":0}
+{"Ticker":"BTC-USD","PeriodStart":"2025-01-03T00:00:00","ReturnPercentage":1.2597730084699294925138208900,"PeriodType":0}
+{"Ticker":"BTC-USD","PeriodStart":"2025-01-04T00:00:00","ReturnPercentage":0.1312814945757365000053609600,"PeriodType":0}

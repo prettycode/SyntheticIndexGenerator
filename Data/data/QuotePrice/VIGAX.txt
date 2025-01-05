@@ -6069,3 +6069,4 @@
 {"Ticker":"VIGAX","DateTime":"2024-12-30","AdjustedClose":213.2100,"Volume":0}
 {"Ticker":"VIGAX","DateTime":"2024-12-31","AdjustedClose":211.2200,"Volume":0}
 {"Ticker":"VIGAX","DateTime":"2025-01-02","AdjustedClose":210.8100,"Volume":0}
+{"Ticker":"VIGAX","DateTime":"2025-01-03","AdjustedClose":214.3700,"Volume":0}

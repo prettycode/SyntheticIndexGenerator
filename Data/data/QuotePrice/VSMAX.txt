@@ -6069,3 +6069,4 @@
 {"Ticker":"VSMAX","DateTime":"2024-12-30","AdjustedClose":115.0300,"Volume":0}
 {"Ticker":"VSMAX","DateTime":"2024-12-31","AdjustedClose":115.1600,"Volume":0}
 {"Ticker":"VSMAX","DateTime":"2025-01-02","AdjustedClose":115.0200,"Volume":0}
+{"Ticker":"VSMAX","DateTime":"2025-01-03","AdjustedClose":116.7100,"Volume":0}

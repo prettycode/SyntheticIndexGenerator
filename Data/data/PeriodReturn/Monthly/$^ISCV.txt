@@ -358,4 +358,4 @@
 {"Ticker":"AVDV","PeriodStart":"2024-10-01T00:00:00","ReturnPercentage":-5.164804574570191641318436600,"PeriodType":1}
 {"Ticker":"AVDV","PeriodStart":"2024-11-01T00:00:00","ReturnPercentage":0.8354953271885314698143870300,"PeriodType":1}
 {"Ticker":"AVDV","PeriodStart":"2024-12-01T00:00:00","ReturnPercentage":-1.329354971739077699342600,"PeriodType":1}
-{"Ticker":"AVDV","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.1690227412415488629379225600,"PeriodType":1}
+{"Ticker":"AVDV","PeriodStart":"2025-01-01T00:00:00","ReturnPercentage":0.4456054087277197295636140100,"PeriodType":1}

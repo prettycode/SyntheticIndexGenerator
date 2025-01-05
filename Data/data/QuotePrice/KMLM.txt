@@ -1025,3 +1025,4 @@
 {"Ticker":"KMLM","DateTime":"2024-12-30","AdjustedClose":28.0100,"Volume":106700}
 {"Ticker":"KMLM","DateTime":"2024-12-31","AdjustedClose":28.1000,"Volume":101000}
 {"Ticker":"KMLM","DateTime":"2025-01-02","AdjustedClose":28.2900,"Volume":462100}
+{"Ticker":"KMLM","DateTime":"2025-01-03","AdjustedClose":28.4700,"Volume":152600}

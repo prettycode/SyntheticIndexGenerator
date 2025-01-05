@@ -1324,3 +1324,4 @@
 {"Ticker":"AVDV","DateTime":"2024-12-30","AdjustedClose":64.7900,"Volume":551000}
 {"Ticker":"AVDV","DateTime":"2024-12-31","AdjustedClose":65.0800,"Volume":469000}
 {"Ticker":"AVDV","DateTime":"2025-01-02","AdjustedClose":65.1900,"Volume":564700}
+{"Ticker":"AVDV","DateTime":"2025-01-03","AdjustedClose":65.3700,"Volume":375500}

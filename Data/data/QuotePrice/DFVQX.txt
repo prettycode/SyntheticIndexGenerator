@@ -4121,3 +4121,4 @@
 {"Ticker":"DFVQX","DateTime":"2024-12-30","AdjustedClose":13.5000,"Volume":0}
 {"Ticker":"DFVQX","DateTime":"2024-12-31","AdjustedClose":13.5000,"Volume":0}
 {"Ticker":"DFVQX","DateTime":"2025-01-02","AdjustedClose":13.4800,"Volume":0}
+{"Ticker":"DFVQX","DateTime":"2025-01-03","AdjustedClose":13.5400,"Volume":0}

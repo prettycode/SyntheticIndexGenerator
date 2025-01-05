@@ -3022,3 +3022,4 @@
 {"Ticker":"DISMX","DateTime":"2024-12-30","AdjustedClose":14.8200,"Volume":0}
 {"Ticker":"DISMX","DateTime":"2024-12-31","AdjustedClose":14.8200,"Volume":0}
 {"Ticker":"DISMX","DateTime":"2025-01-02","AdjustedClose":14.7800,"Volume":0}
+{"Ticker":"DISMX","DateTime":"2025-01-03","AdjustedClose":14.8600,"Volume":0}

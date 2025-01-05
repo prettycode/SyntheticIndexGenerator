@@ -2610,3 +2610,5 @@
 {"Ticker":"ETH-USD","DateTime":"2024-12-31","AdjustedClose":3332.5317,"Volume":20845452085}
 {"Ticker":"ETH-USD","DateTime":"2025-01-01","AdjustedClose":3353.5042,"Volume":14195410493}
 {"Ticker":"ETH-USD","DateTime":"2025-01-02","AdjustedClose":3451.3926,"Volume":22243574698}
+{"Ticker":"ETH-USD","DateTime":"2025-01-03","AdjustedClose":3605.0098,"Volume":21877299255}
+{"Ticker":"ETH-USD","DateTime":"2025-01-04","AdjustedClose":3657.7068,"Volume":16060610759}

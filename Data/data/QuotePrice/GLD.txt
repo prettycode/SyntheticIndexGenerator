@@ -5062,3 +5062,4 @@
 {"Ticker":"GLD","DateTime":"2024-12-30","AdjustedClose":240.6300,"Volume":3522500}
 {"Ticker":"GLD","DateTime":"2024-12-31","AdjustedClose":242.1300,"Volume":2522100}
 {"Ticker":"GLD","DateTime":"2025-01-02","AdjustedClose":245.4200,"Volume":6241900}
+{"Ticker":"GLD","DateTime":"2025-01-03","AdjustedClose":243.4900,"Volume":4872100}

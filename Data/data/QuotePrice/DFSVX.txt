@@ -8018,3 +8018,4 @@
 {"Ticker":"DFSVX","DateTime":"2024-12-30","AdjustedClose":48.2600,"Volume":0}
 {"Ticker":"DFSVX","DateTime":"2024-12-31","AdjustedClose":48.5100,"Volume":0}
 {"Ticker":"DFSVX","DateTime":"2025-01-02","AdjustedClose":48.2900,"Volume":0}
+{"Ticker":"DFSVX","DateTime":"2025-01-03","AdjustedClose":48.6300,"Volume":0}
